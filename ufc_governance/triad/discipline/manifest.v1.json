@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "description": "Discipline ring: map touched paths to recommended harness argv (after run_harness.py). CI should mirror required=true entries.",
+  "rules": [
+    {
+      "id": "f90-ufc-core",
+      "description": "Fortran under ufc_core",
+      "when_globs": ["ufc_core/**/*.f90"],
+      "harness_commands": [
+        {
+          "argv": ["guardian", "ufc_core", "--fail-on-p0"],
+          "required": true,
+          "note": "P0 architecture gate"
+        },
+        {
+          "argv": ["naming", "ufc_core"],
+          "required": true,
+          "note": "H-NAM-03"
+        }
+      ]
+    },
+    {
+      "id": "markdown-docs-and-governance",
+      "description": "Markdown under docs or ufc_governance",
+      "when_globs": ["docs/**/*.md", "ufc_governance/**/*.md"],
+      "harness_commands": [
+        {
+          "argv": ["doc-structure"],
+          "required": false,
+          "note": "PLAN doc-structure; pass plan dir if non-default"
+        }
+      ]
+    },
+    {
+      "id": "change-package-files",
+      "description": "Change package markdown",
+      "when_globs": ["plan/changes/**/*.md"],
+      "harness_commands": [
+        {
+          "argv": ["change-package", "validate", "--change-id", "<CHANGE_ID>"],
+          "required": false,
+          "note": "Substitute <CHANGE_ID> with immediate parent of specs/ or package root name"
+        }
+      ]
+    }
+  ]
+}

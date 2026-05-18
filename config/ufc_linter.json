@@ -1,0 +1,216 @@
+{
+  "version": "1.3",
+  "description": "UFC架构契约Linter规则集",
+  "source": "arch_guardian.py",
+  "generated": "2026-03-27",
+  "usage": "python UFC/ufc_core/scripts/arch_guardian.py <path> --rules HOT-001,WB-001",
+  "rules": {
+    "HOT-001": {
+      "id": "HOT-001",
+      "name": "NoAllocInHotPath",
+      "severity": "P0",
+      "description": "GP积分热路径（Compute_Ke/Compute_Ctan/Compute_Fe/Compute_Fint内部）禁止ALLOCATE/DEALLOCATE",
+      "enabled": true,
+      "target_subroutines": [
+        "Compute_Ke", "Compute_Ctan", "Compute_Fe", 
+        "Compute_Fint", "Compute_Me", "Compute_Ce",
+        "Compute_BMatrix", "Compute_Jacobian"
+      ],
+      "check_scope": "DO循环内"
+    },
+    "HOT-002": {
+      "id": "HOT-002", 
+      "name": "NoAllocInBridgeResponse",
+      "severity": "P0",
+      "description": "Bridge响应路径（PH_Brg_GetMaterialResponse等）每次调用不得动态分配",
+      "enabled": true,
+      "target_subroutines": [
+        "PH_Brg_GetMaterialResponse",
+        "PH_Brg_GetMaterialResponse_Idx", 
+        "PH_Brg_GetElementResponse"
+      ]
+    },
+    "HOT-003": {
+      "id": "HOT-003",
+      "name": "NoL3InHotPath",
+      "severity": "P0", 
+      "description": "GP积分热路径内禁止直接访问g_ufc_global%md_layer（L3层数据）",
+      "enabled": true,
+      "forbidden_access": "g_ufc_global%md_layer",
+      "solution": "在Populate冷路径缓存到Ctx"
+    },
+    "HOT-004": {
+      "id": "HOT-004",
+      "name": "NoIOInHotPath", 
+      "severity": "P0",
+      "description": "热路径内禁止OPEN/READ/WRITE/PRINT（热路径三禁：L3、ALLOCATE、IO）",
+      "enabled": true,
+      "forbidden_statements": ["OPEN", "READ", "WRITE", "PRINT"]
+    },
+    "WB-001": {
+      "id": "WB-001",
+      "name": "NoWriteL3Desc",
+      "severity": "P0",
+      "description": "L4_PH层禁止对L3 Desc字段赋值（WriteBack白名单规则）",
+      "enabled": true,
+      "target_layer": "L4_PH",
+      "whitelist_patterns": [
+        "ASSOCIATE",
+        "elastic_in%mat_desc", 
+        "composite_in%mat_desc",
+        "work_ctx%mat_desc",
+        "! WB-001-exempt"
+      ]
+    },
+    "DEP-001": {
+      "id": "DEP-001",
+      "name": "NoUpwardUse",
+      "severity": "P0",
+      "description": "禁止低层模块USE高层模块（依赖方向：L1←L2←L3←L4←L5←L6）",
+      "enabled": true,
+      "layer_forbidden": {
+        "L4_PH": ["L5_RT", "L6_AP"],
+        "L3_MD": ["L4_PH", "L5_RT", "L6_AP"],
+        "L2_NM": ["L3_MD", "L4_PH", "L5_RT", "L6_AP"],
+        "L1_IF": ["L2_NM", "L3_MD", "L4_PH", "L5_RT", "L6_AP"]
+      },
+      "exempt_patterns": ["/Bridge/", "_Brg.f90", "_RT_Brg", "_AP_Brg", "_PH_Brg"]
+    },
+    "DEP-002": {
+      "id": "DEP-002",
+      "name": "L5NoApplicationUse",
+      "severity": "P0",
+      "description": "L5_RT禁止USE L6_AP（应用层不得被运行时反向依赖）",
+      "enabled": true,
+      "target_layer": "L5_RT",
+      "forbidden_prefix": "AP_"
+    },
+    "DATA-001": {
+      "id": "DATA-001",
+      "name": "LayerCallDirection",
+      "severity": "P2",
+      "description": "层间调用方向须符合数据链验证矩阵（L4→L5、L3→L4/L5禁止）",
+      "enabled": true,
+      "forbidden_call": {
+        "L4_PH": ["RT_", "AP_"],
+        "L3_MD": ["PH_", "RT_", "AP_"]
+      }
+    },
+    "INTF-001": {
+      "id": "INTF-001",
+      "name": "ArgWrapper",
+      "severity": "P1",
+      "description": "公开SUBROUTINE参数>4/6时必须使用Arg结构体封装",
+      "enabled": true,
+      "thresholds": {
+        "L4_PH": 4,
+        "L5_RT": 6
+      },
+      "target_layers": ["L4_PH", "L5_RT"],
+      "exempt_dirs": ["ExternalLibs", "test_stub"]
+    },
+    "MAT-001": {
+      "id": "MAT-001",
+      "name": "NoFullMatrix",
+      "severity": "P1",
+      "description": "全局K/M/C矩阵必须使用CSR格式，禁止密集矩阵声明",
+      "enabled": true,
+      "forbidden_patterns": [
+        "REAL(wp)::K_global(ndof,ndof)",
+        "REAL(wp)::M_global(ndof,ndof)"
+      ]
+    },
+    "NAME-001": {
+      "id": "NAME-001",
+      "name": "NamingConvention",
+      "severity": "P2",
+      "description": "L4_PH公开SUBROUTINE必须符合PH_<Domain>_<Verb>_<Object>命名模式",
+      "enabled": true,
+      "target_layer": "L4_PH",
+      "allowed_verbs": [
+        "Compute", "Assemble", "Apply", "Update", "Eval", "Reset",
+        "Init", "Finalize", "Populate", "Get", "Set", "Register",
+        "Build", "Solve", "Check", "Validate", "Fill", "Clear"
+      ],
+      "forbidden_prefixes": ["Calc_", "Do_", "Handle_"]
+    },
+    "NAME-002": {
+      "id": "NAME-002",
+      "name": "ModuleLayerPrefix",
+      "severity": "P2",
+      "description": "MODULE名须与L1…L6目录前缀一致（MD_/PH_/RT_/AP_/NM_/IF_/UFC_等）",
+      "enabled": true,
+      "layer_prefix_rules": {
+        "/L1_IF/": ["IF_", "UF_", "UFC_", "NM_", "ISO_", "IEEE_"],
+        "/L2_NM/": ["NM_", "IF_", "UF_", "UFC_", "BLAS_", "LAPACK_"],
+        "/L3_MD/": ["MD_", "UF_", "IF_", "UFC_", "NM_", "VD_", "CF_", "AP_", "RT_", "PH_"],
+        "/L4_PH/": ["PH_", "MD_", "IF_", "UF_", "UFC_", "RT_", "NM_", "TEST_"],
+        "/L5_RT/": ["RT_", "MD_", "IF_", "UF_", "UFC_", "PH_", "VD_", "NM_"],
+        "/L6_AP/": ["AP_", "UF_", "IF_", "UFC_", "MD_", "RT_", "NM_"]
+      }
+    },
+    "MOD-001": {
+      "id": "MOD-001",
+      "name": "ModuleHeader",
+      "severity": "P2",
+      "description": "每个MODULE必须有完整的模块头注释（Purpose/Theory/Status）",
+      "enabled": true,
+      "required_fields": ["Purpose", "Theory", "Status"],
+      "exempt_dirs": ["ExternalLibs", "thirdparty", "vendor"]
+    },
+    "CHAIN-001": {
+      "id": "CHAIN-001",
+      "name": "FourChainComment",
+      "severity": "P2",
+      "description": "L4_PH核心计算子程序必须包含四链注释（理论链/逻辑链/计算链/数据链）",
+      "enabled": true,
+      "target_layer": "L4_PH",
+      "required_chains": ["理论链", "逻辑链", "计算链", "数据链"]
+    },
+    "GLB-001": {
+      "id": "GLB-001",
+      "name": "NoGlobalInElementKernel",
+      "severity": "P1",
+      "description": "L4_PH/Element下单元*_Core文件禁止UFC_GlobalContainer/g_ufc_global",
+      "enabled": true,
+      "target_path": "/L4_PH/Element/",
+      "target_files": ["PH_Elem_*_Core.f90", "PH_Elm_*_Core.f90"],
+      "exempt_basenames": ["Domain_Core", "Reg_Core", "Contm_Core", "Bridge", "Brg"]
+    },
+    "T4-001": {
+      "id": "T4-001",
+      "name": "FourTypeDocInTypesFile",
+      "severity": "P2",
+      "description": "L3/L4的*Types.f90文件头应出现四型关键词（Desc/State/Algo/Ctx）",
+      "enabled": true,
+      "target_files": ["*Types.f90"],
+      "required_tokens": ["Desc", "State", "Algo", "Ctx"],
+      "min_tokens": 3
+    },
+    "IDX-001": {
+      "id": "IDX-001",
+      "name": "PreferMeshIdxApi",
+      "severity": "P2",
+      "description": "L3_MD/Element/Mesh中建议使用_Idx后缀API（嵌套索引vs扁平存储）",
+      "enabled": true,
+      "target_path": "/L3_MD/Element/Mesh/"
+    }
+  },
+  "severity_levels": {
+    "P0": {
+      "description": "红灯项 - 须立即修复",
+      "action": "BLOCK_COMMIT",
+      "ci_fail": true
+    },
+    "P1": {
+      "description": "黄灯项 - 本迭代修复",
+      "action": "WARN",
+      "ci_fail": false
+    },
+    "P2": {
+      "description": "绿灯项 - 下迭代处理",
+      "action": "INFO",
+      "ci_fail": false
+    }
+  }
+}

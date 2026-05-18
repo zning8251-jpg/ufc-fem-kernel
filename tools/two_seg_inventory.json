@@ -1,0 +1,116 @@
+[
+ {
+  "stem": "MD_KW",
+  "mod": "MD_KW_Coverage_Type",
+  "dir": "L3_MD/KeyWord",
+  "legacy": true
+ },
+ {
+  "stem": "MD_KeyWord",
+  "mod": "MD_KW",
+  "dir": "L3_MD/KeyWord",
+  "legacy": true
+ },
+ {
+  "stem": "MD_DOFMgr",
+  "mod": "MD_DOFMgr",
+  "dir": "L3_MD/Element/Mesh",
+  "legacy": false
+ },
+ {
+  "stem": "MD_Node",
+  "mod": "MD_Node",
+  "dir": "L3_MD/Element/Mesh",
+  "legacy": false
+ },
+ {
+  "stem": "MD_BaseTypes",
+  "mod": "MD_Kernel_Mesh_Types",
+  "dir": "L3_MD/Model",
+  "legacy": true
+ },
+ {
+  "stem": "MD_ModelCoordSys",
+  "mod": "MD_Model_Coord_Transform",
+  "dir": "L3_MD/Model",
+  "legacy": true
+ },
+ {
+  "stem": "MD_ModelData",
+  "mod": "MD_Model_Data_Table",
+  "dir": "L3_MD/Model",
+  "legacy": true
+ },
+ {
+  "stem": "PH_L4L3MatContract",
+  "mod": "PH_L4L3MatContract",
+  "dir": "L4_PH",
+  "legacy": false
+ },
+ {
+  "stem": "PH_L4Populate",
+  "mod": "PH_L4Populate",
+  "dir": "L4_PH",
+  "legacy": false
+ },
+ {
+  "stem": "MD_FieldState",
+  "mod": "MD_FieldState",
+  "dir": "L4_PH/Element",
+  "legacy": true
+ },
+ {
+  "stem": "PH_ElemFeDispatch",
+  "mod": "PH_ElemFeDispatch",
+  "dir": "L4_PH/Element",
+  "legacy": true
+ },
+ {
+  "stem": "PH_ElemKeDispatch",
+  "mod": "PH_ElemKeDispatch",
+  "dir": "L4_PH/Element",
+  "legacy": true
+ },
+ {
+  "stem": "PH_NLGeomEval",
+  "mod": "RT_AsmNLGeomEval",
+  "dir": "L4_PH/Element",
+  "legacy": true
+ },
+ {
+  "stem": "PH_ShapeScalarField",
+  "mod": "RT_AsmShapeScalarField",
+  "dir": "L4_PH/Element",
+  "legacy": true
+ },
+ {
+  "stem": "PH_ElemDiffUtils",
+  "mod": "RT_Elem_Diff_Utils",
+  "dir": "L4_PH/Element/Shared",
+  "legacy": true
+ },
+ {
+  "stem": "PH_ElemShapeFunc",
+  "mod": "PH_ElemShapeFunc",
+  "dir": "L4_PH/Element/Shared",
+  "legacy": true
+ },
+ {
+  "stem": "PH_MatEval",
+  "mod": "PH_MatEval",
+  "dir": "L4_PH/Material/Dispatch",
+  "legacy": true
+ },
+ {
+  "stem": "PH_MatPLMEval",
+  "mod": "PH_MatPLMEval",
+  "dir": "L4_PH/Material/Dispatch",
+  "legacy": true
+ },
+ {
+  "stem": "AP_InpDomain",
+  "mod": "AP_Inp",
+  "dir": "L6_AP/Input/Parser",
+  "legacy": true
+ }
+]

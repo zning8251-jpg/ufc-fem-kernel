@@ -1,0 +1,92 @@
+{
+  "layer": "L3_MD",
+  "domain_bucket": "Model",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L3_MD/Model/MD_Base_Def.f90",
+      "stem": "MD_Base_Def"
+    },
+    {
+      "source_rel": "L3_MD/Model/MD_BaseDataModMgr.f90",
+      "stem": "MD_BaseDataModMgr"
+    },
+    {
+      "source_rel": "L3_MD/Model/MD_BaseElemLib.f90",
+      "stem": "MD_BaseElemLib"
+    },
+    {
+      "source_rel": "L3_MD/Model/MD_BaseEnums.f90",
+      "stem": "MD_BaseEnums"
+    },
+    {
+      "source_rel": "L3_MD/Model/MD_BaseFieldVarMgr.f90",
+      "stem": "MD_BaseFieldVarMgr"
+    },
+    {
+      "source_rel": "L3_MD/Model/MD_BaseIOSerialMgr.f90",
+      "stem": "MD_BaseIOSerialMgr"
+    },
+    {
+      "source_rel": "L3_MD/Model/MD_BaseMathUtils.f90",
+      "stem": "MD_BaseMathUtils"
+    },
+    {
+      "source_rel": "L3_MD/Model/MD_BaseObjModel.f90",
+      "stem": "MD_BaseObjModel"
+    },
+    {
+      "source_rel": "L3_MD/Model/MD_BaseTreeIndex.f90",
+      "stem": "MD_BaseTreeIndex"
+    },
+    {
+      "source_rel": "L3_MD/Model/MD_BaseTypes.f90",
+      "stem": "MD_BaseTypes",
+      "module": "MD_Kernel_Mesh_Types"
+    },
+    {
+      "source_rel": "L3_MD/Model/MD_Kinematics_Def.f90",
+      "stem": "MD_Kinematics_Def"
+    },
+    {
+      "source_rel": "L3_MD/Model/MD_Model_Mgr.f90",
+      "stem": "MD_Model_Mgr",
+      "module": "MD_Model_Mgr"
+    },
+    {
+      "source_rel": "L3_MD/Model/MD_Model_Def.f90",
+      "stem": "MD_Model_Def"
+    },
+    {
+      "source_rel": "L3_MD/Model/MD_ModelAccess.f90",
+      "stem": "MD_ModelAccess"
+    },
+    {
+      "source_rel": "L3_MD/Model/MD_ModelBuilder.f90",
+      "stem": "MD_ModelBuilder"
+    },
+    {
+      "source_rel": "L3_MD/Model/MD_ModelCoordSys.f90",
+      "stem": "MD_ModelCoordSys",
+      "module": "MD_Model_Coord_Transform"
+    },
+    {
+      "source_rel": "L3_MD/Model/MD_Model_Data_Table.f90",
+      "stem": "MD_Model_Data_Table",
+      "module": "MD_Model_Data_Table"
+    },
+    {
+      "source_rel": "L3_MD/Model/MD_ModelLib.f90",
+      "stem": "MD_ModelLib"
+    },
+    {
+      "source_rel": "L3_MD/Model/MD_ModelTree.f90",
+      "stem": "MD_ModelTree"
+    },
+    {
+      "source_rel": "L3_MD/Model/MD_ModelTypes.f90",
+      "stem": "MD_ModelTypes"
+    }
+  ]
+}

@@ -1,0 +1,220 @@
+{
+  "layer": "L2_NM",
+  "domain_bucket": "Solver",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L2_NM/Solver/AI/NM_AIAdjointAlgo.f90",
+      "stem": "NM_AIAdjointAlgo"
+    },
+    {
+      "source_rel": "L2_NM/Solver/AI/NM_AIPrecondAlgo.f90",
+      "stem": "NM_AIPrecondAlgo"
+    },
+    {
+      "source_rel": "L2_NM/Solver/AI/NM_AISparseSolverAlgo.f90",
+      "stem": "NM_AISparseSolverAlgo"
+    },
+    {
+      "source_rel": "L2_NM/Solver/Conv/NM_ConvAccel.f90",
+      "stem": "NM_ConvAccel"
+    },
+    {
+      "source_rel": "L2_NM/Solver/Conv/NM_ConvIterPrec.f90",
+      "stem": "NM_ConvIterPrec"
+    },
+    {
+      "source_rel": "L2_NM/Solver/Conv/NM_ConvIterSolv.f90",
+      "stem": "NM_ConvIterSolv"
+    },
+    {
+      "source_rel": "L2_NM/Solver/Conv/NM_ConvKrylovExt.f90",
+      "stem": "NM_ConvKrylovExt"
+    },
+    {
+      "source_rel": "L2_NM/Solver/Conv/NM_ConvLS.f90",
+      "stem": "NM_ConvLS"
+    },
+    {
+      "source_rel": "L2_NM/Solver/Conv/NM_ConvMG.f90",
+      "stem": "NM_ConvMG"
+    },
+    {
+      "source_rel": "L2_NM/Solver/Coupling/NM_CplElectroMech.f90",
+      "stem": "NM_CplElectroMech"
+    },
+    {
+      "source_rel": "L2_NM/Solver/Coupling/NM_CplFSI.f90",
+      "stem": "NM_CplFSI"
+    },
+    {
+      "source_rel": "L2_NM/Solver/Coupling/NM_CplMonolithic.f90",
+      "stem": "NM_CplMonolithic"
+    },
+    {
+      "source_rel": "L2_NM/Solver/Coupling/NM_CplPredictor.f90",
+      "stem": "NM_CplPredictor"
+    },
+    {
+      "source_rel": "L2_NM/Solver/Coupling/NM_CplStaggered.f90",
+      "stem": "NM_CplStaggered"
+    },
+    {
+      "source_rel": "L2_NM/Solver/Coupling/NM_CplThermalStruct.f90",
+      "stem": "NM_CplThermalStruct"
+    },
+    {
+      "source_rel": "L2_NM/Solver/LinSolv/NM_AMGInterface.f90",
+      "stem": "NM_AMGInterface"
+    },
+    {
+      "source_rel": "L2_NM/Solver/LinSolv/NM_ComplexLinearSolver.f90",
+      "stem": "NM_ComplexLinearSolver"
+    },
+    {
+      "source_rel": "L2_NM/Solver/LinSolv/NM_DirectSolver.f90",
+      "stem": "NM_DirectSolver"
+    },
+    {
+      "source_rel": "L2_NM/Solver/LinSolv/NM_IterSolver.f90",
+      "stem": "NM_IterSolver"
+    },
+    {
+      "source_rel": "L2_NM/Solver/LinSolv/NM_LinearSolver.f90",
+      "stem": "NM_LinearSolver"
+    },
+    {
+      "source_rel": "L2_NM/Solver/LinSolv/NM_LinSolvCfg.f90",
+      "stem": "NM_LinSolvCfg"
+    },
+    {
+      "source_rel": "L2_NM/Solver/LinSolv/NM_LinSolvDir.f90",
+      "stem": "NM_LinSolvDir"
+    },
+    {
+      "source_rel": "L2_NM/Solver/LinSolv/NM_LinSolvDirCholesky.f90",
+      "stem": "NM_LinSolvDirCholesky"
+    },
+    {
+      "source_rel": "L2_NM/Solver/LinSolv/NM_LinSolvDirLU.f90",
+      "stem": "NM_LinSolvDirLU"
+    },
+    {
+      "source_rel": "L2_NM/Solver/LinSolv/NM_LinSolvDirMultifrontal.f90",
+      "stem": "NM_LinSolvDirMultifrontal"
+    },
+    {
+      "source_rel": "L2_NM/Solver/LinSolv/NM_LinSolvIter.f90",
+      "stem": "NM_LinSolvIter"
+    },
+    {
+      "source_rel": "L2_NM/Solver/LinSolv/NM_LinSolvIterAdv.f90",
+      "stem": "NM_LinSolvIterAdv"
+    },
+    {
+      "source_rel": "L2_NM/Solver/LinSolv/NM_LinSolvIterBiCGSTAB.f90",
+      "stem": "NM_LinSolvIterBiCGSTAB"
+    },
+    {
+      "source_rel": "L2_NM/Solver/LinSolv/NM_LinSolvIterCG.f90",
+      "stem": "NM_LinSolvIterCG"
+    },
+    {
+      "source_rel": "L2_NM/Solver/LinSolv/NM_LinSolvIterGMRES.f90",
+      "stem": "NM_LinSolvIterGMRES"
+    },
+    {
+      "source_rel": "L2_NM/Solver/LinSolv/NM_LinSolvPrec.f90",
+      "stem": "NM_LinSolvPrec"
+    },
+    {
+      "source_rel": "L2_NM/Solver/LinSolv/NM_LinSolvPrecAMG.f90",
+      "stem": "NM_LinSolvPrecAMG"
+    },
+    {
+      "source_rel": "L2_NM/Solver/LinSolv/NM_LinSolvPrecAMGMultilevel.f90",
+      "stem": "NM_LinSolvPrecAMGMultilevel"
+    },
+    {
+      "source_rel": "L2_NM/Solver/LinSolv/NM_LinSolvPrecILU.f90",
+      "stem": "NM_LinSolvPrecILU"
+    },
+    {
+      "source_rel": "L2_NM/Solver/LinSolv/NM_LinSolvPrecSSOR.f90",
+      "stem": "NM_LinSolvPrecSSOR"
+    },
+    {
+      "source_rel": "L2_NM/Solver/LinSolv/NM_MemoryPool.f90",
+      "stem": "NM_MemoryPool"
+    },
+    {
+      "source_rel": "L2_NM/Solver/LinSolv/NM_Preconditioner.f90",
+      "stem": "NM_Preconditioner"
+    },
+    {
+      "source_rel": "L2_NM/Solver/LinSolv/NM_Solv.f90",
+      "stem": "NM_Solv"
+    },
+    {
+      "source_rel": "L2_NM/Solver/LinSolv/NM_SparsePakWrapper.f90",
+      "stem": "NM_SparsePakWrapper"
+    },
+    {
+      "source_rel": "L2_NM/Solver/LinSolv/NM_SparseSolvInterface.f90",
+      "stem": "NM_SparseSolvInterface"
+    },
+    {
+      "source_rel": "L2_NM/Solver/NM_GMRESSolveTranspose.f90",
+      "stem": "NM_GMRESSolveTranspose"
+    },
+    {
+      "source_rel": "L2_NM/Solver/NM_Solv_Def.f90",
+      "stem": "NM_Solv_Def"
+    },
+    {
+      "source_rel": "L2_NM/Solver/NM_SolvDir.f90",
+      "stem": "NM_SolvDir"
+    },
+    {
+      "source_rel": "L2_NM/Solver/NM_SolvIter.f90",
+      "stem": "NM_SolvIter"
+    },
+    {
+      "source_rel": "L2_NM/Solver/NM_SolvPrecond.f90",
+      "stem": "NM_SolvPrecond"
+    },
+    {
+      "source_rel": "L2_NM/Solver/NM_SolvSVD.f90",
+      "stem": "NM_SolvSVD"
+    },
+    {
+      "source_rel": "L2_NM/Solver/NM_SpMVCSRTranspose.f90",
+      "stem": "NM_SpMVCSRTranspose"
+    },
+    {
+      "source_rel": "L2_NM/Solver/NonlinSolv/NM_ContinuationMethod.f90",
+      "stem": "NM_ContinuationMethod"
+    },
+    {
+      "source_rel": "L2_NM/Solver/NonlinSolv/NM_NonlinearArcLength.f90",
+      "stem": "NM_NonlinearArcLength"
+    },
+    {
+      "source_rel": "L2_NM/Solver/NonlinSolv/NM_NonlinearNewton.f90",
+      "stem": "NM_NonlinearNewton"
+    },
+    {
+      "source_rel": "L2_NM/Solver/NonlinSolv/NM_NonlinearTrustRegion.f90",
+      "stem": "NM_NonlinearTrustRegion"
+    },
+    {
+      "source_rel": "L2_NM/Solver/NonlinSolv/NM_NonlinSolv.f90",
+      "stem": "NM_NonlinSolv"
+    },
+    {
+      "source_rel": "L2_NM/Solver/NonlinSolv/NM_QuasiNewtonFamily.f90",
+      "stem": "NM_QuasiNewtonFamily"
+    }
+  ]
+}

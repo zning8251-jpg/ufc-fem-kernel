@@ -1,0 +1,800 @@
+{
+  "layer": "L3_MD",
+  "domain_bucket": "Material",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L3_MD/Material/Acoustic/MD_Aco_Absorb.f90",
+      "stem": "MD_Aco_Absorb"
+    },
+    {
+      "source_rel": "L3_MD/Material/Acoustic/MD_Aco_Linear.f90",
+      "stem": "MD_Aco_Linear"
+    },
+    {
+      "source_rel": "L3_MD/Material/Acoustic/MD_Mat_AcousticProps.f90",
+      "stem": "MD_Mat_AcousticProps"
+    },
+    {
+      "source_rel": "L3_MD/Material/Acoustic/MD_Mat_Creep_Acoustic.f90",
+      "stem": "MD_Mat_Creep_Acoustic"
+    },
+    {
+      "source_rel": "L3_MD/Material/Base/MD_Mat_BaseDef.f90",
+      "stem": "MD_Mat_BaseDef"
+    },
+    {
+      "source_rel": "L3_MD/Material/Base/MD_Mat_Reg.f90",
+      "stem": "MD_Mat_Reg"
+    },
+    {
+      "source_rel": "L3_MD/Material/Bridge/MD_Mat_Brg.f90",
+      "stem": "MD_Mat_Brg"
+    },
+    {
+      "source_rel": "L3_MD/Material/Bridge/MD_MatRT_Brg.f90",
+      "stem": "MD_MatRT_Brg"
+    },
+    {
+      "source_rel": "L3_MD/Material/Composite/MD_Cmp_CLT.f90",
+      "stem": "MD_Cmp_CLT"
+    },
+    {
+      "source_rel": "L3_MD/Material/Composite/MD_Cmp_Fabric.f90",
+      "stem": "MD_Cmp_Fabric"
+    },
+    {
+      "source_rel": "L3_MD/Material/Composite/MD_Cmp_FoamVE.f90",
+      "stem": "MD_Cmp_FoamVE"
+    },
+    {
+      "source_rel": "L3_MD/Material/Composite/MD_Cmp_Hashin.f90",
+      "stem": "MD_Cmp_Hashin"
+    },
+    {
+      "source_rel": "L3_MD/Material/Composite/MD_Cmp_Jointed.f90",
+      "stem": "MD_Cmp_Jointed"
+    },
+    {
+      "source_rel": "L3_MD/Material/Composite/MD_Mat_Composite_Delamination.f90",
+      "stem": "MD_Mat_Composite_Delamination"
+    },
+    {
+      "source_rel": "L3_MD/Material/Composite/MD_Mat_Composite_Fabric.f90",
+      "stem": "MD_Mat_Composite_Fabric"
+    },
+    {
+      "source_rel": "L3_MD/Material/Composite/MD_Mat_Composite_FiberDamage.f90",
+      "stem": "MD_Mat_Composite_FiberDamage"
+    },
+    {
+      "source_rel": "L3_MD/Material/Composite/MD_Mat_Composite_Interface.f90",
+      "stem": "MD_Mat_Composite_Interface"
+    },
+    {
+      "source_rel": "L3_MD/Material/Composite/MD_Mat_Composite_Laminate.f90",
+      "stem": "MD_Mat_Composite_Laminate"
+    },
+    {
+      "source_rel": "L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "stem": "MD_Mat_Def"
+    },
+    {
+      "source_rel": "L3_MD/Material/Contract/MD_Mat_Ids.f90",
+      "stem": "MD_Mat_Ids"
+    },
+    {
+      "source_rel": "L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "stem": "MD_MatDMG_Def"
+    },
+    {
+      "source_rel": "L3_MD/Material/Contract/MD_MatELA_CoupledDesc.f90",
+      "stem": "MD_MatELA_CoupledDesc"
+    },
+    {
+      "source_rel": "L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "stem": "MD_MatHYP_Def"
+    },
+    {
+      "source_rel": "L3_MD/Material/Contract/MD_MATPLGGEOTECH_Ctx.f90",
+      "stem": "MD_MATPLGGEOTECH_Ctx"
+    },
+    {
+      "source_rel": "L3_MD/Material/Contract/MD_MatPLM_DescBase.f90",
+      "stem": "MD_MatPLM_DescBase"
+    },
+    {
+      "source_rel": "L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "stem": "MD_MatSPU_Def"
+    },
+    {
+      "source_rel": "L3_MD/Material/Contract/MD_MatVSC_Def.f90",
+      "stem": "MD_MatVSC_Def"
+    },
+    {
+      "source_rel": "L3_MD/Material/Creep/MD_Crp_Anneal.f90",
+      "stem": "MD_Crp_Anneal"
+    },
+    {
+      "source_rel": "L3_MD/Material/Creep/MD_Crp_Bodner.f90",
+      "stem": "MD_Crp_Bodner"
+    },
+    {
+      "source_rel": "L3_MD/Material/Creep/MD_Crp_DuvautLions.f90",
+      "stem": "MD_Crp_DuvautLions"
+    },
+    {
+      "source_rel": "L3_MD/Material/Creep/MD_Crp_Garofalo.f90",
+      "stem": "MD_Crp_Garofalo"
+    },
+    {
+      "source_rel": "L3_MD/Material/Creep/MD_Crp_Perzyna.f90",
+      "stem": "MD_Crp_Perzyna"
+    },
+    {
+      "source_rel": "L3_MD/Material/Creep/MD_Crp_PowerLaw.f90",
+      "stem": "MD_Crp_PowerLaw"
+    },
+    {
+      "source_rel": "L3_MD/Material/Creep/MD_Crp_TwoLayer.f90",
+      "stem": "MD_Crp_TwoLayer"
+    },
+    {
+      "source_rel": "L3_MD/Material/Creep/MD_Crp_UserDef.f90",
+      "stem": "MD_Crp_UserDef"
+    },
+    {
+      "source_rel": "L3_MD/Material/Creep/MD_Mat_Creep_BiotPoroElastic.f90",
+      "stem": "MD_Mat_Creep_BiotPoroElastic"
+    },
+    {
+      "source_rel": "L3_MD/Material/Creep/MD_Mat_Creep_Diffusion.f90",
+      "stem": "MD_Mat_Creep_Diffusion"
+    },
+    {
+      "source_rel": "L3_MD/Material/Creep/MD_Mat_Creep_PiezoElastic.f90",
+      "stem": "MD_Mat_Creep_PiezoElastic"
+    },
+    {
+      "source_rel": "L3_MD/Material/Creep/MD_Mat_Creep_Piezoelectric.f90",
+      "stem": "MD_Mat_Creep_Piezoelectric"
+    },
+    {
+      "source_rel": "L3_MD/Material/Creep/MD_Mat_Creep_PoreFlow.f90",
+      "stem": "MD_Mat_Creep_PoreFlow"
+    },
+    {
+      "source_rel": "L3_MD/Material/Creep/MD_MatPOR_CrushFoam.f90",
+      "stem": "MD_MatPOR_CrushFoam"
+    },
+    {
+      "source_rel": "L3_MD/Material/Creep/MD_MatPOR_Foam3.f90",
+      "stem": "MD_MatPOR_Foam3"
+    },
+    {
+      "source_rel": "L3_MD/Material/Creep/MD_MatPOR_Gurson.f90",
+      "stem": "MD_MatPOR_Gurson"
+    },
+    {
+      "source_rel": "L3_MD/Material/Creep/MD_MatPOR_Porous.f90",
+      "stem": "MD_MatPOR_Porous"
+    },
+    {
+      "source_rel": "L3_MD/Material/Creep/MD_MATPORFOAM_Ctx.f90",
+      "stem": "MD_MATPORFOAM_Ctx"
+    },
+    {
+      "source_rel": "L3_MD/Material/Damage/MD_Dmg_Brittle.f90",
+      "stem": "MD_Dmg_Brittle"
+    },
+    {
+      "source_rel": "L3_MD/Material/Damage/MD_Dmg_CDP.f90",
+      "stem": "MD_Dmg_CDP"
+    },
+    {
+      "source_rel": "L3_MD/Material/Damage/MD_Dmg_CZM.f90",
+      "stem": "MD_Dmg_CZM"
+    },
+    {
+      "source_rel": "L3_MD/Material/Damage/MD_Dmg_Ductile.f90",
+      "stem": "MD_Dmg_Ductile"
+    },
+    {
+      "source_rel": "L3_MD/Material/Damage/MD_Dmg_FLD.f90",
+      "stem": "MD_Dmg_FLD"
+    },
+    {
+      "source_rel": "L3_MD/Material/Damage/MD_Dmg_Shear.f90",
+      "stem": "MD_Dmg_Shear"
+    },
+    {
+      "source_rel": "L3_MD/Material/Damage/MD_Mat_Damage_Brittle.f90",
+      "stem": "MD_Mat_Damage_Brittle"
+    },
+    {
+      "source_rel": "L3_MD/Material/Damage/MD_Mat_Damage_DuctileDamage.f90",
+      "stem": "MD_Mat_Damage_DuctileDamage"
+    },
+    {
+      "source_rel": "L3_MD/Material/Damage/MD_Mat_Damage_Dynamic.f90",
+      "stem": "MD_Mat_Damage_Dynamic"
+    },
+    {
+      "source_rel": "L3_MD/Material/Damage/MD_Mat_Damage_FatigueCrack.f90",
+      "stem": "MD_Mat_Damage_FatigueCrack"
+    },
+    {
+      "source_rel": "L3_MD/Material/Damage/MD_Mat_Damage_LowCycleFatigue.f90",
+      "stem": "MD_Mat_Damage_LowCycleFatigue"
+    },
+    {
+      "source_rel": "L3_MD/Material/Damage/MD_Mat_Damage_Multiscale.f90",
+      "stem": "MD_Mat_Damage_Multiscale"
+    },
+    {
+      "source_rel": "L3_MD/Material/Damage/MD_Mat_Damage_Progressive.f90",
+      "stem": "MD_Mat_Damage_Progressive"
+    },
+    {
+      "source_rel": "L3_MD/Material/Damage/MD_Mat_Damage_ViscoDamage.f90",
+      "stem": "MD_Mat_Damage_ViscoDamage"
+    },
+    {
+      "source_rel": "L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "stem": "MD_Mat_Lib"
+    },
+    {
+      "source_rel": "L3_MD/Material/Dispatch/MD_MatELA_ElasCall.f90",
+      "stem": "MD_MatELA_ElasCall"
+    },
+    {
+      "source_rel": "L3_MD/Material/Dispatch/MD_MatPLM_PlastBase.f90",
+      "stem": "MD_MatPLM_PlastBase"
+    },
+    {
+      "source_rel": "L3_MD/Material/Dispatch/MD_MatPLM_PlastCall.f90",
+      "stem": "MD_MatPLM_PlastCall"
+    },
+    {
+      "source_rel": "L3_MD/Material/Domain/MD_Mat_Mgr.f90",
+      "stem": "MD_Mat_Mgr"
+    },
+    {
+      "source_rel": "L3_MD/Material/Domain/MD_MatDomain_Def.f90",
+      "stem": "MD_MatDomain_Def"
+    },
+    {
+      "source_rel": "L3_MD/Material/Elas/MD_Ela_Aniso.f90",
+      "stem": "MD_Ela_Aniso"
+    },
+    {
+      "source_rel": "L3_MD/Material/Elas/MD_Ela_Iso.f90",
+      "stem": "MD_Ela_Iso"
+    },
+    {
+      "source_rel": "L3_MD/Material/Elas/MD_Ela_Ortho.f90",
+      "stem": "MD_Ela_Ortho"
+    },
+    {
+      "source_rel": "L3_MD/Material/Elas/MD_Mat_Elas_Anisotropic.f90",
+      "stem": "MD_Mat_Elas_Anisotropic"
+    },
+    {
+      "source_rel": "L3_MD/Material/Elas/MD_Mat_Elas_Hypoelastic.f90",
+      "stem": "MD_Mat_Elas_Hypoelastic"
+    },
+    {
+      "source_rel": "L3_MD/Material/Elas/MD_Mat_Elas_Isotropic.f90",
+      "stem": "MD_Mat_Elas_Isotropic"
+    },
+    {
+      "source_rel": "L3_MD/Material/Elas/MD_Mat_Elas_Orthotropic.f90",
+      "stem": "MD_Mat_Elas_Orthotropic"
+    },
+    {
+      "source_rel": "L3_MD/Material/Elas/MD_Mat_Elas_Porous.f90",
+      "stem": "MD_Mat_Elas_Porous"
+    },
+    {
+      "source_rel": "L3_MD/Material/Elas/MD_Mat_Elas_TransIsotropic.f90",
+      "stem": "MD_Mat_Elas_TransIsotropic"
+    },
+    {
+      "source_rel": "L3_MD/Material/Geo/MD_Geo_DruckerPrager.f90",
+      "stem": "MD_Geo_DruckerPrager"
+    },
+    {
+      "source_rel": "L3_MD/Material/Geo/MD_Geo_MohrCoulomb.f90",
+      "stem": "MD_Geo_MohrCoulomb"
+    },
+    {
+      "source_rel": "L3_MD/Material/Geo/MD_MatPLG_BrittleCrack.f90",
+      "stem": "MD_MatPLG_BrittleCrack"
+    },
+    {
+      "source_rel": "L3_MD/Material/Geo/MD_MatPLG_CamClay.f90",
+      "stem": "MD_MatPLG_CamClay"
+    },
+    {
+      "source_rel": "L3_MD/Material/Geo/MD_MatPLG_Cap.f90",
+      "stem": "MD_MatPLG_Cap"
+    },
+    {
+      "source_rel": "L3_MD/Material/Geo/MD_MatPLG_ConcreteDamage.f90",
+      "stem": "MD_MatPLG_ConcreteDamage"
+    },
+    {
+      "source_rel": "L3_MD/Material/Geo/MD_MatPLG_DruckerPrager.f90",
+      "stem": "MD_MatPLG_DruckerPrager"
+    },
+    {
+      "source_rel": "L3_MD/Material/Geo/MD_MatPLG_Geotech.f90",
+      "stem": "MD_MatPLG_Geotech"
+    },
+    {
+      "source_rel": "L3_MD/Material/Geo/MD_MatPLG_Joint.f90",
+      "stem": "MD_MatPLG_Joint"
+    },
+    {
+      "source_rel": "L3_MD/Material/Geo/MD_MatPLG_MohrCoulomb.f90",
+      "stem": "MD_MatPLG_MohrCoulomb"
+    },
+    {
+      "source_rel": "L3_MD/Material/Geo/MD_MatPLG_SmearedCrack.f90",
+      "stem": "MD_MatPLG_SmearedCrack"
+    },
+    {
+      "source_rel": "L3_MD/Material/Geo/MD_MatPLG_SoftRock.f90",
+      "stem": "MD_MatPLG_SoftRock"
+    },
+    {
+      "source_rel": "L3_MD/Material/Geo/MD_MatPLG_Soil.f90",
+      "stem": "MD_MatPLG_Soil"
+    },
+    {
+      "source_rel": "L3_MD/Material/HyperElas/MD_Hyp_ArrudaBoyce.f90",
+      "stem": "MD_Hyp_ArrudaBoyce"
+    },
+    {
+      "source_rel": "L3_MD/Material/HyperElas/MD_Hyp_Foam.f90",
+      "stem": "MD_Hyp_Foam"
+    },
+    {
+      "source_rel": "L3_MD/Material/HyperElas/MD_Hyp_Gent.f90",
+      "stem": "MD_Hyp_Gent"
+    },
+    {
+      "source_rel": "L3_MD/Material/HyperElas/MD_Hyp_Marlow.f90",
+      "stem": "MD_Hyp_Marlow"
+    },
+    {
+      "source_rel": "L3_MD/Material/HyperElas/MD_Hyp_MooneyRivlin.f90",
+      "stem": "MD_Hyp_MooneyRivlin"
+    },
+    {
+      "source_rel": "L3_MD/Material/HyperElas/MD_Hyp_MooneyRivlin2.f90",
+      "stem": "MD_Hyp_MooneyRivlin2"
+    },
+    {
+      "source_rel": "L3_MD/Material/HyperElas/MD_Hyp_MooneyRivlin5.f90",
+      "stem": "MD_Hyp_MooneyRivlin5"
+    },
+    {
+      "source_rel": "L3_MD/Material/HyperElas/MD_Hyp_NeoHookean1.f90",
+      "stem": "MD_Hyp_NeoHookean1"
+    },
+    {
+      "source_rel": "L3_MD/Material/HyperElas/MD_Hyp_NeoHookean2.f90",
+      "stem": "MD_Hyp_NeoHookean2"
+    },
+    {
+      "source_rel": "L3_MD/Material/HyperElas/MD_Hyp_Ogden2.f90",
+      "stem": "MD_Hyp_Ogden2"
+    },
+    {
+      "source_rel": "L3_MD/Material/HyperElas/MD_Hyp_Ogden3.f90",
+      "stem": "MD_Hyp_Ogden3"
+    },
+    {
+      "source_rel": "L3_MD/Material/HyperElas/MD_Hyp_VanDerWaals.f90",
+      "stem": "MD_Hyp_VanDerWaals"
+    },
+    {
+      "source_rel": "L3_MD/Material/HyperElas/MD_Hyp_Yeoh.f90",
+      "stem": "MD_Hyp_Yeoh"
+    },
+    {
+      "source_rel": "L3_MD/Material/HyperElas/MD_Mat_HyperElas_ArrudaBoyce.f90",
+      "stem": "MD_Mat_HyperElas_ArrudaBoyce"
+    },
+    {
+      "source_rel": "L3_MD/Material/HyperElas/MD_Mat_HyperElas_Marlow.f90",
+      "stem": "MD_Mat_HyperElas_Marlow"
+    },
+    {
+      "source_rel": "L3_MD/Material/HyperElas/MD_Mat_HyperElas_MooneyRivlin.f90",
+      "stem": "MD_Mat_HyperElas_MooneyRivlin"
+    },
+    {
+      "source_rel": "L3_MD/Material/HyperElas/MD_Mat_HyperElas_NeoHookean.f90",
+      "stem": "MD_Mat_HyperElas_NeoHookean"
+    },
+    {
+      "source_rel": "L3_MD/Material/HyperElas/MD_Mat_HyperElas_Ogden.f90",
+      "stem": "MD_Mat_HyperElas_Ogden"
+    },
+    {
+      "source_rel": "L3_MD/Material/HyperElas/MD_Mat_HyperElas_PermanentSet.f90",
+      "stem": "MD_Mat_HyperElas_PermanentSet"
+    },
+    {
+      "source_rel": "L3_MD/Material/HyperElas/MD_Mat_HyperElas_Polynomial.f90",
+      "stem": "MD_Mat_HyperElas_Polynomial"
+    },
+    {
+      "source_rel": "L3_MD/Material/HyperElas/MD_Mat_HyperElas_ReducedPolynomial.f90",
+      "stem": "MD_Mat_HyperElas_ReducedPolynomial"
+    },
+    {
+      "source_rel": "L3_MD/Material/HyperElas/MD_Mat_HyperElas_StressSoftening.f90",
+      "stem": "MD_Mat_HyperElas_StressSoftening"
+    },
+    {
+      "source_rel": "L3_MD/Material/HyperElas/MD_Mat_HyperElas_Yeoh.f90",
+      "stem": "MD_Mat_HyperElas_Yeoh"
+    },
+    {
+      "source_rel": "L3_MD/Material/Base/MD_Mat_Core.f90",
+      "stem": "MD_Mat_Core"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Mat_Plast_Barlat.f90",
+      "stem": "MD_Mat_Plast_Barlat"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Mat_Plast_BiVisc.f90",
+      "stem": "MD_Mat_Plast_BiVisc"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Mat_Plast_CastIron.f90",
+      "stem": "MD_Mat_Plast_CastIron"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Mat_Plast_Ceramic.f90",
+      "stem": "MD_Mat_Plast_Ceramic"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Mat_Plast_Chaboche.f90",
+      "stem": "MD_Mat_Plast_Chaboche"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Mat_Plast_Crystal.f90",
+      "stem": "MD_Mat_Plast_Crystal"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Mat_Plast_Deformation.f90",
+      "stem": "MD_Mat_Plast_Deformation"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Mat_Plast_Fgm.f90",
+      "stem": "MD_Mat_Plast_Fgm"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Mat_Plast_Hill.f90",
+      "stem": "MD_Mat_Plast_Hill"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Mat_Plast_HyperElastPlast.f90",
+      "stem": "MD_Mat_Plast_HyperElastPlast"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Mat_Plast_J2.f90",
+      "stem": "MD_Mat_Plast_J2"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Mat_Plast_JohnsonCook.f90",
+      "stem": "MD_Mat_Plast_JohnsonCook"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Mat_Plast_MixedHard.f90",
+      "stem": "MD_Mat_Plast_MixedHard"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Mat_Plast_Nano.f90",
+      "stem": "MD_Mat_Plast_Nano"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Mat_Plast_ORNL.f90",
+      "stem": "MD_Mat_Plast_ORNL"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Mat_Plast_RateDep.f90",
+      "stem": "MD_Mat_Plast_RateDep"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Mat_Plast_SmartMat.f90",
+      "stem": "MD_Mat_Plast_SmartMat"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Mat_Plast_SwiftVoce.f90",
+      "stem": "MD_Mat_Plast_SwiftVoce"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Mat_Plast_Temm.f90",
+      "stem": "MD_Mat_Plast_Temm"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Mat_Plast_ThermoVisc.f90",
+      "stem": "MD_Mat_Plast_ThermoVisc"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Mat_Plast_ViscDmgEM.f90",
+      "stem": "MD_Mat_Plast_ViscDmgEM"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Mat_Plast_Viscoplastic.f90",
+      "stem": "MD_Mat_Plast_Viscoplastic"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Mat_Plast_Za.f90",
+      "stem": "MD_Mat_Plast_Za"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Pls_ArmstrongFrederick.f90",
+      "stem": "MD_Pls_ArmstrongFrederick"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Pls_Barlat.f90",
+      "stem": "MD_Pls_Barlat"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Pls_Chaboche.f90",
+      "stem": "MD_Pls_Chaboche"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Pls_GTN.f90",
+      "stem": "MD_Pls_GTN"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Pls_Hill48.f90",
+      "stem": "MD_Pls_Hill48"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Pls_J2Iso.f90",
+      "stem": "MD_Pls_J2Iso"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Pls_J2Tab.f90",
+      "stem": "MD_Pls_J2Tab"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Pls_JohnsonCook.f90",
+      "stem": "MD_Pls_JohnsonCook"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Pls_KinComb.f90",
+      "stem": "MD_Pls_KinComb"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Pls_KinLin.f90",
+      "stem": "MD_Pls_KinLin"
+    },
+    {
+      "source_rel": "L3_MD/Material/Plast/MD_Pls_ORNL.f90",
+      "stem": "MD_Pls_ORNL"
+    },
+    {
+      "source_rel": "L3_MD/Material/Registry/MD_MatPLM_Reg.f90",
+      "stem": "MD_MatPLM_Reg"
+    },
+    {
+      "source_rel": "L3_MD/Material/Registry/MD_MatReg_Algo.f90",
+      "stem": "MD_MatReg_Algo"
+    },
+    {
+      "source_rel": "L3_MD/Material/Shared/MD_MAT_COMPOSITE_CORE.f90",
+      "stem": "MD_MAT_COMPOSITE_CORE"
+    },
+    {
+      "source_rel": "L3_MD/Material/Shared/MD_Mat_Contract.f90",
+      "stem": "MD_Mat_Contract"
+    },
+    {
+      "source_rel": "L3_MD/Material/Shared/MD_MAT_CREEP_CORE.f90",
+      "stem": "MD_MAT_CREEP_CORE"
+    },
+    {
+      "source_rel": "L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "stem": "MD_MAT_DAMAGE_CORE"
+    },
+    {
+      "source_rel": "L3_MD/Material/Shared/MD_Mat_DMG_LibBase.f90",
+      "stem": "MD_Mat_DMG_LibBase"
+    },
+    {
+      "source_rel": "L3_MD/Material/Shared/MD_MAT_GEOMAT_CORE.f90",
+      "stem": "MD_MAT_GEOMAT_CORE"
+    },
+    {
+      "source_rel": "L3_MD/Material/Shared/MD_MAT_HYPERELASTIC_CORE.f90",
+      "stem": "MD_MAT_HYPERELASTIC_CORE"
+    },
+    {
+      "source_rel": "L3_MD/Material/Shared/MD_Mat_Legacy_State.f90",
+      "stem": "MD_Mat_Legacy_State"
+    },
+    {
+      "source_rel": "L3_MD/Material/Shared/MD_Mat_Sync.f90",
+      "stem": "MD_Mat_Sync"
+    },
+    {
+      "source_rel": "L3_MD/Material/Shared/MD_MAT_THERM_CORE.f90",
+      "stem": "MD_MAT_THERM_CORE"
+    },
+    {
+      "source_rel": "L3_MD/Material/Shared/MD_MAT_USER_CORE.f90",
+      "stem": "MD_MAT_USER_CORE"
+    },
+    {
+      "source_rel": "L3_MD/Material/Shared/MD_Mat_Validation.f90",
+      "stem": "MD_Mat_Validation"
+    },
+    {
+      "source_rel": "L3_MD/Material/Shared/MD_MAT_VISCOSITY_CORE.f90",
+      "stem": "MD_MAT_VISCOSITY_CORE"
+    },
+    {
+      "source_rel": "L3_MD/Material/Shared/MD_MatELA_Damping.f90",
+      "stem": "MD_MatELA_Damping"
+    },
+    {
+      "source_rel": "L3_MD/Material/Shared/MD_MatELA_ElasBase.f90",
+      "stem": "MD_MatELA_ElasBase"
+    },
+    {
+      "source_rel": "L3_MD/Material/Shared/MD_MatELA_Expansion.f90",
+      "stem": "MD_MatELA_Expansion"
+    },
+    {
+      "source_rel": "L3_MD/Material/Shared/MD_MatELA_PopulateMap.f90",
+      "stem": "MD_MatELA_PopulateMap"
+    },
+    {
+      "source_rel": "L3_MD/Material/Shared/MD_MatEval_Def.f90",
+      "stem": "MD_MatEval_Def"
+    },
+    {
+      "source_rel": "L3_MD/Material/Shared/MD_MatPLM_TDep.f90",
+      "stem": "MD_MatPLM_TDep"
+    },
+    {
+      "source_rel": "L3_MD/Material/Thermal/MD_Mat_Creep_ThermalConduction.f90",
+      "stem": "MD_Mat_Creep_ThermalConduction"
+    },
+    {
+      "source_rel": "L3_MD/Material/Thermal/MD_Mat_Creep_ThermalExpansion.f90",
+      "stem": "MD_Mat_Creep_ThermalExpansion"
+    },
+    {
+      "source_rel": "L3_MD/Material/Thermal/MD_Mat_Creep_ThermoElastic.f90",
+      "stem": "MD_Mat_Creep_ThermoElastic"
+    },
+    {
+      "source_rel": "L3_MD/Material/Thermal/MD_Mat_Creep_ThermoElecElastic.f90",
+      "stem": "MD_Mat_Creep_ThermoElecElastic"
+    },
+    {
+      "source_rel": "L3_MD/Material/Thermal/MD_Mat_Creep_ThermoElectric.f90",
+      "stem": "MD_Mat_Creep_ThermoElectric"
+    },
+    {
+      "source_rel": "L3_MD/Material/Thermal/MD_Thm_Iso.f90",
+      "stem": "MD_Thm_Iso"
+    },
+    {
+      "source_rel": "L3_MD/Material/Thermal/MD_Thm_Ortho.f90",
+      "stem": "MD_Thm_Ortho"
+    },
+    {
+      "source_rel": "L3_MD/Material/Thermal/MD_Thm_PhaseChg.f90",
+      "stem": "MD_Thm_PhaseChg"
+    },
+    {
+      "source_rel": "L3_MD/Material/User/MD_Mat_User_Umat.f90",
+      "stem": "MD_Mat_User_Umat"
+    },
+    {
+      "source_rel": "L3_MD/Material/User/MD_MatSPU_Connector.f90",
+      "stem": "MD_MatSPU_Connector"
+    },
+    {
+      "source_rel": "L3_MD/Material/User/MD_MatSPU_Damping.f90",
+      "stem": "MD_MatSPU_Damping"
+    },
+    {
+      "source_rel": "L3_MD/Material/User/MD_MatSPU_Electromagnetic.f90",
+      "stem": "MD_MatSPU_Electromagnetic"
+    },
+    {
+      "source_rel": "L3_MD/Material/User/MD_MatSPU_Eos.f90",
+      "stem": "MD_MatSPU_Eos"
+    },
+    {
+      "source_rel": "L3_MD/Material/User/MD_MatSPU_HydrostaticFluid.f90",
+      "stem": "MD_MatSPU_HydrostaticFluid"
+    },
+    {
+      "source_rel": "L3_MD/Material/User/MD_MatSPU_MassPoint.f90",
+      "stem": "MD_MatSPU_MassPoint"
+    },
+    {
+      "source_rel": "L3_MD/Material/User/MD_Usr_Ext1.f90",
+      "stem": "MD_Usr_Ext1"
+    },
+    {
+      "source_rel": "L3_MD/Material/User/MD_Usr_Ext2.f90",
+      "stem": "MD_Usr_Ext2"
+    },
+    {
+      "source_rel": "L3_MD/Material/User/MD_Usr_UMAT.f90",
+      "stem": "MD_Usr_UMAT"
+    },
+    {
+      "source_rel": "L3_MD/Material/User/MD_Usr_VUMAT.f90",
+      "stem": "MD_Usr_VUMAT"
+    },
+    {
+      "source_rel": "L3_MD/Material/Viscoelas/MD_Mat_Viscoelas_Creep.f90",
+      "stem": "MD_Mat_Viscoelas_Creep"
+    },
+    {
+      "source_rel": "L3_MD/Material/Viscoelas/MD_Mat_Viscoelas_LinearVisco.f90",
+      "stem": "MD_Mat_Viscoelas_LinearVisco"
+    },
+    {
+      "source_rel": "L3_MD/Material/Viscoelas/MD_Mat_Viscoelas_NonlinearVisco.f90",
+      "stem": "MD_Mat_Viscoelas_NonlinearVisco"
+    },
+    {
+      "source_rel": "L3_MD/Material/Viscoelas/MD_Mat_Viscoelas_Perzyna.f90",
+      "stem": "MD_Mat_Viscoelas_Perzyna"
+    },
+    {
+      "source_rel": "L3_MD/Material/Viscoelas/MD_Mat_Viscoelas_RateDepCreep.f90",
+      "stem": "MD_Mat_Viscoelas_RateDepCreep"
+    },
+    {
+      "source_rel": "L3_MD/Material/Viscoelas/MD_Mat_Viscoelas_Swelling.f90",
+      "stem": "MD_Mat_Viscoelas_Swelling"
+    },
+    {
+      "source_rel": "L3_MD/Material/Viscoelas/MD_Mat_Viscoelas_ThermoVisco.f90",
+      "stem": "MD_Mat_Viscoelas_ThermoVisco"
+    },
+    {
+      "source_rel": "L3_MD/Material/Viscoelas/MD_Mat_Viscoelas_ViscoBase.f90",
+      "stem": "MD_Mat_Viscoelas_ViscoBase"
+    },
+    {
+      "source_rel": "L3_MD/Material/Viscoelas/MD_Mat_Viscoelas_ViscoElastPlast.f90",
+      "stem": "MD_Mat_Viscoelas_ViscoElastPlast"
+    },
+    {
+      "source_rel": "L3_MD/Material/Viscoelas/MD_Vis_KelvinVoigt.f90",
+      "stem": "MD_Vis_KelvinVoigt"
+    },
+    {
+      "source_rel": "L3_MD/Material/Viscoelas/MD_Vis_PronyDev.f90",
+      "stem": "MD_Vis_PronyDev"
+    },
+    {
+      "source_rel": "L3_MD/Material/Viscoelas/MD_Vis_PronyVol.f90",
+      "stem": "MD_Vis_PronyVol"
+    },
+    {
+      "source_rel": "L3_MD/Material/Viscoelas/MD_Vis_WLF.f90",
+      "stem": "MD_Vis_WLF"
+    }
+  ]
+}

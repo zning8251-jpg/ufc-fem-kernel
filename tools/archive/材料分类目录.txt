@@ -1,0 +1,105 @@
+主族 1｜Elastic (mat_family=1)｜全子族
+1.1 各向同性
+1.2 正交各向异性
+1.3 横观各向同性
+1.4 全各向异性
+1.5 率型弹性
+1.6 多孔弹性
+
+主族 2｜Plastic (mat_family=2)
+2.1 J2/Mises 各向同性/随动硬化
+2.2 Chaboche 混合硬化
+2.3 Hill48 各向异性屈服
+2.4 Barlat 各向异性
+2.5 Johnson-Cook 高应变率
+2.6 GTN 多孔韧性损伤
+2.7 率相关塑性
+
+主族 3｜Geo (mat_family=3)
+3.1 Drucker-Prager
+3.2 Mohr-Coulomb
+3.3 Cam-Clay
+3.4 混凝土损伤塑性
+
+主族 4｜Hyperelastic (mat_family=4)
+4.1 Neo-Hookean
+4.2 Mooney-Rivlin
+4.3 Ogden
+4.4 Yeoh
+4.5 Arruda-Boyce
+4.6 Foam 泡沫材料
+
+主族 5｜Viscoelastic (mat_family=5)
+5.1 Prony 级数
+5.2 Kelvin-Voigt
+5.3 蠕变粘性
+5.4 粘弹塑性 VEVP
+
+主族 6｜Creep (mat_family=6)
+6.1 幂律蠕变
+6.2 Garofalo 蠕变
+6.3 Gurson 多孔蠕变
+
+主族 7｜Damage (mat_family=7)
+7.1 延性损伤
+7.2 脆性损伤
+7.3 混凝土CDP损伤
+7.4 疲劳损伤
+
+主族 8｜Composite (mat_family=8)
+8.1 层合板
+8.2 Hashin 失效准则
+8.3 织物复合材料
+
+主族 9｜Thermal (mat_family=9)
+9.1 热传导
+9.2 热膨胀
+9.3 相变
+
+主族 10｜Acoustic (mat_family=10)
+10.1 声学介质
+10.2 吸声
+
+主族 11｜User/UMAT (mat_family=11)
+
+UMAT / VUMAT / UEL 完整接口
+Abaqus 材料关键字 L1~L5 完整树
+L1 *MATERIAL
+├─ L2 *ELASTIC
+│  L3 ISO / ORTHO / TRANS / ANISO / HYPO / PORO
+├─ L2 *PLASTIC
+│  L3 J2 / HILL / BARLAT / JC / GTN / RATE / CHABOCHE
+├─ L2 *DRUCKER PRAGER, *MOHR COULOMB, *CAMCLAY, *CONCRETE DAMAGED PLASTICITY
+├─ L2 *HYPERELASTIC
+│  L3 NEO / MOONEY / OGDEN / YEOH / ARRUDA / FOAM / MARLOW
+├─ L2 *VISCOELASTIC
+│  L3 PRONY / KELVIN / CREEP / VEVP
+├─ L2 *CREEP
+│  L3 POWER / GAROFALO / GURSON
+├─ L2 *DAMAGE INITIATION, *DAMAGE EVOLUTION
+│  L3 DUCTILE / BRITTLE / CDP / FATIGUE / SHEAR
+├─ L2 *COMPOSITE
+│  L3 LAMINATE / FABRIC / HASHIN / DELAMINATION
+├─ L2 *CONDUCTIVITY, *EXPANSION, *HEAT CAPACITY, *PHASE CHANGE
+├─ L2 *ACOUSTIC MEDIUM, *ACOUSTIC ABSORPTION
+└─ L2 *USER MATERIAL (UMAT/VUMAT/UEL)
+
+三级嵌套结构（严格 ≤3 层）
+L1 MD_Material
+  ├─ L2 Desc
+  ├─ L2 State
+  ├─ L2 Algo
+  └─ L2 Ctx
+     └─ L3 子族材料（结束，无第四层）
+
+空相 (Where)+ 时相 (When)+ 动作 (What) 正交框架
+! 空相：GLB 全局 → REG 区域 → ELM 单元 → PT 积分点
+! 时相：INIT 初始化 → PRED 预测 → ITER 迭代 → COMMIT 提交
+! 动作：POP 装载 → EVAL 计算 → UPD 更新 → ASM 组装
+
+CALL MD_Mat_Proc_GLB_INIT_POP( mat )
+CALL MD_Mat_Proc_ELM_PRED_EVAL( mat )
+CALL MD_Mat_Proc_PT_ITER_EVAL( mat )
+CALL MD_Mat_Proc_PT_ITER_UPD( mat )
+CALL MD_Mat_Proc_REG_COMMIT_ASM( mat )
+

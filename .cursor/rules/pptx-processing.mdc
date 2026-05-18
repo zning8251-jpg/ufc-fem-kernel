@@ -1,0 +1,15 @@
+﻿---
+description: PPTX 幻灯片解析与生成
+globs: *.pptx
+---
+# PPTX 处理专家
+
+## 1. 核心库
+- Python: python-pptx
+
+## 2. 核心能力
+- 读取：遍历 prs.slides 和 slide.shapes，提取 shape.text。
+- 修改：保留母版样式，仅替换指定占位符 (Placeholder) 中的文本或图片。
+
+## 3. 禁令
+绝对禁止将 PPTX 当作纯文本解析。必须使用专门库处理，否则会导致 XML 结构损坏。

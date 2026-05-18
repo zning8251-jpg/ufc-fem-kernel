@@ -1,0 +1,251 @@
+# ==============================================================================
+# .pre-commit-config.yaml Template
+# Purpose: CI/CD gate rules for UFC Analysis Type constraints
+# 
+# Add this section to the existing .pre-commit-config.yaml file
+# in the UFC project root directory.
+# 
+# Usage:
+#   - Copy relevant sections into your existing .pre-commit-config.yaml
+#   - Run: pre-commit install
+#   - pre-commit will run automatically on git commit
+#   - Or manually: pre-commit run --all-files
+# ==============================================================================
+
+# ==============================================================================
+# Section 1: Analysis Type Checker (Custom Bash Script)
+# ==============================================================================
+- repo: local
+  hooks:
+    - id: analysis-type-checker
+      name: "Check Analysis Type Constraints"
+      entry: bash UFC/scripts/analysis_type_checker.sh
+      language: script
+      files: \.f90$
+      stages: [commit]
+      verbose: true
+      description: |
+        Validates analysis type constraints (PROC_ID, Group, Materials, Elements)
+        according to UFC Analysis Type Grouped Classification specification.
+
+# ==============================================================================
+# Section 2: Fortran Syntax Validation
+# ==============================================================================
+- repo: local
+  hooks:
+    - id: fortran-syntax-check
+      name: "Fortran 2003 Syntax Check"
+      entry: bash -c 'gfortran -std=f2003 -fsyntax-only "$@"' --
+      language: system
+      files: \.f90$
+      stages: [commit]
+      description: |
+        Validates Fortran 90/2003 syntax using gfortran
+
+# ==============================================================================
+# Section 3: MD_Analysis Naming Convention Check
+# ==============================================================================
+- repo: local
+  hooks:
+    - id: md-analysis-naming
+      name: "MD_Analysis Naming Convention"
+      entry: bash -c |
+        for file in "$@"; do
+          if grep -q "MD_Analy_" "$file"; then
+            if ! grep -q "group_id\|analysis_group" "$file"; then
+              if grep -q "analysis_proc" "$file"; then
+                echo "WARNING: $file has analysis_proc but no group_id field"
+                exit 1
+              fi
+            fi
+          fi
+        done
+      language: system
+      files: MD_Analysis.*\.f90$
+      stages: [commit]
+      description: |
+        Ensures MD_Analysis types include group_id field alongside analysis_proc
+
+# ==============================================================================
+# Section 4: Material Family Constraint Verification
+# ==============================================================================
+- repo: local
+  hooks:
+    - id: material-family-constraints
+      name: "Material Family Group Constraints"
+      entry: bash -c |
+        for file in "$@"; do
+          # Check if file contains material family references
+          if grep -q "mat_family\|MATFAMILY" "$file"; then
+            # Verify proper group context
+            if ! grep -q "group_id\|GROUP" "$file"; then
+              echo "WARNING: Material family referenced without group context in $file"
+            fi
+          fi
+        done
+      language: system
+      files: \.f90$
+      stages: [commit]
+      description: |
+        Validates material family usage against group constraints
+
+# ==============================================================================
+# Section 5: Element Type Constraint Verification
+# ==============================================================================
+- repo: local
+  hooks:
+    - id: element-type-constraints
+      name: "Element Type Group Constraints"
+      entry: bash -c |
+        for file in "$@"; do
+          # Check if file contains element type declarations
+          if grep -qE "C3D|CPS|CAX|AC|EM" "$file"; then
+            # Verify proper group context
+            if ! grep -q "group_id\|ELEM_TYPE" "$file"; then
+              echo "WARNING: Element type referenced without group context in $file"
+            fi
+          fi
+        done
+      language: system
+      files: \.f90$
+      stages: [commit]
+      description: |
+        Validates element type usage against group constraints
+
+# ==============================================================================
+# Section 6: PH_Analysis_Group_Router Integration
+# ==============================================================================
+- repo: local
+  hooks:
+    - id: router-consistency
+      name: "PH_Analysis_Group_Router Consistency"
+      entry: bash -c |
+        for file in "$@"; do
+          if grep -q "L4_PH_Material" "$file"; then
+            # Material calls should reference router for dispatch
+            if grep -q "MATERIAL_HANDLER\|HANDLER_ID" "$file"; then
+              echo "OK: $file has proper handler routing"
+            elif grep -q "L4_PH_Material_" "$file"; then
+              echo "WARNING: Direct material call in $file, should use router"
+            fi
+          fi
+        done
+      language: system
+      files: PH_.*\.f90$
+      stages: [commit]
+      description: |
+        Ensures L4_PH material dispatch uses Group-aware router
+
+# ==============================================================================
+# Section 7: RT_AnalysisGroup_Validator Integration
+# ==============================================================================
+- repo: local
+  hooks:
+    - id: validator-calls
+      name: "RT_AnalysisGroup_Validator Coverage"
+      entry: bash -c |
+        # Check that L5_RT files call constraint validators
+        for file in "$@"; do
+          if grep -q "RT_AnalysisGroup" "$file"; then
+            if grep -q "Assert_Group_Materials\|Assert_Group_Elements\|Assert_Coupling" "$file"; then
+              echo "OK: $file includes constraint validation"
+            else
+              echo "WARNING: RT_AnalysisGroup file without validation calls: $file"
+            fi
+          fi
+        done
+      language: system
+      files: RT_.*\.f90$
+      stages: [commit]
+      description: |
+        Ensures L5_RT analysis files call group constraint validators
+
+# ==============================================================================
+# Section 8: Documentation Consistency
+# ==============================================================================
+- repo: local
+  hooks:
+    - id: doc-mapping-sync
+      name: "ABAQUS Analysis Type Mapping Sync"
+      entry: bash -c |
+        # Verify PROC_ID mappings in doc match code
+        DOC_PROC=$(grep -oP "PROC.*\d+" UFC/docs/templates/ABAQUS_AnalysisType_PreciseMapping.md | sort | uniq)
+        CODE_PROC=$(grep -oP "analysis_proc\s*=\s*\K\d+" UFC/ufc_core/**/*.f90 2>/dev/null | sort | uniq)
+        if [ "$DOC_PROC" != "$CODE_PROC" ]; then
+          echo "WARNING: PROC_ID mapping may be out of sync between doc and code"
+          echo "  Documentation: $DOC_PROC"
+          echo "  Code: $CODE_PROC"
+        fi
+      language: system
+      files: (ABAQUS_AnalysisType.*\.md|MD_Analysis.*\.f90)$
+      stages: [commit]
+      description: |
+        Validates PROC_ID mappings consistency between documentation and code
+
+# ==============================================================================
+# Section 9: Group Validator Test Coverage
+# ==============================================================================
+- repo: local
+  hooks:
+    - id: validator-test-coverage
+      name: "Group Validator Test Cases"
+      entry: bash -c |
+        # Ensure test coverage for all 9 groups
+        for group_id in 1 2 3 4 5 6 7 8 9; do
+          if ! grep -q "group_id.*=.*$group_id\|ANALY_GROUP_G$group_id" UFC/ufc_core/Tests/**/*.f90 2>/dev/null; then
+            echo "WARNING: No test cases found for Group G$group_id"
+          fi
+        done
+      language: system
+      files: RT_AnalysisGroup_Validator.*\.f90$
+      stages: [commit]
+      description: |
+        Ensures all 9 analysis groups have corresponding test cases
+
+# ==============================================================================
+# Section 10: PROC_ID Uniqueness in Model
+# ==============================================================================
+- repo: local
+  hooks:
+    - id: proc-id-uniqueness
+      name: "PROC_ID Uniqueness Check"
+      entry: bash -c |
+        # Check for duplicate PROC_ID assignments in model files
+        for file in "$@"; do
+          PROC_IDS=$(grep -oP "analysis_proc\s*=\s*\K\d+" "$file" 2>/dev/null | sort)
+          DUPES=$(echo "$PROC_IDS" | uniq -d)
+          if [ -n "$DUPES" ]; then
+            echo "ERROR: Duplicate PROC_IDs in $file: $DUPES"
+            exit 1
+          fi
+        done
+      language: system
+      files: MD_.*\.f90$
+      stages: [commit]
+      description: |
+        Ensures PROC_ID is unique within each model descriptor
+
+# ==============================================================================
+# USAGE INSTRUCTIONS
+# ==============================================================================
+#
+# 1. Copy this entire section into your existing .pre-commit-config.yaml
+#    (or create a new one in UFC root)
+#
+# 2. Create the scripts directory if it doesn't exist:
+#    mkdir -p UFC/scripts
+#
+# 3. Copy analysis_type_checker.sh to UFC/scripts/:
+#    cp UFC/docs/templates/analysis_type_checker.sh UFC/scripts/
+#    chmod +x UFC/scripts/analysis_type_checker.sh
+#
+# 4. Install pre-commit hooks:
+#    cd UFC && pre-commit install
+#
+# 5. Run all checks (optional):
+#    pre-commit run --all-files
+#
+# 6. On each git commit, pre-commit will automatically run these hooks
+#    and prevent commit if any checks fail
+#
+# ==============================================================================

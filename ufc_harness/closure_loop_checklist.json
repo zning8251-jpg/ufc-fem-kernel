@@ -1,0 +1,186 @@
+{
+  "$schema_comment": "Machine-readable loop context: MCP + skills invoke (Cursor wiring is external). Sync skill names with AGENTS.md SKILLS_TABLE when that table changes. Narrative: skill_mcp_agent_rag_notes + from_chat_to_work_notes ↔ README anchors; document tiers ↔ docs/DOCUMENT_TIERS_AND_ON_DEMAND_CONTEXT.md.",
+  "version": "1.8",
+  "sources": {
+    "agents_md": "AGENTS.md",
+    "harness_readme": "ufc_harness/README.md",
+    "readme_skill_mcp_agent_rag_anchor": "ufc_harness/README.md#skill-mcp-agent-rag-ufc",
+    "readme_harness_engineering_anchor": "ufc_harness/README.md#harness-engineering-ufc",
+    "readme_from_chat_to_work_anchor": "ufc_harness/README.md#from-chat-to-work-ufc",
+    "skill_mcp_agent_rag_machine_block": "ufc_harness/closure_loop_checklist.json (root key skill_mcp_agent_rag_notes)",
+    "from_chat_to_work_machine_block": "ufc_harness/closure_loop_checklist.json (root key from_chat_to_work_notes)",
+    "agent_orchestration_playbook": "plan/UFC_DIRECTORY_AND_AGENT_PLAYBOOK.md",
+    "document_tiers_md": "docs/DOCUMENT_TIERS_AND_ON_DEMAND_CONTEXT.md",
+    "skills_invoke_template": "npx openskills read <skill-name>",
+    "skills_invoke_multi": "npx openskills read skill-one,skill-two"
+  },
+  "loop_nodes": {
+    "prompt": {"carrier": "user_query"},
+    "context": {"carriers": ["AGENTS.md", "rules/", "docs/README.md", "docs/DOCUMENT_TIERS_AND_ON_DEMAND_CONTEXT.md", "memory (IDE)"]},
+    "skills": {"carrier": "skills/**/SKILL.md", "checklist_skills": "this_file.skills"},
+    "mcp": {"carrier": "IDE MCP config (not repo-controlled)", "checklist_mcp": "this_file.mcp_servers"},
+    "agent": {"carrier": "Qoder/Cursor AI"},
+    "harness": {
+      "carrier": "ufc_harness/run_harness.py",
+      "closure_subcommand": "closure",
+      "pillar_loop_subcommand": "pillar-loop",
+      "pillar_definitions_json": "ufc_harness/pillar_loop_config.json"
+    },
+    "loop_feedback": {"carriers": ["REPORTS/loop_run_*.md", "memory", "AGENTS skills iteration"]}
+  },
+  "mcp_servers": [
+    {"id": "brave-search", "tools": ["brave_web_search", "brave_local_search"], "use_case": "ABAQUS manual, NAFEMS, Fortran standards"},
+    {"id": "github", "tools": ["search_code", "get_file_contents", "create_pull_request"], "use_case": "UFC upstream, PRs, issues"},
+    {"id": "playwright", "tools": ["browser_navigate", "browser_snapshot", "browser_click"], "use_case": "Web UI e.g. ufc-architecture-dashboard"},
+    {"id": "fetch", "tools": ["fetch"], "use_case": "Online docs and handbook pages"},
+    {"id": "sequential-thinking", "tools": ["sequentialthinking"], "use_case": "Multi-step architecture/refactor reasoning"}
+  ],
+  "skills": [
+    {"name": "fem-kernel-architecture", "placeholder": false},
+    {"name": "fem-kernel-api-design", "placeholder": false},
+    {"name": "fem-kernel-data-contract", "placeholder": false},
+    {"name": "fem-kernel-extensibility", "placeholder": false},
+    {"name": "fem-kernel-observability", "placeholder": false},
+    {"name": "fem-kernel-test-design", "placeholder": false},
+    {"name": "fem-kernel-verification", "placeholder": false},
+    {"name": "ufc-layer-domain-feature", "placeholder": false},
+    {"name": "ufc-structured-io", "placeholder": false},
+    {"name": "ufc-governance-triad", "placeholder": false},
+    {"name": "ufc-domain-pillar-closure", "placeholder": true},
+    {"name": "ufc-naming-checker", "placeholder": false},
+    {"name": "ufc-solver-router", "placeholder": true},
+    {"name": "ufc-domain-interaction", "placeholder": true},
+    {"name": "ufc-domain-keyword", "placeholder": true},
+    {"name": "ufc-domain-output", "placeholder": true},
+    {"name": "doc-coauthoring", "placeholder": false},
+    {"name": "docx", "placeholder": false},
+    {"name": "frontend-design", "placeholder": false},
+    {"name": "internal-comms", "placeholder": false},
+    {"name": "mcp-builder", "placeholder": false},
+    {"name": "pptx", "placeholder": false},
+    {"name": "skill-creator", "placeholder": false},
+    {"name": "theme-factory", "placeholder": false},
+    {"name": "xlsx", "placeholder": false}
+  ],
+  "through_domain_pillars": {
+    "comment": "P1–P6 贯通域柱定义与二元结构 cold/hot 轴见 pillar_loop_config.json；KeyWord 为蓝图 S5 层专属域而非 P1–P6。",
+    "config": "ufc_harness/pillar_loop_config.json"
+  },
+  "skill_mcp_agent_rag_notes": {
+    "comment": "Maps Skill+MCP+Agent+RAG stack article roles to UFC repo; human tables under README heading with readme_anchor_html_id.",
+    "readme_path": "ufc_harness/README.md",
+    "readme_anchor_html_id": "skill-mcp-agent-rag-ufc",
+    "readme_uri": "ufc_harness/README.md#skill-mcp-agent-rag-ufc",
+    "section_title_zh": "Skill · MCP · Agent · RAG 与 UFC 对照（全栈智能化）",
+    "self_ref": "this_file.skill_mcp_agent_rag_notes",
+    "related_article_map_ref": "this_file.from_chat_to_work_notes",
+    "maps_to_loop_nodes": ["context", "skills", "mcp", "agent", "harness", "loop_feedback"],
+    "four_stack": {
+      "mcp": {
+        "checklist_field": "mcp_servers",
+        "principle": "connect_and_min_scope",
+        "note": "IDE enables servers; secrets local to workspace."
+      },
+      "rag_ufc": {
+        "principle": "structured_knowledge_on_demand",
+        "paths_glob": ["docs/", "PLAN/", "ufc_core/**/CONTRACT.md", "REPORTS/"],
+        "note": "Not a substitute for a hosted vector RAG service; means file/skill-backed retrieval."
+      },
+      "skill": {
+        "checklist_field": "skills",
+        "path_glob": "skills/**/SKILL.md",
+        "invoke_template_ref": "sources.skills_invoke_template"
+      },
+      "agent": {
+        "loop_node": "agent",
+        "harness_carrier_ref": "loop_nodes.harness.carrier",
+        "note": "Scheduling and verification via run_harness.py subcommands."
+      }
+    },
+    "layering_principles_ids": [
+      "mcp_tool_connect_only",
+      "rag_retrieve_delegate_reasoning",
+      "skill_process_not_orchestration_policy",
+      "agent_schedule_not_inline_all_steps"
+    ],
+    "landing_steps": [
+      {"id": "split_task", "hint": "Layer/domain/feature; pick skills from AGENTS.md table."},
+      {"id": "wire_mcp", "hint": "Enable checklist MCP in IDE; prefer read-only where possible."},
+      {"id": "knowledge_slice", "hint": "docs/README, 00-快速导航, CONTRACT; run agent-bundle for task-scoped pack."},
+      {"id": "solidify_skill", "hint": "openskills read or extend skills/**/SKILL.md; one skill one job."},
+      {"id": "schedule_verify", "hint": "closure or guardian --fail-on-p0 + naming; agent-checkpoint, agent-trace, agent-slow-loop."}
+    ],
+    "harness_subcommands_crossref": [
+      "agent-bundle",
+      "agent-checkpoint",
+      "agent-trace",
+      "agent-slow-loop",
+      "agent-task",
+      "change-package",
+      "discipline",
+      "closure",
+      "guardian",
+      "pillar-loop"
+    ]
+  },
+  "from_chat_to_work_notes": {
+    "comment": "Maps popular article chain LLM→FC→MCP→Skills→Agent→multi-agent to UFC AGENTS loop + Harness README; not an A2A implementation.",
+    "article_title_zh": "从「会聊天」到「会干活」：一文讲透大模型、Agent和多智能体协作",
+    "readme_path": "ufc_harness/README.md",
+    "readme_anchor_html_id": "from-chat-to-work-ufc",
+    "readme_uri": "ufc_harness/README.md#from-chat-to-work-ufc",
+    "harness_engineering_readme_anchor_id": "harness-engineering-ufc",
+    "harness_engineering_readme_uri": "ufc_harness/README.md#harness-engineering-ufc",
+    "self_ref": "this_file.from_chat_to_work_notes",
+    "related_blocks": [
+      "this_file.skill_mcp_agent_rag_notes",
+      "this_file.loop_nodes",
+      "this_file.harness_closure_steps"
+    ],
+    "evolution_chain": [
+      {
+        "id": "llm_chat_only",
+        "article_one_liner": "会聊天，无手",
+        "ufc_loop_hint": "Prompt/Context 中的裸模型输出不足以改 ufc_core",
+        "harness_engineering_hint": "缺 Tools/Observation 时不要跳过 guardian/closure"
+      },
+      {
+        "id": "function_calling",
+        "article_one_liner": "厂商内置工具调用，格式不一",
+        "ufc_loop_hint": "IDE 工具链；重复动作收敛到 MCP + run_harness",
+        "harness_engineering_hint": "Tools + Action Interfaces: prefer checklist MCP + CLI harness"
+      },
+      {
+        "id": "mcp",
+        "article_one_liner": "统一工具插座",
+        "ufc_loop_hint": "loop_nodes.mcp + mcp_servers",
+        "harness_engineering_hint": "Tools + Action Interfaces for external systems"
+      },
+      {
+        "id": "agent_skills",
+        "article_one_liner": "可插拔 SOP / 三级加载",
+        "ufc_loop_hint": "loop_nodes.skills + skills/**/SKILL.md + openskills",
+        "harness_engineering_hint": "Knowledge + progressive disclosure; Permissions at host"
+      },
+      {
+        "id": "agent_worker",
+        "article_one_liner": "大脑+手+知识=员工",
+        "ufc_loop_hint": "Agent + MCP + Skills + harness + Loop",
+        "harness_engineering_hint": "Five modules / layer-3 production when combined"
+      },
+      {
+        "id": "multi_agent_a2a",
+        "article_one_liner": "多智能体 + A2A 发现/消息/任务",
+        "ufc_loop_hint": "Primarily outside repo; use closure + pillar-loop for split/attribution",
+        "harness_engineering_hint": "Not A2A in-tree; orchestration + REPORTS for multi-step clarity"
+      }
+    ]
+  },
+  "harness_closure_steps": [
+    {"id": "doc-structure", "command": "python ufc_harness/run_harness.py doc-structure [PLAN]"},
+    {"id": "plan-checks", "command": "python ufc_harness/run_harness.py plan-checks [PLAN]"},
+    {"id": "guardian", "command": "python ufc_harness/run_harness.py guardian [path] [--fail-on-p0]"},
+    {"id": "naming", "command": "python ufc_harness/run_harness.py naming [path]"},
+    {"id": "pillar-loop", "command": "python ufc_harness/run_harness.py pillar-loop [scan] [--dry-run] [--fail-on-p0]"}
+  ]
+}

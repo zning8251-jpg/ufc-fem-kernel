@@ -1,0 +1,73 @@
+{
+  "$schema_comment": "Six full through-domain pillars P1–P6 per UFC REPORTS/UFC_L3L4L5_二元重构蓝图规范_v1.0.md §2.1 and docs/02_Developer_Guide/UFC_L345_形式对齐域级检查表_P1-P6.md. KeyWord is S5 layer-exclusive (same blueprint §20), not a seventh pillar — do not confuse with P1–P6.",
+  "version": "1.0",
+  "binary_structure": {
+    "formula_zh": "数据结构(四型 + Args) + 算法过程(三维后缀)",
+    "cold_axis": {
+      "four_types": ["Desc", "State", "Algo", "Ctx"],
+      "args_bundle": "Args",
+      "typical_file_suffixes": ["_Def.f90", "_Desc.f90", "_State.f90", "_Algo.f90", "_Ctx.f90"],
+      "notes": "冷侧：只读/半静态 TYPE 与 SIO *_Arg 入参束；见蓝图 §1.1、§3。"
+    },
+    "hot_axis": {
+      "typical_module_suffixes": ["_Proc", "_Ops", "_Brg", "_Core"],
+      "notes": "热侧：Populate/Eval/Bridge 等过程与 _Core 热路径；L5 *_Proc 为 SIO 主战场；Guardian HOT/GLB/WB 多命中此轴。"
+    }
+  },
+  "pillars": [
+    {
+      "id": "P1_Material",
+      "name_en": "Material",
+      "name_zh": "材料贯通域柱",
+      "path_markers": ["/L3_MD/Material/", "/L4_PH/Material/", "/L5_RT/Material/"],
+      "default_scan_subdir": "ufc_core/L3_MD/Material",
+      "guardian_rules_profile": "FLOW-002,FLOW-003,WB-001,TYPE-003,GLB-001,DEP-001",
+      "harness_after_p0": ["guardian_rules", "naming", "sio_proc_if_l5"]
+    },
+    {
+      "id": "P2_Element",
+      "name_en": "Element",
+      "name_zh": "单元贯通域柱",
+      "path_markers": ["/L3_MD/Element/", "/L4_PH/Element/", "/L5_RT/Element/"],
+      "default_scan_subdir": "ufc_core/L3_MD/Element",
+      "guardian_rules_profile": "GLB-001,DEP-001,HOT-001,HOT-002,HOT-003,HOT-004,TYPE-003",
+      "harness_after_p0": ["guardian_rules", "naming", "sio_proc_if_l5"]
+    },
+    {
+      "id": "P3_Interaction",
+      "name_en": "Contact/Interaction",
+      "name_zh": "接触与相互作用贯通域柱",
+      "path_markers": ["/L3_MD/Interaction/", "/L4_PH/Contact/", "/L5_RT/Contact/"],
+      "default_scan_subdir": "ufc_core/L3_MD/Interaction",
+      "guardian_rules_profile": "DEP-001,DEP-002,BRG-002,FLOW-002,FLOW-003",
+      "harness_after_p0": ["guardian_rules", "naming", "sio_proc_if_l5"]
+    },
+    {
+      "id": "P4_LoadBC",
+      "name_en": "LoadBC",
+      "name_zh": "载荷与边界条件贯通域柱",
+      "path_markers": ["/L3_MD/Boundary/", "/L3_MD/LoadBC/", "/L4_PH/LoadBC/", "/L5_RT/LoadBC/"],
+      "default_scan_subdir": "ufc_core/L3_MD/LoadBC",
+      "guardian_rules_profile": "DEP-001,NAME-002,FLOW-002,FLOW-003",
+      "harness_after_p0": ["guardian_rules", "naming", "sio_proc_if_l5"]
+    },
+    {
+      "id": "P5_Output",
+      "name_en": "Output",
+      "name_zh": "输出贯通域柱",
+      "path_markers": ["/L3_MD/Output/", "/L4_PH/Output/", "/L5_RT/Output/"],
+      "default_scan_subdir": "ufc_core/L3_MD/Output",
+      "guardian_rules_profile": "DEP-001,DATA-001,FLOW-002,FLOW-003",
+      "harness_after_p0": ["guardian_rules", "naming", "sio_proc_if_l5"]
+    },
+    {
+      "id": "P6_WriteBack",
+      "name_en": "WriteBack",
+      "name_zh": "写回贯通域柱",
+      "path_markers": ["/L3_MD/WriteBack/", "/L4_PH/WriteBack/", "/L4_PH/Bridge/WriteBack/", "/L5_RT/WriteBack/"],
+      "default_scan_subdir": "ufc_core/L3_MD/WriteBack",
+      "guardian_rules_profile": "WB-001,DEP-001,BRG-002,FLOW-002,FLOW-003",
+      "harness_after_p0": ["guardian_rules", "naming", "sio_proc_if_l5"]
+    }
+  ]
+}

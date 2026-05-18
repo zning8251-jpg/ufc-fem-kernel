@@ -1,0 +1,235 @@
+{
+  "version": "2.0.0",
+  "material_enum": {
+    "classification": [
+      "elastic",
+      "plastic",
+      "viscoelastic",
+      "creep",
+      "damage",
+      "hyperelastic",
+      "thermal",
+      "diffusion",
+      "electrical",
+      "multiphysics"
+    ],
+    "strain_framework": [
+      "infinitesimal_strain",
+      "small_strain",
+      "finite_strain",
+      "large_deformation"
+    ],
+    "behavior": [
+      "linear_elastic",
+      "elastoplastic",
+      "plasticity_rate_independent",
+      "plasticity_rate_dependent",
+      "creep_norton",
+      "creep_bailey",
+      "viscoelastic_prony",
+      "damage_brittle",
+      "damage_ductile",
+      "hyperelastic_mooney_rivlin",
+      "hyperelastic_neo_hookean",
+      "thermal_coupled"
+    ],
+    "field_coupling": [
+      "thermal_enabled",
+      "diffusion_enabled",
+      "electrical_enabled",
+      "multi_field_enabled"
+    ],
+    "solve": [
+      "return_mapping",
+      "consistent_tangent",
+      "local_iteration",
+      "implicit_update",
+      "explicit_update"
+    ],
+    "state_geometry": [
+      "point_based",
+      "integration_point_state",
+      "section_point_state",
+      "layered_state"
+    ],
+    "integration_mode": [
+      "bridgeable",
+      "user_material_hook",
+      "surrogate_model_ready"
+    ]
+  },
+  "aliases": {
+    "material_family": {
+      "elastic": [
+        "linear_elastic"
+      ],
+      "plastic": [
+        "elastoplastic",
+        "plasticity_rate_independent",
+        "plasticity_rate_dependent"
+      ],
+      "viscoelastic": [
+        "viscoelastic",
+        "viscoelastic_prony"
+      ],
+      "creep": [
+        "creep",
+        "creep_norton",
+        "creep_bailey"
+      ],
+      "damage": [
+        "damage",
+        "damage_brittle",
+        "damage_ductile"
+      ],
+      "hyperelastic": [
+        "hyperelastic",
+        "hyperelastic_mooney_rivlin",
+        "hyperelastic_neo_hookean"
+      ],
+      "thermal": [
+        "thermal_coupled"
+      ],
+      "multiphysics": [
+        "thermal_enabled",
+        "diffusion_enabled",
+        "electrical_enabled",
+        "multi_field_enabled"
+      ]
+    },
+    "bridge_tags": [
+      "bridgeable",
+      "user_material_hook",
+      "surrogate_model_ready"
+    ]
+  },
+  "compatibility_matrix": [
+    {
+      "element_family": "3D Solid",
+      "section_family": "Solid Section",
+      "procedure_family": "Static",
+      "material_family": "elastic",
+      "required": [
+        "infinitesimal_strain",
+        "small_strain",
+        "integration_point_state",
+        "consistent_tangent"
+      ],
+      "policy": "allow"
+    },
+    {
+      "element_family": "3D Solid",
+      "section_family": "Solid Section",
+      "procedure_family": "Static",
+      "material_family": "plastic",
+      "required": [
+        "finite_strain",
+        "integration_point_state",
+        "return_mapping",
+        "consistent_tangent"
+      ],
+      "policy": "allow"
+    },
+    {
+      "element_family": "3D Solid",
+      "section_family": "Solid Section",
+      "procedure_family": "Dynamic Explicit",
+      "material_family": "elastic",
+      "required": [
+        "explicit_update",
+        "point_based"
+      ],
+      "policy": "allow"
+    },
+    {
+      "element_family": "3D Solid",
+      "section_family": "Solid Section",
+      "procedure_family": "Coupled Temp-Disp",
+      "material_family": "thermal",
+      "required": [
+        "thermal_coupled",
+        "integration_point_state",
+        "implicit_update"
+      ],
+      "policy": "bridge-required"
+    },
+    {
+      "element_family": "Beam",
+      "section_family": "Beam Section",
+      "procedure_family": "Static",
+      "material_family": "elastic",
+      "required": [
+        "section_point_state",
+        "consistent_tangent"
+      ],
+      "policy": "allow"
+    },
+    {
+      "element_family": "Shell",
+      "section_family": "Shell Section",
+      "procedure_family": "Static",
+      "material_family": "hyperelastic",
+      "required": [
+        "layered_state",
+        "finite_strain",
+        "consistent_tangent"
+      ],
+      "policy": "allow"
+    },
+    {
+      "element_family": "Shell",
+      "section_family": "Shell Section",
+      "procedure_family": "Coupled Temp-Disp",
+      "material_family": "thermal",
+      "required": [
+        "layered_state",
+        "thermal_coupled",
+        "implicit_update"
+      ],
+      "policy": "bridge-required"
+    },
+    {
+      "element_family": "Truss",
+      "section_family": "Truss Section",
+      "procedure_family": "Static",
+      "material_family": "elastic",
+      "required": [
+        "small_strain",
+        "point_based",
+        "consistent_tangent"
+      ],
+      "policy": "allow"
+    },
+    {
+      "element_family": "Pore/Porous",
+      "section_family": "Porous Section",
+      "procedure_family": "Static",
+      "material_family": "multiphysics",
+      "required": [
+        "multi_field_enabled",
+        "integration_point_state",
+        "implicit_update"
+      ],
+      "policy": "needs-review"
+    }
+  ],
+  "compatibility_notes": {
+    "allow_requires": [
+      "required tags are subset of material enum tags or mapped aliases",
+      "material_family must match aliases or exact family tags",
+      "bridge policy must be explicit for any non-direct allow"
+    ],
+    "deny_triggers": [
+      "missing required tags",
+      "state size mismatch",
+      "unsupported procedure family",
+      "no bridge configured",
+      "material family not supported by element/section/procedure triple"
+    ],
+    "review_triggers": [
+      "policy is needs-review",
+      "alias mapping required",
+      "multi-field coupling requires manual confirmation"
+    ]
+  }
+}

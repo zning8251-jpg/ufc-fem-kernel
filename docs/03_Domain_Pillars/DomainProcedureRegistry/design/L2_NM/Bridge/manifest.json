@@ -1,0 +1,28 @@
+{
+  "layer": "L2_NM",
+  "domain_bucket": "Bridge",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L2_NM/Bridge/NM_Brg.f90",
+      "stem": "NM_Brg"
+    },
+    {
+      "source_rel": "L2_NM/Bridge/NM_DirMUMPS_Brg.f90",
+      "stem": "NM_DirMUMPS_Brg"
+    },
+    {
+      "source_rel": "L2_NM/Bridge/NM_DirSolvDispatcher_Brg.f90",
+      "stem": "NM_DirSolvDispatcher_Brg"
+    },
+    {
+      "source_rel": "L2_NM/Bridge/NM_DirSparsePak_Brg.f90",
+      "stem": "NM_DirSparsePak_Brg"
+    },
+    {
+      "source_rel": "L2_NM/Bridge/NM_PrecAGMGHSL_Brg.f90",
+      "stem": "NM_PrecAGMGHSL_Brg"
+    }
+  ]
+}

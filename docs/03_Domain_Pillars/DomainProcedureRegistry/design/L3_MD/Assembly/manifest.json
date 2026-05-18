@@ -1,0 +1,24 @@
+{
+  "layer": "L3_MD",
+  "domain_bucket": "Assembly",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L3_MD/Assembly/MD_Assem.f90",
+      "stem": "MD_Assem"
+    },
+    {
+      "source_rel": "L3_MD/Assembly/MD_Assem_Domain.f90",
+      "stem": "MD_Assem_Domain"
+    },
+    {
+      "source_rel": "L3_MD/Assembly/MD_Assem_Legacy.f90",
+      "stem": "MD_Assem_Legacy"
+    },
+    {
+      "source_rel": "L3_MD/Assembly/MD_Instance.f90",
+      "stem": "MD_Instance"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "layer": "L4_PH",
+  "domain_bucket": "Field",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L4_PH/Field/PH_Field_Def.f90",
+      "stem": "PH_Field_Def"
+    },
+    {
+      "source_rel": "L4_PH/Field/PH_Field_Ops.f90",
+      "stem": "PH_Field_Ops"
+    },
+    {
+      "source_rel": "L4_PH/Field/PH_Field_ComputeTemp.f90",
+      "stem": "PH_Field_ComputeTemp"
+    },
+    {
+      "source_rel": "L4_PH/Field/PH_Field_ComputePore.f90",
+      "stem": "PH_Field_ComputePore"
+    },
+    {
+      "source_rel": "L4_PH/Field/PH_Field_ComputeConc.f90",
+      "stem": "PH_Field_ComputeConc"
+    },
+    {
+      "source_rel": "L4_PH/Field/PH_Field_GaussQuadrature.f90",
+      "stem": "PH_Field_GaussQuadrature"
+    },
+    {
+      "source_rel": "L4_PH/Field/PH_Field_ShapeFunc.f90",
+      "stem": "PH_Field_ShapeFunc"
+    },
+    {
+      "source_rel": "L4_PH/Field/PH_Field_Cpl.f90",
+      "stem": "PH_Field_Cpl"
+    }
+  ]
+}

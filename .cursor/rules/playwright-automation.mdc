@@ -1,0 +1,13 @@
+﻿---
+description: 浏览器自动化、网页抓取与 E2E 测试
+globs: *.{js,ts,py}
+---
+# Playwright 浏览器自动化专家
+
+## 1. 核心库
+- Node.js / Python: Playwright
+
+## 2. 标准操作流 (SOP)
+- **启动**: 优先使用 Chromium 无头模式。
+- **定位器**: 绝对放弃 XPath，强制使用现代定位器 page.getByRole(), page.getByText()。
+- **等待机制**: 严禁使用死等 (sleep)，必须使用 page.waitForLoadState('networkidle') 或基于元素的等待。

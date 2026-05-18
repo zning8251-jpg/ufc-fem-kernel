@@ -1,0 +1,144 @@
+{
+  "layer": "L3_MD",
+  "domain_bucket": "Mesh",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L3_MD/Element/Elem/Beam/MD_ElemBeam.f90",
+      "stem": "MD_ElemBeam"
+    },
+    {
+      "source_rel": "L3_MD/Element/Elem/Cohesive/MD_ElemCohesive.f90",
+      "stem": "MD_ElemCohesive"
+    },
+    {
+      "source_rel": "L3_MD/Element/Elem/Dashpot/MD_ElemDashpot.f90",
+      "stem": "MD_ElemDashpot"
+    },
+    {
+      "source_rel": "L3_MD/Element/Elem/Gasket/MD_ElemGasket.f90",
+      "stem": "MD_ElemGasket"
+    },
+    {
+      "source_rel": "L3_MD/Element/Elem/Infinite/MD_ElemInfinite.f90",
+      "stem": "MD_ElemInfinite"
+    },
+    {
+      "source_rel": "L3_MD/Element/Elem/Mass/MD_ElemMass.f90",
+      "stem": "MD_ElemMass"
+    },
+    {
+      "source_rel": "L3_MD/Element/Elem/MD_Elem_Def.f90",
+      "stem": "MD_Elem_Def"
+    },
+    {
+      "source_rel": "L3_MD/Element/Elem/MD_Elem_Reg.f90",
+      "stem": "MD_Elem_Reg"
+    },
+    {
+      "source_rel": "L3_MD/Element/Elem/MD_ElemDomain.f90",
+      "stem": "MD_ElemDomain"
+    },
+    {
+      "source_rel": "L3_MD/Element/Elem/MD_Elem_PHBinding.f90",
+      "stem": "MD_Elem_PHBinding"
+    },
+    {
+      "source_rel": "L3_MD/Element/Elem/MD_ElemPopulate.f90",
+      "stem": "MD_ElemPopulate"
+    },
+    {
+      "source_rel": "L3_MD/Element/Elem/MD_ElemValidate.f90",
+      "stem": "MD_ElemValidate"
+    },
+    {
+      "source_rel": "L3_MD/Element/Elem/Shell/MD_ElemShell.f90",
+      "stem": "MD_ElemShell"
+    },
+    {
+      "source_rel": "L3_MD/Element/Elem/Solid2D/MD_ElemSld2D.f90",
+      "stem": "MD_ElemSld2D"
+    },
+    {
+      "source_rel": "L3_MD/Element/Elem/Solid3D/MD_ElemSld3D.f90",
+      "stem": "MD_ElemSld3D"
+    },
+    {
+      "source_rel": "L3_MD/Element/Elem/Spring/MD_ElemSpring.f90",
+      "stem": "MD_ElemSpring"
+    },
+    {
+      "source_rel": "L3_MD/Element/Elem/Surface/MD_ElemSurface.f90",
+      "stem": "MD_ElemSurface"
+    },
+    {
+      "source_rel": "L3_MD/Element/Elem/Truss/MD_ElemTruss.f90",
+      "stem": "MD_ElemTruss"
+    },
+    {
+      "source_rel": "L3_MD/Element/Mesh/MD_DOF.f90",
+      "stem": "MD_DOF"
+    },
+    {
+      "source_rel": "L3_MD/Element/Mesh/MD_DOFMgr.f90",
+      "stem": "MD_DOFMgr"
+    },
+    {
+      "source_rel": "L3_MD/Element/Elem/MD_Elem_UEL_Def.f90",
+      "stem": "MD_Elem_UEL_Def"
+    },
+    {
+      "source_rel": "L3_MD/Element/Elem/MD_Elem_Mgr.f90",
+      "stem": "MD_Elem_Mgr"
+    },
+    {
+      "source_rel": "L3_MD/Element/Elem/MD_Elem_Family.f90",
+      "stem": "MD_Elem_Family"
+    },
+    {
+      "source_rel": "L3_MD/Element/Elem/MD_Elem_InpMap.f90",
+      "stem": "MD_Elem_InpMap"
+    },
+    {
+      "source_rel": "L3_MD/Element/Mesh/MD_Mesh_Def.f90",
+      "stem": "MD_Mesh_Def"
+    },
+    {
+      "source_rel": "L3_MD/Element/Mesh/MD_Mesh.f90",
+      "stem": "MD_Mesh"
+    },
+    {
+      "source_rel": "L3_MD/Element/Mesh/MD_MeshData.f90",
+      "stem": "MD_MeshData"
+    },
+    {
+      "source_rel": "L3_MD/Element/Mesh/MD_MeshDomain.f90",
+      "stem": "MD_MeshDomain"
+    },
+    {
+      "source_rel": "L3_MD/Element/Mesh/MD_MeshElem.f90",
+      "stem": "MD_MeshElem"
+    },
+    {
+      "source_rel": "L3_MD/Element/Mesh/MD_MeshGlobalNum.f90",
+      "stem": "MD_MeshGlobalNum"
+    },
+    {
+      "source_rel": "L3_MD/Element/Mesh/MD_MeshMgr.f90",
+      "stem": "MD_MeshMgr"
+    },
+    {
+      "source_rel": "L3_MD/Element/Mesh/MD_MeshNode.f90",
+      "stem": "MD_MeshNode"
+    },
+    {
+      "source_rel": "L3_MD/Element/Mesh/MD_MeshSync.f90",
+      "stem": "MD_MeshSync"
+    },
+    {
+      "source_rel": "L3_MD/Element/Mesh/MD_Node.f90",
+      "stem": "MD_Node"
+    }
+  ]
+}

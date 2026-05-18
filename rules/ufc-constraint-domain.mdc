@@ -1,0 +1,46 @@
+---
+description: UFC Constraint 域（L3_MD / L4_PH）— MPC·RBE·Tie 与 L5 装配衔接；改约束相关 .f90 或对齐文档时遵守
+globs: UFC/**/Constraint/**/*.f90,UFC/**/LoadBC/**/*.f90,**/MD_Constraint*.f90,**/PH_Constraint*.f90,**/PH_Constr*.f90
+alwaysApply: false
+---
+
+# UFC Constraint 域约束
+
+在创建或修改 **约束（Constraint）** 相关 Fortran 或文档时，与 **L3 定义 / L4 施加 / L5 装配** 分层一致，并符合 **Fortran 90/2003**（见 `.cursor/rules/ufc-fortran-syntax.mdc`）。
+
+## 分层职责
+
+| 层 | 路径（典型） | 职责 |
+|----|----------------|------|
+| **L3_MD** | `UFC/ufc_core/L3_MD/Constraint/` | 约束 **Desc**：Tie / MPC / Coupling / Rigid；`MD_Constraint_API` 统一入口 |
+| **L4_PH** | `UFC/ufc_core/L4_PH/Constraint/` | **物理施加**：`PH_Constraint_Domain_Core` — MPC 方程存储、消元/Lagrange/罚/变换、`CSR` 扩展与消元 |
+| **L5_RT** | `RT_Ldbc_ConstApply` 等 | **全局 K/R** 侧 Tie/MPC/CPL/Rigid 等常约束装配（与 **LoadBC** 并行关注 dof/方程号） |
+
+## L4 核心模块要点（`PH_Constraint_Domain_Core`）
+
+- **容器**：`g_ufc_global%ph_layer%constraint`（与域头注释一致）。
+- **施加方式枚举**（数值以源码为准）：
+  - `PH_CONS_ELIMINATION` — 主从消元 + `dofMask`（**默认首选**）
+  - `PH_CONS_TRANSFORM` — `K_red = T^T K T`，`f_red = T^T f`
+  - `PH_CONS_LAGRANGE` / `PH_CONS_PENALTY` / `PH_CONS_AUGLAG`
+- **约束类型**：`PH_CTYPE_MPC`, `RBE2`, `RBE3`, `TIE`, `COUPLING`, `EMBEDDED`。
+- **典型调用序**：`Init` → `RegisterConstraint` / `AddMPCEquation` →（`BuildDofMaskFromMPC` | `ExtendCSRForMPC` + `Apply_Elimination_CSR` | `Assemble_KauxFaux` | `Apply_Transformation`）→ `Update_Lambda`（Lagrange 路径）。
+- **禁止**：L4 **WriteBack 写 L3**；L4 不直接依赖 L6。
+
+## 命名与类型
+
+- 模块：`PH_Constraint_Domain_Core`、`PH_Constr_*`（历史缩写）、`MD_Constraint_*`。
+- **Arg 类型**：Phase B 使用 `PH_Constraint_*_Arg` / `MD_*_Arg` 包装，`ErrorStatusType` 出站。
+- 与 `ufc-naming.mdc` 一致：**公开过程带层前缀**，实现可 `PRIVATE`。
+
+## 文档与计划
+
+- 域级说明：`ufc_core/L4_PH/Constraint/CONTRACT.md`
+- 链式叙事（材料/单元/载荷/接触）：`docs/05_Project_Planning/PPLAN/03_实施规划/实施路线/UFC_Chain_Rollout_Material_Element_LoadBC_Contact.md`（若涉及约束与载荷/接触交界，同步更新）
+
+## 修改检查清单
+
+1. `IMPLICIT NONE`、接口与 `ALLOCATABLE` 生命周期成对。
+2. 枚举/默认值与 **`PH_Constraint_Domain_Core.f90`** 一致，文档表格勿漏 **`PH_CONS_ELIMINATION = 0`**。
+3. 注释使用 **ASCII**（避免乱码 `?` 替代符号）。
+4. 大型稀疏修改后考虑 **CSR 模式**与 **数值稳定性**（主元选 `|coeff|` 最大 dof）。

@@ -1,0 +1,32 @@
+{
+  "layer": "L3_MD",
+  "domain_bucket": "Part",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L3_MD/Part/MD_Geom_Def.f90",
+      "stem": "MD_Geom_Def"
+    },
+    {
+      "source_rel": "L3_MD/Part/MD_Part.f90",
+      "stem": "MD_Part"
+    },
+    {
+      "source_rel": "L3_MD/Part/MD_Part_Def.f90",
+      "stem": "MD_Part_Def"
+    },
+    {
+      "source_rel": "L3_MD/Part/MD_PartSync.f90",
+      "stem": "MD_PartSync"
+    },
+    {
+      "source_rel": "L3_MD/Part/MD_Sets.f90",
+      "stem": "MD_Sets"
+    },
+    {
+      "source_rel": "L3_MD/Part/MD_Sets_Ctx.f90",
+      "stem": "MD_Sets_Ctx"
+    }
+  ]
+}

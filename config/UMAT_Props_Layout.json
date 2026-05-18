@@ -1,0 +1,240 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "UFC UMAT Props Layout — Machine-Readable Table (G7)",
+  "version": "1.0.0",
+  "updated": "2026-05-04",
+  "description": "Defines the layout of the props(:) array for each UMAT material model. Index is 1-based (Fortran). Each entry lists slot index, symbolic name, physical unit, type, and validation constraint.",
+  "models": [
+    {
+      "model_id": "Elas_Iso",
+      "family": "Elas",
+      "subtype": "Iso",
+      "nprops_min": 2,
+      "nprops_max": 2,
+      "slots": [
+        { "index": 1, "name": "E",       "desc": "Young's modulus",          "unit": "Pa",  "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 2, "name": "nu",      "desc": "Poisson's ratio",         "unit": "-",   "type": "REAL(wp)", "constraint": "(-1, 0.5)" }
+      ]
+    },
+    {
+      "model_id": "Elas_Aniso",
+      "family": "Elas",
+      "subtype": "Aniso",
+      "nprops_min": 21,
+      "nprops_max": 21,
+      "slots": [
+        { "index": 1,  "name": "D11", "desc": "Stiffness component D_11 (Voigt)", "unit": "Pa", "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 2,  "name": "D12", "desc": "Stiffness component D_12 (Voigt)", "unit": "Pa", "type": "REAL(wp)", "constraint": "any" },
+        { "index": 3,  "name": "D13", "desc": "Stiffness component D_13 (Voigt)", "unit": "Pa", "type": "REAL(wp)", "constraint": "any" },
+        { "index": 4,  "name": "D14", "desc": "Stiffness component D_14 (Voigt)", "unit": "Pa", "type": "REAL(wp)", "constraint": "any" },
+        { "index": 5,  "name": "D15", "desc": "Stiffness component D_15 (Voigt)", "unit": "Pa", "type": "REAL(wp)", "constraint": "any" },
+        { "index": 6,  "name": "D16", "desc": "Stiffness component D_16 (Voigt)", "unit": "Pa", "type": "REAL(wp)", "constraint": "any" },
+        { "index": 7,  "name": "D22", "desc": "Stiffness component D_22 (Voigt)", "unit": "Pa", "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 8,  "name": "D23", "desc": "Stiffness component D_23 (Voigt)", "unit": "Pa", "type": "REAL(wp)", "constraint": "any" },
+        { "index": 9,  "name": "D24", "desc": "Stiffness component D_24 (Voigt)", "unit": "Pa", "type": "REAL(wp)", "constraint": "any" },
+        { "index": 10, "name": "D25", "desc": "Stiffness component D_25 (Voigt)", "unit": "Pa", "type": "REAL(wp)", "constraint": "any" },
+        { "index": 11, "name": "D26", "desc": "Stiffness component D_26 (Voigt)", "unit": "Pa", "type": "REAL(wp)", "constraint": "any" },
+        { "index": 12, "name": "D33", "desc": "Stiffness component D_33 (Voigt)", "unit": "Pa", "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 13, "name": "D34", "desc": "Stiffness component D_34 (Voigt)", "unit": "Pa", "type": "REAL(wp)", "constraint": "any" },
+        { "index": 14, "name": "D35", "desc": "Stiffness component D_35 (Voigt)", "unit": "Pa", "type": "REAL(wp)", "constraint": "any" },
+        { "index": 15, "name": "D36", "desc": "Stiffness component D_36 (Voigt)", "unit": "Pa", "type": "REAL(wp)", "constraint": "any" },
+        { "index": 16, "name": "D44", "desc": "Stiffness component D_44 (Voigt)", "unit": "Pa", "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 17, "name": "D45", "desc": "Stiffness component D_45 (Voigt)", "unit": "Pa", "type": "REAL(wp)", "constraint": "any" },
+        { "index": 18, "name": "D46", "desc": "Stiffness component D_46 (Voigt)", "unit": "Pa", "type": "REAL(wp)", "constraint": "any" },
+        { "index": 19, "name": "D55", "desc": "Stiffness component D_55 (Voigt)", "unit": "Pa", "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 20, "name": "D56", "desc": "Stiffness component D_56 (Voigt)", "unit": "Pa", "type": "REAL(wp)", "constraint": "any" },
+        { "index": 21, "name": "D66", "desc": "Stiffness component D_66 (Voigt)", "unit": "Pa", "type": "REAL(wp)", "constraint": "> 0" }
+      ]
+    },
+    {
+      "model_id": "Plast_J2",
+      "family": "Plast",
+      "subtype": "J2",
+      "nprops_min": 3,
+      "nprops_max": 5,
+      "slots": [
+        { "index": 1, "name": "E",         "desc": "Young's modulus",              "unit": "Pa",  "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 2, "name": "nu",        "desc": "Poisson's ratio",             "unit": "-",   "type": "REAL(wp)", "constraint": "(-1, 0.5)" },
+        { "index": 3, "name": "sigma_Y",   "desc": "Initial yield stress",        "unit": "Pa",  "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 4, "name": "H_iso",     "desc": "Isotropic hardening modulus",  "unit": "Pa",  "type": "REAL(wp)", "constraint": ">= 0", "optional": true },
+        { "index": 5, "name": "H_kin",     "desc": "Kinematic hardening modulus",  "unit": "Pa",  "type": "REAL(wp)", "constraint": ">= 0", "optional": true }
+      ]
+    },
+    {
+      "model_id": "Therm_Iso",
+      "family": "Therm",
+      "subtype": "Iso",
+      "nprops_min": 3,
+      "nprops_max": 3,
+      "slots": [
+        { "index": 1, "name": "k",   "desc": "Thermal conductivity",    "unit": "W/(m·K)", "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 2, "name": "Cp",  "desc": "Specific heat capacity",  "unit": "J/(kg·K)","type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 3, "name": "rho", "desc": "Density",                  "unit": "kg/m³",   "type": "REAL(wp)", "constraint": "> 0" }
+      ]
+    },
+    {
+      "model_id": "Therm_Ortho",
+      "family": "Therm",
+      "subtype": "Ortho",
+      "nprops_min": 5,
+      "nprops_max": 5,
+      "slots": [
+        { "index": 1, "name": "k1",   "desc": "Thermal conductivity dir 1", "unit": "W/(m·K)", "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 2, "name": "k2",   "desc": "Thermal conductivity dir 2", "unit": "W/(m·K)", "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 3, "name": "k3",   "desc": "Thermal conductivity dir 3", "unit": "W/(m·K)", "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 4, "name": "Cp",   "desc": "Specific heat capacity",      "unit": "J/(kg·K)","type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 5, "name": "rho",  "desc": "Density",                     "unit": "kg/m³",   "type": "REAL(wp)", "constraint": "> 0" }
+      ]
+    },
+    {
+      "model_id": "Therm_Expansion",
+      "family": "Therm",
+      "subtype": "Expansion",
+      "nprops_min": 2,
+      "nprops_max": 2,
+      "slots": [
+        { "index": 1, "name": "alpha_T", "desc": "Coefficient of thermal expansion", "unit": "1/K", "type": "REAL(wp)", "constraint": ">= 0" },
+        { "index": 2, "name": "T_ref",   "desc": "Reference temperature",             "unit": "K",   "type": "REAL(wp)", "constraint": "any" }
+      ]
+    },
+    {
+      "model_id": "Damage_CDP",
+      "family": "Damage",
+      "subtype": "CDP",
+      "nprops_min": 8,
+      "nprops_max": 8,
+      "slots": [
+        { "index": 1, "name": "E",     "desc": "Young's modulus",            "unit": "Pa",   "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 2, "name": "nu",    "desc": "Poisson's ratio",            "unit": "-",    "type": "REAL(wp)", "constraint": "(-1, 0.5)" },
+        { "index": 3, "name": "fc",    "desc": "Compressive strength",       "unit": "Pa",   "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 4, "name": "ft",    "desc": "Tensile strength",           "unit": "Pa",   "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 5, "name": "Ec",    "desc": "Compressive fracture energy","unit": "J/m²", "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 6, "name": "Et",    "desc": "Tensile fracture energy",   "unit": "J/m²", "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 7, "name": "Gf_c",  "desc": "Compressive Gf",           "unit": "J/m²", "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 8, "name": "Gf_t",  "desc": "Tensile Gf",               "unit": "J/m²", "type": "REAL(wp)", "constraint": "> 0" }
+      ]
+    },
+    {
+      "model_id": "Damage_Brittle",
+      "family": "Damage",
+      "subtype": "Brittle",
+      "nprops_min": 8,
+      "nprops_max": 8,
+      "slots": [
+        { "index": 1, "name": "E",         "desc": "Young's modulus",              "unit": "Pa",   "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 2, "name": "nu",        "desc": "Poisson's ratio",              "unit": "-",    "type": "REAL(wp)", "constraint": "(-1, 0.5)" },
+        { "index": 3, "name": "ft",        "desc": "Tensile strength",             "unit": "Pa",   "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 4, "name": "Gf",        "desc": "Fracture energy",              "unit": "J/m²", "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 5, "name": "alpha",     "desc": "Damage threshold parameter",   "unit": "-",    "type": "REAL(wp)", "constraint": ">= 0" },
+        { "index": 6, "name": "beta",      "desc": "Damage evolution parameter",   "unit": "-",    "type": "REAL(wp)", "constraint": ">= 0" },
+        { "index": 7, "name": "gamma",     "desc": "Softening parameter",          "unit": "-",    "type": "REAL(wp)", "constraint": ">= 0" },
+        { "index": 8, "name": "d_max",     "desc": "Maximum damage",               "unit": "-",    "type": "REAL(wp)", "constraint": "(0, 1]" }
+      ]
+    },
+    {
+      "model_id": "Damage_Ductile",
+      "family": "Damage",
+      "subtype": "Ductile",
+      "nprops_min": 10,
+      "nprops_max": 10,
+      "slots": [
+        { "index": 1,  "name": "E",           "desc": "Young's modulus",                "unit": "Pa",   "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 2,  "name": "nu",          "desc": "Poisson's ratio",                "unit": "-",    "type": "REAL(wp)", "constraint": "(-1, 0.5)" },
+        { "index": 3,  "name": "sigma_Y",     "desc": "Initial yield stress",           "unit": "Pa",   "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 4,  "name": "H_iso",       "desc": "Isotropic hardening modulus",    "unit": "Pa",   "type": "REAL(wp)", "constraint": ">= 0" },
+        { "index": 5,  "name": "eps_fail",    "desc": "Failure strain",                  "unit": "-",    "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 6,  "name": "eps_frac",    "desc": "Fracture strain",                 "unit": "-",    "type": "REAL(wp)", "constraint": "> eps_fail" },
+        { "index": 7,  "name": "triax_factor","desc": "Stress triaxiality factor",      "unit": "-",    "type": "REAL(wp)", "constraint": "any" },
+        { "index": 8,  "name": "Gf",          "desc": "Fracture energy",                 "unit": "J/m²", "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 9,  "name": "alpha_dmg",   "desc": "Damage coupling parameter",      "unit": "-",    "type": "REAL(wp)", "constraint": "[0, 1]" },
+        { "index": 10, "name": "d_max",       "desc": "Maximum damage",                  "unit": "-",    "type": "REAL(wp)", "constraint": "(0, 1]" }
+      ]
+    },
+    {
+      "model_id": "Damage_Fatigue",
+      "family": "Damage",
+      "subtype": "Fatigue",
+      "nprops_min": 10,
+      "nprops_max": 10,
+      "slots": [
+        { "index": 1,  "name": "E",         "desc": "Young's modulus",            "unit": "Pa",   "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 2,  "name": "nu",        "desc": "Poisson's ratio",            "unit": "-",    "type": "REAL(wp)", "constraint": "(-1, 0.5)" },
+        { "index": 3,  "name": "sigma_f",   "desc": "Fatigue strength coefficient","unit": "Pa",   "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 4,  "name": "b_fat",     "desc": "Fatigue strength exponent",  "unit": "-",    "type": "REAL(wp)", "constraint": "any" },
+        { "index": 5,  "name": "eps_f",     "desc": "Fatigue ductility coeff",    "unit": "-",    "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 6,  "name": "c_fat",     "desc": "Fatigue ductility exponent", "unit": "-",    "type": "REAL(wp)", "constraint": "any" },
+        { "index": 7,  "name": "N_cycle",   "desc": "Reference cycle count",      "unit": "-",    "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 8,  "name": "K_fat",     "desc": "Fatigue damage rate",        "unit": "-",    "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 9,  "name": "alpha_fat", "desc": "Fatigue exponent",           "unit": "-",    "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 10, "name": "d_max",     "desc": "Maximum damage",             "unit": "-",    "type": "REAL(wp)", "constraint": "(0, 1]" }
+      ]
+    },
+    {
+      "model_id": "Comp_Hashin",
+      "family": "Comp",
+      "subtype": "Hashin",
+      "nprops_min": 9,
+      "nprops_max": 9,
+      "slots": [
+        { "index": 1, "name": "E1",    "desc": "Longitudinal Young's modulus",   "unit": "Pa", "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 2, "name": "E2",    "desc": "Transverse Young's modulus",     "unit": "Pa", "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 3, "name": "nu12",  "desc": "Major Poisson's ratio",          "unit": "-",  "type": "REAL(wp)", "constraint": "(0, 1)" },
+        { "index": 4, "name": "G12",   "desc": "In-plane shear modulus",         "unit": "Pa", "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 5, "name": "Xt",    "desc": "Longitudinal tensile strength",  "unit": "Pa", "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 6, "name": "Xc",    "desc": "Longitudinal compressive str.",  "unit": "Pa", "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 7, "name": "Yt",    "desc": "Transverse tensile strength",    "unit": "Pa", "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 8, "name": "Yc",    "desc": "Transverse compressive str.",    "unit": "Pa", "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 9, "name": "S",     "desc": "In-plane shear strength",        "unit": "Pa", "type": "REAL(wp)", "constraint": "> 0" }
+      ]
+    },
+    {
+      "model_id": "Comp_Fabric",
+      "family": "Comp",
+      "subtype": "Fabric",
+      "nprops_min": 10,
+      "nprops_max": 10,
+      "slots": [
+        { "index": 1,  "name": "E1",   "desc": "Warp Young's modulus",          "unit": "Pa", "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 2,  "name": "E2",   "desc": "Fill Young's modulus",          "unit": "Pa", "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 3,  "name": "E3",   "desc": "Through-thickness modulus",     "unit": "Pa", "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 4,  "name": "nu12", "desc": "Poisson's ratio 12",            "unit": "-",  "type": "REAL(wp)", "constraint": "(0, 1)" },
+        { "index": 5,  "name": "nu23", "desc": "Poisson's ratio 23",            "unit": "-",  "type": "REAL(wp)", "constraint": "(0, 1)" },
+        { "index": 6,  "name": "G12",  "desc": "Shear modulus 12",             "unit": "Pa", "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 7,  "name": "G23",  "desc": "Shear modulus 23",             "unit": "Pa", "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 8,  "name": "G13",  "desc": "Shear modulus 13",             "unit": "Pa", "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 9,  "name": "alpha","desc": "Fabric orientation angle",      "unit": "rad","type": "REAL(wp)", "constraint": "any" },
+        { "index": 10, "name": "Vf",   "desc": "Fiber volume fraction",        "unit": "-",  "type": "REAL(wp)", "constraint": "(0, 1)" }
+      ]
+    },
+    {
+      "model_id": "Acoustic",
+      "family": "Acoustic",
+      "subtype": "default",
+      "nprops_min": 2,
+      "nprops_max": 4,
+      "slots": [
+        { "index": 1, "name": "density",      "desc": "Reference density",              "unit": "kg/m³",    "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 2, "name": "bulk_modulus",  "desc": "Reference bulk modulus",         "unit": "Pa",       "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 3, "name": "sound_speed",   "desc": "Reference speed of sound",       "unit": "m/s",      "type": "REAL(wp)", "constraint": "> 0", "optional": true },
+        { "index": 4, "name": "impedance",     "desc": "Acoustic impedance (rho*c)",      "unit": "Pa·s/m",   "type": "REAL(wp)", "constraint": "> 0", "optional": true }
+      ]
+    },
+    {
+      "model_id": "Therm_PhaseChg",
+      "family": "Therm",
+      "subtype": "PhaseChg",
+      "nprops_min": 8,
+      "nprops_max": 8,
+      "slots": [
+        { "index": 1, "name": "k_s",     "desc": "Solid conductivity",         "unit": "W/(m·K)",  "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 2, "name": "k_l",     "desc": "Liquid conductivity",        "unit": "W/(m·K)",  "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 3, "name": "Cp_s",    "desc": "Solid specific heat",        "unit": "J/(kg·K)", "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 4, "name": "Cp_l",    "desc": "Liquid specific heat",       "unit": "J/(kg·K)", "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 5, "name": "rho",     "desc": "Density",                    "unit": "kg/m³",    "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 6, "name": "T_solid", "desc": "Solidus temperature",        "unit": "K",        "type": "REAL(wp)", "constraint": "> 0" },
+        { "index": 7, "name": "T_liquid","desc": "Liquidus temperature",       "unit": "K",        "type": "REAL(wp)", "constraint": "> T_solid" },
+        { "index": 8, "name": "L_f",     "desc": "Latent heat of fusion",     "unit": "J/kg",     "type": "REAL(wp)", "constraint": "> 0" }
+      ]
+    }
+  ]
+}

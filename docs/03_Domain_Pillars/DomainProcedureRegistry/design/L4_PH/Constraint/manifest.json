@@ -1,0 +1,52 @@
+{
+  "layer": "L4_PH",
+  "domain_bucket": "Constraint",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L4_PH/Constraint/PH_Constr_Ctx.f90",
+      "stem": "PH_Constr_Ctx"
+    },
+    {
+      "source_rel": "L4_PH/Constraint/PH_ConstraintDomain.f90",
+      "stem": "PH_ConstraintDomain"
+    },
+    {
+      "source_rel": "L4_PH/Constraint/PH_ConstrMPC_Brg.f90",
+      "stem": "PH_ConstrMPC_Brg"
+    },
+    {
+      "source_rel": "L4_PH/Constraint/PH_ConstrMPC_Def.f90",
+      "stem": "PH_ConstrMPC_Def"
+    },
+    {
+      "source_rel": "L4_PH/Constraint/PH_ConstrMPC.f90",
+      "stem": "PH_ConstrMPC"
+    },
+    {
+      "source_rel": "L4_PH/Constraint/PH_ConstrPeriod_Brg.f90",
+      "stem": "PH_ConstrPeriod_Brg"
+    },
+    {
+      "source_rel": "L4_PH/Constraint/PH_ConstrPeriod_Def.f90",
+      "stem": "PH_ConstrPeriod_Def"
+    },
+    {
+      "source_rel": "L4_PH/Constraint/PH_ConstrPeriod.f90",
+      "stem": "PH_ConstrPeriod"
+    },
+    {
+      "source_rel": "L4_PH/Constraint/PH_ConstrTie_Brg.f90",
+      "stem": "PH_ConstrTie_Brg"
+    },
+    {
+      "source_rel": "L4_PH/Constraint/PH_ConstrTie_Def.f90",
+      "stem": "PH_ConstrTie_Def"
+    },
+    {
+      "source_rel": "L4_PH/Constraint/PH_ConstrTie.f90",
+      "stem": "PH_ConstrTie"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "layer": "L3_MD",
+  "domain_bucket": "KeyWord",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L3_MD/KeyWord/MD_Inp_Parse.f90",
+      "stem": "MD_Inp_Parse"
+    },
+    {
+      "source_rel": "L3_MD/KeyWord/MD_KeyWord_Def.f90",
+      "stem": "MD_KeyWord_Def"
+    },
+    {
+      "source_rel": "L3_MD/KeyWord/MD_KeyWord_Domain.f90",
+      "stem": "MD_KeyWord_Domain"
+    },
+    {
+      "source_rel": "L3_MD/KeyWord/MD_KeyWordParser_Def.f90",
+      "stem": "MD_KeyWordParser_Def"
+    },
+    {
+      "source_rel": "L3_MD/KeyWord/MD_KeyWord_ParserRecursive.f90",
+      "stem": "MD_KeyWord_ParserRecursive"
+    },
+    {
+      "source_rel": "L3_MD/KeyWord/MD_KeyWord_Validator.f90",
+      "stem": "MD_KeyWord_Validator"
+    },
+    {
+      "source_rel": "L3_MD/KeyWord/MD_KW.f90",
+      "stem": "MD_KW",
+      "module": "MD_KW"
+    },
+    {
+      "source_rel": "L3_MD/KeyWord/MD_KW_Abaqus.f90",
+      "stem": "MD_KW_Abaqus"
+    },
+    {
+      "source_rel": "L3_MD/KeyWord/MD_KWAP_Brg.f90",
+      "stem": "MD_KWAP_Brg"
+    },
+    {
+      "source_rel": "L3_MD/KeyWord/MD_KW_Core.f90",
+      "stem": "MD_KW_Core"
+    },
+    {
+      "source_rel": "L3_MD/KeyWord/MD_KW_Def.f90",
+      "stem": "MD_KW_Def"
+    },
+    {
+      "source_rel": "L3_MD/KeyWord/MD_KW_Dispatch.f90",
+      "stem": "MD_KW_Dispatch"
+    },
+    {
+      "source_rel": "L3_MD/KeyWord/MD_KW_Lexer.f90",
+      "stem": "MD_KW_Lexer"
+    },
+    {
+      "source_rel": "L3_MD/KeyWord/MD_KW_Mapper.f90",
+      "stem": "MD_KW_Mapper"
+    },
+    {
+      "source_rel": "L3_MD/KeyWord/MD_KW_MemPool.f90",
+      "stem": "MD_KW_MemPool"
+    },
+    {
+      "source_rel": "L3_MD/KeyWord/MD_KW_Parser.f90",
+      "stem": "MD_KW_Parser"
+    },
+    {
+      "source_rel": "L3_MD/KeyWord/MD_KW_Reg.f90",
+      "stem": "MD_KW_Reg"
+    }
+  ]
+}

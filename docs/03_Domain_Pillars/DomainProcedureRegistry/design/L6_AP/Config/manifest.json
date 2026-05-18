@@ -1,0 +1,16 @@
+{
+  "layer": "L6_AP",
+  "domain_bucket": "Config",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L6_AP/Config/AP_Cfg.f90",
+      "stem": "AP_Cfg"
+    },
+    {
+      "source_rel": "L6_AP/Config/AP_CfgDomain.f90",
+      "stem": "AP_CfgDomain"
+    }
+  ]
+}

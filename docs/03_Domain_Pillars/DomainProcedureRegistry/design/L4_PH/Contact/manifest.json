@@ -1,0 +1,82 @@
+{
+  "layer": "L4_PH",
+  "domain_bucket": "Contact",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L4_PH/Contact/AI/NM_AIContactLawAlgo.f90",
+      "stem": "NM_AIContactLawAlgo",
+      "module": "AI_ContactLaw_Algo"
+    },
+    {
+      "source_rel": "L4_PH/Contact/Core/PH_Cont_Brg.f90",
+      "stem": "PH_Cont_Brg"
+    },
+    {
+      "source_rel": "L4_PH/Contact/Core/PH_Cont_Ctx.f90",
+      "stem": "PH_Cont_Ctx"
+    },
+    {
+      "source_rel": "L4_PH/Contact/Core/PH_Cont.f90",
+      "stem": "PH_Cont"
+    },
+    {
+      "source_rel": "L4_PH/Contact/Core/PH_ContCSR.f90",
+      "stem": "PH_ContCSR"
+    },
+    {
+      "source_rel": "L4_PH/Contact/Domain/PH_ContDomain.f90",
+      "stem": "PH_ContDomain"
+    },
+    {
+      "source_rel": "L4_PH/Contact/Explicit/PH_ContExpl.f90",
+      "stem": "PH_ContExpl"
+    },
+    {
+      "source_rel": "L4_PH/Contact/Friction/PH_ContFriction.f90",
+      "stem": "PH_ContFriction"
+    },
+    {
+      "source_rel": "L4_PH/Contact/Search/PH_ContBVHBuilder.f90",
+      "stem": "PH_ContBVHBuilder"
+    },
+    {
+      "source_rel": "L4_PH/Contact/Search/PH_ContBVHQuery.f90",
+      "stem": "PH_ContBVHQuery"
+    },
+    {
+      "source_rel": "L4_PH/Contact/Search/PH_ContCCD.f90",
+      "stem": "PH_ContCCD"
+    },
+    {
+      "source_rel": "L4_PH/Contact/Search/PH_ContSearch.f90",
+      "stem": "PH_ContSearch"
+    },
+    {
+      "source_rel": "L4_PH/Contact/Search/PH_ContSearchAdvanced.f90",
+      "stem": "PH_ContSearchAdvanced",
+      "module": "RT_ContSearch"
+    },
+    {
+      "source_rel": "L4_PH/Contact/Self/PH_ContSelfContact.f90",
+      "stem": "PH_ContSelfContact"
+    },
+    {
+      "source_rel": "L4_PH/Contact/Thermal/PH_ContThermoMech.f90",
+      "stem": "PH_ContThermoMech"
+    },
+    {
+      "source_rel": "L4_PH/Contact/Thermal/PH_ThermalCont_Def.f90",
+      "stem": "PH_ThermalCont_Def"
+    },
+    {
+      "source_rel": "L4_PH/Contact/PH_Cont_Def.f90",
+      "stem": "PH_Cont_Def"
+    },
+    {
+      "source_rel": "L4_PH/Contact/Wear/PH_ContWearEvolution.f90",
+      "stem": "PH_ContWearEvolution"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+---
+description: UFC 多场耦合域 — 已于 2026-03-27 从仓库移除 L3/L4 多物理耦合槽与 MD_Coupling 关键字路径；本规则仅作历史锚点
+globs: UFC/**/Assembly/MD_Assem_Types.f90,UFC/**/MD_L3_LayerContainer_Core.f90,UFC/**/PH_L4_LayerContainer_Core.f90,UFC/**/MD_KW_Mapper.f90,UFC/**/RT_Asm_Solv.f90
+alwaysApply: false
+---
+
+# UFC Coupling（多场耦合）— 已移除
+
+**2026-03-27**：以下已从本仓库删除，勿再引用：
+
+- L3：`md_layer%coupling`、`MD_Cpl_*`、`MD_Coupling`、`assembly%coupling_union`、`MD_Cpl_SyncFromLegacy`
+- L4：`ph_layer%coupling`、`PH_Coupling_Domain_Core`、`PH_L4_Populate_Coupling`、`PH_Brg_Coupling_RT`、`PH_Cpl_TM`、`PH_CoupledTE_Algo`（Multiphysics stub）
+- KW：`*FSI`、`*FLUID STRUCTURE INTERACTION`、`*COUPLED TEMPERATURE DISPLACEMENT`、`*COUPLED THERMAL ELECTRICAL*` 等 **模型定义** 关键字在 `MD_KW_Mapper` 中仅记录警告并忽略（见 `map_multiphysics_coupling_removed`）
+
+**保留（名称易混）**：交互里的 **Coupling 约束**（`MD_CouplingDesc`、`CONSTRAINT_COUPLING`、`*COUPLING` MPC）与上列 **多物理耦合域** 无关。
+
+若重启多场耦合，须新建模块、合同与 Populate，并更新 `DOMAIN_L3_*` / `PH_L4_*` 域清单。

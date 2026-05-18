@@ -1,0 +1,32 @@
+{
+  "layer": "L3_MD",
+  "domain_bucket": "Constraint",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L3_MD/Constraint/MD_Const.f90",
+      "stem": "MD_Const"
+    },
+    {
+      "source_rel": "L3_MD/Constraint/MD_Constraint_Def.f90",
+      "stem": "MD_Constraint_Def"
+    },
+    {
+      "source_rel": "L3_MD/Constraint/MD_ConstraintPairDef.f90",
+      "stem": "MD_ConstraintPairDef"
+    },
+    {
+      "source_rel": "L3_MD/Constraint/MD_ConstraintPropDB.f90",
+      "stem": "MD_ConstraintPropDB"
+    },
+    {
+      "source_rel": "L3_MD/Constraint/MD_ConstraintSurfBridge.f90",
+      "stem": "MD_ConstraintSurfBridge"
+    },
+    {
+      "source_rel": "L3_MD/Constraint/MD_ConstraintSync.f90",
+      "stem": "MD_ConstraintSync"
+    }
+  ]
+}

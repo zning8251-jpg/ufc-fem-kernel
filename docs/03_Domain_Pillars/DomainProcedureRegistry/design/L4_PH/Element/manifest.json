@@ -1,0 +1,816 @@
+{
+  "layer": "L4_PH",
+  "domain_bucket": "Element",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L4_PH/Element/Acoustic/PH_AcousticSuite.f90",
+      "stem": "PH_AcousticSuite"
+    },
+    {
+      "source_rel": "L4_PH/Element/Acoustic/PH_AcousticTransientSolv.f90",
+      "stem": "PH_AcousticTransientSolv"
+    },
+    {
+      "source_rel": "L4_PH/Element/Acoustic/PH_ElemAC2D4.f90",
+      "stem": "PH_ElemAC2D4"
+    },
+    {
+      "source_rel": "L4_PH/Element/Acoustic/PH_ElemAC2D6.f90",
+      "stem": "PH_ElemAC2D6"
+    },
+    {
+      "source_rel": "L4_PH/Element/Acoustic/PH_ElemAC2D8.f90",
+      "stem": "PH_ElemAC2D8"
+    },
+    {
+      "source_rel": "L4_PH/Element/Acoustic/PH_ElemAC3D10.f90",
+      "stem": "PH_ElemAC3D10"
+    },
+    {
+      "source_rel": "L4_PH/Element/Acoustic/PH_ElemAC3D15.f90",
+      "stem": "PH_ElemAC3D15"
+    },
+    {
+      "source_rel": "L4_PH/Element/Acoustic/PH_ElemAC3D20.f90",
+      "stem": "PH_ElemAC3D20"
+    },
+    {
+      "source_rel": "L4_PH/Element/Acoustic/PH_ElemAC3D4.f90",
+      "stem": "PH_ElemAC3D4"
+    },
+    {
+      "source_rel": "L4_PH/Element/Acoustic/PH_ElemAC3D6.f90",
+      "stem": "PH_ElemAC3D6"
+    },
+    {
+      "source_rel": "L4_PH/Element/Acoustic/PH_ElemAC3D8.f90",
+      "stem": "PH_ElemAC3D8"
+    },
+    {
+      "source_rel": "L4_PH/Element/Acoustic/PH_ElemAcousticDefn.f90",
+      "stem": "PH_ElemAcousticDefn"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB21.f90",
+      "stem": "PH_ElemB21"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB21T.f90",
+      "stem": "PH_ElemB21T"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB22.f90",
+      "stem": "PH_ElemB22"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB23.f90",
+      "stem": "PH_ElemB23"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB31.f90",
+      "stem": "PH_ElemB31"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB31Cont.f90",
+      "stem": "PH_ElemB31Cont"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB31Dynamics.f90",
+      "stem": "PH_ElemB31Dynamics"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB31EAS.f90",
+      "stem": "PH_ElemB31EAS"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB31Fbar.f90",
+      "stem": "PH_ElemB31Fbar"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB31H.f90",
+      "stem": "PH_ElemB31H"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB31NL.f90",
+      "stem": "PH_ElemB31NL"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB31NLGeom.f90",
+      "stem": "PH_ElemB31NLGeom"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB31OS.f90",
+      "stem": "PH_ElemB31OS"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB31PIPE.f90",
+      "stem": "PH_ElemB31PIPE"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB31Plasticity.f90",
+      "stem": "PH_ElemB31Plasticity"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB31Stability.f90",
+      "stem": "PH_ElemB31Stability"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB31T.f90",
+      "stem": "PH_ElemB31T"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB31TL.f90",
+      "stem": "PH_ElemB31TL"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB31TNL.f90",
+      "stem": "PH_ElemB31TNL"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB31TP.f90",
+      "stem": "PH_ElemB31TP"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB31TS.f90",
+      "stem": "PH_ElemB31TS"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB31UL.f90",
+      "stem": "PH_ElemB31UL"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB32.f90",
+      "stem": "PH_ElemB32"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB32NL.f90",
+      "stem": "PH_ElemB32NL"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB32P.f90",
+      "stem": "PH_ElemB32P"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB32S.f90",
+      "stem": "PH_ElemB32S"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB32T.f90",
+      "stem": "PH_ElemB32T"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB33.f90",
+      "stem": "PH_ElemB33"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB33NL.f90",
+      "stem": "PH_ElemB33NL"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB33P.f90",
+      "stem": "PH_ElemB33P"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB33S.f90",
+      "stem": "PH_ElemB33S"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemB33T.f90",
+      "stem": "PH_ElemB33T"
+    },
+    {
+      "source_rel": "L4_PH/Element/Beam/PH_ElemBeamDefn.f90",
+      "stem": "PH_ElemBeamDefn"
+    },
+    {
+      "source_rel": "L4_PH/Element/Dashpot/PH_ElemDashDefn.f90",
+      "stem": "PH_ElemDashDefn"
+    },
+    {
+      "source_rel": "L4_PH/Element/Dashpot/PH_ElemDASHPOT1.f90",
+      "stem": "PH_ElemDASHPOT1"
+    },
+    {
+      "source_rel": "L4_PH/Element/Dashpot/PH_ElemDASHPOT2.f90",
+      "stem": "PH_ElemDASHPOT2"
+    },
+    {
+      "source_rel": "L4_PH/Element/Infinite/PH_ElemInfinite.f90",
+      "stem": "PH_ElemInfinite"
+    },
+    {
+      "source_rel": "L4_PH/Element/MD_FieldState.f90",
+      "stem": "MD_FieldState"
+    },
+    {
+      "source_rel": "L4_PH/Element/Membrane/PH_ElemMembrane.f90",
+      "stem": "PH_ElemMembrane"
+    },
+    {
+      "source_rel": "L4_PH/Element/PH_Elem_Ctx.f90",
+      "stem": "PH_Elem_Ctx"
+    },
+    {
+      "source_rel": "L4_PH/Element/PH_Elem_Def.f90",
+      "stem": "PH_Elem_Def"
+    },
+    {
+      "source_rel": "L4_PH/Element/PH_ElemCalcWrapper.f90",
+      "stem": "PH_ElemCalcWrapper"
+    },
+    {
+      "source_rel": "L4_PH/Element/PH_ElemComplexStiff.f90",
+      "stem": "PH_ElemComplexStiff"
+    },
+    {
+      "source_rel": "L4_PH/Element/PH_ElemContm.f90",
+      "stem": "PH_ElemContm"
+    },
+    {
+      "source_rel": "L4_PH/Element/PH_ElemContm_Ops.f90",
+      "stem": "PH_ElemContm_Ops"
+    },
+    {
+      "source_rel": "L4_PH/Element/PH_ElemDomain.f90",
+      "stem": "PH_ElemDomain"
+    },
+    {
+      "source_rel": "L4_PH/Element/PH_ElemDomain_Ops.f90",
+      "stem": "PH_ElemDomain_Ops"
+    },
+    {
+      "source_rel": "L4_PH/Element/PH_ElemFeDispatch.f90",
+      "stem": "PH_ElemFeDispatch"
+    },
+    {
+      "source_rel": "L4_PH/Element/PH_ElemGaussInt.f90",
+      "stem": "PH_ElemGaussInt"
+    },
+    {
+      "source_rel": "L4_PH/Element/PH_ElemKeDispatch.f90",
+      "stem": "PH_ElemKeDispatch"
+    },
+    {
+      "source_rel": "L4_PH/Element/PH_ElemMassDispatch.f90",
+      "stem": "PH_ElemMassDispatch"
+    },
+    {
+      "source_rel": "L4_PH/Element/PH_ElemNlgeom.f90",
+      "stem": "PH_ElemNlgeom"
+    },
+    {
+      "source_rel": "L4_PH/Element/PH_ElemOutDispatch.f90",
+      "stem": "PH_ElemOutDispatch"
+    },
+    {
+      "source_rel": "L4_PH/Element/PH_ElemReg.f90",
+      "stem": "PH_ElemReg"
+    },
+    {
+      "source_rel": "L4_PH/Element/PH_ElemShapeFunc.f90",
+      "stem": "PH_ElemShapeFunc"
+    },
+    {
+      "source_rel": "L4_PH/Element/PH_ElemStructuralFacade.f90",
+      "stem": "PH_ElemStructuralFacade"
+    },
+    {
+      "source_rel": "L4_PH/Element/PH_ErrCode.f90",
+      "stem": "PH_ErrCode"
+    },
+    {
+      "source_rel": "L4_PH/Element/PH_Mass.f90",
+      "stem": "PH_Mass"
+    },
+    {
+      "source_rel": "L4_PH/Element/PH_MathTensor.f90",
+      "stem": "PH_MathTensor"
+    },
+    {
+      "source_rel": "L4_PH/Element/PH_NLGeomEval.f90",
+      "stem": "PH_NLGeomEval",
+      "module": "RT_AsmNLGeomEval"
+    },
+    {
+      "source_rel": "L4_PH/Element/PH_Physical_Def.f90",
+      "stem": "PH_Physical_Def"
+    },
+    {
+      "source_rel": "L4_PH/Element/PH_ShapeMechanicalField.f90",
+      "stem": "PH_ShapeMechanicalField"
+    },
+    {
+      "source_rel": "L4_PH/Element/PH_ShapeScalarField.f90",
+      "stem": "PH_ShapeScalarField",
+      "module": "RT_AsmShapeScalarField"
+    },
+    {
+      "source_rel": "L4_PH/Element/Pipe/PH_ElemPipe.f90",
+      "stem": "PH_ElemPipe"
+    },
+    {
+      "source_rel": "L4_PH/Element/Porous/PH_ElemC3D10P.f90",
+      "stem": "PH_ElemC3D10P"
+    },
+    {
+      "source_rel": "L4_PH/Element/Porous/PH_ElemC3D15P.f90",
+      "stem": "PH_ElemC3D15P"
+    },
+    {
+      "source_rel": "L4_PH/Element/Porous/PH_ElemC3D20P.f90",
+      "stem": "PH_ElemC3D20P"
+    },
+    {
+      "source_rel": "L4_PH/Element/Porous/PH_ElemC3D27P.f90",
+      "stem": "PH_ElemC3D27P"
+    },
+    {
+      "source_rel": "L4_PH/Element/Porous/PH_ElemC3D4P.f90",
+      "stem": "PH_ElemC3D4P"
+    },
+    {
+      "source_rel": "L4_PH/Element/Porous/PH_ElemC3D6P.f90",
+      "stem": "PH_ElemC3D6P"
+    },
+    {
+      "source_rel": "L4_PH/Element/Porous/PH_ElemC3D8P.f90",
+      "stem": "PH_ElemC3D8P"
+    },
+    {
+      "source_rel": "L4_PH/Element/Porous/PH_ElemCAX3P.f90",
+      "stem": "PH_ElemCAX3P"
+    },
+    {
+      "source_rel": "L4_PH/Element/Porous/PH_ElemCAX4P.f90",
+      "stem": "PH_ElemCAX4P"
+    },
+    {
+      "source_rel": "L4_PH/Element/Porous/PH_ElemCAX6P.f90",
+      "stem": "PH_ElemCAX6P"
+    },
+    {
+      "source_rel": "L4_PH/Element/Porous/PH_ElemCAX8P.f90",
+      "stem": "PH_ElemCAX8P"
+    },
+    {
+      "source_rel": "L4_PH/Element/Porous/PH_ElemCPE3P.f90",
+      "stem": "PH_ElemCPE3P"
+    },
+    {
+      "source_rel": "L4_PH/Element/Porous/PH_ElemCPE4P.f90",
+      "stem": "PH_ElemCPE4P"
+    },
+    {
+      "source_rel": "L4_PH/Element/Porous/PH_ElemCPE6P.f90",
+      "stem": "PH_ElemCPE6P"
+    },
+    {
+      "source_rel": "L4_PH/Element/Porous/PH_ElemCPE8P.f90",
+      "stem": "PH_ElemCPE8P"
+    },
+    {
+      "source_rel": "L4_PH/Element/Porous/PH_ElemCPS3P.f90",
+      "stem": "PH_ElemCPS3P"
+    },
+    {
+      "source_rel": "L4_PH/Element/Porous/PH_ElemCPS4P.f90",
+      "stem": "PH_ElemCPS4P"
+    },
+    {
+      "source_rel": "L4_PH/Element/Porous/PH_ElemCPS6P.f90",
+      "stem": "PH_ElemCPS6P"
+    },
+    {
+      "source_rel": "L4_PH/Element/Porous/PH_ElemCPS8P.f90",
+      "stem": "PH_ElemCPS8P"
+    },
+    {
+      "source_rel": "L4_PH/Element/Porous/PH_ElemPorous.f90",
+      "stem": "PH_ElemPorous"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shared/PH_BATCHCREATEALL.f90",
+      "stem": "PH_BATCHCREATEALL",
+      "module": "PH_Coupled_Elements_Batch"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shared/PH_ElemBCKernel.f90",
+      "stem": "PH_ElemBCKernel"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shared/PH_ElemBMtx.f90",
+      "stem": "PH_ElemBMtx"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shared/PH_ElemCommonUtil.f90",
+      "stem": "PH_ElemCommonUtil"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shared/PH_ElemComp.f90",
+      "stem": "PH_ElemComp"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shared/PH_ElemDiffUtils.f90",
+      "stem": "PH_ElemDiffUtils",
+      "module": "RT_Elem_Diff_Utils"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shared/PH_ElemDispatchC3D8.f90",
+      "stem": "PH_ElemDispatchC3D8"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shared/PH_ElemDispatchReg.f90",
+      "stem": "PH_ElemDispatchReg"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shared/PH_ElemIntegPts.f90",
+      "stem": "PH_ElemIntegPts"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shared/PH_ElemJacobian.f90",
+      "stem": "PH_ElemJacobian"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shared/PH_ElemJacobianBUtils.f90",
+      "stem": "PH_ElemJacobianBUtils"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shared/PH_ElemLoadKernel.f90",
+      "stem": "PH_ElemLoadKernel"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shared/PH_ElemMatIntegration.f90",
+      "stem": "PH_ElemMatIntegration"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shared/PH_ElemMtx.f90",
+      "stem": "PH_ElemMtx"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shared/PH_ElemOrientRT_Brg.f90",
+      "stem": "PH_ElemOrientRT_Brg"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shared/PH_ElemOutKernel.f90",
+      "stem": "PH_ElemOutKernel"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shared/PH_ElemQuality.f90",
+      "stem": "PH_ElemQuality"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shared/PH_ElemRT_Brg.f90",
+      "stem": "PH_ElemRT_Brg"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shared/PH_ElemShapeFunc.f90",
+      "stem": "PH_ElemShapeFunc"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shared/PH_ElemUtils.f90",
+      "stem": "PH_ElemUtils"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shared/PH_PhysicsUtils.f90",
+      "stem": "PH_PhysicsUtils"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shared/PH_ShellNLGeom.f90",
+      "stem": "PH_ShellNLGeom"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shell/PH_ElemDS3.f90",
+      "stem": "PH_ElemDS3"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shell/PH_ElemDS4.f90",
+      "stem": "PH_ElemDS4"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shell/PH_ElemDS6.f90",
+      "stem": "PH_ElemDS6"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shell/PH_ElemDS8.f90",
+      "stem": "PH_ElemDS8"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shell/PH_ElemS3.f90",
+      "stem": "PH_ElemS3"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shell/PH_ElemS4.f90",
+      "stem": "PH_ElemS4"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shell/PH_ElemS4T.f90",
+      "stem": "PH_ElemS4T"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shell/PH_ElemS6.f90",
+      "stem": "PH_ElemS6"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shell/PH_ElemS8.f90",
+      "stem": "PH_ElemS8"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shell/PH_ElemS8RT.f90",
+      "stem": "PH_ElemS8RT"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shell/PH_ElemS9.f90",
+      "stem": "PH_ElemS9"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shell/PH_ElemShellDefn.f90",
+      "stem": "PH_ElemShellDefn"
+    },
+    {
+      "source_rel": "L4_PH/Element/Shell/PH_ElemShellMITC.f90",
+      "stem": "PH_ElemShellMITC"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid2D/PH_ElemCAX3.f90",
+      "stem": "PH_ElemCAX3"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid2D/PH_ElemCAX4.f90",
+      "stem": "PH_ElemCAX4"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid2D/PH_ElemCAX6.f90",
+      "stem": "PH_ElemCAX6"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid2D/PH_ElemCAX8.f90",
+      "stem": "PH_ElemCAX8"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid2D/PH_ElemCPE3.f90",
+      "stem": "PH_ElemCPE3"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid2D/PH_ElemCPE4.f90",
+      "stem": "PH_ElemCPE4"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid2D/PH_ElemCPE6.f90",
+      "stem": "PH_ElemCPE6"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid2D/PH_ElemCPE8.f90",
+      "stem": "PH_ElemCPE8"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid2D/PH_ElemCPS3.f90",
+      "stem": "PH_ElemCPS3"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid2D/PH_ElemCPS4.f90",
+      "stem": "PH_ElemCPS4"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid2D/PH_ElemCPS6.f90",
+      "stem": "PH_ElemCPS6"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid2D/PH_ElemCPS8.f90",
+      "stem": "PH_ElemCPS8"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid2D/PH_ElemSld2DDefn.f90",
+      "stem": "PH_ElemSld2DDefn"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid2Dt/PH_ElemCAX3T.f90",
+      "stem": "PH_ElemCAX3T"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid2Dt/PH_ElemCAX4T.f90",
+      "stem": "PH_ElemCAX4T"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid2Dt/PH_ElemCAX6T.f90",
+      "stem": "PH_ElemCAX6T"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid2Dt/PH_ElemCAX8T.f90",
+      "stem": "PH_ElemCAX8T"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid2Dt/PH_ElemCPE3T.f90",
+      "stem": "PH_ElemCPE3T"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid2Dt/PH_ElemCPE4T.f90",
+      "stem": "PH_ElemCPE4T"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid2Dt/PH_ElemCPE6T.f90",
+      "stem": "PH_ElemCPE6T"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid2Dt/PH_ElemCPE8T.f90",
+      "stem": "PH_ElemCPE8T"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid2Dt/PH_ElemCPS3T.f90",
+      "stem": "PH_ElemCPS3T"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid2Dt/PH_ElemCPS4T.f90",
+      "stem": "PH_ElemCPS4T"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid2Dt/PH_ElemCPS6T.f90",
+      "stem": "PH_ElemCPS6T"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid2Dt/PH_ElemCPS8T.f90",
+      "stem": "PH_ElemCPS8T"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid2Dt/PH_ElemSld2DTDefn.f90",
+      "stem": "PH_ElemSld2DTDefn"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid3D/PH_ElemC3D10.f90",
+      "stem": "PH_ElemC3D10"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid3D/PH_ElemC3D13.f90",
+      "stem": "PH_ElemC3D13"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid3D/PH_ElemC3D15.f90",
+      "stem": "PH_ElemC3D15"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid3D/PH_ElemC3D20.f90",
+      "stem": "PH_ElemC3D20"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid3D/PH_ElemC3D27.f90",
+      "stem": "PH_ElemC3D27"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid3D/PH_ElemC3D4.f90",
+      "stem": "PH_ElemC3D4"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid3D/PH_ElemC3D5.f90",
+      "stem": "PH_ElemC3D5"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid3D/PH_ElemC3D6.f90",
+      "stem": "PH_ElemC3D6"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid3D/PH_ElemC3D8.f90",
+      "stem": "PH_ElemC3D8"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid3D/PH_ElemC3D8EAS.f90",
+      "stem": "PH_ElemC3D8EAS"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid3D/PH_ElemC3D8FBar.f90",
+      "stem": "PH_ElemC3D8FBar"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid3D/PH_ElemSld3DDefn.f90",
+      "stem": "PH_ElemSld3DDefn"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid3Dt/PH_ElemC3D10T.f90",
+      "stem": "PH_ElemC3D10T"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid3Dt/PH_ElemC3D15T.f90",
+      "stem": "PH_ElemC3D15T"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid3Dt/PH_ElemC3D20T.f90",
+      "stem": "PH_ElemC3D20T"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid3Dt/PH_ElemC3D27T.f90",
+      "stem": "PH_ElemC3D27T"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid3Dt/PH_ElemC3D4T.f90",
+      "stem": "PH_ElemC3D4T"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid3Dt/PH_ElemC3D6T.f90",
+      "stem": "PH_ElemC3D6T"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid3Dt/PH_ElemC3D8T.f90",
+      "stem": "PH_ElemC3D8T"
+    },
+    {
+      "source_rel": "L4_PH/Element/Solid3Dt/PH_ElemSld3DTDefn.f90",
+      "stem": "PH_ElemSld3DTDefn"
+    },
+    {
+      "source_rel": "L4_PH/Element/Special/PH_ElemCOH2D4Defn.f90",
+      "stem": "PH_ElemCOH2D4Defn"
+    },
+    {
+      "source_rel": "L4_PH/Element/Special/PH_ElemCOH3D6Defn.f90",
+      "stem": "PH_ElemCOH3D6Defn"
+    },
+    {
+      "source_rel": "L4_PH/Element/Special/PH_ElemCOH3D8Defn.f90",
+      "stem": "PH_ElemCOH3D8Defn"
+    },
+    {
+      "source_rel": "L4_PH/Element/Special/PH_ElemCohesiveDefn.f90",
+      "stem": "PH_ElemCohesiveDefn"
+    },
+    {
+      "source_rel": "L4_PH/Element/Special/PH_ElemGasketDefn.f90",
+      "stem": "PH_ElemGasketDefn"
+    },
+    {
+      "source_rel": "L4_PH/Element/Special/PH_ElemGK2D2Defn.f90",
+      "stem": "PH_ElemGK2D2Defn"
+    },
+    {
+      "source_rel": "L4_PH/Element/Special/PH_ElemGK3D4Defn.f90",
+      "stem": "PH_ElemGK3D4Defn"
+    },
+    {
+      "source_rel": "L4_PH/Element/Special/PH_ElemMass.f90",
+      "stem": "PH_ElemMass"
+    },
+    {
+      "source_rel": "L4_PH/Element/Special/PH_ElemR2D2Defn.f90",
+      "stem": "PH_ElemR2D2Defn"
+    },
+    {
+      "source_rel": "L4_PH/Element/Special/PH_ElemR3D3Defn.f90",
+      "stem": "PH_ElemR3D3Defn"
+    },
+    {
+      "source_rel": "L4_PH/Element/Special/PH_ElemR3D4Defn.f90",
+      "stem": "PH_ElemR3D4Defn"
+    },
+    {
+      "source_rel": "L4_PH/Element/Special/PH_ElemRigidDefn.f90",
+      "stem": "PH_ElemRigidDefn"
+    },
+    {
+      "source_rel": "L4_PH/Element/Spring/PH_ElemSPRING1.f90",
+      "stem": "PH_ElemSPRING1"
+    },
+    {
+      "source_rel": "L4_PH/Element/Spring/PH_ElemSPRING2.f90",
+      "stem": "PH_ElemSPRING2"
+    },
+    {
+      "source_rel": "L4_PH/Element/Spring/PH_ElemSpringDefn.f90",
+      "stem": "PH_ElemSpringDefn"
+    },
+    {
+      "source_rel": "L4_PH/Element/Thermal/PH_ElemHeatTransfer.f90",
+      "stem": "PH_ElemHeatTransfer"
+    },
+    {
+      "source_rel": "L4_PH/Element/Thermal/PH_ElemThermDefinition.f90",
+      "stem": "PH_ElemThermDefinition"
+    },
+    {
+      "source_rel": "L4_PH/Element/Thermal/PH_ThermalForceAsm.f90",
+      "stem": "PH_ThermalForceAsm"
+    },
+    {
+      "source_rel": "L4_PH/Element/Thermal/PH_ThermalStrainKernel.f90",
+      "stem": "PH_ThermalStrainKernel"
+    },
+    {
+      "source_rel": "L4_PH/Element/Thermal/PH_ThermalStressKernel.f90",
+      "stem": "PH_ThermalStressKernel"
+    },
+    {
+      "source_rel": "L4_PH/Element/Truss/PH_ElemT2D2.f90",
+      "stem": "PH_ElemT2D2"
+    },
+    {
+      "source_rel": "L4_PH/Element/Truss/PH_ElemT3D2.f90",
+      "stem": "PH_ElemT3D2"
+    },
+    {
+      "source_rel": "L4_PH/Element/Truss/PH_ElemT3D3.f90",
+      "stem": "PH_ElemT3D3"
+    },
+    {
+      "source_rel": "L4_PH/Element/Truss/PH_ElemTrussDefn.f90",
+      "stem": "PH_ElemTrussDefn"
+    }
+  ]
+}

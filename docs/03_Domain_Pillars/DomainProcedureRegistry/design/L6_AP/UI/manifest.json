@@ -1,0 +1,37 @@
+{
+  "layer": "L6_AP",
+  "domain_bucket": "UI",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L6_AP/UI/AP_UI.f90",
+      "stem": "AP_UI"
+    },
+    {
+      "source_rel": "L6_AP/UI/AP_UI_Def.f90",
+      "stem": "AP_UI_Def"
+    },
+    {
+      "source_rel": "L6_AP/UI/AP_UIDomain.f90",
+      "stem": "AP_UIDomain"
+    },
+    {
+      "source_rel": "L6_AP/UI/AP_UIINP.f90",
+      "stem": "AP_UIINP",
+      "module": "AP_UI_INP_Core"
+    },
+    {
+      "source_rel": "L6_AP/UI/AP_UIJobMgr.f90",
+      "stem": "AP_UIJobMgr"
+    },
+    {
+      "source_rel": "L6_AP/UI/AP_UIModelMgr.f90",
+      "stem": "AP_UIModelMgr"
+    },
+    {
+      "source_rel": "L6_AP/UI/AP_UITreeMgr.f90",
+      "stem": "AP_UITreeMgr"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "layer": "L1_IF",
+  "domain_bucket": "Monitor",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L1_IF/Monitor/IF_Mon.f90",
+      "stem": "IF_Mon"
+    },
+    {
+      "source_rel": "L1_IF/Monitor/IF_Mon_Def.f90",
+      "stem": "IF_Mon_Def"
+    },
+    {
+      "source_rel": "L1_IF/Monitor/IF_Mon_Mgr.f90",
+      "stem": "IF_Mon_Mgr"
+    },
+    {
+      "source_rel": "L1_IF/Monitor/IF_MonMgr.f90",
+      "stem": "IF_MonMgr",
+      "module": "IF_Mon_Mgr"
+    }
+  ]
+}

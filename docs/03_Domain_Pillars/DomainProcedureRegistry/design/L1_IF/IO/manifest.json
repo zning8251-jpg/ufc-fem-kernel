@@ -1,0 +1,60 @@
+{
+  "layer": "L1_IF",
+  "domain_bucket": "IO",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L1_IF/IO/Checkpoint/IF_IO_Backup.f90",
+      "stem": "IF_IO_Backup"
+    },
+    {
+      "source_rel": "L1_IF/IO/Checkpoint/IF_IO_Persist.f90",
+      "stem": "IF_IO_Persist"
+    },
+    {
+      "source_rel": "L1_IF/IO/Checkpoint/IF_IO_StructFile.f90",
+      "stem": "IF_IO_StructFile"
+    },
+    {
+      "source_rel": "L1_IF/IO/Checkpoint/IF_StructFormat_API.f90",
+      "stem": "IF_StructFormat_API"
+    },
+    {
+      "source_rel": "L1_IF/IO/Checkpoint/IF_UnstructFile_Mgr.f90",
+      "stem": "IF_UnstructFile_Mgr"
+    },
+    {
+      "source_rel": "L1_IF/IO/Checkpoint/IF_UnstructFormat_API.f90",
+      "stem": "IF_UnstructFormat_API"
+    },
+    {
+      "source_rel": "L1_IF/IO/IF_IO.f90",
+      "stem": "IF_IO"
+    },
+    {
+      "source_rel": "L1_IF/IO/IF_IO_Def.f90",
+      "stem": "IF_IO_Def"
+    },
+    {
+      "source_rel": "L1_IF/IO/IF_IO_File.f90",
+      "stem": "IF_IO_File"
+    },
+    {
+      "source_rel": "L1_IF/IO/IF_IO_Filters.f90",
+      "stem": "IF_IO_Filters"
+    },
+    {
+      "source_rel": "L1_IF/IO/IF_IO_Log.f90",
+      "stem": "IF_IO_Log"
+    },
+    {
+      "source_rel": "L1_IF/IO/IF_Parser.f90",
+      "stem": "IF_Parser"
+    },
+    {
+      "source_rel": "L1_IF/IO/IF_Writer.f90",
+      "stem": "IF_Writer"
+    }
+  ]
+}

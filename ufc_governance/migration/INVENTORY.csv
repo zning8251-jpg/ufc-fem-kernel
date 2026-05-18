@@ -1,0 +1,6 @@
+legacy_path,target_path,status,owner,flip_criteria
+"ufc_governance (intro)","ufc_governance/README.md",done,agent-triad,"N/A — new bucket"
+"docs/README.md (index only pilot)","ufc_governance/library/00_constitution/TRIAD_SYSTEM_INDEX.md",pilot,team,"Link back verified; no SSOT conflict"
+"plan/changes convention","plan/changes/README.md",done,agent-triad,"Harness validate green on example-ufc-triad"
+"rollout-l4-material-binary-trivium","plan/changes/rollout-l4-material-binary-trivium/","active","team","DoD: tasks §1 + guardian naming strict change-package"
+"rollout-l4-material-wave2-dispatch","plan/changes/rollout-l4-material-wave2-dispatch/","active","team","DoD: Material/Dispatch baseline guardian+naming + TASK_RUN session 同名"

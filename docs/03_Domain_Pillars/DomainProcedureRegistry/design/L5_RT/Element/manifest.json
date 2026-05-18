@@ -1,0 +1,64 @@
+{
+  "layer": "L5_RT",
+  "domain_bucket": "Element",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L5_RT/Element/Mesh/RT_Mesh_Def.f90",
+      "stem": "RT_Mesh_Def"
+    },
+    {
+      "source_rel": "L5_RT/Element/Mesh/RT_MeshImpl.f90",
+      "stem": "RT_MeshImpl"
+    },
+    {
+      "source_rel": "L5_RT/Element/Mesh/RT_MeshProc.f90",
+      "stem": "RT_MeshProc"
+    },
+    {
+      "source_rel": "L5_RT/Element/Mesh/RT_MeshSys.f90",
+      "stem": "RT_MeshSys"
+    },
+    {
+      "source_rel": "L5_RT/Element/RT_Elem_Def.f90",
+      "stem": "RT_Elem_Def"
+    },
+    {
+      "source_rel": "L5_RT/Element/RT_ElemAsmProc.f90",
+      "stem": "RT_ElemAsmProc"
+    },
+    {
+      "source_rel": "L5_RT/Element/RT_ElemComputeProc.f90",
+      "stem": "RT_ElemComputeProc"
+    },
+    {
+      "source_rel": "L5_RT/Element/RT_ElemDispatch_Brg.f90",
+      "stem": "RT_ElemDispatch_Brg"
+    },
+    {
+      "source_rel": "L5_RT/Element/RT_ElemDispatcher.f90",
+      "stem": "RT_ElemDispatcher"
+    },
+    {
+      "source_rel": "L5_RT/Element/RT_ElemKernelProc.f90",
+      "stem": "RT_ElemKernelProc"
+    },
+    {
+      "source_rel": "L5_RT/Element/RT_ElemProc.f90",
+      "stem": "RT_ElemProc"
+    },
+    {
+      "source_rel": "L5_RT/Element/RT_ElemSect.f90",
+      "stem": "RT_ElemSect"
+    },
+    {
+      "source_rel": "L5_RT/Element/RT_ElemUEL.f90",
+      "stem": "RT_ElemUEL"
+    },
+    {
+      "source_rel": "L5_RT/Element/RT_ThermalMechanicalCpl.f90",
+      "stem": "RT_ThermalMechanicalCpl"
+    }
+  ]
+}

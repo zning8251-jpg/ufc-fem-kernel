@@ -1,0 +1,14 @@
+# Optional stack for photo-realistic images (UFC tools/draw_multimodal_photo.py).
+# Install PyTorch *first* to match your CUDA driver; see https://pytorch.org/get-started/locally/
+# Example (CUDA 12.x, Windows):
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cu124
+# CPU-only (slow, large RAM):
+#   pip install torch torchvision
+
+openai>=1.40.0
+diffusers>=0.31.0
+transformers>=4.44.0
+accelerate>=0.34.0
+safetensors>=0.4.0
+Pillow>=10.0.0
+# huggingface_hub is pulled by diffusers; set HF_TOKEN if the chosen model is gated.

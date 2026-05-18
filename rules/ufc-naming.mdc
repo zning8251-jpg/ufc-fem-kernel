@@ -1,0 +1,99 @@
+---
+description: UFC 六层架构 Fortran 命名规范，创建或修改 ufc_core 内 .f90 时强制遵守
+globs: UFC/**/*.f90,ufc_core/**/*.f90,**/UFC/**/*.f90
+alwaysApply: false
+---
+
+# UFC Fortran 命名规范
+
+在创建或修改 UFC 六层架构（ufc_core）内的 Fortran 模块时，**必须**遵守以下命名规则。完整规范见 `UFC/REPORTS/UFC_命名清单与规范化表.md`。
+
+## 核心约束
+
+| 约束 | 规则 | 示例 |
+|------|------|------|
+| **段数上限** | 全名最多 **3 段**（Layer_Domain_Role） | ✓ `RT_Step_Core` ✗ `RT_Step_Drv_Core`（4段） |
+| **模块** | Layer_Domain_Role，2～3 段 | `IF_Base_Core`, `MD_KW_Reg` |
+| **类型** | Layer_Domain_Desc\|State\|Algo\|Ctx | `MD_Step_Desc`, `RT_Step_Ctx` |
+| **公开子程序** | Layer_Domain_VerbObj，≤28 字符 | `RT_Step_Init`, `MD_KW_Reg_Add` |
+| **私有子程序** | domain_verb 或 verb_obj，≤24 字符 | `step_ctx_init`, `reg_mat_kw` |
+| **形参/局部变量** | desc_suffix，≤20 字符 | `step_desc`, `conv_tol` |
+| **常量** | 全大写 + 下划线 | `PROC_STATIC`, `RT_STEP_HEAT` |
+
+## 层前缀速查
+
+| 层 | 前缀 | 域级示例 |
+|----|------|----------|
+| L1_IF | IF_ | Base, Err, IO, Log, Mem, Prec, Reg |
+| L2_NM | NM_ | Base, Brg, Eigen, Mtx, Solv, TimeInt, Conv |
+| L3_MD | MD_ | Model, Step, KW, Mat, Mesh, Part, Assem, Sect, **LoadBC**（符号 `MD_LBC_*`）, Out |
+| L4_PH | PH_ | Elem, **LoadBC**（存量 `PH_Ldbc_*`；新代码优先 `PH_LoadBC_*`）, Cont, Brg, Anneal, Visco, Soils, Geo, CTD, CTE |
+| L5_RT | RT_ | StepDrv, Step, Solv, Phys, Asm, **LoadBC**（符号 `RT_LoadBC_*`）, Out, Cont, Brg |
+| L6_AP | AP_ | Base, Inp, Job, Out, Reg, Solv, UI, Cfg, Brg |
+
+## 压缩词根（优先使用）
+
+| 全称 | 压缩 | 全称 | 压缩 |
+|------|------|------|------|
+| Manager | Mgr | Solver | Solv |
+| Configuration | Cfg | Description | Desc |
+| Bridge | Brg | Assembly | Asm |
+| Driver | Drv | HeatTransfer | HT |
+| CoupledTempDisp | CTD | CoupledThermalElec | CTE |
+| Geostatic | Geo | Steady | Stdy |
+
+## 公开导出别名（INTERFACE）
+
+需导出短名实现时，用 INTERFACE 映射为带前缀的公开名，**实现保持 PRIVATE**：
+
+```fortran
+PUBLIC :: RT_Step_Ctx_Init
+INTERFACE RT_Step_Ctx_Init
+  MODULE PROCEDURE step_ctx_init
+END INTERFACE
+```
+
+## TYPE-bound procedure（TBP）
+
+- **绑定名**（`PROCEDURE ::` 左侧）必须是**短动词**：`Init`、`Valid`、`ValidateProps`、`InitFromProps` 等；禁止把完整 `TYPE` 名当作绑定名。
+- **单 `MODULE`、单具体 `TYPE`**（常见：材料叶子、Part 域容器、UEL Context 等）：实现过程与绑定同名，写 **`PROCEDURE :: Init`** / **`ValidateProps`** 等，**不写** `=>`。材料叶子不要 `PUBLIC` 再导出冗长 `MD_*_ValidateProps`，除非跨模块直接 `CALL`（优先 `desc%ValidateProps`）。
+- **同模块多个 `TYPE`**、各需不同实现：保留 **`PROCEDURE :: 短绑定名 => 实现名`**。实现名**省略层/域前缀**（如 `RT_LoadBC_`），用 **`{四型角色}_{动词}`** 保证模块内唯一，例如 `Desc_Init`、`State_Clean`、`Algo_Init`、`Ctx_Init`。存在 **Impl** 等第二套四型时加 **`Impl_`** 前缀：`Impl_Desc_Init` 与精简版 `Desc_Init` 区分（见 `RT_LoadBC_Def` / `RT_LoadBC_Impl_Def`）。
+- **禁止** `PROCEDURE :: Foo => Foo`（与无 `=>` 等价，徒增噪音）。
+- **其他域**与材料域同一套判定，按文件推进；`MD_LBC_Def` 等「一模块多型共用 `Init`/`Reset` 绑定」保持 `=> Load_Desc_Init` / `=> BC_Desc_Init` 等。
+
+模块级 **PUBLIC** API、桥接入口、非 TBP 过程仍须 **`{层}_{域}…`** 前缀（或 INTERFACE 映射），见上表。
+
+**材料族 Def 批量对齐**：`UFC/tools/tbp_mat_def_short_impl.py` 将 `MD_Mat_<Fam>_` / `PH_Mat_<Fam>_` / `RT_Mat_<Fam>_` 下 TBP 实现由 `<Stem>_<Role>_<Verb>` 规范为 `<Role>_<Verb>`（`Role` ∈ Dispatch_Table/Desc/State/Algo/Ctx）。其它域（Model、KW、LBC_Container、Base…）命名形态不一，按文件扩展同一规则或增补专用迁移脚本。
+
+**分阶段清单**：`UFC/REPORTS/TBP_Unification_Phases_and_LoadBC_Lexicon.md`。
+
+## LoadBC 域命名字汇（全局）
+
+- **概念**：只有三种——**Load**、**BC**、**LoadBC（载荷与边界条件合并域）**。禁止把 **`LBC` 单独解释成「仅 Load」或「仅 BC」**；在文档/注释中 **`LBC` 仅作为 `LoadBC` 的缩写**，首次出现写「LBC（LoadBC）」。
+- **书面与 UI**：优先写全称 **LoadBC**。
+- **代码前缀（存量）**：L3 `MD_LBC_*`、L5 `RT_LoadBC_*` 保持；L4 存量 **`PH_Ldbc_*`** 语义 = **PH LoadBC**，**不再新增** `LdBC` / `LDbc` 等变体拼写；**新 MODULE/TYPE 优先 `PH_LoadBC_*`**，与 L5 对齐，迁移见域柱 P2。
+- **文件夹**：`LoadBC/` 已用全称，保持。
+
+## Bridge 命名
+
+- `UF_Brg_L6_AP_TO_L3_MD` → `AP_Brg_L3`
+- `PH_Brg_L4_TO_L2_NM` → `PH_Brg_L2`
+- `RT_Bridge_PH_Material` → `RT_Brg_PH_Mat`
+
+## 标识符反冗长（禁止「直抒胸臆」式英文）
+
+**原则**：在 **标识符**（变量、TYPE 成员、非 PUBLIC 过程实现名等）中优先使用 **工程简写 + 固定词表**，把完整英文留给 **注释 / 合同 / INP 关键字**；与 `UFC/docs/02_Developer_Guide/UFC_命名与数据结构规范.md` 第六章简写表一致。
+
+| 做法 | 说明 |
+|------|------|
+| **词表** | 单一真源：`UFC/tools/naming_lexicon.py`（`LONG_NAME_ABBREV` + `verbose_token_hints()`）；与 `check_naming_l3l4l5l6.py`、`scan_verbose_identifiers.py` 共用。 |
+| **名词化** | 过程语义用 **动词/白名单动作**（`Valid`、`Init`），避免 `…ValidationOf…` 式堆叠；名词化后缀 **-ation/-ization** 不宜再与多词根串联成标识符。 |
+| **常量例外** | `UPPER_SNAKE` 的 `PARAMETER`/枚举名可长于 20，但仍应避免把整句英文塞进一个 token。 |
+| **自动化** | 运行 `python UFC/tools/scan_verbose_identifiers.py`（默认 **报告**，exit 0）。**阶段 1**：`--substr-only` 只扫冗长词根；**阶段 2**：再开长度规则。收紧 CI 时用 `--fail-on N`。 |
+
+## 禁止
+
+- 模块名 4 段及以上
+- 公开子程序无 Layer_Domain 前缀（除非通过 INTERFACE 映射）
+- 变量名 > 20 字符
+- 常量非 UPPER_SNAKE_CASE（i4/i8/wp/dp/sp/qp 除外）

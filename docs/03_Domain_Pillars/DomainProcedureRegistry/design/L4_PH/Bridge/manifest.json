@@ -1,0 +1,40 @@
+{
+  "layer": "L4_PH",
+  "domain_bucket": "Bridge",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L4_PH/Bridge/Output/PH_Out_Brg.f90",
+      "stem": "PH_Out_Brg"
+    },
+    {
+      "source_rel": "L4_PH/Bridge/Output/PH_Out.f90",
+      "stem": "PH_Out"
+    },
+    {
+      "source_rel": "L4_PH/Bridge/PH_BrgDomain.f90",
+      "stem": "PH_BrgDomain"
+    },
+    {
+      "source_rel": "L4_PH/Bridge/PH_BrgL2.f90",
+      "stem": "PH_BrgL2"
+    },
+    {
+      "source_rel": "L4_PH/Bridge/PH_BrgL3.f90",
+      "stem": "PH_BrgL3"
+    },
+    {
+      "source_rel": "L4_PH/Bridge/WriteBack/PH_WB_Brg.f90",
+      "stem": "PH_WB_Brg"
+    },
+    {
+      "source_rel": "L4_PH/Bridge/WriteBack/PH_WB.f90",
+      "stem": "PH_WB"
+    },
+    {
+      "source_rel": "L4_PH/Bridge/WriteBack/PH_WBInit.f90",
+      "stem": "PH_WBInit"
+    }
+  ]
+}

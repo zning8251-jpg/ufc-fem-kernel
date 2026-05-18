@@ -1,0 +1,145 @@
+{
+  "layer": "L6_AP",
+  "domain_bucket": "Input",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L6_AP/Input/AP_Inp_Def.f90",
+      "stem": "AP_Inp_Def"
+    },
+    {
+      "source_rel": "L6_AP/Input/AP_InpMgr.f90",
+      "stem": "AP_InpMgr"
+    },
+    {
+      "source_rel": "L6_AP/Input/Command/AP_InpCmdMgr.f90",
+      "stem": "AP_InpCmdMgr"
+    },
+    {
+      "source_rel": "L6_AP/Input/Command/AP_InpDomain.f90",
+      "stem": "AP_InpDomain"
+    },
+    {
+      "source_rel": "L6_AP/Input/Command/AP_InpInit.f90",
+      "stem": "AP_InpInit"
+    },
+    {
+      "source_rel": "L6_AP/Input/Command/AP_InpInitCore.f90",
+      "stem": "AP_InpInitCore"
+    },
+    {
+      "source_rel": "L6_AP/Input/Command/AP_InpMat.f90",
+      "stem": "AP_InpMat"
+    },
+    {
+      "source_rel": "L6_AP/Input/Command/AP_InpMemMgr.f90",
+      "stem": "AP_InpMemMgr"
+    },
+    {
+      "source_rel": "L6_AP/Input/Command/AP_InpMesh.f90",
+      "stem": "AP_InpMesh"
+    },
+    {
+      "source_rel": "L6_AP/Input/Command/AP_InpSect.f90",
+      "stem": "AP_InpSect"
+    },
+    {
+      "source_rel": "L6_AP/Input/Command/AP_InpStep.f90",
+      "stem": "AP_InpStep"
+    },
+    {
+      "source_rel": "L6_AP/Input/Parser/AP_Inp.f90",
+      "stem": "AP_Inp"
+    },
+    {
+      "source_rel": "L6_AP/Input/Parser/AP_InpDomain.f90",
+      "stem": "AP_InpDomain",
+      "module": "AP_Inp"
+    },
+    {
+      "source_rel": "L6_AP/Input/Parser/AP_InpKWBrg.f90",
+      "stem": "AP_InpKWBrg"
+    },
+    {
+      "source_rel": "L6_AP/Input/Parser/AP_InpParam.f90",
+      "stem": "AP_InpParam"
+    },
+    {
+      "source_rel": "L6_AP/Input/Parser/AP_InpParserUtil.f90",
+      "stem": "AP_InpParserUtil"
+    },
+    {
+      "source_rel": "L6_AP/Input/Parser/AP_ParserInclude.f90",
+      "stem": "AP_ParserInclude"
+    },
+    {
+      "source_rel": "L6_AP/Input/Parser/AP_ParserUtil.f90",
+      "stem": "AP_ParserUtil"
+    },
+    {
+      "source_rel": "L6_AP/Input/Script/AP_InpScript.f90",
+      "stem": "AP_InpScript"
+    },
+    {
+      "source_rel": "L6_AP/Input/Script/AP_InpScript_Brg.f90",
+      "stem": "AP_InpScript_Brg"
+    },
+    {
+      "source_rel": "L6_AP/Input/Script/AP_InpScriptAlias.f90",
+      "stem": "AP_InpScriptAlias"
+    },
+    {
+      "source_rel": "L6_AP/Input/Script/AP_InpScriptDebug.f90",
+      "stem": "AP_InpScriptDebug"
+    },
+    {
+      "source_rel": "L6_AP/Input/Script/AP_InpScriptExecutor.f90",
+      "stem": "AP_InpScriptExecutor"
+    },
+    {
+      "source_rel": "L6_AP/Input/Script/AP_InpScriptHelp.f90",
+      "stem": "AP_InpScriptHelp"
+    },
+    {
+      "source_rel": "L6_AP/Input/Script/AP_InpScriptHistory.f90",
+      "stem": "AP_InpScriptHistory"
+    },
+    {
+      "source_rel": "L6_AP/Input/Script/AP_InpScriptLabel.f90",
+      "stem": "AP_InpScriptLabel"
+    },
+    {
+      "source_rel": "L6_AP/Input/Script/AP_InpScriptLogger.f90",
+      "stem": "AP_InpScriptLogger"
+    },
+    {
+      "source_rel": "L6_AP/Input/Script/AP_InpScriptParser.f90",
+      "stem": "AP_InpScriptParser"
+    },
+    {
+      "source_rel": "L6_AP/Input/Script/AP_InpScriptProc.f90",
+      "stem": "AP_InpScriptProc"
+    },
+    {
+      "source_rel": "L6_AP/Input/Script/AP_InpScriptReg.f90",
+      "stem": "AP_InpScriptReg"
+    },
+    {
+      "source_rel": "L6_AP/Input/Script/AP_InpScriptSubst.f90",
+      "stem": "AP_InpScriptSubst"
+    },
+    {
+      "source_rel": "L6_AP/Input/Script/AP_InpScriptUFC.f90",
+      "stem": "AP_InpScriptUFC"
+    },
+    {
+      "source_rel": "L6_AP/Input/Script/AP_InpScriptUser.f90",
+      "stem": "AP_InpScriptUser"
+    },
+    {
+      "source_rel": "L6_AP/Input/Script/AP_InpScriptValid.f90",
+      "stem": "AP_InpScriptValid"
+    }
+  ]
+}

@@ -1,0 +1,152 @@
+{
+  "layer": "L4_PH",
+  "domain_bucket": "Material",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L4_PH/Material/AI/PH_AI_MatInteg.f90",
+      "stem": "PH_AI_MatInteg"
+    },
+    {
+      "source_rel": "L4_PH/Material/Base/PH_Mat_BaseDefn.f90",
+      "stem": "PH_Mat_BaseDefn"
+    },
+    {
+      "source_rel": "L4_PH/Material/Base/PH_Mat_Dispatch.f90",
+      "stem": "PH_Mat_Dispatch"
+    },
+    {
+      "source_rel": "L4_PH/Material/Base/PH_Mat_Reg.f90",
+      "stem": "PH_Mat_Reg"
+    },
+    {
+      "source_rel": "L4_PH/Material/Composite/PH_MatComp_Castani.f90",
+      "stem": "PH_MatComp_Castani"
+    },
+    {
+      "source_rel": "L4_PH/Material/Contract/PH_Mat_Standards.f90",
+      "stem": "PH_Mat_Standards"
+    },
+    {
+      "source_rel": "L4_PH/Material/Contract/PH_Mat_UMATIntfEnhanced.f90",
+      "stem": "PH_Mat_UMATIntfEnhanced"
+    },
+    {
+      "source_rel": "L4_PH/Material/Contract/PH_MatConstit_Def.f90",
+      "stem": "PH_MatConstit_Def"
+    },
+    {
+      "source_rel": "L4_PH/Material/Contract/PH_MatCreep_Defn.f90",
+      "stem": "PH_MatCreep_Defn"
+    },
+    {
+      "source_rel": "L4_PH/Material/Contract/PH_MatDam_Defn.f90",
+      "stem": "PH_MatDam_Defn"
+    },
+    {
+      "source_rel": "L4_PH/Material/Contract/PH_MatGeotech_Defn.f90",
+      "stem": "PH_MatGeotech_Defn"
+    },
+    {
+      "source_rel": "L4_PH/Material/Contract/PH_MatHyperElas_Defn.f90",
+      "stem": "PH_MatHyperElas_Defn"
+    },
+    {
+      "source_rel": "L4_PH/Material/Contract/PH_MatSpcl_Defn.f90",
+      "stem": "PH_MatSpcl_Defn"
+    },
+    {
+      "source_rel": "L4_PH/Material/Contract/PH_MatTherm_Defn.f90",
+      "stem": "PH_MatTherm_Defn"
+    },
+    {
+      "source_rel": "L4_PH/Material/Contract/PH_MatVisc_Defn.f90",
+      "stem": "PH_MatVisc_Defn"
+    },
+    {
+      "source_rel": "L4_PH/Material/Contract/PH_UMAT_Def.f90",
+      "stem": "PH_UMAT_Def"
+    },
+    {
+      "source_rel": "L4_PH/Material/Damage/PH_MatDam_Gurson.f90",
+      "stem": "PH_MatDam_Gurson"
+    },
+    {
+      "source_rel": "L4_PH/Material/Dispatch/PH_MatELA_ElasCall.f90",
+      "stem": "PH_MatELA_ElasCall"
+    },
+    {
+      "source_rel": "L4_PH/Material/Dispatch/PH_MatEval.f90",
+      "stem": "PH_MatEval"
+    },
+    {
+      "source_rel": "L4_PH/Material/Dispatch/PH_MatPLM_Kernels.f90",
+      "stem": "PH_MatPLM_Kernels"
+    },
+    {
+      "source_rel": "L4_PH/Material/Dispatch/PH_MatPLM_LegacyFacadeUMATs.f90",
+      "stem": "PH_MatPLM_LegacyFacadeUMATs"
+    },
+    {
+      "source_rel": "L4_PH/Material/Dispatch/PH_MatPLM_PlastCall.f90",
+      "stem": "PH_MatPLM_PlastCall"
+    },
+    {
+      "source_rel": "L4_PH/Material/Dispatch/PH_MatPLMEval.f90",
+      "stem": "PH_MatPLMEval"
+    },
+    {
+      "source_rel": "L4_PH/Material/Elas/PH_Mat_Elas_Brg.f90",
+      "stem": "PH_Mat_Elas_Brg"
+    },
+    {
+      "source_rel": "L4_PH/Material/Elas/PH_Mat_Elas_Core.f90",
+      "stem": "PH_Mat_Elas_Core"
+    },
+    {
+      "source_rel": "L4_PH/Material/Elas/PH_Mat_Elas_Def.f90",
+      "stem": "PH_Mat_Elas_Def"
+    },
+    {
+      "source_rel": "L4_PH/Material/Geo/PH_MatGeo_CamClay.f90",
+      "stem": "PH_MatGeo_CamClay"
+    },
+    {
+      "source_rel": "L4_PH/Material/Geo/PH_MatGeo_DruckerPrager.f90",
+      "stem": "PH_MatGeo_DruckerPrager"
+    },
+    {
+      "source_rel": "L4_PH/Material/Geo/PH_MatGeo_MohrCoulomb.f90",
+      "stem": "PH_MatGeo_MohrCoulomb"
+    },
+    {
+      "source_rel": "L4_PH/Material/PH_Mat_Core.f90",
+      "stem": "PH_Mat_Core"
+    },
+    {
+      "source_rel": "L4_PH/Material/PH_Mat_Domain_Core.f90",
+      "stem": "PH_Mat_Domain_Core"
+    },
+    {
+      "source_rel": "L4_PH/Material/Plast/PH_Mat_Plast_J2.f90",
+      "stem": "PH_Mat_Plast_J2"
+    },
+    {
+      "source_rel": "L4_PH/Material/Plast/PH_MatPlast_Barlat.f90",
+      "stem": "PH_MatPlast_Barlat"
+    },
+    {
+      "source_rel": "L4_PH/Material/Plast/PH_MatPlast_Chaboche.f90",
+      "stem": "PH_MatPlast_Chaboche"
+    },
+    {
+      "source_rel": "L4_PH/Material/Plast/PH_MatPlast_Crystal.f90",
+      "stem": "PH_MatPlast_Crystal"
+    },
+    {
+      "source_rel": "L4_PH/Material/Plast/PH_MatPlast_Hill.f90",
+      "stem": "PH_MatPlast_Hill"
+    }
+  ]
+}

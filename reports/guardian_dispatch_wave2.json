@@ -1,0 +1,522 @@
+﻿[
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatELA_ElasCall.f90",
+    "line_no": 24,
+    "line_text": "SUBROUTINE UF_Mat_Elastic_Calc(matType, Mat, strain_in, stress_out, &",
+    "message": "[L4_PH] SUBROUTINE UF_Mat_Elastic_Calc 参数数量=5>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "MOD-001",
+    "severity": "P2",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatELA_ElasCall.f90",
+    "line_no": 1,
+    "line_text": "[MODULE HEADER]",
+    "message": "模块头缺少 'Purpose:' 字段（模块文档不完整）"
+  },
+  {
+    "rule_id": "MOD-001",
+    "severity": "P2",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatELA_ElasCall.f90",
+    "line_no": 1,
+    "line_text": "[MODULE HEADER]",
+    "message": "模块头缺少 'Theory:' 字段（模块文档不完整）"
+  },
+  {
+    "rule_id": "MOD-001",
+    "severity": "P2",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatELA_ElasCall.f90",
+    "line_no": 1,
+    "line_text": "[MODULE HEADER]",
+    "message": "模块头缺少 'Status:' 字段（模块文档不完整）"
+  },
+  {
+    "rule_id": "FLOW-003",
+    "severity": "P0",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatEval.f90",
+    "line_no": 315,
+    "line_text": "elastic_arg%mat_desc%PH_MAT_E = E_eff",
+    "message": "检测到对 Desc 定义态字段的赋値；运行态结果应写入 State/Ctx/Work，而非定义态对象"
+  },
+  {
+    "rule_id": "FLOW-003",
+    "severity": "P0",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatEval.f90",
+    "line_no": 316,
+    "line_text": "elastic_arg%mat_desc%nu = nu_eff",
+    "message": "检测到对 Desc 定义态字段的赋値；运行态结果应写入 State/Ctx/Work，而非定义态对象"
+  },
+  {
+    "rule_id": "FLOW-003",
+    "severity": "P0",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatEval.f90",
+    "line_no": 631,
+    "line_text": "elastic_arg%mat_desc%PH_MAT_E = PH_MAT_E",
+    "message": "检测到对 Desc 定义态字段的赋値；运行态结果应写入 State/Ctx/Work，而非定义态对象"
+  },
+  {
+    "rule_id": "FLOW-003",
+    "severity": "P0",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatEval.f90",
+    "line_no": 632,
+    "line_text": "elastic_arg%mat_desc%nu = nu",
+    "message": "检测到对 Desc 定义态字段的赋値；运行态结果应写入 State/Ctx/Work，而非定义态对象"
+  },
+  {
+    "rule_id": "FLOW-003",
+    "severity": "P0",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatEval.f90",
+    "line_no": 697,
+    "line_text": "elastic_arg%mat_desc%PH_MAT_E = PH_MAT_E",
+    "message": "检测到对 Desc 定义态字段的赋値；运行态结果应写入 State/Ctx/Work，而非定义态对象"
+  },
+  {
+    "rule_id": "FLOW-003",
+    "severity": "P0",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatEval.f90",
+    "line_no": 698,
+    "line_text": "elastic_arg%mat_desc%nu = nu",
+    "message": "检测到对 Desc 定义态字段的赋値；运行态结果应写入 State/Ctx/Work，而非定义态对象"
+  },
+  {
+    "rule_id": "FLOW-003",
+    "severity": "P0",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatEval.f90",
+    "line_no": 821,
+    "line_text": "elastic_arg%mat_desc%PH_MAT_E = E_inf",
+    "message": "检测到对 Desc 定义态字段的赋値；运行态结果应写入 State/Ctx/Work，而非定义态对象"
+  },
+  {
+    "rule_id": "FLOW-003",
+    "severity": "P0",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatEval.f90",
+    "line_no": 822,
+    "line_text": "elastic_arg%mat_desc%nu = nu",
+    "message": "检测到对 Desc 定义态字段的赋値；运行态结果应写入 State/Ctx/Work，而非定义态对象"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 342,
+    "line_text": "SUBROUTINE UF_Plastic_UMAT_Dispatch(material_id, stress, statev, ddsdde, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_UMAT_Dispatch 参数数量=5>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 426,
+    "line_text": "SUBROUTINE UF_Plastic_Leg_CompProgressive(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_Leg_CompProgressive 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 436,
+    "line_text": "SUBROUTINE UF_Plastic_Leg_ThermoElectroMagneto(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_Leg_ThermoElectroMagneto 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 446,
+    "line_text": "SUBROUTINE UF_Plastic_Leg_ThermoViscoplastic(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_Leg_ThermoViscoplastic 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 456,
+    "line_text": "SUBROUTINE UF_Plastic_Leg_ViscoelasticDmg(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_Leg_ViscoelasticDmg 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 466,
+    "line_text": "SUBROUTINE UF_Plastic_Leg_ViscoplasticDmgEM(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_Leg_ViscoplasticDmgEM 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 502,
+    "line_text": "SUBROUTINE UF_Plastic_Leg_Biomaterial(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_Leg_Biomaterial 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 512,
+    "line_text": "SUBROUTINE UF_Plastic_Leg_ConcreteDmg(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_Leg_ConcreteDmg 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 522,
+    "line_text": "SUBROUTINE UF_Plastic_Leg_CrushableFoam(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_Leg_CrushableFoam 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 532,
+    "line_text": "SUBROUTINE UF_Plastic_Leg_DruckerPrager(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_Leg_DruckerPrager 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 542,
+    "line_text": "SUBROUTINE UF_Plastic_Leg_Geotechnical(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_Leg_Geotechnical 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 552,
+    "line_text": "SUBROUTINE UF_Plastic_Leg_HashinComp(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_Leg_HashinComp 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 562,
+    "line_text": "SUBROUTINE UF_Plastic_Leg_JohnsonCook(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_Leg_JohnsonCook 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 572,
+    "line_text": "SUBROUTINE UF_Plastic_Leg_MohrCoulomb(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_Leg_MohrCoulomb 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 582,
+    "line_text": "SUBROUTINE UF_Plastic_Leg_MultiscaleDmg(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_Leg_MultiscaleDmg 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 592,
+    "line_text": "SUBROUTINE UF_Plastic_Leg_Nanomaterial(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_Leg_Nanomaterial 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 602,
+    "line_text": "SUBROUTINE UF_Plastic_Leg_PuckComp(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_Leg_PuckComp 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 612,
+    "line_text": "SUBROUTINE UF_Plastic_Leg_SmartMat(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_Leg_SmartMat 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 622,
+    "line_text": "SUBROUTINE UF_Plastic_Legacy_CamClay(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_Legacy_CamClay 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 632,
+    "line_text": "SUBROUTINE UF_Plastic_Legacy_Cap(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_Legacy_Cap 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 642,
+    "line_text": "SUBROUTINE UF_Plastic_Legacy_CastIron(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_Legacy_CastIron 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 652,
+    "line_text": "SUBROUTINE UF_Plastic_Legacy_Ceramic(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_Legacy_Ceramic 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 662,
+    "line_text": "SUBROUTINE UF_Plastic_Legacy_Chaboche(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_Legacy_Chaboche 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 672,
+    "line_text": "SUBROUTINE UF_Plastic_Legacy_FGM(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_Legacy_FGM 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 682,
+    "line_text": "SUBROUTINE UF_Plastic_Legacy_Foam3Stage(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_Legacy_Foam3Stage 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 692,
+    "line_text": "SUBROUTINE UF_Plastic_Legacy_Gurson(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_Legacy_Gurson 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 702,
+    "line_text": "SUBROUTINE UF_Plastic_Legacy_Hill(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_Legacy_Hill 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 712,
+    "line_text": "SUBROUTINE UF_Plastic_Legacy_SoftRock(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_Legacy_SoftRock 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 722,
+    "line_text": "SUBROUTINE UF_Plastic_Legacy_VonMises(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_Legacy_VonMises 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 733,
+    "line_text": "SUBROUTINE UF_Plastic_UMAT_Wrapper(material_id, stress, statev, ddsdde, &",
+    "message": "[L4_PH] SUBROUTINE UF_Plastic_UMAT_Wrapper 参数数量=5>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 769,
+    "line_text": "SUBROUTINE PH_MAT_UMAT_Plastic_Dispatch(material_id, stress, statev, ddsdde, sse, spd, scd, &",
+    "message": "[L4_PH] SUBROUTINE PH_MAT_UMAT_Plastic_Dispatch 参数数量=8>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "NAME-001",
+    "severity": "P2",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 769,
+    "line_text": "SUBROUTINE PH_MAT_UMAT_Plastic_Dispatch(material_id, stress, statev, ddsdde, sse, spd, scd, &",
+    "message": "L4命名'PH_MAT_UMAT_Plastic_Dispatch'：段'Plastic'不以规范动词开头，考虑重命名为 PH_X_UMAT_Compute/Assemble/..."
+  },
+  {
+    "rule_id": "MOD-001",
+    "severity": "P2",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 1,
+    "line_text": "[MODULE HEADER]",
+    "message": "模块头缺少 'Purpose:' 字段（模块文档不完整）"
+  },
+  {
+    "rule_id": "MOD-001",
+    "severity": "P2",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 1,
+    "line_text": "[MODULE HEADER]",
+    "message": "模块头缺少 'Theory:' 字段（模块文档不完整）"
+  },
+  {
+    "rule_id": "MOD-001",
+    "severity": "P2",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 1,
+    "line_text": "[MODULE HEADER]",
+    "message": "模块头缺少 'Status:' 字段（模块文档不完整）"
+  },
+  {
+    "rule_id": "FLOW-003",
+    "severity": "P0",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 138,
+    "line_text": "in_struct%desc%material_id = material_id",
+    "message": "检测到对 Desc 定义态字段的赋値；运行态结果应写入 State/Ctx/Work，而非定义态对象"
+  },
+  {
+    "rule_id": "FLOW-003",
+    "severity": "P0",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 139,
+    "line_text": "in_struct%desc%nprops = np",
+    "message": "检测到对 Desc 定义态字段的赋値；运行态结果应写入 State/Ctx/Work，而非定义态对象"
+  },
+  {
+    "rule_id": "FLOW-003",
+    "severity": "P0",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLMEval.f90",
+    "line_no": 369,
+    "line_text": "desc%nprops = np",
+    "message": "检测到对 Desc 定义态字段的赋値；运行态结果应写入 State/Ctx/Work，而非定义态对象"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLM_Kernels.f90",
+    "line_no": 35,
+    "line_text": "SUBROUTINE UF_DruckerPrager_UMAT(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_DruckerPrager_UMAT 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLM_Kernels.f90",
+    "line_no": 47,
+    "line_text": "SUBROUTINE UF_CamClay_UMAT(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &",
+    "message": "[L4_PH] SUBROUTINE UF_CamClay_UMAT 参数数量=11>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "MOD-001",
+    "severity": "P2",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLM_Kernels.f90",
+    "line_no": 1,
+    "line_text": "[MODULE HEADER]",
+    "message": "模块头缺少 'Purpose:' 字段（模块文档不完整）"
+  },
+  {
+    "rule_id": "MOD-001",
+    "severity": "P2",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLM_Kernels.f90",
+    "line_no": 1,
+    "line_text": "[MODULE HEADER]",
+    "message": "模块头缺少 'Theory:' 字段（模块文档不完整）"
+  },
+  {
+    "rule_id": "MOD-001",
+    "severity": "P2",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLM_Kernels.f90",
+    "line_no": 1,
+    "line_text": "[MODULE HEADER]",
+    "message": "模块头缺少 'Status:' 字段（模块文档不完整）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLM_LegacyFacadeUMATs.f90",
+    "line_no": 1212,
+    "line_text": "SUBROUTINE UF_FGM_UMAT(sigma, statev, ddsdde, sse, spd, scd, &",
+    "message": "[L4_PH] SUBROUTINE UF_FGM_UMAT 参数数量=7>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLM_LegacyFacadeUMATs.f90",
+    "line_no": 1996,
+    "line_text": "SUBROUTINE UF_Geotechnical_UMAT(sigma, statev, ddsdde, sse, spd, scd, &",
+    "message": "[L4_PH] SUBROUTINE UF_Geotechnical_UMAT 参数数量=7>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P1",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLM_LegacyFacadeUMATs.f90",
+    "line_no": 2270,
+    "line_text": "SUBROUTINE UF_SmartMaterial_UMAT(sigma, statev, ddsdde, sse, spd, scd, &",
+    "message": "[L4_PH] SUBROUTINE UF_SmartMaterial_UMAT 参数数量=7>4，应使用Arg/Ctx结构体封装（公开接口参数过多）"
+  },
+  {
+    "rule_id": "MOD-001",
+    "severity": "P2",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLM_LegacyFacadeUMATs.f90",
+    "line_no": 1,
+    "line_text": "[MODULE HEADER]",
+    "message": "模块头缺少 'Purpose:' 字段（模块文档不完整）"
+  },
+  {
+    "rule_id": "MOD-001",
+    "severity": "P2",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLM_LegacyFacadeUMATs.f90",
+    "line_no": 1,
+    "line_text": "[MODULE HEADER]",
+    "message": "模块头缺少 'Theory:' 字段（模块文档不完整）"
+  },
+  {
+    "rule_id": "MOD-001",
+    "severity": "P2",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLM_LegacyFacadeUMATs.f90",
+    "line_no": 1,
+    "line_text": "[MODULE HEADER]",
+    "message": "模块头缺少 'Status:' 字段（模块文档不完整）"
+  },
+  {
+    "rule_id": "INTF-001",
+    "severity": "P2",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLM_PlastCall.f90",
+    "line_no": 102,
+    "line_text": "SUBROUTINE UF_Mat_Plast_Calc(matType, Mat, strain_in, stress_out, &",
+    "message": "[L4_PH] SUBROUTINE UF_Mat_Plast_Calc 参数数量=5>4，已有Arg TYPE定义（渐进合规模式），建议迁移至结构化接口"
+  },
+  {
+    "rule_id": "MOD-001",
+    "severity": "P2",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLM_PlastCall.f90",
+    "line_no": 1,
+    "line_text": "[MODULE HEADER]",
+    "message": "模块头缺少 'Purpose:' 字段（模块文档不完整）"
+  },
+  {
+    "rule_id": "MOD-001",
+    "severity": "P2",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLM_PlastCall.f90",
+    "line_no": 1,
+    "line_text": "[MODULE HEADER]",
+    "message": "模块头缺少 'Theory:' 字段（模块文档不完整）"
+  },
+  {
+    "rule_id": "MOD-001",
+    "severity": "P2",
+    "file_path": "D:\\TEST7\\UFC\\ufc_core\\L4_PH\\Material\\Dispatch\\PH_MatPLM_PlastCall.f90",
+    "line_no": 1,
+    "line_text": "[MODULE HEADER]",
+    "message": "模块头缺少 'Status:' 字段（模块文档不完整）"
+  }
+]

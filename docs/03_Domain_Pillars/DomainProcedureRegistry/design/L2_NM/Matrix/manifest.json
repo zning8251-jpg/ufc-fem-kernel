@@ -1,0 +1,57 @@
+{
+  "layer": "L2_NM",
+  "domain_bucket": "Matrix",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L2_NM/Matrix/NM_AssemSparse.f90",
+      "stem": "NM_AssemSparse"
+    },
+    {
+      "source_rel": "L2_NM/Matrix/NM_LAPACK_Brg.f90",
+      "stem": "NM_LAPACK_Brg"
+    },
+    {
+      "source_rel": "L2_NM/Matrix/NM_LinAlg_Dense.f90",
+      "stem": "NM_LinAlg_Dense"
+    },
+    {
+      "source_rel": "L2_NM/Matrix/NM_LinAlg_Domain.f90",
+      "stem": "NM_LinAlg_Domain"
+    },
+    {
+      "source_rel": "L2_NM/Matrix/NM_Mtx.f90",
+      "stem": "NM_Mtx",
+      "module": "NM_Mtx_Core"
+    },
+    {
+      "source_rel": "L2_NM/Matrix/NM_Mtx_Def.f90",
+      "stem": "NM_Mtx_Def"
+    },
+    {
+      "source_rel": "L2_NM/Matrix/NM_Mtx_Factorization.f90",
+      "stem": "NM_Mtx_Factorization"
+    },
+    {
+      "source_rel": "L2_NM/Matrix/NM_Mtx_Inversion.f90",
+      "stem": "NM_Mtx_Inversion"
+    },
+    {
+      "source_rel": "L2_NM/Matrix/NM_Mtx_Math.f90",
+      "stem": "NM_Mtx_Math"
+    },
+    {
+      "source_rel": "L2_NM/Matrix/NM_Mtx_MatMul.f90",
+      "stem": "NM_Mtx_MatMul"
+    },
+    {
+      "source_rel": "L2_NM/Matrix/NM_SparseMtx.f90",
+      "stem": "NM_SparseMtx"
+    },
+    {
+      "source_rel": "L2_NM/Matrix/NM_Vec.f90",
+      "stem": "NM_Vec"
+    }
+  ]
+}

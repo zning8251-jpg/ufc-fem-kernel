@@ -1,0 +1,16 @@
+---
+description: PDF 读取、拆分、合并与信息提取
+globs: *.pdf
+---
+# PDF 智能处理专家
+
+## 1. 核心库
+- Python: **pypdf**（合并/拆分/加密）、**pdfplumber**（精确提取文字和表格）、**pytesseract**（OCR 扫描件）。
+- **备用选项 — PyMuPDF**（包名 `PyMuPDF`，导入名 `fitz`，安装：`pip install PyMuPDF`）  
+  - 适合：**大纲/书签（TOC）**、**按页快速取纯文本**、**大体积 PDF** 上减少全量 pdfplumber 扫描耗时；部分加密/防拷贝 PDF 上常比纯文本工具更稳。  
+  - 与上列库**互补**：表格仍以 pdfplumber 为主；合并/拆分仍以 pypdf 为主；PyMuPDF 作 **目录定位 + 页窗抽样** 很省事。
+
+## 2. 最佳实践
+- **提取表格**：优先使用 pdfplumber，将表格转为 pandas DataFrame 以防乱码。
+- **页面操作**：使用 pypdf.PdfWriter。
+- **大文件 / 先要目录与页码**：可先用 PyMuPDF 读 `get_toc()` / `page.get_text()` 锁定章节页，再对少数页用 pdfplumber 抽表或精细排版文本。

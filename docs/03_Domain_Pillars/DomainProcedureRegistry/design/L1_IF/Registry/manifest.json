@@ -1,0 +1,20 @@
+{
+  "layer": "L1_IF",
+  "domain_bucket": "Registry",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L1_IF/Registry/IF_Reg.f90",
+      "stem": "IF_Reg"
+    },
+    {
+      "source_rel": "L1_IF/Registry/IF_Reg_Ctx.f90",
+      "stem": "IF_Reg_Ctx"
+    },
+    {
+      "source_rel": "L1_IF/Registry/IF_Reg_Def.f90",
+      "stem": "IF_Reg_Def"
+    }
+  ]
+}

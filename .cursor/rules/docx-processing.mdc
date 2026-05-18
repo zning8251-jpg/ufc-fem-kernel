@@ -1,0 +1,12 @@
+﻿---
+description: Word 文档 (DOCX) 处理
+globs: *.docx
+---
+# DOCX 文档处理专家
+
+## 1. 核心库
+- Python: python-docx
+
+## 2. 操作流
+- 读取：遍历 doc.paragraphs 和 doc.tables。
+- 样式替换：不要直接拼接字符串，需遍历 un 对象保留原有字体和加粗格式。

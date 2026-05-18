@@ -1,0 +1,205 @@
+!===============================================================================
+! MODULE: PH_Elem_COH3D6Defn
+! LAYER:  L4_PH
+! DOMAIN: Element/Special
+! ROLE:   Def
+! BRIEF:  COH3D6 ï¿?6-node 3D cohesive element
+!===============================================================================
+MODULE PH_Elem_COH3D6_Def
+!> Status: PROGRESSIVE (partial implementation, see Arg TYPE compliance mode)
+! > Theory: Internal UFC architecture spec §1 (see UFC_ .md) | Last verified: 2026-02-14
+  USE IF_Base_Def, only: ZERO, ONE
+  USE IF_Err_Brg, only: ErrorStatusType, init_error_status, IF_STATUS_OK, IF_STATUS_INVALID
+  USE IF_Prec_Core, only: wp, i4
+  USE MD_Base_ObjModel, only: MatProperties
+  USE MD_Elem_Mgr, only: ElemType, ElemFormul, ElemCtx, ElemFlags, ElemState, &
+                          UF_Elem_PrepareStructStorage
+  IMPLICIT NONE
+  PRIVATE
+  PUBLIC :: UF_Elem_COH3D6_Calc
+  PUBLIC :: PH_ELEM_COH3D6_NNODE
+  PUBLIC :: PH_ELEM_COH3D6_NDOF
+
+  INTEGER(i4), PARAMETER :: PH_ELEM_COH3D6_NNODE = 6_i4
+  INTEGER(i4), PARAMETER :: PH_ELEM_COH3D6_NDOF = 18_i4
+
+CONTAINS
+
+  FUNCTION ComputeCohesiveArea(coords, nNode, nDim) RESULT(area)
+    REAL(wp), INTENT(IN) :: coords(:,:)
+    INTEGER(i4), INTENT(IN) :: nNode, nDim
+    REAL(wp) :: area
+
+    REAL(wp) :: vec1(3), vec2(3), cross(3)
+
+    area = 0.0_wp
+    IF (nDim == 3 .AND. nNode >= 6) THEN
+      ! 3D: compute area from triangle geometry (first 3 nodes)
+      vec1(1:3) = coords(1:3, 2) - coords(1:3, 1)
+      vec2(1:3) = coords(1:3, 3) - coords(1:3, 1)
+      cross(1) = vec1(2) * vec2(3) - vec1(3) * vec2(2)
+      cross(2) = vec1(3) * vec2(1) - vec1(1) * vec2(3)
+      cross(3) = vec1(1) * vec2(2) - vec1(2) * vec2(1)
+      area = SQRT(cross(1)**2 + cross(2)**2 + cross(3)**2) * 0.5_wp
+    END IF
+  END FUNCTION ComputeCohesiveArea
+
+  SUBROUTINE UF_Elem_COH3D6_Calc(ElemType, Formul, Ctx, state_in, &
+                                   Mat, state_out, flags)
+    TYPE(ElemType), INTENT(IN) :: ElemType
+    TYPE(ElemFormul), INTENT(IN) :: Formul
+    TYPE(ElemCtx), INTENT(IN) :: Ctx
+    TYPE(ElemState), INTENT(IN) :: state_in
+    TYPE(MatProperties), INTENT(INOUT) :: Mat
+    TYPE(ElemState), INTENT(INOUT) :: state_out
+    TYPE(ElemFlags), INTENT(INOUT) :: flags
+
+    INTEGER(i4) :: nNode, nDim, nDOF
+    REAL(wp) :: K_n, K_s, t_n_max, t_s_max, G_Ic, G_IIc
+    REAL(wp) :: delta_n, delta_s, delta_n_max, delta_s_max
+    REAL(wp) :: t_n, t_s, d_n, d_s
+    REAL(wp), ALLOCATABLE :: Ke_loc(:,:), Re_loc(:)
+    REAL(wp) :: coords(3, 6), u(3, 6)
+    REAL(wp) :: area
+    INTEGER(i4) :: i, j
+
+    CALL init_error_status(flags%status)
+    flags%failed = .FALSE.
+
+    nNode = ElemType%numNodes
+    nDim = 3_i4
+    nDOF = nNode * nDim
+
+    IF (nNode /= 6) THEN
+      CALL UF_Elem_PrepareStructStorage(ElemType, state_out)
+      state_out%evo%Ke = 0.0_wp
+      state_out%Re = 0.0_wp
+      flags%failed = .TRUE.
+      CALL init_error_status(flags%status, IF_STATUS_INVALID, &
+        message='UF_Elem_COH3D6_Calc: expected 6 nodes')
+      state_out%failed = flags%failed
+      state_out%stableDt = flags%stableDt
+      RETURN
+    END IF
+
+    ! Extract Mat parameters
+    K_n = 1.0e10_wp
+    K_s = 1.0e10_wp
+    t_n_max = 1.0e10_wp
+    t_s_max = 1.0e10_wp
+    G_Ic = 1.0e10_wp
+    G_IIc = 1.0e10_wp
+
+    IF (ALLOCATED(Mat%props%props)) THEN
+      IF (SIZE(Mat%props%props) >= 2) THEN
+        K_n = Mat%props%props(1)
+        K_s = Mat%props%props(2)
+        IF (SIZE(Mat%props%props) >= 4) THEN
+          t_n_max = Mat%props%props(3)
+          t_s_max = Mat%props%props(4)
+        END IF
+        IF (SIZE(Mat%props%props) >= 6) THEN
+          G_Ic = Mat%props%props(5)
+          G_IIc = Mat%props%props(6)
+        END IF
+      END IF
+    END IF
+
+    ! Extract coordinates and displacements
+    IF (.NOT. ALLOCATED(Ctx%coords_ref)) THEN
+      flags%failed = .TRUE.
+      RETURN
+    END IF
+
+    coords(1:3, 1:6) = Ctx%coords_ref(1:3, 1:6)
+
+    IF (ALLOCATED(Ctx%disp_total)) THEN
+      IF (SIZE(Ctx%disp_total, 2) >= 6) THEN
+        u(1:3, 1:6) = Ctx%disp_total(1:3, 1:6)
+      ELSE
+        u = 0.0_wp
+      END IF
+    ELSE
+      u = 0.0_wp
+    END IF
+
+    ! Compute element area (3D: from triangle geometry)
+    area = ComputeCohesiveArea(coords, 6, 3)
+
+    ! Compute separation (relative displacement)
+    delta_n = 0.0_wp
+    delta_s = 0.0_wp
+    ! Normal separation (simplified: use first two nodes)
+    delta_n = u(3, 2) - u(3, 1)
+    ! Shear separation
+    delta_s = SQRT((u(1, 2) - u(1, 1))**2 + (u(2, 2) - u(2, 1))**2)
+
+    ! Damage evolution
+    d_n = 0.0_wp
+    d_s = 0.0_wp
+    IF (ABS(delta_n) > 0.0_wp) THEN
+      delta_n_max = 2.0_wp * G_Ic / MAX(t_n_max, 1.0e-12_wp)
+      IF (ABS(delta_n) > delta_n_max) THEN
+        d_n = MIN(1.0_wp, ABS(delta_n) / delta_n_max)
+      END IF
+    END IF
+    IF (delta_s > 0.0_wp) THEN
+      delta_s_max = 2.0_wp * G_IIc / MAX(t_s_max, 1.0e-12_wp)
+      IF (delta_s > delta_s_max) THEN
+        d_s = MIN(1.0_wp, delta_s / delta_s_max)
+      END IF
+    END IF
+
+    ! Traction
+    t_n = K_n * delta_n * (1.0_wp - d_n)
+    t_s = K_s * delta_s * (1.0_wp - d_s)
+
+    ! Build stiffness matrix
+    ALLOCATE(Ke_loc(nDOF, nDOF))
+    ALLOCATE(Re_loc(nDOF))
+    Ke_loc = 0.0_wp
+    Re_loc = 0.0_wp
+
+    DO i = 1, nNode
+      DO j = 1, nNode
+        IF (i == j) THEN
+          ! Diagonal: stiffness contribution
+          Ke_loc((i-1)*nDim + 3, (j-1)*nDim + 3) = K_n * (1.0_wp - d_n) * area
+          Ke_loc((i-1)*nDim + 1, (i-1)*nDim + 1) = K_s * (1.0_wp - d_s) * area
+          Ke_loc((i-1)*nDim + 2, (i-1)*nDim + 2) = K_s * (1.0_wp - d_s) * area
+        ELSE
+          ! Off-diagonal: coupling
+          Ke_loc((i-1)*nDim + 3, (j-1)*nDim + 3) = -K_n * (1.0_wp - d_n) * area / nNode
+        END IF
+      END DO
+      ! Residual force
+      Re_loc((i-1)*nDim + 3) = -t_n * area / nNode
+      Re_loc((i-1)*nDim + 1) = -t_s * area / nNode
+      Re_loc((i-1)*nDim + 2) = -t_s * area / nNode
+    END DO
+
+    ! Store results
+    CALL UF_Elem_PrepareStructStorage(ElemType, state_out)
+    state_out%evo%Ke(1:nDOF, 1:nDOF) = Ke_loc(1:nDOF, 1:nDOF)
+    state_out%Re(1:nDOF) = Re_loc(1:nDOF)
+    state_out%Me = 0.0_wp
+    state_out%Ce = 0.0_wp
+
+    flags%failed = (d_n >= 1.0_wp .OR. d_s >= 1.0_wp)
+    flags%suggest_cutback = .FALSE.
+    flags%requires_reasse = .TRUE.
+    flags%stableDt = 0.0_wp
+    IF (flags%failed) THEN
+      CALL init_error_status(flags%status, IF_STATUS_INVALID, &
+        message='UF_Elem_COH3D6_Calc: cohesive traction fully degraded (d_n or d_s >= 1)')
+    ELSE
+      CALL init_error_status(flags%status, IF_STATUS_OK)
+    END IF
+
+    state_out%failed = flags%failed
+    state_out%stableDt = flags%stableDt
+
+    DEALLOCATE(Ke_loc, Re_loc)
+
+  END SUBROUTINE UF_Elem_COH3D6_Calc
+END MODULE PH_Elem_COH3D6_Def

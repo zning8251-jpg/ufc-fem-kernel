@@ -1,0 +1,25 @@
+# UFC Guardian pre-commit 配置
+# 安装: pip install pre-commit && pre-commit install
+# 手动运行: pre-commit run --all-files
+# 参考: UFC_Agentic_Engineering_方案.md §4 Agent-03
+
+repos:
+  - repo: local
+    hooks:
+      - id: ufc-precision-check
+        name: UFC Precision Declaration Check
+        entry: python config/check_precision.py
+        language: system
+        pass_filenames: true
+        stages: [commit]
+        # 仅当有 .f90 文件变更时触发
+        files: '\.f90$'
+        
+      - id: ufc-guardian-p0
+        name: UFC Guardian (P0 rules)
+        entry: python scripts/arch_guardian.py ufc_core --fail-on-p0 --p0-only
+        language: system
+        pass_filenames: false
+        stages: [commit]
+        # 仅当有 .f90 文件变更时触发
+        files: '\.f90$'

@@ -1,0 +1,70 @@
+{
+  "l1_base": [
+    "ufc_core/L1_IF/Error/IF_Err_Def.f90",
+    "ufc_core/L1_IF/Error/IF_Err_Brg.f90",
+    "ufc_core/L1_IF/Precision/IF_Prec_Core.f90"
+  ],
+  "phase6_stubs": [
+    "tests/phase6_stubs/PHASE6_Stub_MD_Model_Lib_Core.f90",
+    "tests/phase6_stubs/PHASE6_Stub_RT_Shared_Def.f90",
+    "tests/phase6_stubs/PHASE6_Stub_MD_Step_Proc.f90",
+    "tests/phase6_stubs/PHASE6_Stub_RT_Step_Def.f90",
+    "tests/phase6_stubs/PHASE6_Stub_RT_Step_WS.f90",
+    "tests/phase6_stubs/PHASE6_Stub_RT_Solv_Def.f90",
+    "tests/phase6_stubs/PHASE6_Stub_RT_Step_Exec.f90",
+    "tests/phase6_stubs/PHASE6_Stub_RT_Solv_Nonlin.f90"
+  ],
+  "phase6_stubs_no_step_exec": [
+    "tests/phase6_stubs/PHASE6_Stub_MD_Model_Lib_Core.f90",
+    "tests/phase6_stubs/PHASE6_Stub_RT_Shared_Def.f90",
+    "tests/phase6_stubs/PHASE6_Stub_MD_Step_Proc.f90",
+    "tests/phase6_stubs/PHASE6_Stub_RT_Step_Def.f90",
+    "tests/phase6_stubs/PHASE6_Stub_RT_Step_WS.f90",
+    "tests/phase6_stubs/PHASE6_Stub_RT_Solv_Def.f90",
+    "tests/phase6_stubs/PHASE6_Stub_RT_Solv_Nonlin.f90"
+  ],
+  "phase6_driver_prod": [
+    "ufc_core/L5_RT/StepDriver/RT_Drv_Ctx.f90",
+    "ufc_core/L5_RT/StepDriver/RT_Driver_Core.f90"
+  ],
+  "phase6_stubs_l6": [
+    "tests/phase6_stubs/PHASE6_Stub_AP_Job_Def.f90",
+    "tests/phase6_stubs/PHASE6_Stub_MD_TypeSystem.f90",
+    "tests/phase6_stubs/PHASE6_Stub_AP_Job_Mgr.f90",
+    "tests/phase6_stubs/PHASE6_Stub_AP_Brg_L5.f90"
+  ],
+  "phase6_matstate_src": [
+    "tests/phase6_stubs/PHASE6_Stub_MD_Mat_Def.f90"
+  ],
+  "phase6_driver_src": [
+    "tests/phase6_stubs/PHASE6_Stub_RT_Drv_Ctx.f90",
+    "tests/phase6_stubs/PHASE6_Stub_RT_Driver_Core.f90"
+  ],
+  "profiles": {
+    "rt_drv": {
+      "compile": ["l1_base", "phase6_stubs", "phase6_driver_src"],
+      "link": ["tests/L5_RT/test_RT_RunModel_Ctx_model_def.f90"]
+    },
+    "rt_drv_prod": {
+      "compile": [
+        "l1_base",
+        "phase6_stubs_no_step_exec",
+        "ufc_core/L5_RT/StepDriver/RT_Step_Exec.f90",
+        "phase6_driver_prod"
+      ],
+      "link": ["tests/L5_RT/test_RT_RunModel_Ctx_model_def.f90"]
+    },
+    "arclen_linked": {
+      "compile": ["l1_base", "phase6_stubs"],
+      "link": ["tests/L5_RT/test_RT_NLSolver_ArcLen_min.f90"]
+    },
+    "l6_bridge": {
+      "compile": ["l1_base", "phase6_stubs", "phase6_driver_src", "phase6_stubs_l6"],
+      "link": ["tests/L6_AP/test_Brg_AP_Job_L5_bridge.f90"]
+    },
+    "matstate_linked": {
+      "compile": ["l1_base", "phase6_matstate_src"],
+      "link": ["tests/L3_MD/test_MD_MatState_snapshot.f90"]
+    }
+  }
+}

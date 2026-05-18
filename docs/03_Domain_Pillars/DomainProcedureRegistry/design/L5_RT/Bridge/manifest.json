@@ -1,0 +1,20 @@
+{
+  "layer": "L5_RT",
+  "domain_bucket": "Bridge",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L5_RT/Bridge/RT_Brg.f90",
+      "stem": "RT_Brg"
+    },
+    {
+      "source_rel": "L5_RT/Bridge/RT_Brg_Def.f90",
+      "stem": "RT_Brg_Def"
+    },
+    {
+      "source_rel": "L5_RT/Bridge/Shared/RT_Shared_Def.f90",
+      "stem": "RT_Shared_Def"
+    }
+  ]
+}

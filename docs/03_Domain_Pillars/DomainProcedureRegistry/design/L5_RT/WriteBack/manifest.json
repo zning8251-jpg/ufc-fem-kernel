@@ -1,0 +1,24 @@
+{
+  "layer": "L5_RT",
+  "domain_bucket": "WriteBack",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L5_RT/WriteBack/RT_WB_Def.f90",
+      "stem": "RT_WB_Def"
+    },
+    {
+      "source_rel": "L5_RT/WriteBack/RT_WBDomain.f90",
+      "stem": "RT_WBDomain"
+    },
+    {
+      "source_rel": "L5_RT/WriteBack/RT_WBImpl.f90",
+      "stem": "RT_WBImpl"
+    },
+    {
+      "source_rel": "L5_RT/WriteBack/RT_WBProc.f90",
+      "stem": "RT_WBProc"
+    }
+  ]
+}

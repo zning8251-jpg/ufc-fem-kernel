@@ -1,0 +1,15 @@
+{
+  "name": "ufc-governance-tooling",
+  "private": true,
+  "description": "Optional @fission-ai/openspec CLI (fallback) alongside ufc_harness change-package validate.",
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@fission-ai/openspec": "1.3.1"
+  },
+  "scripts": {
+    "openspec": "openspec",
+    "change-package:strict:example": "python ufc_harness/run_harness.py change-package validate --change-id example-ufc-triad --strict"
+  }
+}

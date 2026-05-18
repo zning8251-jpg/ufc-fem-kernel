@@ -1,0 +1,108 @@
+{
+  "layer": "L1_IF",
+  "domain_bucket": "Base",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L1_IF/Base/AI/IF_AI.f90",
+      "stem": "IF_AI"
+    },
+    {
+      "source_rel": "L1_IF/Base/AI/IF_AI_Brg.f90",
+      "stem": "IF_AI_Brg"
+    },
+    {
+      "source_rel": "L1_IF/Base/AI/IF_AI_Def.f90",
+      "stem": "IF_AI_Def"
+    },
+    {
+      "source_rel": "L1_IF/Base/AI/IF_AI_ModelLoader.f90",
+      "stem": "IF_AI_ModelLoader"
+    },
+    {
+      "source_rel": "L1_IF/Base/AI/IF_AI_Preprocess.f90",
+      "stem": "IF_AI_Preprocess"
+    },
+    {
+      "source_rel": "L1_IF/Base/AI/IF_AI_Runtime.f90",
+      "stem": "IF_AI_Runtime"
+    },
+    {
+      "source_rel": "L1_IF/Base/AI/IF_AI_TensorOps.f90",
+      "stem": "IF_AI_TensorOps"
+    },
+    {
+      "source_rel": "L1_IF/Base/IF_Base.f90",
+      "stem": "IF_Base"
+    },
+    {
+      "source_rel": "L1_IF/Base/IF_Base_Ctx.f90",
+      "stem": "IF_Base_Ctx"
+    },
+    {
+      "source_rel": "L1_IF/Base/IF_Base_DP.f90",
+      "stem": "IF_Base_DP"
+    },
+    {
+      "source_rel": "L1_IF/Base/IF_Base_StructMeta_Def.f90",
+      "stem": "IF_Base_StructMeta_Def"
+    },
+    {
+      "source_rel": "L1_IF/Base/IF_Base_SymTbl.f90",
+      "stem": "IF_Base_SymTbl"
+    },
+    {
+      "source_rel": "L1_IF/Base/IF_Base_UnstructMeta_Def.f90",
+      "stem": "IF_Base_UnstructMeta_Def"
+    },
+    {
+      "source_rel": "L1_IF/Base/IF_Device_Mgr.f90",
+      "stem": "IF_Device_Mgr"
+    },
+    {
+      "source_rel": "L1_IF/Base/IF_Math_Util.f90",
+      "stem": "IF_Math_Util"
+    },
+    {
+      "source_rel": "L1_IF/Base/IF_Step_Def.f90",
+      "stem": "IF_Step_Def"
+    },
+    {
+      "source_rel": "L1_IF/Base/Parallel/IF_ThreadWS.f90",
+      "stem": "IF_ThreadWS"
+    },
+    {
+      "source_rel": "L1_IF/Base/Parallel/IF_ThreadWS_Brg.f90",
+      "stem": "IF_ThreadWS_Brg"
+    },
+    {
+      "source_rel": "L1_IF/Base/Parallel/IF_ThreadWS_Def.f90",
+      "stem": "IF_ThreadWS_Def"
+    },
+    {
+      "source_rel": "L1_IF/Base/Symbol/IF_Sym.f90",
+      "stem": "IF_Sym"
+    },
+    {
+      "source_rel": "L1_IF/Base/Symbol/IF_Sym_Brg.f90",
+      "stem": "IF_Sym_Brg"
+    },
+    {
+      "source_rel": "L1_IF/Base/Symbol/IF_Sym_Def.f90",
+      "stem": "IF_Sym_Def"
+    },
+    {
+      "source_rel": "L1_IF/Base/Symbol/IF_Sym_Stiffness.f90",
+      "stem": "IF_Sym_Stiffness"
+    },
+    {
+      "source_rel": "L1_IF/Base/Symbol/IF_Sym_Strain.f90",
+      "stem": "IF_Sym_Strain"
+    },
+    {
+      "source_rel": "L1_IF/Base/Symbol/IF_Sym_Stress.f90",
+      "stem": "IF_Sym_Stress"
+    }
+  ]
+}

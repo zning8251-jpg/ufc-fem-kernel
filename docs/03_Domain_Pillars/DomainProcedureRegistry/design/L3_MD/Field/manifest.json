@@ -1,0 +1,16 @@
+{
+  "layer": "L3_MD",
+  "domain_bucket": "Field",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L3_MD/Field/MD_Field_Def.f90",
+      "stem": "MD_Field_Def"
+    },
+    {
+      "source_rel": "L3_MD/Field/MD_Field_Mgr.f90",
+      "stem": "MD_Field_Mgr"
+    }
+  ]
+}

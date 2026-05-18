@@ -1,0 +1,36 @@
+{
+  "layer": "L5_RT",
+  "domain_bucket": "StepDriver",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L5_RT/StepDriver/RT_AIStepCtrAlgo.f90",
+      "stem": "RT_AIStepCtrAlgo"
+    },
+    {
+      "source_rel": "L5_RT/StepDriver/RT_Step_Ctx.f90",
+      "stem": "RT_Step_Ctx"
+    },
+    {
+      "source_rel": "L5_RT/StepDriver/RT_Step_Def.f90",
+      "stem": "RT_Step_Def"
+    },
+    {
+      "source_rel": "L5_RT/StepDriver/RT_StepDriver_Brg.f90",
+      "stem": "RT_StepDriver_Brg"
+    },
+    {
+      "source_rel": "L5_RT/StepDriver/RT_StepExec.f90",
+      "stem": "RT_StepExec"
+    },
+    {
+      "source_rel": "L5_RT/StepDriver/RT_StepImpl.f90",
+      "stem": "RT_StepImpl"
+    },
+    {
+      "source_rel": "L5_RT/StepDriver/RT_StepWS.f90",
+      "stem": "RT_StepWS"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "layer": "L5_RT",
+  "domain_bucket": "Contact",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L5_RT/Contact/RT_Cont_Def.f90",
+      "stem": "RT_Cont_Def"
+    },
+    {
+      "source_rel": "L5_RT/Contact/RT_ContactCore.f90",
+      "stem": "RT_ContactCore"
+    },
+    {
+      "source_rel": "L5_RT/Contact/RT_ContAugLagSolv.f90",
+      "stem": "RT_ContAugLagSolv"
+    },
+    {
+      "source_rel": "L5_RT/Contact/RT_ContCtrl.f90",
+      "stem": "RT_ContCtrl"
+    },
+    {
+      "source_rel": "L5_RT/Contact/RT_ContExpl.f90",
+      "stem": "RT_ContExpl"
+    },
+    {
+      "source_rel": "L5_RT/Contact/RT_ContSearch.f90",
+      "stem": "RT_ContSearch"
+    },
+    {
+      "source_rel": "L5_RT/Contact/RT_ContSolv.f90",
+      "stem": "RT_ContSolv"
+    }
+  ]
+}

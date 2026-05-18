@@ -1,0 +1,24 @@
+{
+  "layer": "L1_IF",
+  "domain_bucket": "Error",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L1_IF/Error/IF_Err.f90",
+      "stem": "IF_Err"
+    },
+    {
+      "source_rel": "L1_IF/Error/IF_Err_Brg.f90",
+      "stem": "IF_Err_Brg"
+    },
+    {
+      "source_rel": "L1_IF/Error/IF_Err_Def.f90",
+      "stem": "IF_Err_Def"
+    },
+    {
+      "source_rel": "L1_IF/Error/IF_Err_Reg.f90",
+      "stem": "IF_Err_Reg"
+    }
+  ]
+}

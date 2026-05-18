@@ -1,0 +1,2061 @@
+{
+  "source_pdf": "D:\\TEST7\\UFC\\Manual\\ANALYSIS_3.pdf",
+  "page_count": 707,
+  "ufc_reference": "L3_MD/Material/CONTRACT.md §11主族; MD_Ana_Comp.f90 AC_N_MAT_FAM",
+  "md_mat_def_reference": "UFC/ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+  "toc_part5_major": [
+    {
+      "level": 3,
+      "title": "Part V: Materials",
+      "page_1based": 33,
+      "part": "V_header",
+      "ufc_mat_family": null,
+      "ufc_note": "Part V 起点"
+    },
+    {
+      "level": 4,
+      "title": "21. Materials: Introduction",
+      "page_1based": 35,
+      "part": "V_body",
+      "ufc_mat_family": null,
+      "ufc_family_name": null,
+      "ufc_l3_material_subdir": null,
+      "ufc_l4_material_subdir": null,
+      "classification": "ch21_meta",
+      "ufc_data_anchor": "`MD_Mat_Desc`（源码 `MD_MatDesc`）/ `PH_Mat_Desc` 通用：材料库、组合表、密度等跨族属性"
+    },
+    {
+      "level": 5,
+      "title": "21.1 Introduction",
+      "page_1based": 37,
+      "part": "V_body",
+      "ufc_mat_family": null,
+      "ufc_family_name": null,
+      "ufc_l3_material_subdir": null,
+      "ufc_l4_material_subdir": null,
+      "classification": "ch21_meta",
+      "ufc_data_anchor": "`MD_Mat_Desc`（源码 `MD_MatDesc`）/ `PH_Mat_Desc` 通用：材料库、组合表、密度等跨族属性"
+    },
+    {
+      "level": 6,
+      "title": "21.1.1 Material library: overview",
+      "page_1based": 39,
+      "part": "V_body",
+      "ufc_mat_family": null,
+      "ufc_family_name": null,
+      "ufc_l3_material_subdir": null,
+      "ufc_l4_material_subdir": null,
+      "classification": "ch21_meta",
+      "ufc_data_anchor": "`MD_Mat_Desc`（源码 `MD_MatDesc`）/ `PH_Mat_Desc` 通用：材料库、组合表、密度等跨族属性"
+    },
+    {
+      "level": 6,
+      "title": "21.1.2 Material data definition",
+      "page_1based": 41,
+      "part": "V_body",
+      "ufc_mat_family": null,
+      "ufc_family_name": null,
+      "ufc_l3_material_subdir": null,
+      "ufc_l4_material_subdir": null,
+      "classification": "ch21_meta",
+      "ufc_data_anchor": "`MD_Mat_Desc`（源码 `MD_MatDesc`）/ `PH_Mat_Desc` 通用：材料库、组合表、密度等跨族属性"
+    },
+    {
+      "level": 6,
+      "title": "21.1.3 Combining material behaviors",
+      "page_1based": 49,
+      "part": "V_body",
+      "ufc_mat_family": null,
+      "ufc_family_name": null,
+      "ufc_l3_material_subdir": null,
+      "ufc_l4_material_subdir": null,
+      "classification": "ch21_meta",
+      "ufc_data_anchor": "`MD_Mat_Desc`（源码 `MD_MatDesc`）/ `PH_Mat_Desc` 通用：材料库、组合表、密度等跨族属性"
+    },
+    {
+      "level": 5,
+      "title": "21.2 General properties",
+      "page_1based": 59,
+      "part": "V_body",
+      "ufc_mat_family": null,
+      "ufc_family_name": null,
+      "ufc_l3_material_subdir": null,
+      "ufc_l4_material_subdir": null,
+      "classification": "ch21_meta",
+      "ufc_data_anchor": "`MD_Mat_Desc`（源码 `MD_MatDesc`）/ `PH_Mat_Desc` 通用：材料库、组合表、密度等跨族属性"
+    },
+    {
+      "level": 6,
+      "title": "21.2.1 Density",
+      "page_1based": 61,
+      "part": "V_body",
+      "ufc_mat_family": null,
+      "ufc_family_name": null,
+      "ufc_l3_material_subdir": null,
+      "ufc_l4_material_subdir": null,
+      "classification": "ch21_meta",
+      "ufc_data_anchor": "`MD_Mat_Desc`（源码 `MD_MatDesc`）/ `PH_Mat_Desc` 通用：材料库、组合表、密度等跨族属性"
+    },
+    {
+      "level": 4,
+      "title": "22. Elastic Mechanical Properties",
+      "page_1based": 63,
+      "part": "V_body",
+      "ufc_mat_family": 1,
+      "ufc_family_name": "Elastic",
+      "ufc_l3_material_subdir": "Elas/",
+      "ufc_l4_material_subdir": "Elas/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Elas/` 为主；子节含 4/5 等"
+    },
+    {
+      "level": 5,
+      "title": "22.1 Overview",
+      "page_1based": 65,
+      "part": "V_body",
+      "ufc_mat_family": 1,
+      "ufc_family_name": "Elastic",
+      "ufc_l3_material_subdir": "Elas/",
+      "ufc_l4_material_subdir": "Elas/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Elas/` 为主；子节含 4/5 等"
+    },
+    {
+      "level": 6,
+      "title": "22.1.1 Elastic behavior: overview",
+      "page_1based": 67,
+      "part": "V_body",
+      "ufc_mat_family": 1,
+      "ufc_family_name": "Elastic",
+      "ufc_l3_material_subdir": "Elas/",
+      "ufc_l4_material_subdir": "Elas/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Elas/` 为主；子节含 4/5 等"
+    },
+    {
+      "level": 5,
+      "title": "22.2 Linear elasticity",
+      "page_1based": 71,
+      "part": "V_body",
+      "ufc_mat_family": 1,
+      "ufc_family_name": "Elastic",
+      "ufc_l3_material_subdir": "Elas/",
+      "ufc_l4_material_subdir": "Elas/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Elas/`"
+    },
+    {
+      "level": 6,
+      "title": "22.2.1 Linear elastic behavior",
+      "page_1based": 73,
+      "part": "V_body",
+      "ufc_mat_family": 1,
+      "ufc_family_name": "Elastic",
+      "ufc_l3_material_subdir": "Elas/",
+      "ufc_l4_material_subdir": "Elas/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Elas/`"
+    },
+    {
+      "level": 6,
+      "title": "22.2.2 No compression or no tension",
+      "page_1based": 83,
+      "part": "V_body",
+      "ufc_mat_family": 1,
+      "ufc_family_name": "Elastic",
+      "ufc_l3_material_subdir": "Elas/",
+      "ufc_l4_material_subdir": "Elas/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Elas/`"
+    },
+    {
+      "level": 6,
+      "title": "22.2.3 Plane stress orthotropic failure measures",
+      "page_1based": 87,
+      "part": "V_body",
+      "ufc_mat_family": 1,
+      "ufc_family_name": "Elastic",
+      "ufc_l3_material_subdir": "Elas/",
+      "ufc_l4_material_subdir": "Elas/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Elas/`"
+    },
+    {
+      "level": 5,
+      "title": "22.3 Porous elasticity",
+      "page_1based": 93,
+      "part": "V_body",
+      "ufc_mat_family": 1,
+      "ufc_family_name": "Elastic",
+      "ufc_l3_material_subdir": "Elas/",
+      "ufc_l4_material_subdir": "Elas/",
+      "classification": "keyword",
+      "ufc_data_anchor": "手册在弹性卷 — UFC：`Elas/` 弹性矩阵 + `Geo/` 孔压耦合描述分工见域合同"
+    },
+    {
+      "level": 6,
+      "title": "22.3.1 Elastic behavior of porous materials",
+      "page_1based": 95,
+      "part": "V_body",
+      "ufc_mat_family": 1,
+      "ufc_family_name": "Elastic",
+      "ufc_l3_material_subdir": "Elas/",
+      "ufc_l4_material_subdir": "Elas/",
+      "classification": "keyword",
+      "ufc_data_anchor": "手册在弹性卷 — UFC：`Elas/` 弹性矩阵 + `Geo/` 孔压耦合描述分工见域合同"
+    },
+    {
+      "level": 5,
+      "title": "22.4 Hypoelasticity",
+      "page_1based": 99,
+      "part": "V_body",
+      "ufc_mat_family": 1,
+      "ufc_family_name": "Elastic",
+      "ufc_l3_material_subdir": "Elas/",
+      "ufc_l4_material_subdir": "Elas/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Elas/`（率型表述）"
+    },
+    {
+      "level": 6,
+      "title": "22.4.1 Hypoelastic behavior",
+      "page_1based": 101,
+      "part": "V_body",
+      "ufc_mat_family": 1,
+      "ufc_family_name": "Elastic",
+      "ufc_l3_material_subdir": "Elas/",
+      "ufc_l4_material_subdir": "Elas/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Elas/`（率型表述）"
+    },
+    {
+      "level": 5,
+      "title": "22.5 Hyperelasticity",
+      "page_1based": 103,
+      "part": "V_body",
+      "ufc_mat_family": 4,
+      "ufc_family_name": "Hyper",
+      "ufc_l3_material_subdir": "HyperElas/",
+      "ufc_l4_material_subdir": "HyperElas/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`HyperElas/`"
+    },
+    {
+      "level": 6,
+      "title": "22.5.1 Hyperelastic behavior of rubberlike materials",
+      "page_1based": 105,
+      "part": "V_body",
+      "ufc_mat_family": 4,
+      "ufc_family_name": "Hyper",
+      "ufc_l3_material_subdir": "HyperElas/",
+      "ufc_l4_material_subdir": "HyperElas/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`HyperElas/`"
+    },
+    {
+      "level": 6,
+      "title": "22.5.2 Hyperelastic behavior in elastomeric foams",
+      "page_1based": 131,
+      "part": "V_body",
+      "ufc_mat_family": 4,
+      "ufc_family_name": "Hyper",
+      "ufc_l3_material_subdir": "HyperElas/",
+      "ufc_l4_material_subdir": "HyperElas/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`HyperElas/`"
+    },
+    {
+      "level": 6,
+      "title": "22.5.3 Anisotropic hyperelastic behavior",
+      "page_1based": 143,
+      "part": "V_body",
+      "ufc_mat_family": 4,
+      "ufc_family_name": "Hyper",
+      "ufc_l3_material_subdir": "HyperElas/",
+      "ufc_l4_material_subdir": "HyperElas/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`HyperElas/`"
+    },
+    {
+      "level": 5,
+      "title": "22.6 Stress softening in elastomers",
+      "page_1based": 153,
+      "part": "V_body",
+      "ufc_mat_family": 4,
+      "ufc_family_name": "Hyper",
+      "ufc_l3_material_subdir": "HyperElas/",
+      "ufc_l4_material_subdir": "HyperElas/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`HyperElas/`（Mullins 等）"
+    },
+    {
+      "level": 6,
+      "title": "22.6.1 Mullins effect",
+      "page_1based": 155,
+      "part": "V_body",
+      "ufc_mat_family": 4,
+      "ufc_family_name": "Hyper",
+      "ufc_l3_material_subdir": "HyperElas/",
+      "ufc_l4_material_subdir": "HyperElas/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`HyperElas/`"
+    },
+    {
+      "level": 6,
+      "title": "22.6.2 Energy dissipation in elastomeric foams",
+      "page_1based": 167,
+      "part": "V_body",
+      "ufc_mat_family": 1,
+      "ufc_family_name": "Elastic",
+      "ufc_l3_material_subdir": "Elas/",
+      "ufc_l4_material_subdir": "Elas/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Elas/` 为主；子节含 4/5 等"
+    },
+    {
+      "level": 5,
+      "title": "22.7 Linear viscoelasticity",
+      "page_1based": 173,
+      "part": "V_body",
+      "ufc_mat_family": 5,
+      "ufc_family_name": "VE",
+      "ufc_l3_material_subdir": "Viscoelas/",
+      "ufc_l4_material_subdir": "Viscoelas/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Viscoelas/`"
+    },
+    {
+      "level": 6,
+      "title": "22.7.1 Time domain viscoelasticity",
+      "page_1based": 175,
+      "part": "V_body",
+      "ufc_mat_family": 5,
+      "ufc_family_name": "VE",
+      "ufc_l3_material_subdir": "Viscoelas/",
+      "ufc_l4_material_subdir": "Viscoelas/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Viscoelas/`"
+    },
+    {
+      "level": 6,
+      "title": "22.7.2 Frequency domain viscoelasticity",
+      "page_1based": 193,
+      "part": "V_body",
+      "ufc_mat_family": 5,
+      "ufc_family_name": "VE",
+      "ufc_l3_material_subdir": "Viscoelas/",
+      "ufc_l4_material_subdir": "Viscoelas/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Viscoelas/`"
+    },
+    {
+      "level": 5,
+      "title": "22.8 Nonlinear viscoelasticity",
+      "page_1based": 201,
+      "part": "V_body",
+      "ufc_mat_family": 5,
+      "ufc_family_name": "VE",
+      "ufc_l3_material_subdir": "Viscoelas/",
+      "ufc_l4_material_subdir": "Viscoelas/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Viscoelas/`"
+    },
+    {
+      "level": 6,
+      "title": "22.8.1 Hysteresis in elastomers",
+      "page_1based": 203,
+      "part": "V_body",
+      "ufc_mat_family": 5,
+      "ufc_family_name": "VE",
+      "ufc_l3_material_subdir": "Viscoelas/",
+      "ufc_l4_material_subdir": "Viscoelas/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Viscoelas/`"
+    },
+    {
+      "level": 6,
+      "title": "22.8.2 Parallel rheological framework",
+      "page_1based": 207,
+      "part": "V_body",
+      "ufc_mat_family": 5,
+      "ufc_family_name": "VE",
+      "ufc_l3_material_subdir": "Viscoelas/",
+      "ufc_l4_material_subdir": "Viscoelas/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Viscoelas/`"
+    },
+    {
+      "level": 5,
+      "title": "22.9 Rate sensitive elastomeric foams",
+      "page_1based": 217,
+      "part": "V_body",
+      "ufc_mat_family": 1,
+      "ufc_family_name": "Elastic",
+      "ufc_l3_material_subdir": "Elas/",
+      "ufc_l4_material_subdir": "Elas/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Elas/` 为主；子节含 4/5 等"
+    },
+    {
+      "level": 6,
+      "title": "22.9.1 Low-density foams",
+      "page_1based": 219,
+      "part": "V_body",
+      "ufc_mat_family": 1,
+      "ufc_family_name": "Elastic",
+      "ufc_l3_material_subdir": "Elas/",
+      "ufc_l4_material_subdir": "Elas/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Elas/` 为主；子节含 4/5 等"
+    },
+    {
+      "level": 4,
+      "title": "23. Inelastic Mechanical Properties",
+      "page_1based": 227,
+      "part": "V_body",
+      "ufc_mat_family": 2,
+      "ufc_family_name": "Plastic",
+      "ufc_l3_material_subdir": "Plast/",
+      "ufc_l4_material_subdir": "Plast/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Plast/` 为主族；子节经关键字细分为 3/6/7"
+    },
+    {
+      "level": 5,
+      "title": "23.1 Overview",
+      "page_1based": 229,
+      "part": "V_body",
+      "ufc_mat_family": 2,
+      "ufc_family_name": "Plastic",
+      "ufc_l3_material_subdir": "Plast/",
+      "ufc_l4_material_subdir": "Plast/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Plast/` 为主族；子节经关键字细分为 3/6/7"
+    },
+    {
+      "level": 6,
+      "title": "23.1.1 Inelastic behavior",
+      "page_1based": 231,
+      "part": "V_body",
+      "ufc_mat_family": 2,
+      "ufc_family_name": "Plastic",
+      "ufc_l3_material_subdir": "Plast/",
+      "ufc_l4_material_subdir": "Plast/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Plast/` 为主族；子节经关键字细分为 3/6/7"
+    },
+    {
+      "level": 5,
+      "title": "23.2 Metal plasticity",
+      "page_1based": 239,
+      "part": "V_body",
+      "ufc_mat_family": 2,
+      "ufc_family_name": "Plastic",
+      "ufc_l3_material_subdir": "Plast/",
+      "ufc_l4_material_subdir": "Plast/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Plast/`"
+    },
+    {
+      "level": 6,
+      "title": "23.2.1 Classical metal plasticity",
+      "page_1based": 241,
+      "part": "V_body",
+      "ufc_mat_family": 2,
+      "ufc_family_name": "Plastic",
+      "ufc_l3_material_subdir": "Plast/",
+      "ufc_l4_material_subdir": "Plast/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Plast/`"
+    },
+    {
+      "level": 6,
+      "title": "23.2.2 Models for metals subjected to cyclic loading",
+      "page_1based": 249,
+      "part": "V_body",
+      "ufc_mat_family": 2,
+      "ufc_family_name": "Plastic",
+      "ufc_l3_material_subdir": "Plast/",
+      "ufc_l4_material_subdir": "Plast/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Plast/` 为主族；子节经关键字细分为 3/6/7"
+    },
+    {
+      "level": 6,
+      "title": "23.2.3 Rate-dependent yield",
+      "page_1based": 265,
+      "part": "V_body",
+      "ufc_mat_family": 2,
+      "ufc_family_name": "Plastic",
+      "ufc_l3_material_subdir": "Plast/",
+      "ufc_l4_material_subdir": "Plast/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Plast/` 为主族；子节经关键字细分为 3/6/7"
+    },
+    {
+      "level": 6,
+      "title": "23.2.4 Rate-dependent plasticity: creep and swelling",
+      "page_1based": 269,
+      "part": "V_body",
+      "ufc_mat_family": 6,
+      "ufc_family_name": "VP/Creep",
+      "ufc_l3_material_subdir": "Creep/",
+      "ufc_l4_material_subdir": "Creep/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Creep/` — 与 `Plast/` 率相关小节交叉，以关键字为准"
+    },
+    {
+      "level": 6,
+      "title": "23.2.5 Annealing or melting",
+      "page_1based": 283,
+      "part": "V_body",
+      "ufc_mat_family": 2,
+      "ufc_family_name": "Plastic",
+      "ufc_l3_material_subdir": "Plast/",
+      "ufc_l4_material_subdir": "Plast/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Plast/` 为主族；子节经关键字细分为 3/6/7"
+    },
+    {
+      "level": 6,
+      "title": "23.2.6 Anisotropic yield/creep",
+      "page_1based": 287,
+      "part": "V_body",
+      "ufc_mat_family": 2,
+      "ufc_family_name": "Plastic",
+      "ufc_l3_material_subdir": "Plast/",
+      "ufc_l4_material_subdir": "Plast/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Plast/`（屈服+蠕变各向异性 — 主塑性族）"
+    },
+    {
+      "level": 6,
+      "title": "23.2.7 Johnson-Cook plasticity",
+      "page_1based": 295,
+      "part": "V_body",
+      "ufc_mat_family": 2,
+      "ufc_family_name": "Plastic",
+      "ufc_l3_material_subdir": "Plast/",
+      "ufc_l4_material_subdir": "Plast/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Plast/`"
+    },
+    {
+      "level": 6,
+      "title": "23.2.8 Dynamic failure models",
+      "page_1based": 303,
+      "part": "V_body",
+      "ufc_mat_family": 2,
+      "ufc_family_name": "Plastic",
+      "ufc_l3_material_subdir": "Plast/",
+      "ufc_l4_material_subdir": "Plast/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Plast/` 为主族；子节经关键字细分为 3/6/7"
+    },
+    {
+      "level": 6,
+      "title": "23.2.9 Porous metal plasticity",
+      "page_1based": 309,
+      "part": "V_body",
+      "ufc_mat_family": 2,
+      "ufc_family_name": "Plastic",
+      "ufc_l3_material_subdir": "Plast/",
+      "ufc_l4_material_subdir": "Plast/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Plast/`"
+    },
+    {
+      "level": 6,
+      "title": "23.2.10 Cast iron plasticity",
+      "page_1based": 317,
+      "part": "V_body",
+      "ufc_mat_family": 2,
+      "ufc_family_name": "Plastic",
+      "ufc_l3_material_subdir": "Plast/",
+      "ufc_l4_material_subdir": "Plast/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Plast/` 为主族；子节经关键字细分为 3/6/7"
+    },
+    {
+      "level": 6,
+      "title": "23.2.11 Two-layer viscoplasticity",
+      "page_1based": 321,
+      "part": "V_body",
+      "ufc_mat_family": 2,
+      "ufc_family_name": "Plastic",
+      "ufc_l3_material_subdir": "Plast/",
+      "ufc_l4_material_subdir": "Plast/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Plast/` 为主族；子节经关键字细分为 3/6/7"
+    },
+    {
+      "level": 6,
+      "title": "23.2.12 ORNL – Oak Ridge National Laboratory constitutive model",
+      "page_1based": 327,
+      "part": "V_body",
+      "ufc_mat_family": 2,
+      "ufc_family_name": "Plastic",
+      "ufc_l3_material_subdir": "Plast/",
+      "ufc_l4_material_subdir": "Plast/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Plast/` 为主族；子节经关键字细分为 3/6/7"
+    },
+    {
+      "level": 6,
+      "title": "23.2.13 Deformation plasticity",
+      "page_1based": 331,
+      "part": "V_body",
+      "ufc_mat_family": 2,
+      "ufc_family_name": "Plastic",
+      "ufc_l3_material_subdir": "Plast/",
+      "ufc_l4_material_subdir": "Plast/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Plast/` 为主族；子节经关键字细分为 3/6/7"
+    },
+    {
+      "level": 5,
+      "title": "23.3 Other plasticity models",
+      "page_1based": 335,
+      "part": "V_body",
+      "ufc_mat_family": 2,
+      "ufc_family_name": "Plastic",
+      "ufc_l3_material_subdir": "Plast/",
+      "ufc_l4_material_subdir": "Plast/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Plast/` 为主族；子节经关键字细分为 3/6/7"
+    },
+    {
+      "level": 6,
+      "title": "23.3.1 Extended Drucker-Prager models",
+      "page_1based": 337,
+      "part": "V_body",
+      "ufc_mat_family": 3,
+      "ufc_family_name": "Geo",
+      "ufc_l3_material_subdir": "Geo/",
+      "ufc_l4_material_subdir": "Geo/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Geo/` — 例：`MD_Geo_DruckerPrager` + `PH_Mat_DP_*`"
+    },
+    {
+      "level": 6,
+      "title": "23.3.2 Modified Drucker-Prager/Cap model",
+      "page_1based": 365,
+      "part": "V_body",
+      "ufc_mat_family": 3,
+      "ufc_family_name": "Geo",
+      "ufc_l3_material_subdir": "Geo/",
+      "ufc_l4_material_subdir": "Geo/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Geo/` — 例：`MD_Geo_DruckerPrager` + `PH_Mat_DP_*`"
+    },
+    {
+      "level": 6,
+      "title": "23.3.3 Mohr-Coulomb plasticity",
+      "page_1based": 379,
+      "part": "V_body",
+      "ufc_mat_family": 3,
+      "ufc_family_name": "Geo",
+      "ufc_l3_material_subdir": "Geo/",
+      "ufc_l4_material_subdir": "Geo/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Geo/` — 例：`MD_Geo_DruckerPrager` + `PH_Mat_DP_*`"
+    },
+    {
+      "level": 6,
+      "title": "23.3.4 Critical state (clay) plasticity model",
+      "page_1based": 389,
+      "part": "V_body",
+      "ufc_mat_family": 3,
+      "ufc_family_name": "Geo",
+      "ufc_l3_material_subdir": "Geo/",
+      "ufc_l4_material_subdir": "Geo/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Geo/` — 例：`MD_Geo_DruckerPrager` + `PH_Mat_DP_*`"
+    },
+    {
+      "level": 6,
+      "title": "23.3.5 Crushable foam plasticity models",
+      "page_1based": 399,
+      "part": "V_body",
+      "ufc_mat_family": 2,
+      "ufc_family_name": "Plastic",
+      "ufc_l3_material_subdir": "Plast/",
+      "ufc_l4_material_subdir": "Plast/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Plast/`（金属泡沫）— 与 Geo 区分见手册"
+    },
+    {
+      "level": 5,
+      "title": "23.4 Fabric materials",
+      "page_1based": 411,
+      "part": "V_body",
+      "ufc_mat_family": 3,
+      "ufc_family_name": "Geo",
+      "ufc_l3_material_subdir": "Geo/",
+      "ufc_l4_material_subdir": "Geo/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Geo/` 或 `Composite/` 扩展 — 当前多走 `Geo`/anisotropic 路由"
+    },
+    {
+      "level": 6,
+      "title": "23.4.1 Fabric material behavior",
+      "page_1based": 413,
+      "part": "V_body",
+      "ufc_mat_family": 3,
+      "ufc_family_name": "Geo",
+      "ufc_l3_material_subdir": "Geo/",
+      "ufc_l4_material_subdir": "Geo/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Geo/` 或 `Composite/` 扩展 — 当前多走 `Geo`/anisotropic 路由"
+    },
+    {
+      "level": 5,
+      "title": "23.5 Jointed materials",
+      "page_1based": 433,
+      "part": "V_body",
+      "ufc_mat_family": 3,
+      "ufc_family_name": "Geo",
+      "ufc_l3_material_subdir": "Geo/",
+      "ufc_l4_material_subdir": "Geo/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Geo/` 或 `Composite/` 扩展 — 当前多走 `Geo`/anisotropic 路由"
+    },
+    {
+      "level": 6,
+      "title": "23.5.1 Jointed material model",
+      "page_1based": 435,
+      "part": "V_body",
+      "ufc_mat_family": 3,
+      "ufc_family_name": "Geo",
+      "ufc_l3_material_subdir": "Geo/",
+      "ufc_l4_material_subdir": "Geo/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Geo/` 或 `Composite/` 扩展 — 当前多走 `Geo`/anisotropic 路由"
+    },
+    {
+      "level": 5,
+      "title": "23.6 Concrete",
+      "page_1based": 441,
+      "part": "V_body",
+      "ufc_mat_family": 7,
+      "ufc_family_name": "Damage",
+      "ufc_l3_material_subdir": "Damage/",
+      "ufc_l4_material_subdir": "Damage/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Damage/` + `Plast/` 交叉 — UFC 以 `PH_MAT_DAMAGE` 为主标记"
+    },
+    {
+      "level": 6,
+      "title": "23.6.1 Concrete smeared cracking",
+      "page_1based": 443,
+      "part": "V_body",
+      "ufc_mat_family": 7,
+      "ufc_family_name": "Damage",
+      "ufc_l3_material_subdir": "Damage/",
+      "ufc_l4_material_subdir": "Damage/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Damage/` + `Plast/` 交叉 — UFC 以 `PH_MAT_DAMAGE` 为主标记"
+    },
+    {
+      "level": 6,
+      "title": "23.6.2 Cracking model for concrete",
+      "page_1based": 457,
+      "part": "V_body",
+      "ufc_mat_family": 7,
+      "ufc_family_name": "Damage",
+      "ufc_l3_material_subdir": "Damage/",
+      "ufc_l4_material_subdir": "Damage/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Damage/` + `Plast/` 交叉 — UFC 以 `PH_MAT_DAMAGE` 为主标记"
+    },
+    {
+      "level": 6,
+      "title": "23.6.3 Concrete damaged plasticity",
+      "page_1based": 467,
+      "part": "V_body",
+      "ufc_mat_family": 7,
+      "ufc_family_name": "Damage",
+      "ufc_l3_material_subdir": "Damage/",
+      "ufc_l4_material_subdir": "Damage/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Damage/` + `Plast/` 交叉 — UFC 以 `PH_MAT_DAMAGE` 为主标记"
+    },
+    {
+      "level": 5,
+      "title": "23.7 Permanent set in rubberlike materials",
+      "page_1based": 487,
+      "part": "V_body",
+      "ufc_mat_family": 2,
+      "ufc_family_name": "Plastic",
+      "ufc_l3_material_subdir": "Plast/",
+      "ufc_l4_material_subdir": "Plast/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Plast/` 为主族；子节经关键字细分为 3/6/7"
+    },
+    {
+      "level": 6,
+      "title": "23.7.1 Permanent set in rubberlike materials",
+      "page_1based": 489,
+      "part": "V_body",
+      "ufc_mat_family": 2,
+      "ufc_family_name": "Plastic",
+      "ufc_l3_material_subdir": "Plast/",
+      "ufc_l4_material_subdir": "Plast/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Plast/` 为主族；子节经关键字细分为 3/6/7"
+    },
+    {
+      "level": 4,
+      "title": "24. Progressive Damage and Failure",
+      "page_1based": 493,
+      "part": "V_body",
+      "ufc_mat_family": 7,
+      "ufc_family_name": "Damage",
+      "ufc_l3_material_subdir": "Damage/",
+      "ufc_l4_material_subdir": "Damage/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Damage/`"
+    },
+    {
+      "level": 5,
+      "title": "24.1 Progressive damage and failure: overview",
+      "page_1based": 495,
+      "part": "V_body",
+      "ufc_mat_family": 7,
+      "ufc_family_name": "Damage",
+      "ufc_l3_material_subdir": "Damage/",
+      "ufc_l4_material_subdir": "Damage/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Damage/`"
+    },
+    {
+      "level": 6,
+      "title": "24.1.1 Progressive damage and failure",
+      "page_1based": 497,
+      "part": "V_body",
+      "ufc_mat_family": 7,
+      "ufc_family_name": "Damage",
+      "ufc_l3_material_subdir": "Damage/",
+      "ufc_l4_material_subdir": "Damage/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Damage/`"
+    },
+    {
+      "level": 5,
+      "title": "24.2 Damage and failure for ductile metals",
+      "page_1based": 501,
+      "part": "V_body",
+      "ufc_mat_family": 7,
+      "ufc_family_name": "Damage",
+      "ufc_l3_material_subdir": "Damage/",
+      "ufc_l4_material_subdir": "Damage/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Damage/`"
+    },
+    {
+      "level": 6,
+      "title": "24.2.1 Damage and failure for ductile metals: overview",
+      "page_1based": 503,
+      "part": "V_body",
+      "ufc_mat_family": 7,
+      "ufc_family_name": "Damage",
+      "ufc_l3_material_subdir": "Damage/",
+      "ufc_l4_material_subdir": "Damage/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Damage/`"
+    },
+    {
+      "level": 6,
+      "title": "24.2.2 Damage initiation for ductile metals",
+      "page_1based": 507,
+      "part": "V_body",
+      "ufc_mat_family": 7,
+      "ufc_family_name": "Damage",
+      "ufc_l3_material_subdir": "Damage/",
+      "ufc_l4_material_subdir": "Damage/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Damage/`"
+    },
+    {
+      "level": 6,
+      "title": "24.2.3 Damage evolution and element removal for ductile metals",
+      "page_1based": 523,
+      "part": "V_body",
+      "ufc_mat_family": 7,
+      "ufc_family_name": "Damage",
+      "ufc_l3_material_subdir": "Damage/",
+      "ufc_l4_material_subdir": "Damage/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Damage/`"
+    },
+    {
+      "level": 5,
+      "title": "24.3 Damage and failure for fiber-reinforced composites",
+      "page_1based": 535,
+      "part": "V_body",
+      "ufc_mat_family": 7,
+      "ufc_family_name": "Damage",
+      "ufc_l3_material_subdir": "Damage/",
+      "ufc_l4_material_subdir": "Damage/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Damage/`"
+    },
+    {
+      "level": 6,
+      "title": "24.3.1 Damage and failure for fiber-reinforced composites: overview",
+      "page_1based": 537,
+      "part": "V_body",
+      "ufc_mat_family": 7,
+      "ufc_family_name": "Damage",
+      "ufc_l3_material_subdir": "Damage/",
+      "ufc_l4_material_subdir": "Damage/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Damage/`"
+    },
+    {
+      "level": 6,
+      "title": "24.3.2 Damage initiation for fiber-reinforced composites",
+      "page_1based": 541,
+      "part": "V_body",
+      "ufc_mat_family": 7,
+      "ufc_family_name": "Damage",
+      "ufc_l3_material_subdir": "Damage/",
+      "ufc_l4_material_subdir": "Damage/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Damage/`"
+    },
+    {
+      "level": 6,
+      "title": "24.3.3 Damage evolution and element removal for fiber-reinforced composites",
+      "page_1based": 545,
+      "part": "V_body",
+      "ufc_mat_family": 7,
+      "ufc_family_name": "Damage",
+      "ufc_l3_material_subdir": "Damage/",
+      "ufc_l4_material_subdir": "Damage/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Damage/`"
+    },
+    {
+      "level": 5,
+      "title": "24.4 Damage and failure for ductile materials in low-cycle fatigue analysis",
+      "page_1based": 553,
+      "part": "V_body",
+      "ufc_mat_family": 7,
+      "ufc_family_name": "Damage",
+      "ufc_l3_material_subdir": "Damage/",
+      "ufc_l4_material_subdir": "Damage/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Damage/`"
+    },
+    {
+      "level": 6,
+      "title": "24.4.1 Damage and failure for ductile materials in low-cycle fatigue analysis: overview",
+      "page_1based": 555,
+      "part": "V_body",
+      "ufc_mat_family": 7,
+      "ufc_family_name": "Damage",
+      "ufc_l3_material_subdir": "Damage/",
+      "ufc_l4_material_subdir": "Damage/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Damage/`"
+    },
+    {
+      "level": 6,
+      "title": "24.4.2 Damage initiation for ductile materials in low-cycle fatigue",
+      "page_1based": 557,
+      "part": "V_body",
+      "ufc_mat_family": 7,
+      "ufc_family_name": "Damage",
+      "ufc_l3_material_subdir": "Damage/",
+      "ufc_l4_material_subdir": "Damage/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Damage/`"
+    },
+    {
+      "level": 6,
+      "title": "24.4.3 Damage evolution for ductile materials in low-cycle fatigue",
+      "page_1based": 559,
+      "part": "V_body",
+      "ufc_mat_family": 7,
+      "ufc_family_name": "Damage",
+      "ufc_l3_material_subdir": "Damage/",
+      "ufc_l4_material_subdir": "Damage/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Damage/`"
+    },
+    {
+      "level": 4,
+      "title": "25. Hydrodynamic Properties",
+      "page_1based": 563,
+      "part": "V_body",
+      "ufc_mat_family": 11,
+      "ufc_family_name": "EM/User",
+      "ufc_l3_material_subdir": "User/",
+      "ufc_l4_material_subdir": "Contract+Dispatch",
+      "classification": "keyword",
+      "ufc_data_anchor": "`User/`（SPU/EOS）或显式专用路径 — 见 CONTRACT 注"
+    },
+    {
+      "level": 5,
+      "title": "25.1 Overview",
+      "page_1based": 565,
+      "part": "V_body",
+      "ufc_mat_family": 11,
+      "ufc_family_name": "EM/User",
+      "ufc_l3_material_subdir": "User/",
+      "ufc_l4_material_subdir": "Contract+Dispatch",
+      "classification": "chapter",
+      "ufc_data_anchor": "`User/` / 状态方程"
+    },
+    {
+      "level": 6,
+      "title": "25.1.1 Hydrodynamic behavior: overview",
+      "page_1based": 567,
+      "part": "V_body",
+      "ufc_mat_family": 11,
+      "ufc_family_name": "EM/User",
+      "ufc_l3_material_subdir": "User/",
+      "ufc_l4_material_subdir": "Contract+Dispatch",
+      "classification": "keyword",
+      "ufc_data_anchor": "`User/`（SPU/EOS）或显式专用路径 — 见 CONTRACT 注"
+    },
+    {
+      "level": 5,
+      "title": "25.2 Equations of state",
+      "page_1based": 569,
+      "part": "V_body",
+      "ufc_mat_family": 11,
+      "ufc_family_name": "EM/User",
+      "ufc_l3_material_subdir": "User/",
+      "ufc_l4_material_subdir": "Contract+Dispatch",
+      "classification": "chapter",
+      "ufc_data_anchor": "`User/` / 状态方程"
+    },
+    {
+      "level": 6,
+      "title": "25.2.1 Equation of state",
+      "page_1based": 571,
+      "part": "V_body",
+      "ufc_mat_family": 11,
+      "ufc_family_name": "EM/User",
+      "ufc_l3_material_subdir": "User/",
+      "ufc_l4_material_subdir": "Contract+Dispatch",
+      "classification": "keyword",
+      "ufc_data_anchor": "`User/`（SPU/EOS）或显式专用路径 — 见 CONTRACT 注"
+    },
+    {
+      "level": 4,
+      "title": "26. Other Material Properties",
+      "page_1based": 595,
+      "part": "V_body",
+      "ufc_mat_family": 9,
+      "ufc_family_name": "Heat/Thermal",
+      "ufc_l3_material_subdir": "Thermal/",
+      "ufc_l4_material_subdir": "Thermal/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Thermal/` / `Acoustic/` / `User/` — 子节关键字再分"
+    },
+    {
+      "level": 5,
+      "title": "26.1 Mechanical properties",
+      "page_1based": 597,
+      "part": "V_body",
+      "ufc_mat_family": 9,
+      "ufc_family_name": "Heat/Thermal",
+      "ufc_l3_material_subdir": "Thermal/",
+      "ufc_l4_material_subdir": "Thermal/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Thermal/` / `Acoustic/` / `User/` — 子节关键字再分"
+    },
+    {
+      "level": 6,
+      "title": "26.1.1 Material damping",
+      "page_1based": 599,
+      "part": "V_body",
+      "ufc_mat_family": 9,
+      "ufc_family_name": "Heat/Thermal",
+      "ufc_l3_material_subdir": "Thermal/",
+      "ufc_l4_material_subdir": "Thermal/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Thermal/` / `Acoustic/` / `User/` — 子节关键字再分"
+    },
+    {
+      "level": 6,
+      "title": "26.1.2 Thermal expansion",
+      "page_1based": 605,
+      "part": "V_body",
+      "ufc_mat_family": 9,
+      "ufc_family_name": "Heat/Thermal",
+      "ufc_l3_material_subdir": "Thermal/",
+      "ufc_l4_material_subdir": "Thermal/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Thermal/` / `Acoustic/` / `User/` — 子节关键字再分"
+    },
+    {
+      "level": 6,
+      "title": "26.1.3 Field expansion",
+      "page_1based": 613,
+      "part": "V_body",
+      "ufc_mat_family": 9,
+      "ufc_family_name": "Heat/Thermal",
+      "ufc_l3_material_subdir": "Thermal/",
+      "ufc_l4_material_subdir": "Thermal/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Thermal/` / `Acoustic/` / `User/` — 子节关键字再分"
+    },
+    {
+      "level": 6,
+      "title": "26.1.4 Viscosity",
+      "page_1based": 619,
+      "part": "V_body",
+      "ufc_mat_family": 9,
+      "ufc_family_name": "Heat/Thermal",
+      "ufc_l3_material_subdir": "Thermal/",
+      "ufc_l4_material_subdir": "Thermal/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Thermal/` / `Acoustic/` / `User/` — 子节关键字再分"
+    },
+    {
+      "level": 5,
+      "title": "26.2 Heat transfer properties",
+      "page_1based": 625,
+      "part": "V_body",
+      "ufc_mat_family": 9,
+      "ufc_family_name": "Heat/Thermal",
+      "ufc_l3_material_subdir": "Thermal/",
+      "ufc_l4_material_subdir": "Thermal/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Thermal/` / `Acoustic/` / `User/` — 子节关键字再分"
+    },
+    {
+      "level": 6,
+      "title": "26.2.1 Thermal properties: overview",
+      "page_1based": 627,
+      "part": "V_body",
+      "ufc_mat_family": 9,
+      "ufc_family_name": "Heat/Thermal",
+      "ufc_l3_material_subdir": "Thermal/",
+      "ufc_l4_material_subdir": "Thermal/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Thermal/` / `Acoustic/` / `User/` — 子节关键字再分"
+    },
+    {
+      "level": 6,
+      "title": "26.2.2 Conductivity",
+      "page_1based": 629,
+      "part": "V_body",
+      "ufc_mat_family": 9,
+      "ufc_family_name": "Heat/Thermal",
+      "ufc_l3_material_subdir": "Thermal/",
+      "ufc_l4_material_subdir": "Thermal/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Thermal/` / `Acoustic/` / `User/` — 子节关键字再分"
+    },
+    {
+      "level": 6,
+      "title": "26.2.3 Specific heat",
+      "page_1based": 631,
+      "part": "V_body",
+      "ufc_mat_family": 9,
+      "ufc_family_name": "Heat/Thermal",
+      "ufc_l3_material_subdir": "Thermal/",
+      "ufc_l4_material_subdir": "Thermal/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Thermal/` / `Acoustic/` / `User/` — 子节关键字再分"
+    },
+    {
+      "level": 6,
+      "title": "26.2.4 Latent heat",
+      "page_1based": 633,
+      "part": "V_body",
+      "ufc_mat_family": 9,
+      "ufc_family_name": "Heat/Thermal",
+      "ufc_l3_material_subdir": "Thermal/",
+      "ufc_l4_material_subdir": "Thermal/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Thermal/` / `Acoustic/` / `User/` — 子节关键字再分"
+    },
+    {
+      "level": 5,
+      "title": "26.3 Acoustic properties",
+      "page_1based": 635,
+      "part": "V_body",
+      "ufc_mat_family": 10,
+      "ufc_family_name": "Acoustic",
+      "ufc_l3_material_subdir": "Acoustic/",
+      "ufc_l4_material_subdir": "Acoustic/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`L3_MD/Material/Acoustic/` · `PH_Mat_Acoustic_*`"
+    },
+    {
+      "level": 6,
+      "title": "26.3.1 Acoustic medium",
+      "page_1based": 637,
+      "part": "V_body",
+      "ufc_mat_family": 10,
+      "ufc_family_name": "Acoustic",
+      "ufc_l3_material_subdir": "Acoustic/",
+      "ufc_l4_material_subdir": "Acoustic/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`L3_MD/Material/Acoustic/` · `PH_Mat_Acoustic_*`"
+    },
+    {
+      "level": 5,
+      "title": "26.4 Mass diffusion properties",
+      "page_1based": 647,
+      "part": "V_body",
+      "ufc_mat_family": 11,
+      "ufc_family_name": "EM/User",
+      "ufc_l3_material_subdir": "User/",
+      "ufc_l4_material_subdir": "Contract+Dispatch",
+      "classification": "keyword",
+      "ufc_data_anchor": "扩散场 — 偏 `L3_MD` Field/MassDiff，非结构 11 主族本构核"
+    },
+    {
+      "level": 6,
+      "title": "26.4.1 Diffusivity",
+      "page_1based": 649,
+      "part": "V_body",
+      "ufc_mat_family": 9,
+      "ufc_family_name": "Heat/Thermal",
+      "ufc_l3_material_subdir": "Thermal/",
+      "ufc_l4_material_subdir": "Thermal/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Thermal/` / `Acoustic/` / `User/` — 子节关键字再分"
+    },
+    {
+      "level": 6,
+      "title": "26.4.2 Solubility",
+      "page_1based": 655,
+      "part": "V_body",
+      "ufc_mat_family": 9,
+      "ufc_family_name": "Heat/Thermal",
+      "ufc_l3_material_subdir": "Thermal/",
+      "ufc_l4_material_subdir": "Thermal/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Thermal/` / `Acoustic/` / `User/` — 子节关键字再分"
+    },
+    {
+      "level": 5,
+      "title": "26.5 Electromagnetic properties",
+      "page_1based": 657,
+      "part": "V_body",
+      "ufc_mat_family": 11,
+      "ufc_family_name": "EM/User",
+      "ufc_l3_material_subdir": "User/",
+      "ufc_l4_material_subdir": "Contract+Dispatch",
+      "classification": "keyword",
+      "ufc_data_anchor": "`User/` 电磁/耦合特殊 — 与 `GROUP_MAT_COMPAT` G5 对齐"
+    },
+    {
+      "level": 6,
+      "title": "26.5.1 Electrical conductivity",
+      "page_1based": 659,
+      "part": "V_body",
+      "ufc_mat_family": 11,
+      "ufc_family_name": "EM/User",
+      "ufc_l3_material_subdir": "User/",
+      "ufc_l4_material_subdir": "Contract+Dispatch",
+      "classification": "keyword",
+      "ufc_data_anchor": "`User/` 电磁/耦合特殊 — 与 `GROUP_MAT_COMPAT` G5 对齐"
+    },
+    {
+      "level": 6,
+      "title": "26.5.2 Piezoelectric behavior",
+      "page_1based": 661,
+      "part": "V_body",
+      "ufc_mat_family": 11,
+      "ufc_family_name": "EM/User",
+      "ufc_l3_material_subdir": "User/",
+      "ufc_l4_material_subdir": "Contract+Dispatch",
+      "classification": "keyword",
+      "ufc_data_anchor": "`User/` 电磁/耦合特殊 — 与 `GROUP_MAT_COMPAT` G5 对齐"
+    },
+    {
+      "level": 6,
+      "title": "26.5.3 Magnetic permeability",
+      "page_1based": 667,
+      "part": "V_body",
+      "ufc_mat_family": 11,
+      "ufc_family_name": "EM/User",
+      "ufc_l3_material_subdir": "User/",
+      "ufc_l4_material_subdir": "Contract+Dispatch",
+      "classification": "keyword",
+      "ufc_data_anchor": "`User/` 电磁/耦合特殊 — 与 `GROUP_MAT_COMPAT` G5 对齐"
+    },
+    {
+      "level": 5,
+      "title": "26.6 Pore fluid flow properties",
+      "page_1based": 673,
+      "part": "V_body",
+      "ufc_mat_family": 9,
+      "ufc_family_name": "Heat/Thermal",
+      "ufc_l3_material_subdir": "Thermal/",
+      "ufc_l4_material_subdir": "Thermal/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Thermal/` / `Acoustic/` / `User/` — 子节关键字再分"
+    },
+    {
+      "level": 6,
+      "title": "26.6.1 Pore fluid flow properties",
+      "page_1based": 675,
+      "part": "V_body",
+      "ufc_mat_family": 9,
+      "ufc_family_name": "Heat/Thermal",
+      "ufc_l3_material_subdir": "Thermal/",
+      "ufc_l4_material_subdir": "Thermal/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Thermal/` / `Acoustic/` / `User/` — 子节关键字再分"
+    },
+    {
+      "level": 6,
+      "title": "26.6.2 Permeability",
+      "page_1based": 677,
+      "part": "V_body",
+      "ufc_mat_family": 9,
+      "ufc_family_name": "Heat/Thermal",
+      "ufc_l3_material_subdir": "Thermal/",
+      "ufc_l4_material_subdir": "Thermal/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Thermal/` / `Acoustic/` / `User/` — 子节关键字再分"
+    },
+    {
+      "level": 6,
+      "title": "26.6.3 Porous bulk moduli",
+      "page_1based": 683,
+      "part": "V_body",
+      "ufc_mat_family": 9,
+      "ufc_family_name": "Heat/Thermal",
+      "ufc_l3_material_subdir": "Thermal/",
+      "ufc_l4_material_subdir": "Thermal/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Thermal/` / `Acoustic/` / `User/` — 子节关键字再分"
+    },
+    {
+      "level": 6,
+      "title": "26.6.4 Sorption",
+      "page_1based": 685,
+      "part": "V_body",
+      "ufc_mat_family": 9,
+      "ufc_family_name": "Heat/Thermal",
+      "ufc_l3_material_subdir": "Thermal/",
+      "ufc_l4_material_subdir": "Thermal/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Thermal/` / `Acoustic/` / `User/` — 子节关键字再分"
+    },
+    {
+      "level": 6,
+      "title": "26.6.5 Swelling gel",
+      "page_1based": 689,
+      "part": "V_body",
+      "ufc_mat_family": 6,
+      "ufc_family_name": "VP/Creep",
+      "ufc_l3_material_subdir": "Creep/",
+      "ufc_l4_material_subdir": "Creep/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Creep/` — 与 `Plast/` 率相关小节交叉，以关键字为准"
+    },
+    {
+      "level": 6,
+      "title": "26.6.6 Moisture swelling",
+      "page_1based": 691,
+      "part": "V_body",
+      "ufc_mat_family": 6,
+      "ufc_family_name": "VP/Creep",
+      "ufc_l3_material_subdir": "Creep/",
+      "ufc_l4_material_subdir": "Creep/",
+      "classification": "keyword",
+      "ufc_data_anchor": "`Creep/` — 与 `Plast/` 率相关小节交叉，以关键字为准"
+    },
+    {
+      "level": 5,
+      "title": "26.7 User materials",
+      "page_1based": 695,
+      "part": "V_body",
+      "ufc_mat_family": 9,
+      "ufc_family_name": "Heat/Thermal",
+      "ufc_l3_material_subdir": "Thermal/",
+      "ufc_l4_material_subdir": "Thermal/",
+      "classification": "chapter",
+      "ufc_data_anchor": "`Thermal/` / `Acoustic/` / `User/` — 子节关键字再分"
+    },
+    {
+      "level": 6,
+      "title": "26.7.1 User-defined mechanical material behavior",
+      "page_1based": 697,
+      "part": "V_body",
+      "ufc_mat_family": 11,
+      "ufc_family_name": "EM/User",
+      "ufc_l3_material_subdir": "User/",
+      "ufc_l4_material_subdir": "Contract+Dispatch",
+      "classification": "keyword",
+      "ufc_data_anchor": "`User/` + `PH_UMAT_*` / Dispatch 适配"
+    },
+    {
+      "level": 6,
+      "title": "26.7.2 User-defined thermal material behavior",
+      "page_1based": 705,
+      "part": "V_body",
+      "ufc_mat_family": 11,
+      "ufc_family_name": "EM/User",
+      "ufc_l3_material_subdir": "User/",
+      "ufc_l4_material_subdir": "Contract+Dispatch",
+      "classification": "keyword",
+      "ufc_data_anchor": "`User/` + `PH_UMAT_*` / Dispatch 适配"
+    }
+  ],
+  "property_snippets": [
+    {
+      "label": "density_21_2_1",
+      "page_1based": 61,
+      "snippet": "DENSITY\nDENSITY\n• *DENSITY\nDensity can be deﬁned as a function of temperature and ﬁeld variables. Based on user-deﬁned data"
+    },
+    {
+      "label": "elastic_22_2_1",
+      "page_1based": 73,
+      "snippet": "LINEAR ELASTICITY\nLINEAR ELASTIC BEHAVIOR\n• *ELASTIC\n*ELASTIC, MODULI=INSTANTANEOUS"
+    },
+    {
+      "label": "combine_21_1_3",
+      "page_1based": 49,
+      "snippet": "Abaqus provides a broad range of possible material behaviors.\nthe appropriate behaviors for the purpose of an analysis. This section describes the general rules for\ncombining material behaviors. Speciﬁc information for each material behavior is also summarized at\nthe end of each material behavior description section in this chapter.\nSome of the material behaviors in Abaqus are completely unrestricted: they can be used alone or\ntogether with other behaviors. For example, thermal properties such as conductivity can be used in any\nSome material behaviors in Abaqus require the presence of other material behaviors, and some\nexclude the use of other material behaviors. For example, metal plasticity requires the deﬁnition of elastic\nmaterial behavior or an equation of state and excludes all other rate-independent plasticity behaviors.\nAbaqus requires that the material be sufﬁciently deﬁned to provide suitable properties for those elements\n“Complete mechanical” category behavior or an “Elasticity” category behavior, as discussed below. In\nAll aspects of a material’s behavior need not be fully deﬁned; any behavior that is omitted is assumed\nnot to exist in that part of the model. For example, if elastic material behavior is deﬁned for a metal but\nthe material is adequately deﬁned for the purpose of the analysis. The material can include behaviors"
+    }
+  ],
+  "keyword_page_index": {
+    "ELASTIC": [
+      45,
+      51,
+      52,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      87,
+      321,
+      322,
+      571,
+      589,
+      590
+    ],
+    "USERMATERIAL": [
+      51,
+      56,
+      697,
+      699,
+      700,
+      701,
+      705
+    ],
+    "DENSITY": [
+      51,
+      61,
+      62,
+      247,
+      300,
+      413,
+      426,
+      574,
+      575,
+      576,
+      580,
+      581,
+      583,
+      587,
+      637,
+      638,
+      640,
+      641,
+      699
+    ],
+    "EXPANSION": [
+      51,
+      413,
+      605,
+      606,
+      607,
+      608,
+      609,
+      610,
+      613,
+      614,
+      615,
+      616,
+      617
+    ],
+    "EOS": [
+      51,
+      53,
+      306,
+      571,
+      574,
+      575,
+      576,
+      580,
+      581,
+      582,
+      583,
+      584,
+      585,
+      587,
+      589,
+      590,
+      591,
+      619
+    ],
+    "FABRIC": [
+      51,
+      413,
+      415,
+      416,
+      426,
+      427,
+      429
+    ],
+    "HYPERELASTIC": [
+      51,
+      105,
+      113,
+      114,
+      115,
+      116,
+      118,
+      155,
+      204,
+      207,
+      489
+    ],
+    "HYPERFOAM": [
+      51,
+      131,
+      135,
+      136,
+      167
+    ],
+    "HYPOELASTIC": [
+      52,
+      101,
+      102
+    ],
+    "VISCOELASTIC": [
+      52,
+      54,
+      143,
+      175,
+      182,
+      183,
+      184,
+      185,
+      193,
+      196,
+      197,
+      198,
+      199,
+      207,
+      213,
+      214
+    ],
+    "DRUCKERPRAGER": [
+      53,
+      54,
+      266,
+      337,
+      341,
+      342,
+      345,
+      346,
+      347,
+      353,
+      362,
+      363,
+      590
+    ],
+    "MOHRCOULOMB": [
+      53,
+      379,
+      383,
+      385
+    ],
+    "CONCRETE": [
+      53,
+      443,
+      446,
+      447,
+      448,
+      449,
+      467,
+      474,
+      476,
+      477,
+      478,
+      479,
+      480
+    ],
+    "PLASTIC": [
+      53,
+      54,
+      155,
+      207,
+      241,
+      242,
+      243,
+      244,
+      245,
+      246,
+      247,
+      249,
+      257,
+      259,
+      260,
+      262,
+      266,
+      288,
+      289,
+      292,
+      295,
+      296,
+      297,
+      298,
+      299,
+      300,
+      304,
+      306,
+      321,
+      323,
+      327,
+      328,
+      489,
+      491,
+      590
+    ],
+    "CREEP": [
+      54,
+      269,
+      270,
+      272,
+      273,
+      274,
+      275,
+      276,
+      281,
+      288,
+      290,
+      327,
+      328
+    ],
+    "SPECIFICHEAT": [
+      56,
+      247,
+      300,
+      584,
+      587,
+      631,
+      632
+    ],
+    "CONDUCTIVITY": [
+      56,
+      629,
+      630
+    ]
+  },
+  "pdfplumber_table_pages": [
+    45,
+    46,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    61,
+    62,
+    63,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    87,
+    88,
+    101,
+    102,
+    103,
+    105,
+    106,
+    113,
+    114,
+    115,
+    116,
+    117,
+    118,
+    119,
+    131,
+    132,
+    135,
+    136,
+    137,
+    143,
+    144,
+    155,
+    156,
+    167,
+    168,
+    175,
+    176,
+    182,
+    183,
+    184,
+    185,
+    186,
+    193,
+    194,
+    196,
+    197,
+    198,
+    199,
+    200,
+    204,
+    205,
+    207,
+    208,
+    213,
+    214,
+    215,
+    241,
+    242,
+    243
+  ],
+  "keyword_pdfplumber_tables": [
+    {
+      "page_1based": 51,
+      "tables": [
+        [
+          [
+            "Behavior",
+            "Keyword",
+            "Requires"
+          ],
+          [
+            "Materialdamping\nDensity\nSolution-dependent\nstatevariables\nThermalexpansion",
+            "*DAMPING\n*DENSITY\n*DEPVAR\n*EXPANSION",
+            "Elasticity, fabric, hyperelasticity, hyperfoam,\nlow-densityfoam,oranisotropichyperelasticity(except\nwhen used with beam or shell general sections or\nsubstructures)\nRequiredinAbaqus/Explicit,exceptforhydrostatic\nfluidelements"
+          ]
+        ],
+        [
+          [
+            "Behavior",
+            "Keyword",
+            "Requires"
+          ],
+          [
+            "Acousticmedium\nDeformationplasticity(S)\nMechanicalusermaterial",
+            "*ACOUSTICMEDIUM\n*DEFORMATIONPLASTICITY\n*USERMATERIAL(,TYPE=MECHANICAL\ninAbaqus/Standard)",
+            "Density"
+          ]
+        ]
+      ]
+    },
+    {
+      "page_1based": 52,
+      "tables": [
+        [
+          [
+            "Behavior",
+            "Keyword",
+            "Requires"
+          ],
+          [
+            "Anisotropichyperelasticity\nHypoelasticity(S)\nPorouselasticity(S)\nLow-densityfoam(E)",
+            "*ANISOTROPICHYPERELASTIC\n*HYPOELASTIC\n*POROUSELASTIC\n*LOWDENSITYFOAM",
+            ""
+          ]
+        ],
+        [
+          [
+            "Behavior",
+            "Keyword",
+            "Requires"
+          ],
+          [
+            "Elasticshear behavior\nforanequationofstate(E)\nStrain-based failure\nmeasures\nStress-based failure\nmeasures\nHysteresis(S)\nMullinseffect\nCompressive failure\ntheory(S)\nTensionfailuretheory(S)\nViscoelasticity\nShear viscosity for an\nequationofstate(E)",
+            "*ELASTIC,TYPE=SHEAR\n*FAILSTRAIN\n*FAILSTRESS\n*HYSTERESIS\n*MULLINSEFFECT\n*NOCOMPRESSION\n*NOTENSION\n*VISCOELASTIC\n*VISCOSITY",
+            "Equationofstate\nElasticity\nElasticity\nHyperelasticity(excludesallplasticity\nbehaviorsandMullinseffect)\nHyperelasticity (excludes hysteresis),\nhyperfoamoranisotropichyperelasticity\nElasticity\nElasticity\nElasticity,hyperelasticity,orhyperfoam\n(excludesallplasticitybehaviorsandall\nassociatedplasticityenhancements); or\nanisotropichyperelasticity\nEquationofstate"
+          ]
+        ]
+      ]
+    },
+    {
+      "page_1based": 55,
+      "tables": [
+        [
+          [
+            "Behavior",
+            "Keyword",
+            "Requires"
+          ],
+          [
+            "Cyclichardening\nInelasticheatfraction\nOak Ridge National\nLaboratoryconstitutive\nmodel(S)\nPorousmaterialfailure\ncriteria(E)\nPorousmetalplasticity\nAnisotropicyield/creep\nShearfailure(E)\nTensioncutoff",
+            "*CYCLICHARDENING\n*INELASTIC HEAT\nFRACTION\n*ORNL\n*POROUS FAILURE\nCRITERIA\n*POROUS METAL\nPLASTICITY\n*POTENTIAL\n*SHEARFAILURE\n*TENSIONCUTOFF",
+            "Metalplasticitywithnonlinear\nisotropic/kinematichardening\nMetalplasticityandspecificheat\nMetal plasticity, cycled yield\nstressdata, and, usually, metal\ncreep\nPorousmetalplasticity\nMetalplasticity\nMetal plasticity, metal creep,\nCam-clayplasticity,ortwo-layer\nviscoplasticity\nMetalplasticity\nMohr-Coulombplasticity"
+          ]
+        ]
+      ]
+    },
+    {
+      "page_1based": 56,
+      "tables": [
+        [
+          [
+            "Behavior",
+            "Keyword",
+            "Requires"
+          ],
+          [
+            "Thermalconductivity\nVolumetricheatgeneration(S)\nLatentheat\nSpecificheat",
+            "*CONDUCTIVITY\n*HEATGENERATION\n*LATENTHEAT\n*SPECIFICHEAT",
+            "Density\nDensity"
+          ]
+        ],
+        [
+          [
+            "Behavior",
+            "Keyword",
+            "Requires"
+          ],
+          [
+            "Thermalusermaterial(S)",
+            "*USERMATERIAL,TYPE=THERMAL",
+            "Density"
+          ]
+        ]
+      ]
+    },
+    {
+      "page_1based": 57,
+      "tables": [
+        [
+          [
+            "Behavior",
+            "Keyword",
+            "Requires"
+          ],
+          [
+            "Fluidbulkmodulus(S)\nHydrostaticfluiddensity\nFluidthermalexpansion\ncoefficient(S)",
+            "*FLUIDBULKMODULUS\n*FLUIDDENSITY\n*FLUIDEXPANSION",
+            "Hydraulicfluid\nHydraulicfluid"
+          ]
+        ]
+      ]
+    },
+    {
+      "page_1based": 106,
+      "tables": [
+        [
+          [
+            "",
+            "Poisson’sratio"
+          ],
+          [
+            "10\n20\n50\n100\n1000\n10,000",
+            "0.452\n0.475\n0.490\n0.495\n0.4995\n0.49995"
+          ]
+        ]
+      ]
+    }
+  ],
+  "keyword_ufc_fieldmap_static": {
+    "DENSITY": [
+      {
+        "abaqus_quantity": "ρ (mass density)",
+        "ufc_host_type": "MD_Mat_Desc",
+        "ufc_field_logical": "props(k) packed by Populate OR section-level density bundle",
+        "family_desc_anchor": "— (跨族)",
+        "code_ref": "MD_Mat_Def.f90 :: PUBLIC MD_MatDesc (文档 MD_Mat_Desc)"
+      }
+    ],
+    "ELASTIC": [
+      {
+        "abaqus_quantity": "Isotropic: E, ν (or G, K) / Orthotropic: Dij",
+        "ufc_host_type": "MD_Mat_Desc",
+        "ufc_field_logical": "props(:); cfg%matModel / cfg%materialType",
+        "family_desc_anchor": "`L3_MD/Material/Elas/*` + `PH_Mat_Elas_*`",
+        "code_ref": "MD_Mat_Def.f90 :: PUBLIC MD_MatDesc + 各族线弹 Desc"
+      }
+    ],
+    "PLASTIC": [
+      {
+        "abaqus_quantity": "yield + hardening parameters",
+        "ufc_host_type": "MD_Mat_Desc",
+        "ufc_field_logical": "props(:); behavior; pop%nStateV",
+        "family_desc_anchor": "`L3_MD/Material/Plast/*` + `PH_Mat_*_Plast`",
+        "code_ref": "MD_Mat_Def.f90 :: PUBLIC MD_MatDesc / MD_MAT_CATEGORY_PL"
+      }
+    ],
+    "CREEP": [
+      {
+        "abaqus_quantity": "creep law constants",
+        "ufc_host_type": "MD_Mat_Desc",
+        "ufc_field_logical": "props(:); pop%nStateV (SDV)",
+        "family_desc_anchor": "`L3_MD/Material/Creep/`",
+        "code_ref": "MD_MAT_CATEGORY_CR"
+      }
+    ],
+    "HYPOELASTIC": [
+      {
+        "abaqus_quantity": "C_ijkl rate-based moduli",
+        "ufc_host_type": "MD_Mat_Desc",
+        "ufc_field_logical": "props(:)",
+        "family_desc_anchor": "`Elas/` hypo 分支",
+        "code_ref": "MD_MAT_CATEGORY_EL"
+      }
+    ],
+    "HYPERELASTIC": [
+      {
+        "abaqus_quantity": "strain-energy coefficients (C_i, D_i, …)",
+        "ufc_host_type": "MD_Mat_Desc",
+        "ufc_field_logical": "props(:); cfg%matModel",
+        "family_desc_anchor": "`HyperElas/` + `PH_Mat_HyperElas_*`",
+        "code_ref": "MD_MAT_MODEL_HYP"
+      }
+    ],
+    "HYPERFOAM": [
+      {
+        "abaqus_quantity": "foam hyperelastic parameters",
+        "ufc_host_type": "MD_Mat_Desc",
+        "ufc_field_logical": "props(:)",
+        "family_desc_anchor": "`HyperElas/`",
+        "code_ref": "MD_MAT_MODEL_HYP"
+      }
+    ],
+    "VISCOELASTIC": [
+      {
+        "abaqus_quantity": "Prony / g_i, τ_i / frequency data",
+        "ufc_host_type": "MD_Mat_Desc",
+        "ufc_field_logical": "props(:); pop%nStateV",
+        "family_desc_anchor": "`Viscoelas/` + `PH_Mat_Visco_*`",
+        "code_ref": "MD_MAT_MODEL_VISC"
+      }
+    ],
+    "USERMATERIAL": [
+      {
+        "abaqus_quantity": "PROPS, NPROPS, STATEV",
+        "ufc_host_type": "MD_Mat_Desc + MD_Mat_UMAT_Intf / MatCtxLegacy",
+        "ufc_field_logical": "props(:); nProps; nStateV; materialType=USER",
+        "family_desc_anchor": "`User/` + `PH_UMAT_*`",
+        "code_ref": "MD_Mat_Def.f90 :: PUBLIC MD_MAT_UMAT_Intf (文档 MD_Mat_UMAT_Intf), MatCtxLegacy"
+      }
+    ],
+    "CONDUCTIVITY": [
+      {
+        "abaqus_quantity": "k (thermal conductivity tensor / isotropic)",
+        "ufc_host_type": "MD_Mat_Desc",
+        "ufc_field_logical": "props(:) via thermal Populate",
+        "family_desc_anchor": "`Thermal/`",
+        "code_ref": "MD_MAT_CATEGORY_EL + thermal coupling flags"
+      }
+    ],
+    "EXPANSION": [
+      {
+        "abaqus_quantity": "α (CTE)",
+        "ufc_host_type": "MD_Mat_Desc",
+        "ufc_field_logical": "props(:)",
+        "family_desc_anchor": "`Thermal/` + elastic coupling",
+        "code_ref": "PUBLIC MD_MatDesc + thermal tables"
+      }
+    ],
+    "SPECIFICHEAT": [
+      {
+        "abaqus_quantity": "c_p",
+        "ufc_host_type": "MD_Mat_Desc",
+        "ufc_field_logical": "props(:)",
+        "family_desc_anchor": "`Thermal/`",
+        "code_ref": "—"
+      }
+    ],
+    "DRUCKERPRAGER": [
+      {
+        "abaqus_quantity": "β, d, ψ, …",
+        "ufc_host_type": "MD_Mat_Desc + MD_Mat_DP_Desc",
+        "ufc_field_logical": "主卡 props + Populate → MD_Mat_DP_Desc typed fields",
+        "family_desc_anchor": "`L3_MD/Material/Geo/MD_Geo_DruckerPrager.f90`",
+        "code_ref": "MD_Mat_DP_Desc; props on PUBLIC MD_MatDesc"
+      }
+    ],
+    "MOHRCOULOMB": [
+      {
+        "abaqus_quantity": "φ, c, ψ, …",
+        "ufc_host_type": "MD_Mat_Desc + MD_Mat_Mohr_Coulomb_Desc",
+        "ufc_field_logical": "props(:) or typed Geo Desc",
+        "family_desc_anchor": "`Geo/PH_MatGeo_MohrCoulomb*`",
+        "code_ref": "MD_MatPLG_MohrCoulomb :: MohrCoulomb_MatDesc (文档 MD_Mat_Mohr_Coulomb_Desc)"
+      }
+    ],
+    "CAPPLASTICITY": [
+      {
+        "abaqus_quantity": "Cap / transition surface params",
+        "ufc_host_type": "MD_Mat_Desc",
+        "ufc_field_logical": "props(:)",
+        "family_desc_anchor": "`Geo/`",
+        "code_ref": "—"
+      }
+    ],
+    "CONCRETE": [
+      {
+        "abaqus_quantity": "tension stiffening / damage vars",
+        "ufc_host_type": "MD_Mat_Desc",
+        "ufc_field_logical": "props(:); pop%nStateV",
+        "family_desc_anchor": "`Damage/` + `Plast/`",
+        "code_ref": "MD_MAT_CATEGORY_DA"
+      }
+    ],
+    "EOS": [
+      {
+        "abaqus_quantity": "EOS parameters",
+        "ufc_host_type": "MD_Mat_Desc / User bundle",
+        "ufc_field_logical": "props(:)",
+        "family_desc_anchor": "`User/`",
+        "code_ref": "MD_MAT_MODEL_USER"
+      }
+    ],
+    "FABRIC": [
+      {
+        "abaqus_quantity": "fabric stiffness / nonlinear shear",
+        "ufc_host_type": "MD_Mat_Desc",
+        "ufc_field_logical": "props(:); cfg%behavior",
+        "family_desc_anchor": "`Geo/` / `Composite/`（织物）",
+        "code_ref": "MD_MAT_CATEGORY_GEOMAT / COMPOSITE"
+      }
+    ],
+    "LATENTHEAT": [
+      {
+        "abaqus_quantity": "L, solidus, liquidus (latent heat)",
+        "ufc_host_type": "MD_Mat_Desc",
+        "ufc_field_logical": "props(:)",
+        "family_desc_anchor": "`Thermal/`",
+        "code_ref": "—"
+      }
+    ],
+    "HEATGENERATION": [
+      {
+        "abaqus_quantity": "r (heat generation rate)",
+        "ufc_host_type": "MD_Mat_Desc",
+        "ufc_field_logical": "props(:) / coupled thermal load",
+        "family_desc_anchor": "`Thermal/`",
+        "code_ref": "—"
+      }
+    ]
+  }
+}

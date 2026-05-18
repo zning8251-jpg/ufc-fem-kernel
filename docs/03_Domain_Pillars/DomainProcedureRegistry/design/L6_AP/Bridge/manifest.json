@@ -1,0 +1,24 @@
+{
+  "layer": "L6_AP",
+  "domain_bucket": "Bridge",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L6_AP/Bridge/AP_BrgL3.f90",
+      "stem": "AP_BrgL3"
+    },
+    {
+      "source_rel": "L6_AP/Bridge/AP_BrgL4.f90",
+      "stem": "AP_BrgL4"
+    },
+    {
+      "source_rel": "L6_AP/Bridge/AP_BrgL5.f90",
+      "stem": "AP_BrgL5"
+    },
+    {
+      "source_rel": "L6_AP/Bridge/AP_Mat_Brg.f90",
+      "stem": "AP_Mat_Brg"
+    }
+  ]
+}

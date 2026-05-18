@@ -1,0 +1,42 @@
+leaf_id,mat_family,leaf_name_zh,abaqus_keyword_hint,md_mat_model_coarse,l3_dispatch_mat_id,matlib_registry_id,primary_f90_module,maps_to_leaf_id,quarantine_reason
+1,1,ISO_linear_elastic,*ELASTIC TYPE=ISOTROPIC,MD_MAT_MODEL_ELAS,101,MD_MAT_ELAS_I,Elas/MD_Mat_Elas_Isotropic.f90,,
+2,1,orthotropic_elastic,*ELASTIC TYPE=ORTHOTROPIC,MD_MAT_MODEL_ELAS,102,MD_MAT_ELAS_O,Elas/MD_Mat_Elas_Orthotropic.f90,,MT04_MAT_ELAS_ORTHO
+3,1,transverse_isotropic_elastic,*ELASTIC TYPE=TRAVERSE,MD_MAT_MODEL_ELAS,103,MD_MAT_ELAS_TRANSV_ISO,Elas/MD_Mat_Elas_TransIsotropic.f90,,MT04_MAT_ELAS_TRANSV_ISO
+4,1,fully_anisotropic_elastic,*ELASTIC TYPE=ANISOTROPIC,MD_MAT_MODEL_ELAS,104,MD_MAT_ELAS_A,Elas/MD_Mat_Elas_Anisotropic.f90,,MT04_MAT_ELAS_ANISO_104
+5,1,hypoelastic,*ELASTIC TYPE=HYPOELASTIC,MD_MAT_MODEL_ELAS,106,131,Elas/MD_Mat_Elas_Hypoelastic.f90,,registry_131_category_Elastic
+6,1,porous_elastic,*ELASTIC TYPE=POROUS,MD_MAT_MODEL_ELAS,105,MD_MAT_ELAS_P,Elas/MD_Mat_Elas_Porous.f90,,L3_leaf_105_vs_registry_123
+7,2,J2_Mises,*PLASTIC Mises,MD_MAT_MODEL_PLAST,201,MD_MAT_VONMISES_MAT_ID,Plast/MD_Mat_Plast_J2.f90,,
+8,2,Chaboche,*PLASTIC Chaboche,MD_MAT_MODEL_PLAST,210,MD_MAT_CHABOCHE_MAT_ID,Plast/MD_Mat_Plast_Chaboche.f90 MD_Pls_Chaboche.f90,,MTF2_MAT_PLAST_CHABOCHE
+9,2,Hill48,*PLASTIC Hill,MD_MAT_MODEL_PLAST,205,MD_MAT_HILL_MAT_ID,Plast/MD_Mat_Plast_Hill.f90,,MT04_Hill205_vs_DP202_registry
+10,2,Barlat,*PLASTIC Barlat,MD_MAT_MODEL_PLAST,211,MD_MAT_BARLAT_MAT_ID,Plast/MD_Mat_Plast_Barlat.f90,,stub_MT_F2
+11,2,Johnson_Cook,*PLASTIC Johnson-Cook,MD_MAT_MODEL_PLAST,206,MD_MAT_JOHNSONCOOK_MAT,Plast/MD_Mat_Plast_JohnsonCook.f90,,MTF2_MAT_PLAST_JOHNSON_C
+12,2,GTN_Gurson,*PLASTIC Gurson,MD_MAT_MODEL_PLAST,207,241_joint_wrapper,Plast/MD_Pls_GTN.f90,30,Gurson_creep_leaf30_registry_241
+13,2,rate_dependent_plastic,*PLASTIC rate,MD_MAT_MODEL_PLAST,,,Plast/MD_Mat_Plast_RateDep.f90,,F2_F6_boundary
+14,3,Drucker_Prager,*DRUCKER PRAGER,MD_MAT_MODEL_PLAST,202,202,Geo/MD_MatPLG_DruckerPrager.f90,9,registry_DP_same_id_as_Hill_conflict
+15,3,Mohr_Coulomb,*MOHR COULOMB,MD_MAT_MODEL_PLAST,204,204,Geo/MD_MatPLG_MohrCoulomb.f90,,
+16,3,Cam_Clay,*CLAY PLASTICITY,MD_MAT_MODEL_PLAST,203,MD_MAT_CAMCLAY_MAT_ID,Geo/MD_MatPLG_CamClay.f90,,
+17,3,CDP_geotechnical,*CONCRETE DAMAGED PLASTICITY,MD_MAT_MODEL_PLAST,222,MD_MAT_CDP,Geo/MD_MatPLG_ConcreteDamage.f90,33,CDP_damage_leaf33
+18,4,Neo_Hookean,*HYPERELASTIC NEO,MD_MAT_MODEL_HYP,303,121_or_MD_MAT_HYPER_NH,HyperElas/MD_Mat_HyperElas_NeoHookean.f90,,L3_303_vs_MatReg_121
+19,4,Mooney_Rivlin,*HYPERELASTIC MOONEY,MD_MAT_MODEL_HYP,301,MD_MAT_HYPER_MR,HyperElas/MD_Mat_HyperElas_MooneyRivlin.f90,,
+20,4,Ogden,*HYPERELASTIC OGDEN,MD_MAT_MODEL_HYP,302,MD_MAT_HYPER_OGDEN,HyperElas/MD_Mat_HyperElas_Ogden.f90,,
+21,4,Yeoh,*HYPERELASTIC YEOH,MD_MAT_MODEL_HYP,304,MD_MAT_HYPER_YEOH,HyperElas/MD_Mat_HyperElas_Yeoh.f90,,
+22,4,Arruda_Boyce,*HYPERELASTIC ARRUDA,MD_MAT_MODEL_HYP,305,MD_MAT_HYPER_AB,HyperElas/MD_Mat_HyperElas_ArrudaBoyce.f90,,
+23,4,Hyper_Foam,*HYPERELASTIC FOAM,MD_MAT_MODEL_HYP,,MD_MAT_HYPER_FOAM,HyperElas/MD_Hyp_Foam.f90,,L3_dispatch_TBD_vs_registry_121
+24,5,Prony_viscoelastic,*VISCOELASTIC PRONY,MD_MAT_MODEL_VISC,401,501,Shared/MD_MAT_VISCOSITY_CORE.f90 Viscoelas/MD_Mat_Viscoelas_LinearVisco.f90,,401_vs_501_dual_scheme
+25,5,Kelvin_Voigt,*VISCOELASTIC KV,MD_MAT_MODEL_VISC,503,,Viscoelas/MD_Mat_Viscoelas_Perzyna.f90,,map_TBD_MT_F5
+26,5,creep_on_visco_side,*VISCOELASTIC creep coupling,MD_MAT_MODEL_VISC,403,,Viscoelas/MD_Mat_Viscoelas_Creep.f90,28,F5_F6_ownership
+27,5,VEVP,*VISCOELASTIC plastic coupling,MD_MAT_MODEL_VISC,408,,Viscoelas/MD_Mat_Viscoelas_ViscoElastPlast.f90,,MT_F5
+28,6,power_law_creep,*CREEP POWER,MD_MAT_MODEL_CREEP,601,601,Creep/MD_Crp_PowerLaw.f90,,
+29,6,Garofalo_creep,*CREEP GAROFALO,MD_MAT_MODEL_CREEP,,603,Creep/MD_Crp_Garofalo.f90,,core_MD_MAT_CREEP_GAROFALO_603
+30,6,Gurson_creep_porous,*CREEP porous,MD_MAT_MODEL_CREEP,,,Creep/MD_MatPOR_Gurson.f90,12,F6_F2_GTN
+31,7,ductile_damage,*DAMAGE DUCTILE,MD_MAT_MODEL_PLAST_or_USER,501,MD_MAT_DMG_DUCT,Damage/MD_Mat_Damage_DuctileDamage.f90,,
+32,7,brittle_damage,*DAMAGE BRITTLE,MD_MAT_MODEL_PLAST_or_USER,505,MD_MAT_DMG_BRIT,Damage/MD_Mat_Damage_Brittle.f90,,
+33,7,CDP_damage_evolution,CDP damage evolution,MD_MAT_MODEL_PLAST_or_USER,504,,Damage/MD_Mat_Damage_Progressive.f90,17,geo_row17
+34,7,fatigue_damage,*DAMAGE fatigue,MD_MAT_MODEL_PLAST_or_USER,503,MD_MAT_DMG_FATIGUE,Damage/MD_Mat_Damage_LowCycleFatigue.f90,,
+35,8,laminate_fabric_merged,composite laminate+fabric,MD_MAT_MODEL_PLAST_or_USER,112,251,Composite/MD_Mat_Composite_Laminate.f90,,merged_leaf41_registry_251
+36,8,Hashin_failure,Hashin,MD_MAT_MODEL_PLAST_or_USER,265,MD_MAT_DMG_PROG,Composite/MD_Mat_Composite_FiberDamage.f90,,Hashin_via_DMG_PROG_and_265
+37,9,thermal_conduction,*CONDUCTIVITY,MD_MAT_MODEL_ELAS,601,901_scope,Thermal/MD_Mat_Creep_ThermalConduction.f90,,601_L3_vs_MAT_HEAT_ISO_901
+38,9,thermal_expansion,*EXPANSION,MD_MAT_MODEL_ELAS,602,902_scope,Thermal/MD_Mat_Creep_ThermalExpansion.f90,,602_vs_902
+39,9,phase_change_latent,*LATENT HEAT,MD_MAT_MODEL_ELAS,903,MAT_HEAT_PHASE_CHG,Thermal/MD_Mat_Creep_ThermoElastic.f90,,MT_F9
+40,10,acoustic_merged,*ACOUSTIC MEDIUM+ABSORPTION,MD_MAT_MODEL_VISC,607,,Acoustic/MD_Mat_Creep_Acoustic.f90,,merged_leaf40_linear_1001_absorb_1002
+41,11,user_UMAT_VUMAT_UEL_bundle,*USER MATERIAL,MD_MAT_MODEL_USER,708,9001_9002,User/MD_Mat_User_Umat.f90 Shared/MD_MAT_USER_CORE.f90,,SPU_many_sub_ids_under_leaf41

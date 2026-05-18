@@ -1,0 +1,80 @@
+{
+  "layer": "L5_RT",
+  "domain_bucket": "Assembly",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L5_RT/Assembly/RT_Asm.f90",
+      "stem": "RT_Asm"
+    },
+    {
+      "source_rel": "L5_RT/Assembly/RT_Asm_Def.f90",
+      "stem": "RT_Asm_Def"
+    },
+    {
+      "source_rel": "L5_RT/Assembly/RT_AsmDofMap.f90",
+      "stem": "RT_AsmDofMap"
+    },
+    {
+      "source_rel": "L5_RT/Assembly/RT_AsmDomain.f90",
+      "stem": "RT_AsmDomain"
+    },
+    {
+      "source_rel": "L5_RT/Assembly/RT_AsmGlobal.f90",
+      "stem": "RT_AsmGlobal"
+    },
+    {
+      "source_rel": "L5_RT/Assembly/RT_AsmImpl.f90",
+      "stem": "RT_AsmImpl"
+    },
+    {
+      "source_rel": "L5_RT/Assembly/RT_AsmMassDamp.f90",
+      "stem": "RT_AsmMassDamp"
+    },
+    {
+      "source_rel": "L5_RT/Assembly/RT_AsmNLGeomDispatch.f90",
+      "stem": "RT_AsmNLGeomDispatch"
+    },
+    {
+      "source_rel": "L5_RT/Assembly/RT_AsmNLGeomEval.f90",
+      "stem": "RT_AsmNLGeomEval"
+    },
+    {
+      "source_rel": "L5_RT/Assembly/RT_AsmProc.f90",
+      "stem": "RT_AsmProc"
+    },
+    {
+      "source_rel": "L5_RT/Assembly/RT_AsmShapeBeam.f90",
+      "stem": "RT_AsmShapeBeam"
+    },
+    {
+      "source_rel": "L5_RT/Assembly/RT_AsmShapeMech2D.f90",
+      "stem": "RT_AsmShapeMech2D"
+    },
+    {
+      "source_rel": "L5_RT/Assembly/RT_AsmShapeMechanicalField.f90",
+      "stem": "RT_AsmShapeMechanicalField"
+    },
+    {
+      "source_rel": "L5_RT/Assembly/RT_AsmShapeMembrane.f90",
+      "stem": "RT_AsmShapeMembrane"
+    },
+    {
+      "source_rel": "L5_RT/Assembly/RT_AsmShapeScalarField.f90",
+      "stem": "RT_AsmShapeScalarField"
+    },
+    {
+      "source_rel": "L5_RT/Assembly/RT_AsmShapeShell.f90",
+      "stem": "RT_AsmShapeShell"
+    },
+    {
+      "source_rel": "L5_RT/Assembly/RT_AsmSolv.f90",
+      "stem": "RT_AsmSolv"
+    },
+    {
+      "source_rel": "L5_RT/Assembly/RT_AsmUtil.f90",
+      "stem": "RT_AsmUtil"
+    }
+  ]
+}

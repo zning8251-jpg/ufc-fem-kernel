@@ -1,0 +1,18 @@
+** Simple Single Part with Material Definition
+** Sample 1: Basic part with elastic material
+*PART, NAME=SIMPLE_PART
+*NODE, NSET=ALL_NODES
+ 1, 0.0, 0.0, 0.0
+ 2, 1.0, 0.0, 0.0
+ 3, 1.0, 1.0, 0.0
+ 4, 0.0, 1.0, 0.0
+ 5, 0.0, 0.0, 1.0
+ 6, 1.0, 0.0, 1.0
+ 7, 1.0, 1.0, 1.0
+ 8, 0.0, 1.0, 1.0
+*ELEMENT, TYPE=C3D8, ELSET=SOLID_ELEMENTS
+ 1, 1, 2, 3, 4, 5, 6, 7, 8
+*MATERIAL, NAME=STEEL
+*ELASTIC
+ 210000.0, 0.3
+*END PART

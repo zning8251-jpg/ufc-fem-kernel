@@ -1,0 +1,32 @@
+{
+  "layer": "L3_MD",
+  "domain_bucket": "Boundary",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L3_MD/Boundary/MD_BC_Def.f90",
+      "stem": "MD_BC_Def"
+    },
+    {
+      "source_rel": "L3_MD/Boundary/MD_LBC.f90",
+      "stem": "MD_LBC"
+    },
+    {
+      "source_rel": "L3_MD/Boundary/MD_LBC_Brg.f90",
+      "stem": "MD_LBC_Brg"
+    },
+    {
+      "source_rel": "L3_MD/Boundary/MD_LBC_Domain.f90",
+      "stem": "MD_LBC_Domain"
+    },
+    {
+      "source_rel": "L3_MD/Boundary/MD_LBC_Idx.f90",
+      "stem": "MD_LBC_Idx"
+    },
+    {
+      "source_rel": "L3_MD/Boundary/MD_Load_Def.f90",
+      "stem": "MD_Load_Def"
+    }
+  ]
+}

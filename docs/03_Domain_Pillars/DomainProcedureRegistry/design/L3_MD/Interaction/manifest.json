@@ -1,0 +1,53 @@
+{
+  "layer": "L3_MD",
+  "domain_bucket": "Interaction",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L3_MD/Interaction/MD_Connector.f90",
+      "stem": "MD_Connector"
+    },
+    {
+      "source_rel": "L3_MD/Interaction/MD_Cont.f90",
+      "stem": "MD_Cont"
+    },
+    {
+      "source_rel": "L3_MD/Interaction/MD_HashTable.f90",
+      "stem": "MD_HashTable"
+    },
+    {
+      "source_rel": "L3_MD/Interaction/MD_Int.f90",
+      "stem": "MD_Int"
+    },
+    {
+      "source_rel": "L3_MD/Interaction/MD_Int_Ctx.f90",
+      "stem": "MD_Int_Ctx",
+      "module": "MD_Interaction_ContClearance_Type"
+    },
+    {
+      "source_rel": "L3_MD/Interaction/MD_Int_Def.f90",
+      "stem": "MD_Int_Def"
+    },
+    {
+      "source_rel": "L3_MD/Interaction/MD_IntContactArgs.f90",
+      "stem": "MD_IntContactArgs"
+    },
+    {
+      "source_rel": "L3_MD/Interaction/MD_IntMapper.f90",
+      "stem": "MD_IntMapper"
+    },
+    {
+      "source_rel": "L3_MD/Interaction/MD_IntMgr.f90",
+      "stem": "MD_IntMgr"
+    },
+    {
+      "source_rel": "L3_MD/Interaction/MD_IntParser.f90",
+      "stem": "MD_IntParser"
+    },
+    {
+      "source_rel": "L3_MD/Interaction/MD_IntSync.f90",
+      "stem": "MD_IntSync"
+    }
+  ]
+}

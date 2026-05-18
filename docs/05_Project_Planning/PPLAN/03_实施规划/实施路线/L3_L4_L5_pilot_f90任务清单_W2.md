@@ -1,0 +1,277 @@
+# L3/L4/L5 — pilot 任务清单（W2 筛选）
+
+> **生成日期**：2026-04-30  
+> **来源**：`[UFC/tools/gen_l3l4l5_f90_inventory.py](../../../../tools/gen_l3l4l5_f90_inventory.py)`  
+> **总清单**：`[L3_L4_L5_pilot_f90任务清单.md](L3_L4_L5_pilot_f90任务清单.md)` — **Txxxx 与总清单一致**
+
+> **波次**：W2（内置前缀；W7/W8 与邻波重叠边界以合同及 EXEC §5–§6 为准）
+
+> **W2 范围（真源 `match_wave`）**：`L3_MD/Mesh/`**，`L4_PH/Element/**`，`L5_RT/Element/**`（与 **W1 Material** 正交，依 EXEC 在 Material 贯通后推进 Element 域柱）。
+
+> **维护说明**：`--wave W2` **无 `-o` 会覆写本路径**。表内  `**— **W2**：…`** 摘要由 `**UFC/tools/enrich_w1_checklist_from_f90.py --marker W2 --refresh**` 与源码 `****W2****` 同步；**未加头注释的行** 对应清单项仍为裸行。试点顺序参见总清单 §2。上一波：`**[L3_L4_L5_pilot_f90任务清单_W1.md](L3_L4_L5_pilot_f90任务清单_W1.md)`**。
+
+## 本波次文件（勾选覆盖）
+
+- **T0329** `L3_MD/Elem/Beam/MD_Elem_Beam.f90` （约 3 个子程序） — **W2**：梁族 **Desc** 注册/查表；与 `**MD_Elem_Def`** + `**MD_Elem_PHElemBinding**` / L4 **Beam** 族一致。
+- **T0330** `L3_MD/Elem/Cohesive/MD_Elem_Cohesive.f90` （约 3 个子程序） — **W2**：内聚力族 **Desc** 注册/查表；经 `**MD_ELEM_BIND_COHESIVE`** → L4 **Cohesive** 族核。
+- **T0331** `L3_MD/Elem/Dashpot/MD_Elem_Dashpot.f90` （约 3 个子程序） — **W2**：阻尼器族 **Desc**；→ `**MD_ELEM_BIND_DASHPOT`** / L4 Dashpot 核。
+- **T0332** `L3_MD/Elem/Gasket/MD_Elem_Gasket.f90` （约 3 个子程序） — **W2**：垫片族 **Desc**；→ `**MD_ELEM_BIND_GASKET`** / L4 Gasket 核。
+- **T0333** `L3_MD/Elem/Infinite/MD_Elem_Infinite.f90` （约 3 个子程序） — **W2**：无限元族 **Desc**；→ `**MD_ELEM_BIND_INFINITE`** / L4 Infinite 核。
+- **T0334** `L3_MD/Elem/MD_Elem_Def.f90` （约 0 个子程序） — **W2**：**四型** `**MD_Elem_Base_*`** / 族 **Desc** 为 L3 注册真源；与 `**MD_Elem_Populate`** / `**MD_Elem_Reg**` / L4 `**PH_Elem_***` 对齐（域柱合同）。
+- **T0335** `L3_MD/Elem/MD_Elem_Domain.f90` （约 4 个子程序） — **W2**：域 `**MD_Elem_Domain_Algo`** 嵌套 **desc/state/algo/ctx**；下行 L4 `**PH_Elem*`** / L5 `**RT_Elem***`，拓扑与类型 ID 勿落第二套旁路。
+- **T0336** `L3_MD/Elem/MD_Elem_PHElemBinding.f90` （约 4 个子程序） — **W2**：`**MD_ELEM_BIND_*`** L3↔L4 族映射；连通性/实例仍以 **Populate→Domain** 为真源， 本模块不做第二套网格仓。
+- **T0337** `L3_MD/Elem/MD_Elem_Populate.f90` （约 3 个子程序） — **W2**：**Populate** 写入 `**MD_Elem_Base_*`**（连通性、`**elem_type_id**`/`sect_id`/`mat_id`）； 顺序对齐 `**MD_Elem_Reg**` 注册后再映 L4 槽。
+- **T0338** `L3_MD/Elem/MD_Elem_Reg.f90` （约 21 个子程序） — **W2**：冷路径 `**elem_type_id`** / **family** 注册表；与 **Populate** 输出及 `**MD_Elem_PHElemBinding`** → L4 族核路由一致。
+- **T0339** `L3_MD/Elem/MD_Elem_Validate.f90` （约 4 个子程序） — **W2**：校验 **Populate/Domain** 产物（连通性、`**elem_type_id`**、截面/材料引用）；与 `**MD_Elem_Reg**` 一致， 勿引入旁路拓扑。
+- **T0340** `L3_MD/Elem/Mass/MD_Elem_Mass.f90` （约 3 个子程序） — **W2**：质量元族 **Desc**；→ `**MD_ELEM_BIND_MASS`** / L4 Mass 核。
+- **T0341** `L3_MD/Elem/Shell/MD_Elem_Shell.f90` （约 3 个子程序） — **W2**：壳族 **Desc** 注册/查表；金线同 `**MD_Elem_Reg`** → `**PH_Elem_Shell***`。
+- **T0342** `L3_MD/Elem/Solid2D/MD_Elem_Sld2D.f90` （约 3 个子程序） — **W2**：平面实体族 **Desc**；→ `**MD_ELEM_BIND_SOLID2D`** / `**PH_Elem_Sld2D***`。
+- **T0343** `L3_MD/Elem/Solid3D/MD_Elem_Sld3D.f90` （约 3 个子程序） — **W2**：实体族 **Desc** 注册/查表；与 `**MD_Elem_PHElemBinding`** / `**PH_Elem_Sld3D***` 路由闭环。
+- **T0344** `L3_MD/Elem/Spring/MD_Elem_Spring.f90` （约 3 个子程序） — **W2**：弹簧族 **Desc**；→ `**MD_ELEM_BIND_SPRING`** / L4 Spring 核。
+- **T0345** `L3_MD/Elem/Surface/MD_Elem_Surface.f90` （约 3 个子程序） — **W2**：表面效应单元族 **Desc**；→ `**MD_ELEM_BIND_SURFACE`** / L4 Surface 核。
+- **T0346** `L3_MD/Elem/Truss/MD_Elem_Truss.f90` （约 3 个子程序） — **W2**：桁架族 **Desc**；→ `**MD_ELEM_BIND_TRUSS`** / L4 Truss 核。
+- **T0347** `L3_MD/Mesh/MD_DOF_Impl.f90` （约 17 个子程序） — **W2**：方程编号与 **DOF 状态枚举** 实现层；与 `**MD_DOF_Mgr`** 编排及单元自由度拓扑对齐。
+- **T0348** `L3_MD/Mesh/MD_DOF_Mgr.f90` （约 18 个子程序） — **W2**：全局 **DOF 编号** / 约束与 `**MD_Elem_*`** 拓扑衔接；下行装配 `**RT_Elem_***` 须与本模块口径一致（见 **Mesh/CONTRACT**）。
+- **T0349** `L3_MD/Mesh/MD_Elem_Def.f90` （约 2 个子程序）
+- **T0350** `L3_MD/Mesh/MD_Elem_Family.f90` （约 0 个子程序）
+- **T0351** `L3_MD/Mesh/MD_Elem_InpMap.f90` （约 1 个子程序）
+- **T0352** `L3_MD/Mesh/MD_Elem_Mgr.f90` （约 51 个子程序） — **W2**：**ElemType/ElemFormul** 统一目录与 L3 注册；与 `**MD_Elem_Reg`** / **Populate** 类型 ID 真源一致。
+- **T0353** `L3_MD/Mesh/MD_Mesh_API.f90` （约 27 个子程序）
+- **T0354** `L3_MD/Mesh/MD_Mesh_Core.f90` （约 13 个子程序）
+- **T0355** `L3_MD/Mesh/MD_Mesh_Data.f90` （约 9 个子程序）
+- **T0356** `L3_MD/Mesh/MD_Mesh_Def.f90` （约 0 个子程序）
+- **T0357** `L3_MD/Mesh/MD_Mesh_Domain.f90` （约 24 个子程序）
+- **T0358** `L3_MD/Mesh/MD_Mesh_Elem.f90` （约 9 个子程序）
+- **T0359** `L3_MD/Mesh/MD_Mesh_GlobalNum.f90` （约 0 个子程序）
+- **T0360** `L3_MD/Mesh/MD_Mesh_Mgr.f90` （约 0 个子程序）
+- **T0361** `L3_MD/Mesh/MD_Mesh_Node.f90` （约 6 个子程序）
+- **T0362** `L3_MD/Mesh/MD_Mesh_NodeDef.f90` （约 26 个子程序）
+- **T0363** `L3_MD/Mesh/MD_Mesh_Search.f90` （约 4 个子程序）
+- **T0364** `L3_MD/Mesh/MD_Mesh_Sync.f90` （约 2 个子程序）
+- **T0365** `L3_MD/Mesh/MD_Mesh_Topo.f90` （约 7 个子程序）
+- **T0474** `L4_PH/Element/Acoustic/PH_Elem_AC2D4.f90` （约 51 个子程序）
+- **T0475** `L4_PH/Element/Acoustic/PH_Elem_AC2D6.f90` （约 41 个子程序）
+- **T0476** `L4_PH/Element/Acoustic/PH_Elem_AC2D8.f90` （约 47 个子程序）
+- **T0477** `L4_PH/Element/Acoustic/PH_Elem_AC3D10.f90` （约 48 个子程序）
+- **T0478** `L4_PH/Element/Acoustic/PH_Elem_AC3D15.f90` （约 59 个子程序）
+- **T0479** `L4_PH/Element/Acoustic/PH_Elem_AC3D20.f90` （约 58 个子程序）
+- **T0480** `L4_PH/Element/Acoustic/PH_Elem_AC3D4.f90` （约 71 个子程序）
+- **T0481** `L4_PH/Element/Acoustic/PH_Elem_AC3D6.f90` （约 42 个子程序）
+- **T0482** `L4_PH/Element/Acoustic/PH_Elem_AC3D8.f90` （约 47 个子程序）
+- **T0483** `L4_PH/Element/Acoustic/PH_Elem_AcousticDefn.f90` （约 3 个子程序） — **W2**：L4 **声学** 单元接口；与 `**PH_Elem_Acoustic*`** / `**MD_ELEM_BIND_***`（声学族）及 `**PH_Elem_Core**` 路由一致。
+- **T0484** `L4_PH/Element/Acoustic/PH_Elem_AcousticSuite.f90` （约 23 个子程序）
+- **T0485** `L4_PH/Element/Acoustic/PH_Elem_AcousticTransientSolv.f90` （约 17 个子程序）
+- **T0486** `L4_PH/Element/Beam/PH_Elem_B21.f90` （约 6 个子程序）
+- **T0487** `L4_PH/Element/Beam/PH_Elem_B21T.f90` （约 7 个子程序）
+- **T0488** `L4_PH/Element/Beam/PH_Elem_B22.f90` （约 6 个子程序）
+- **T0489** `L4_PH/Element/Beam/PH_Elem_B23.f90` （约 10 个子程序）
+- **T0490** `L4_PH/Element/Beam/PH_Elem_B31.f90` （约 26 个子程序）
+- **T0491** `L4_PH/Element/Beam/PH_Elem_B31Cont.f90` （约 7 个子程序）
+- **T0492** `L4_PH/Element/Beam/PH_Elem_B31Dynamics.f90` （约 8 个子程序）
+- **T0493** `L4_PH/Element/Beam/PH_Elem_B31EAS.f90` （约 10 个子程序）
+- **T0494** `L4_PH/Element/Beam/PH_Elem_B31Fbar.f90` （约 9 个子程序）
+- **T0495** `L4_PH/Element/Beam/PH_Elem_B31H.f90` （约 10 个子程序）
+- **T0496** `L4_PH/Element/Beam/PH_Elem_B31NL.f90` （约 7 个子程序）
+- **T0497** `L4_PH/Element/Beam/PH_Elem_B31NLGeom.f90` （约 9 个子程序）
+- **T0498** `L4_PH/Element/Beam/PH_Elem_B31OS.f90` （约 9 个子程序）
+- **T0499** `L4_PH/Element/Beam/PH_Elem_B31PIPE.f90` （约 7 个子程序）
+- **T0500** `L4_PH/Element/Beam/PH_Elem_B31Plasticity.f90` （约 8 个子程序）
+- **T0501** `L4_PH/Element/Beam/PH_Elem_B31Stability.f90` （约 15 个子程序）
+- **T0502** `L4_PH/Element/Beam/PH_Elem_B31T.f90` （约 12 个子程序）
+- **T0503** `L4_PH/Element/Beam/PH_Elem_B31TL.f90` （约 5 个子程序）
+- **T0504** `L4_PH/Element/Beam/PH_Elem_B31TNL.f90` （约 8 个子程序）
+- **T0505** `L4_PH/Element/Beam/PH_Elem_B31TP.f90` （约 9 个子程序）
+- **T0506** `L4_PH/Element/Beam/PH_Elem_B31TS.f90` （约 8 个子程序）
+- **T0507** `L4_PH/Element/Beam/PH_Elem_B31UL.f90` （约 6 个子程序）
+- **T0508** `L4_PH/Element/Beam/PH_Elem_B32.f90` （约 15 个子程序）
+- **T0509** `L4_PH/Element/Beam/PH_Elem_B32NL.f90` （约 7 个子程序）
+- **T0510** `L4_PH/Element/Beam/PH_Elem_B32P.f90` （约 8 个子程序）
+- **T0511** `L4_PH/Element/Beam/PH_Elem_B32S.f90` （约 6 个子程序）
+- **T0512** `L4_PH/Element/Beam/PH_Elem_B32T.f90` （约 6 个子程序）
+- **T0513** `L4_PH/Element/Beam/PH_Elem_B33.f90` （约 7 个子程序）
+- **T0514** `L4_PH/Element/Beam/PH_Elem_B33NL.f90` （约 7 个子程序）
+- **T0515** `L4_PH/Element/Beam/PH_Elem_B33P.f90` （约 8 个子程序）
+- **T0516** `L4_PH/Element/Beam/PH_Elem_B33S.f90` （约 8 个子程序）
+- **T0517** `L4_PH/Element/Beam/PH_Elem_B33T.f90` （约 7 个子程序）
+- **T0518** `L4_PH/Element/Beam/PH_Elem_BeamDefn.f90` （约 7 个子程序） — **W2**：L4 **梁** 族统一接口；截面矩阵 / `**PH_Elem_Desc`** 与 `**MD_ELEM_BIND_BEAM**` / `**PH_Elem_Core**` 一致。
+- **T0519** `L4_PH/Element/Dashpot/PH_Elem_DASHPOT1.f90` （约 24 个子程序）
+- **T0520** `L4_PH/Element/Dashpot/PH_Elem_DASHPOT2.f90` （约 24 个子程序）
+- **T0521** `L4_PH/Element/Dashpot/PH_Elem_DashDefn.f90` （约 2 个子程序） — **W2**：L4 **阻尼器** 族 **Defn**；与 `**MD_ELEM_BIND_DASHPOT`** / `**PH_Elem_Core**` 一致。
+- **T0522** `L4_PH/Element/Infinite/PH_Elem_Infinite.f90` （约 15 个子程序）
+- **T0523** `L4_PH/Element/Membrane/PH_Elem_Membrane.f90` （约 32 个子程序）
+- **T0524** `L4_PH/Element/PH_Base_ErrCode.f90` （约 0 个子程序）
+- **T0525** `L4_PH/Element/PH_ElemContm_Ops.f90` （约 4 个子程序）
+- **T0526** `L4_PH/Element/PH_ElemDomain_Ops.f90` （约 6 个子程序）
+- **T0527** `L4_PH/Element/PH_ElemFeDispatch.f90` （约 2 个子程序）
+- **T0528** `L4_PH/Element/PH_ElemKeDispatch.f90` （约 11 个子程序）
+- **T0529** `L4_PH/Element/PH_Elem_Aux_Def.f90` （约 0 个子程序） — **W2**：辅 **TYPE**（Cfg/Pop/Itr/Lcl…）支撑 **四型** 与 **SIO**；主 `**PH_Elem_Desc`** 仍在 `**PH_Elem_Def**`。
+- **T0530** `L4_PH/Element/PH_Elem_CalcWrapper.f90` （约 15 个子程序）
+- **T0531** `L4_PH/Element/PH_Elem_ComplexStiff.f90` （约 1 个子程序）
+- **T0532** `L4_PH/Element/PH_Elem_Contm.f90` （约 8 个子程序）
+- **T0533** `L4_PH/Element/PH_Elem_Core.f90` （约 9 个子程序） — **W2**：**Ke/Me/Fe** 热路径；形函数/Gauss 自 `**PH_Elem_Desc`/槽** 真源；签名统一 `**PH_Elem_Def`** SIO **Arg**。
+- **T0534** `L4_PH/Element/PH_Elem_Ctx.f90` （约 0 个子程序） — **W2**：**LEGACY 薄封装**；真 `**PH_Elem_Ctx`** 定义在 `**PH_Elem_Def**`，热路径与 **四型** 金线一致。
+- **T0535** `L4_PH/Element/PH_Elem_Def.f90` （约 1 个子程序） — **W2**：L4 **四型** `**PH_Elem_*`** + **SIO Arg**；消费 `**PH_Elem_Desc`** 槽与 `**PH_Elem_Core**` 热路径； 与 L3 `**MD_Elem_***`、L5 `**RT_Elem_***` 分型对齐。
+- **T0536** `L4_PH/Element/PH_Elem_Domain.f90` （约 8 个子程序）
+- **T0537** `L4_PH/Element/PH_Elem_Eval.f90` （约 3 个子程序）
+- **T0538** `L4_PH/Element/PH_Elem_GaussInt.f90` （约 5 个子程序） — **W2**：`**PH_Elem_GaussInt_Desc`** 承载积分点规则；与 `**PH_Elem_Core**` / 族核 IP 循环一致。
+- **T0539** `L4_PH/Element/PH_Elem_Mass2.f90` （约 8 个子程序）
+- **T0540** `L4_PH/Element/PH_Elem_MassDispatch.f90` （约 2 个子程序）
+- **T0541** `L4_PH/Element/PH_Elem_NLGeom_Core.f90` （约 11 个子程序） — **W2**：**TL/UL** 几何非线性内核；与 `**PH_Elem_Core`** 强耦合，输入几何/位移取自槽侧 `**PH_Elem_***` 上下文。
+- **T0542** `L4_PH/Element/PH_Elem_Nlgeom.f90` （约 7 个子程序）
+- **T0543** `L4_PH/Element/PH_Elem_OutDispatch.f90` （约 3 个子程序）
+- **T0544** `L4_PH/Element/PH_Elem_Reg.f90` （约 4 个子程序） — **W2**：冷 `**elem_type`** → L4 核元数据；与 L3 `**MD_Elem_Reg**` / `**PH_Elem_Core**` 路由闭环（勿第二套类型表）。
+- **T0545** `L4_PH/Element/PH_Elem_ShapeFunc.f90` （约 18 个子程序） — **W2**：**N/B**、Jacobian、**B** 矩阵由单元几何与 `**PH_Elem_Desc`** / IP 上下文驱动；纯数学核，不持有材料状态。
+- **T0546** `L4_PH/Element/PH_Elem_ShapeMechField.f90` （约 1 个子程序）
+- **T0547** `L4_PH/Element/PH_Elem_StructuralFacade.f90` （约 0 个子程序）
+- **T0548** `L4_PH/Element/PH_Elem_dRdTheta.f90` （约 2 个子程序）
+- **T0549** `L4_PH/Element/PH_NLGeom_Eval.f90` （约 2 个子程序）
+- **T0550** `L4_PH/Element/PH_Physical_Def.f90` （约 0 个子程序）
+- **T0551** `L4_PH/Element/PH_ShapeScalarField.f90` （约 1 个子程序）
+- **T0552** `L4_PH/Element/Pipe/PH_Elem_Pipe.f90` （约 50 个子程序）
+- **T0553** `L4_PH/Element/Porous/PH_Elem_C3D10P.f90` （约 29 个子程序）
+- **T0554** `L4_PH/Element/Porous/PH_Elem_C3D15P.f90` （约 29 个子程序）
+- **T0555** `L4_PH/Element/Porous/PH_Elem_C3D20P.f90` （约 29 个子程序）
+- **T0556** `L4_PH/Element/Porous/PH_Elem_C3D27P.f90` （约 29 个子程序）
+- **T0557** `L4_PH/Element/Porous/PH_Elem_C3D4P.f90` （约 29 个子程序）
+- **T0558** `L4_PH/Element/Porous/PH_Elem_C3D6P.f90` （约 29 个子程序）
+- **T0559** `L4_PH/Element/Porous/PH_Elem_C3D8P.f90` （约 32 个子程序）
+- **T0560** `L4_PH/Element/Porous/PH_Elem_CAX3P.f90` （约 29 个子程序）
+- **T0561** `L4_PH/Element/Porous/PH_Elem_CAX4P.f90` （约 31 个子程序）
+- **T0562** `L4_PH/Element/Porous/PH_Elem_CAX6P.f90` （约 30 个子程序）
+- **T0563** `L4_PH/Element/Porous/PH_Elem_CAX8P.f90` （约 30 个子程序）
+- **T0564** `L4_PH/Element/Porous/PH_Elem_CPE3P.f90` （约 29 个子程序）
+- **T0565** `L4_PH/Element/Porous/PH_Elem_CPE4P.f90` （约 30 个子程序）
+- **T0566** `L4_PH/Element/Porous/PH_Elem_CPE6P.f90` （约 29 个子程序）
+- **T0567** `L4_PH/Element/Porous/PH_Elem_CPE8P.f90` （约 29 个子程序）
+- **T0568** `L4_PH/Element/Porous/PH_Elem_CPS3P.f90` （约 29 个子程序）
+- **T0569** `L4_PH/Element/Porous/PH_Elem_CPS4P.f90` （约 30 个子程序）
+- **T0570** `L4_PH/Element/Porous/PH_Elem_CPS6P.f90` （约 29 个子程序）
+- **T0571** `L4_PH/Element/Porous/PH_Elem_CPS8P.f90` （约 29 个子程序）
+- **T0572** `L4_PH/Element/Porous/PH_Elem_Porous.f90` （约 3 个子程序）
+- **T0573** `L4_PH/Element/Shared/PH_Base_PhysicsUtils.f90` （约 33 个子程序）
+- **T0574** `L4_PH/Element/Shared/PH_Coupled_Elements_Batch.f90` （约 0 个子程序）
+- **T0575** `L4_PH/Element/Shared/PH_ElemDiffUtils.f90` （约 0 个子程序）
+- **T0576** `L4_PH/Element/Shared/PH_ElemOrientRT_Brg.f90` （约 0 个子程序）
+- **T0577** `L4_PH/Element/Shared/PH_ElemRT_Brg.f90` （约 3 个子程序）
+- **T0578** `L4_PH/Element/Shared/PH_ElemShapeFunc.f90` （约 18 个子程序）
+- **T0579** `L4_PH/Element/Shared/PH_Elem_BCKernel.f90` （约 2 个子程序）
+- **T0580** `L4_PH/Element/Shared/PH_Elem_BMtx.f90` （约 12 个子程序）
+- **T0581** `L4_PH/Element/Shared/PH_Elem_CommonUtil.f90` （约 11 个子程序）
+- **T0582** `L4_PH/Element/Shared/PH_Elem_Comp.f90` （约 7 个子程序）
+- **T0583** `L4_PH/Element/Shared/PH_Elem_DispatchC3D8.f90` （约 7 个子程序）
+- **T0584** `L4_PH/Element/Shared/PH_Elem_DispatchReg.f90` （约 4 个子程序）
+- **T0585** `L4_PH/Element/Shared/PH_Elem_IntegPts.f90` （约 6 个子程序）
+- **T0586** `L4_PH/Element/Shared/PH_Elem_Jacobian.f90` （约 7 个子程序）
+- **T0587** `L4_PH/Element/Shared/PH_Elem_JacobianBUtils.f90` （约 15 个子程序）
+- **T0588** `L4_PH/Element/Shared/PH_Elem_LoadKernel.f90` （约 3 个子程序）
+- **T0589** `L4_PH/Element/Shared/PH_Elem_MatIntegration.f90` （约 4 个子程序）
+- **T0590** `L4_PH/Element/Shared/PH_Elem_MaterialRoute.f90` （约 21 个子程序） — **W2**：单元侧取 `**PH_Mat_Slot`/`desc%props`** 与 `**PH_Mat_Desc_Effective_Model**`；应力路径 `**RT_Mat_Dispatch_Stress**`； **W1 Material** 金线与 **W2 单元族** 交汇（勿读虚构 `**ctx%props`**）。
+- **T0591** `L4_PH/Element/Shared/PH_Elem_Mtx.f90` （约 11 个子程序）
+- **T0592** `L4_PH/Element/Shared/PH_Elem_OutKernel.f90` （约 3 个子程序）
+- **T0593** `L4_PH/Element/Shared/PH_Elem_Quality.f90` （约 30 个子程序）
+- **T0594** `L4_PH/Element/Shared/PH_Elem_ShellNLGeom.f90` （约 6 个子程序）
+- **T0595** `L4_PH/Element/Shared/PH_Elem_Utils.f90` （约 8 个子程序）
+- **T0596** `L4_PH/Element/Shell/PH_Elem_DS3.f90` （约 23 个子程序）
+- **T0597** `L4_PH/Element/Shell/PH_Elem_DS4.f90` （约 24 个子程序）
+- **T0598** `L4_PH/Element/Shell/PH_Elem_DS6.f90` （约 23 个子程序）
+- **T0599** `L4_PH/Element/Shell/PH_Elem_DS8.f90` （约 24 个子程序）
+- **T0600** `L4_PH/Element/Shell/PH_Elem_S3.f90` （约 32 个子程序）
+- **T0601** `L4_PH/Element/Shell/PH_Elem_S4.f90` （约 36 个子程序）
+- **T0602** `L4_PH/Element/Shell/PH_Elem_S4T.f90` （约 6 个子程序）
+- **T0603** `L4_PH/Element/Shell/PH_Elem_S6.f90` （约 28 个子程序）
+- **T0604** `L4_PH/Element/Shell/PH_Elem_S8.f90` （约 29 个子程序）
+- **T0605** `L4_PH/Element/Shell/PH_Elem_S8RT.f90` （约 6 个子程序）
+- **T0606** `L4_PH/Element/Shell/PH_Elem_S9.f90` （约 31 个子程序）
+- **T0607** `L4_PH/Element/Shell/PH_Elem_ShellDefn.f90` （约 7 个子程序） — **W2**：L4 **壳** 族统一接口；**MITC/厚度** 等与 `**PH_Elem_Core`**、`**MD_ELEM_BIND_SHELL**` 对齐。
+- **T0608** `L4_PH/Element/Shell/PH_Elem_ShellMITC.f90` （约 0 个子程序）
+- **T0609** `L4_PH/Element/Solid2D/PH_Elem_CAX3.f90` （约 38 个子程序）
+- **T0610** `L4_PH/Element/Solid2D/PH_Elem_CAX4.f90` （约 44 个子程序）
+- **T0611** `L4_PH/Element/Solid2D/PH_Elem_CAX6.f90` （约 38 个子程序）
+- **T0612** `L4_PH/Element/Solid2D/PH_Elem_CAX8.f90` （约 42 个子程序）
+- **T0613** `L4_PH/Element/Solid2D/PH_Elem_CPE3.f90` （约 37 个子程序）
+- **T0614** `L4_PH/Element/Solid2D/PH_Elem_CPE4.f90` （约 44 个子程序）
+- **T0615** `L4_PH/Element/Solid2D/PH_Elem_CPE6.f90` （约 45 个子程序）
+- **T0616** `L4_PH/Element/Solid2D/PH_Elem_CPE8.f90` （约 43 个子程序）
+- **T0617** `L4_PH/Element/Solid2D/PH_Elem_CPS3.f90` （约 37 个子程序）
+- **T0618** `L4_PH/Element/Solid2D/PH_Elem_CPS4.f90` （约 42 个子程序）
+- **T0619** `L4_PH/Element/Solid2D/PH_Elem_CPS6.f90` （约 42 个子程序）
+- **T0620** `L4_PH/Element/Solid2D/PH_Elem_CPS8.f90` （约 48 个子程序）
+- **T0621** `L4_PH/Element/Solid2D/PH_Elem_Sld2DDefn.f90` （约 8 个子程序） — **W2**：L4 **平面实体** 族接口；平面应力/应变/轴对称与 `**MD_ELEM_BIND_SOLID2D`** / `**PH_Elem_Core**` 一致。
+- **T0622** `L4_PH/Element/Solid2Dt/PH_Elem_CAX3T.f90` （约 22 个子程序）
+- **T0623** `L4_PH/Element/Solid2Dt/PH_Elem_CAX4T.f90` （约 22 个子程序）
+- **T0624** `L4_PH/Element/Solid2Dt/PH_Elem_CAX6T.f90` （约 22 个子程序）
+- **T0625** `L4_PH/Element/Solid2Dt/PH_Elem_CAX8T.f90` （约 22 个子程序）
+- **T0626** `L4_PH/Element/Solid2Dt/PH_Elem_CPE3T.f90` （约 21 个子程序）
+- **T0627** `L4_PH/Element/Solid2Dt/PH_Elem_CPE4T.f90` （约 21 个子程序）
+- **T0628** `L4_PH/Element/Solid2Dt/PH_Elem_CPE6T.f90` （约 21 个子程序）
+- **T0629** `L4_PH/Element/Solid2Dt/PH_Elem_CPE8T.f90` （约 21 个子程序）
+- **T0630** `L4_PH/Element/Solid2Dt/PH_Elem_CPS3T.f90` （约 21 个子程序）
+- **T0631** `L4_PH/Element/Solid2Dt/PH_Elem_CPS4T.f90` （约 21 个子程序）
+- **T0632** `L4_PH/Element/Solid2Dt/PH_Elem_CPS6T.f90` （约 21 个子程序）
+- **T0633** `L4_PH/Element/Solid2Dt/PH_Elem_CPS8T.f90` （约 21 个子程序）
+- **T0634** `L4_PH/Element/Solid2Dt/PH_Elem_Sld2DTDefn.f90` （约 2 个子程序） — **W2**：**平面热力耦合实体** 族 **Defn**；与 `**PH_Elem_Sld2D*`** / 热路径一致。
+- **T0635** `L4_PH/Element/Solid3D/PH_Elem_C3D10.f90` （约 41 个子程序）
+- **T0636** `L4_PH/Element/Solid3D/PH_Elem_C3D13.f90` （约 41 个子程序）
+- **T0637** `L4_PH/Element/Solid3D/PH_Elem_C3D15.f90` （约 41 个子程序）
+- **T0638** `L4_PH/Element/Solid3D/PH_Elem_C3D20.f90` （约 66 个子程序）
+- **T0639** `L4_PH/Element/Solid3D/PH_Elem_C3D27.f90` （约 65 个子程序）
+- **T0640** `L4_PH/Element/Solid3D/PH_Elem_C3D4.f90` （约 40 个子程序）
+- **T0641** `L4_PH/Element/Solid3D/PH_Elem_C3D5.f90` （约 41 个子程序）
+- **T0642** `L4_PH/Element/Solid3D/PH_Elem_C3D6.f90` （约 41 个子程序）
+- **T0643** `L4_PH/Element/Solid3D/PH_Elem_C3D8.f90` （约 73 个子程序）
+- **T0644** `L4_PH/Element/Solid3D/PH_Elem_C3D8EAS.f90` （约 8 个子程序）
+- **T0645** `L4_PH/Element/Solid3D/PH_Elem_C3D8FBar.f90` （约 7 个子程序）
+- **T0646** `L4_PH/Element/Solid3D/PH_Elem_Sld3DDefn.f90` （约 8 个子程序） — **W2**：L4 **3D 实体** 族统一接口；`**PH_Elem_Desc`** / Gauss 与 `**PH_Elem_Core**`、L3 `**MD_ELEM_BIND_SOLID3D**` 金线一致。
+- **T0647** `L4_PH/Element/Solid3D/PH_Elem_Solid3D_EAS.f90` （约 7 个子程序）
+- **T0648** `L4_PH/Element/Solid3D/PH_Elem_Solid3D_Fbar.f90` （约 7 个子程序）
+- **T0649** `L4_PH/Element/Solid3Dt/PH_Elem_C3D10T.f90` （约 23 个子程序）
+- **T0650** `L4_PH/Element/Solid3Dt/PH_Elem_C3D15T.f90` （约 23 个子程序）
+- **T0651** `L4_PH/Element/Solid3Dt/PH_Elem_C3D20T.f90` （约 23 个子程序）
+- **T0652** `L4_PH/Element/Solid3Dt/PH_Elem_C3D27T.f90` （约 23 个子程序）
+- **T0653** `L4_PH/Element/Solid3Dt/PH_Elem_C3D4T.f90` （约 23 个子程序）
+- **T0654** `L4_PH/Element/Solid3Dt/PH_Elem_C3D6T.f90` （约 23 个子程序）
+- **T0655** `L4_PH/Element/Solid3Dt/PH_Elem_C3D8T.f90` （约 51 个子程序）
+- **T0656** `L4_PH/Element/Solid3Dt/PH_Elem_Sld3DTDefn.f90` （约 2 个子程序） — **W2**：**热力耦合实体** 族 **Defn**；与 `**PH_Elem_Sld3D*`** / 热路径及 `**RT_Elem_ThermalMechCpl**` 分工一致。
+- **T0657** `L4_PH/Element/Special/PH_Elem_COH2D4Defn.f90` （约 1 个子程序）
+- **T0658** `L4_PH/Element/Special/PH_Elem_COH3D6Defn.f90` （约 2 个子程序）
+- **T0659** `L4_PH/Element/Special/PH_Elem_COH3D8Defn.f90` （约 2 个子程序）
+- **T0660** `L4_PH/Element/Special/PH_Elem_CohesiveDefn.f90` （约 1 个子程序） — **W2**：内聚力 **Defn**；与 `**MD_ELEM_BIND_COHESIVE`** / `**PH_Elem_Core**` 双线性/指数等接口一致。
+- **T0661** `L4_PH/Element/Special/PH_Elem_Coupler.f90` （约 6 个子程序）
+- **T0662** `L4_PH/Element/Special/PH_Elem_GK2D2Defn.f90` （约 1 个子程序）
+- **T0663** `L4_PH/Element/Special/PH_Elem_GK3D4Defn.f90` （约 2 个子程序）
+- **T0664** `L4_PH/Element/Special/PH_Elem_GasketDefn.f90` （约 1 个子程序）
+- **T0665** `L4_PH/Element/Special/PH_Elem_Mass.f90` （约 2 个子程序）
+- **T0666** `L4_PH/Element/Special/PH_Elem_R2D2Defn.f90` （约 1 个子程序）
+- **T0667** `L4_PH/Element/Special/PH_Elem_R3D3Defn.f90` （约 1 个子程序）
+- **T0668** `L4_PH/Element/Special/PH_Elem_R3D4Defn.f90` （约 1 个子程序）
+- **T0669** `L4_PH/Element/Special/PH_Elem_RigidDefn.f90` （约 0 个子程序）
+- **T0670** `L4_PH/Element/Spring/PH_Elem_SPRING1.f90` （约 23 个子程序）
+- **T0671** `L4_PH/Element/Spring/PH_Elem_SPRING2.f90` （约 23 个子程序）
+- **T0672** `L4_PH/Element/Spring/PH_Elem_SpringDefn.f90` （约 2 个子程序） — **W2**：L4 **弹簧** 族 **Defn**；与 L3 `**MD_Elem_Spring`** / `**MD_ELEM_BIND_SPRING**`、`**PH_Elem_Core**` 热路径一致。
+- **T0673** `L4_PH/Element/Thermal/PH_Elem_HeatTransfer.f90` （约 2 个子程序）
+- **T0674** `L4_PH/Element/Thermal/PH_Elem_ThermDefinition.f90` （约 1 个子程序） — **W2**：热单元 **Defn**；温度形函数 / 传导矩阵路径与 `**PH_Elem_Therm*`**、`**PH_Elem_Core**`（热步）合同对齐。
+- **T0675** `L4_PH/Element/Thermal/PH_Elem_ThermalForceAsm.f90` （约 1 个子程序）
+- **T0676** `L4_PH/Element/Thermal/PH_Elem_ThermalStrainKernel.f90` （约 1 个子程序）
+- **T0677** `L4_PH/Element/Thermal/PH_Elem_ThermalStressKernel.f90` （约 1 个子程序）
+- **T0678** `L4_PH/Element/Truss/PH_Elem_T2D2.f90` （约 23 个子程序）
+- **T0679** `L4_PH/Element/Truss/PH_Elem_T3D2.f90` （约 26 个子程序）
+- **T0680** `L4_PH/Element/Truss/PH_Elem_T3D3.f90` （约 7 个子程序）
+- **T0681** `L4_PH/Element/Truss/PH_Elem_TrussDefn.f90` （约 4 个子程序） — **W2**：L4 **桁架** 族统一接口；轴向刚度路径与 `**MD_ELEM_BIND_TRUSS`** / `**PH_Elem_Core**` 一致。
+- **T0791** `L5_RT/Element/Mesh/RT_Mesh_Def.f90` （约 0 个子程序）
+- **T0792** `L5_RT/Element/Mesh/RT_Mesh_Impl.f90` （约 8 个子程序）
+- **T0793** `L5_RT/Element/Mesh/RT_Mesh_Proc.f90` （约 6 个子程序）
+- **T0794** `L5_RT/Element/Mesh/RT_Mesh_Sys.f90` （约 0 个子程序）
+- **T0795** `L5_RT/Element/RT_ElemDispatch_Brg.f90` （约 4 个子程序）
+- **T0796** `L5_RT/Element/RT_ElemWB_Brg.f90` （约 2 个子程序）
+- **T0797** `L5_RT/Element/RT_Elem_AsmProc.f90` （约 5 个子程序）
+- **T0798** `L5_RT/Element/RT_Elem_ComputeProc.f90` （约 5 个子程序）
+- **T0799** `L5_RT/Element/RT_Elem_Core.f90` （约 9 个子程序） — **W2**：**LEGACY** 试验回调环；生产 `**RT_ElemDispatcher`/`RT_Elem_Proc`** → `**PH_Elem_Core**`； 勿当主装配唯一热路径。
+- **T0800** `L5_RT/Element/RT_Elem_Def.f90` （约 1 个子程序） — **W2**：L5 **四型** `**RT_Elem_*`** ↔ `**PH_Elem_Base_***`；`**RT_Elem_Dispatch_Table**` / `**family_id**` 与 L4 族枚举路由一致（装配入口消费此口径）。
+- **T0801** `L5_RT/Element/RT_Elem_Dispatcher.f90` （约 5 个子程序） — **W2**：`**family_id` → `RT_Elem_Dispatch_Table` → L4**；无本构；与 `**RT_Elem_Def`** / `**PH_Elem_Core**` 族入口一致。
+- **T0802** `L5_RT/Element/RT_Elem_KernelProc.f90` （约 6 个子程序） — **W2**：**UEL 风格**包装层；生产 `**RT_Elem_Dispatcher`** → `**PH_Elem_***`，本模块保持 **RT↔PH** 类型映射骨架。
+- **T0803** `L5_RT/Element/RT_Elem_Proc.f90` （约 7 个子程序） — **W2**：**SIO** 接口骨架与 `**RT_Elem_*`** 四型 IO；生产路由以 `**RT_Elem_Dispatcher**` → `**PH_Elem_***` 为准。
+- **T0804** `L5_RT/Element/RT_Elem_Sect.f90` （约 4 个子程序） — **W2**：**截面→材料** 解析桥；取 `**MD_Sect_*`** / `**MD_Mat_***` 与单元 `**mat_id**` 金线一致（衔接 **W1**）。
+- **T0805** `L5_RT/Element/RT_Elem_ThermalMechCpl.f90` （约 3 个子程序） — **W2**：**热-力耦合** 纯路由；校核合同后调 L4 热核，**无**本构/单元形函数重算。
+- **T0806** `L5_RT/Element/RT_Elem_UEL.f90` （约 2 个子程序） — **W2**：**UEL API** 薄适配；类型仍以 `**MD_Elem`/`PH_Elem`/`RT_Elem`** 合同为准，勿在本模块发明并行 Desc。
+
+**合计**：261 个 `.f90`，约 4050 个子程序。

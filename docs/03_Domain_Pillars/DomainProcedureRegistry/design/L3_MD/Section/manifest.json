@@ -1,0 +1,44 @@
+{
+  "layer": "L3_MD",
+  "domain_bucket": "Section",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L3_MD/Section/MD_PropMass.f90",
+      "stem": "MD_PropMass"
+    },
+    {
+      "source_rel": "L3_MD/Section/MD_PropNonStructMass.f90",
+      "stem": "MD_PropNonStructMass"
+    },
+    {
+      "source_rel": "L3_MD/Section/MD_PropPtMass.f90",
+      "stem": "MD_PropPtMass"
+    },
+    {
+      "source_rel": "L3_MD/Section/MD_PropRotInertia.f90",
+      "stem": "MD_PropRotInertia"
+    },
+    {
+      "source_rel": "L3_MD/Section/MD_Sect.f90",
+      "stem": "MD_Sect"
+    },
+    {
+      "source_rel": "L3_MD/Section/MD_Sect_Def.f90",
+      "stem": "MD_Sect_Def"
+    },
+    {
+      "source_rel": "L3_MD/Section/MD_SectDomain.f90",
+      "stem": "MD_SectDomain"
+    },
+    {
+      "source_rel": "L3_MD/Section/MD_SectionSync.f90",
+      "stem": "MD_SectionSync"
+    },
+    {
+      "source_rel": "L3_MD/Section/MD_SectLib.f90",
+      "stem": "MD_SectLib"
+    }
+  ]
+}

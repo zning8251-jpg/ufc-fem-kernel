@@ -1,0 +1,23 @@
+---
+description: 多模态内容生成 (图、文、视频、3D)
+globs: *
+---
+# 多模态内容生成向导
+
+## 1. 技能定位
+处理图生图、文生图、文生视频、图片特效等请求。
+
+## 2. 核心方案栈
+- **Python 生态**: diffusers (Hugging Face), moviepy (视频剪辑), opencv-python (图像处理)。
+- **外部 API 建议**: OpenAI DALL-E 3, Midjourney, Stable Diffusion API, RunwayML。
+
+## 3. 最佳实践
+- AI 本身不能直接“画”图，必须通过写 Python 代码调用绘图库，或者生成严格的 Midjourney/DALL-E 提示词交给用户。
+- 如果涉及 3D，优先生成 Three.js / WebGL 的前端代码。
+
+## 4. 照片级真图（仓库内脚本）
+- **依赖清单**：`UFC/tools/requirements_multimodal_photo.txt`（先按 [PyTorch 官网](https://pytorch.org/get-started/locally/) 安装匹配 CUDA 的 `torch`，再 `pip install -r` 其余项）。
+- **入口脚本**：`UFC/tools/draw_multimodal_photo.py`
+  - `--backend openai`：DALL·E 3 / 2，需环境变量 `OPENAI_API_KEY`；计费与内容政策以 OpenAI 条款为准。
+  - `--backend diffusers`：本机 Stable Diffusion（`runwayml/stable-diffusion-v1-5` 等），强烈建议 GPU；门控模型可设 `HF_TOKEN`。
+- **合规**：密钥勿入库；生成物版权与对外使用须自行对照各平台 ToS 与组织规定。

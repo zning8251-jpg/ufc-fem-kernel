@@ -1,0 +1,59 @@
+{
+  "layer": "L2_NM",
+  "domain_bucket": "Base",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L2_NM/Base/BVH/NM_BVH.f90",
+      "stem": "NM_BVH"
+    },
+    {
+      "source_rel": "L2_NM/Base/BVH/NM_BVH_Brg.f90",
+      "stem": "NM_BVH_Brg"
+    },
+    {
+      "source_rel": "L2_NM/Base/BVH/NM_BVH_Def.f90",
+      "stem": "NM_BVH_Def"
+    },
+    {
+      "source_rel": "L2_NM/Base/NM_Base.f90",
+      "stem": "NM_Base"
+    },
+    {
+      "source_rel": "L2_NM/Base/NM_Base_Def.f90",
+      "stem": "NM_Base_Def"
+    },
+    {
+      "source_rel": "L2_NM/Base/NM_Base_ErrCodes.f90",
+      "stem": "NM_Base_ErrCodes"
+    },
+    {
+      "source_rel": "L2_NM/Base/NM_Base_Norms.f90",
+      "stem": "NM_Base_Norms"
+    },
+    {
+      "source_rel": "L2_NM/Base/NM_Base_Utils.f90",
+      "stem": "NM_Base_Utils"
+    },
+    {
+      "source_rel": "L2_NM/Base/NM_BaseErrCodes.f90",
+      "stem": "NM_BaseErrCodes",
+      "module": "NM_Base_ErrCodes"
+    },
+    {
+      "source_rel": "L2_NM/Base/NM_BaseNorms.f90",
+      "stem": "NM_BaseNorms",
+      "module": "NM_Base_Norms"
+    },
+    {
+      "source_rel": "L2_NM/Base/NM_BaseUtils.f90",
+      "stem": "NM_BaseUtils",
+      "module": "NM_Base_Utils"
+    },
+    {
+      "source_rel": "L2_NM/Base/NM_PrecConvert.f90",
+      "stem": "NM_PrecConvert"
+    }
+  ]
+}

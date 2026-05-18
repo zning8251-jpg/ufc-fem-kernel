@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ufc.local/domain-procedure-registry/manifest.schema.json",
+  "title": "UFC DomainProcedureRegistry design manifest",
+  "description": "Machine-readable expected compilation units under a layer domain bucket. Curated in design/; compared to ufc_core and generated/ by domain_procedure_registry_align.py.",
+  "type": "object",
+  "required": ["layer", "domain_bucket", "modules"],
+  "additionalProperties": false,
+  "properties": {
+    "layer": {
+      "type": "string",
+      "enum": ["L1_IF", "L2_NM", "L3_MD", "L4_PH", "L5_RT", "L6_AP"]
+    },
+    "domain_bucket": {
+      "type": "string",
+      "description": "First path segment under the layer in ufc_core (e.g. Base, Matrix)."
+    },
+    "intent_doc": {
+      "type": "string",
+      "description": "Optional relative path from this manifest to human INTENT (e.g. INTENT.md)."
+    },
+    "infer_list_anchor": {
+      "type": "string",
+      "description": "Optional repo-relative path to PPLAN infer list for traceability."
+    },
+    "modules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source_rel"],
+        "additionalProperties": false,
+        "properties": {
+          "source_rel": {
+            "type": "string",
+            "description": "Path relative to ufc_core root, POSIX slashes (e.g. L2_NM/Matrix/NM_Mtx.f90)."
+          },
+          "stem": {
+            "type": "string",
+            "description": "Optional; defaults to basename of source_rel without .f90"
+          },
+          "module": {
+            "type": "string",
+            "description": "Optional expected MODULE name; if omitted, align tool treats stem === module as the policy check."
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

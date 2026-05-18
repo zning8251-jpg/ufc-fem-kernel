@@ -1,0 +1,56 @@
+{
+  "layer": "L4_PH",
+  "domain_bucket": "LoadBC",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L4_PH/LoadBC/PH_Load_Def.f90",
+      "stem": "PH_Load_Def"
+    },
+    {
+      "source_rel": "L4_PH/LoadBC/PH_Load_Core.f90",
+      "stem": "PH_Load_Core"
+    },
+    {
+      "source_rel": "L4_PH/LoadBC/PH_Load_Aux_Def.f90",
+      "stem": "PH_Load_Aux_Def"
+    },
+    {
+      "source_rel": "L4_PH/LoadBC/PH_Load_Mgr.f90",
+      "stem": "PH_Load_Mgr"
+    },
+    {
+      "source_rel": "L4_PH/LoadBC/PH_Load_NestedToFlat.f90",
+      "stem": "PH_Load_NestedToFlat"
+    },
+    {
+      "source_rel": "L4_PH/LoadBC/PH_BC_Def.f90",
+      "stem": "PH_BC_Def"
+    },
+    {
+      "source_rel": "L4_PH/LoadBC/PH_BC_Core.f90",
+      "stem": "PH_BC_Core"
+    },
+    {
+      "source_rel": "L4_PH/LoadBC/PH_BC_Aux_Def.f90",
+      "stem": "PH_BC_Aux_Def"
+    },
+    {
+      "source_rel": "L4_PH/LoadBC/PH_BC_Mgr.f90",
+      "stem": "PH_BC_Mgr"
+    },
+    {
+      "source_rel": "L4_PH/LoadBC/PH_BC_Brg.f90",
+      "stem": "PH_BC_Brg"
+    },
+    {
+      "source_rel": "L4_PH/LoadBC/PH_BC_NestedToFlat.f90",
+      "stem": "PH_BC_NestedToFlat"
+    },
+    {
+      "source_rel": "L4_PH/LoadBC/PH_BC_FlatToNested.f90",
+      "stem": "PH_BC_FlatToNested"
+    }
+  ]
+}

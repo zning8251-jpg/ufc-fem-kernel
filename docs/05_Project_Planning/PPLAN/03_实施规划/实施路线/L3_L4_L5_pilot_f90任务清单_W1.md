@@ -1,0 +1,295 @@
+# L3/L4/L5 — pilot 任务清单（W1 筛选）
+
+> **生成日期**：2026-04-30  
+> **来源**：[`UFC/tools/gen_l3l4l5_f90_inventory.py`](../../../../tools/gen_l3l4l5_f90_inventory.py)  
+> **总清单**：[`L3_L4_L5_pilot_f90任务清单.md`](L3_L4_L5_pilot_f90任务清单.md) — **Txxxx 与总清单一致**
+
+> **波次**：W1（内置前缀；W7/W8 与邻波重叠边界以合同及 EXEC §5–§6 为准）
+
+> **维护说明（2026-04-30）**：若执行 `UFC/tools/gen_l3l4l5_f90_inventory.py --wave W1` 且**未**指定 `-o` 其他路径，会**整表覆写**本文件。各条 **W1** 细则以 `ufc_core` 源文件模块头与 [`L3_L4_L5_W1_MR分批说明.md`](L3_L4_L5_W1_MR分批说明.md) 为准；下表为 **W1 试点完成态**（全选）。可用 **`UFC/tools/enrich_w1_checklist_from_f90.py --marker W1 --refresh`** 从源码回填摘要。下一波 Mesh/Element：**[`L3_L4_L5_pilot_f90任务清单_W2.md`](L3_L4_L5_pilot_f90任务清单_W2.md)**（其中 **`--marker W2 --refresh`** 与 **`**W2**`** 头注释对齐）。
+
+## 本波次文件（勾选覆盖）
+
+- [x] **T0038** `L3_MD/Bridge/Bridge_L4/MD_MatLibPH_Brg.f90` （约 5 个子程序） — **W1**：**冷路径·LEGACY** L3→L4 桥；热路径真源为槽 **`desc%props`**（Populate **`PH_Mat_Desc`**）；**禁止** 热路径调用 **`MD_PH_RouteToConstitutive_Idx`**（详见下文 **D1**）；编排金线 **`PH_Mat_Core`** / **`RT_Mat_Brg`**。
+- [x] **T0100** `L3_MD/Material/Acoustic/MD_Aco_Absorb.f90` （约 2 个子程序） — **W1**：**props** 布局与 **Populate** / **`MD_Mat_Desc%props`** 一致；L4 **PH_Mat_Acoustic_Core** 经 **MD_Mat_Acous_Desc** / 槽 **`desc%props`** 取参。
+- [x] **T0101** `L3_MD/Material/Acoustic/MD_Aco_Linear.f90` （约 2 个子程序） — **W1**：**props** 与 **Populate** / **`MD_Mat_Desc%props`** 一致；L4 **MD_Mat_Acous_Desc** / 槽 **`desc%props`** 为体积模量、密度等真源。
+- [x] **T0102** `L3_MD/Material/Acoustic/MD_Mat_Acous_Brg.f90` （约 1 个子程序） — **W1**：**model_id** 声学族路由；与 **PH_Mat_Desc** / **Effective_Model** 及 **Populate** 填槽一致（非旁路 **`ctx%props`**）。
+- [x] **T0103** `L3_MD/Material/Acoustic/MD_Mat_Acous_Core.f90` （约 2 个子程序） — **W1**：**MD_Mat_Acous_Populate** 将 **props** 写入 **MD_Mat_Acous_Desc**；与 L4 **PH_Mat_Acoustic_Core** 所读槽 **`desc%props`** 映同一套 **K**、**rho** 等。
+- [x] **T0104** `L3_MD/Material/Acoustic/MD_Mat_Acous_Def.f90` （约 0 个子程序） — **W1**：族级 **Desc/State** 为 **Populate** 与 L4 **PH_Mat_Acoustic_Core** 提供字段； 热路径勿误读不存在的 **`ctx%matModel`/`ctx%props`**（金线见 **CONTRACT**）。 Four-type: Desc + State (family-level aggregation) Status: Phase B |…
+- [x] **T0105** `L3_MD/Material/Acoustic/MD_Mat_AcousticProps.f90` （约 5 个子程序） — **W1**：**MD_Mat_Acoustic_Desc** 扩展 **MD_Mat_Base_Desc**；Biot/温压等参数经 **Populate** 入 **props** 后与 L4 槽 **`desc%props`** 协同。
+- [x] **T0106** `L3_MD/Material/Acoustic/MD_Mat_Creep_Acoustic.f90` （约 2 个子程序） — **W1**：**Acoustic_MatDesc** 扩展 **MD_Mat_Desc**；**props(1:2)** 与 **Populate** / **`desc%props`** 金线一致（与 **MD_Mat_Acous_*** 分支并存时注意 **mat_id** / 族路由）。
+- [x] **T0107** `L3_MD/Material/Base/MD_Mat_BaseDef.f90` （约 0 个子程序） — **W1**：轻量 **`MD_Mat_LiteDesc`** / **`MD_Mat_Ctx`** 服务注册与查表；**n_props** 与 **Contract/MD_Mat_Def** 富 **`MD_Mat_Desc`**、**Populate** 写入 **props** 及映到 L4 槽 **`desc%props`** 的数值真源以 **CONTRACT.md** 为准。
+- [x] **T0108** `L3_MD/Material/Base/MD_Mat_Reg.f90` （约 4 个子程序） — **W1**：冷路径 **mat_id** / **mat_type** 与 **`Contract/MD_Mat_Def`** 注册真源一致； 热参数向量经 **Populate** 进入 **MD_Mat_Desc%props** 再映 **L4 `desc%props`**（非本模块扁平字段）。
+- [x] **T0109** ~~`L3_MD/Material/Base/MD_Mat_StateInit.f90`~~ **已删除**：与 **`MD_Mat_Reg.f90`** 同源重复、无 `USE`；材料注册以 **`MD_Mat_Reg`** / **`MD_MatDomain_Def`** / **`MD_MatReg_Ops`** 为准（原 W1 语义不变）
+- [x] **T0110** `L3_MD/Material/Bridge/MD_MatRT_Brg.f90` （约 3 个子程序） — **W1**：gold chain uses L4 PH_Mat_Desc %cfg%matModel (see SyncDeprecatedFlat); this legacy path reads MD_Mat_Ctx%desc%mat_type for SELECT CASE.
+- [x] **T0111** `L3_MD/Material/Bridge/MD_Mat_Brg.f90` （约 5 个子程序） — **W1**：MD_Mat_Desc nested fields — **cfg%*** is SSOT; DEPRECATED flat mirrors via **MD_Mat_Desc_SyncDeprecatedFlat** after Init / before legacy readers.
+- [x] **T0112** `L3_MD/Material/Composite/MD_Cmp_CLT.f90` （约 2 个子程序） — **W1**：**props** / **InitFromProps** 与 **Populate**、**`MD_Mat_Desc%props`** 一致；L4 **PH_Mat_Composite_Core** 经 **MD_Mat_Comp_Desc** / 槽 **`desc%props`**（**mat_id 801**）。
+- [x] **T0113** `L3_MD/Material/Composite/MD_Cmp_Fabric.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`** / **Effective_Model**（**803**）。
+- [x] **T0114** `L3_MD/Material/Composite/MD_Cmp_FoamVE.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`**（**805**，Prony 项）。
+- [x] **T0115** `L3_MD/Material/Composite/MD_Cmp_Hashin.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 Hashin/损伤路由 **`desc%props`**（**802**）。
+- [x] **T0116** `L3_MD/Material/Composite/MD_Cmp_Jointed.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`**（**804**）。
+- [x] **T0117** `L3_MD/Material/Composite/MD_Mat_Comp_Brg.f90` （约 1 个子程序） — **W1**：**model_id** 复合材料族路由；与 **PH_Mat_Desc** / **Populate** 填槽、**`desc%props`** 一致。
+- [x] **T0118** `L3_MD/Material/Composite/MD_Mat_Comp_Core.f90` （约 2 个子程序） — **W1**：**MD_Mat_Comp_Populate** 写 **MD_Mat_Comp_Desc**；与 L4 **PH_Mat_Composite_Core** 读槽 **`desc%props`** 映同一套参数。
+- [x] **T0119** `L3_MD/Material/Composite/MD_Mat_Comp_Def.f90` （约 0 个子程序） — **W1**：族 **Desc/State** 真源；与 **MD_Cmp_*** 叶模型、**Populate**→**`desc%props`** 协同（勿误读 **`ctx%props`**）。 Four-type: Desc + State (family-level aggregation) Status: Phase B | Created: 2026-04-28
+- [x] **T0120** `L3_MD/Material/Composite/MD_Mat_Composite_Delamination.f90` （约 2 个子程序） — **W1**：**Delamination_MatDesc**（示例名以模块内为准）扩展 **MD_Mat_Desc**；上表 **props** 与 **Populate** / **`desc%props`** 金线一致（**508**）；与 **MD_Mat_Comp_*** 族并存时注意路由。
+- [x] **T0121** `L3_MD/Material/Composite/MD_Mat_Composite_Fabric.f90` （约 2 个子程序） — **W1**：**FabricPlast_MatDesc**（见模块内 **TYPE** 名）扩展 **MD_Mat_Desc**；**props** 与 **Populate** / **`desc%props`** 金线一致（**215**）。
+- [x] **T0122** `L3_MD/Material/Composite/MD_Mat_Composite_FiberDamage.f90` （约 2 个子程序） — **W1**：**FiberDamage_MatDesc** 扩展 **MD_Mat_Desc**；**props** 与 **Populate** / **`desc%props`** 金线一致（**502**）。
+- [x] **T0123** `L3_MD/Material/Composite/MD_Mat_Composite_Interface.f90` （约 2 个子程序） — **W1**：**Interface_MatDesc** 扩展 **MD_Mat_Desc**；**props** 与 **Populate** / **`desc%props`** 金线一致（**507**）。
+- [x] **T0124** `L3_MD/Material/Composite/MD_Mat_Composite_Laminate.f90` （约 2 个子程序） — **W1**：**Laminate_MatDesc** 扩展 **MD_Mat_Desc**；**props** 与 **Populate** / **`desc%props`** 金线一致（**112**）。
+- [x] **T0125** `L3_MD/Material/Contract/MD_MatDMG_Def.f90` （约 72 个子程序） — **W1**：**MD_Mat_Desc** 子类 + **InitFromProps** ↔ **`props`** 布局；**Populate** 写入后映 L4 槽 **`desc%props`** / **PH_MAT_* 损伤族**（本模块仅类型合同）。
+- [x] **T0126** `L3_MD/Material/Contract/MD_MatELA_CoupledDesc.f90` （约 7 个子程序） — **W1**：**ToProps** / 解析输出与 **Populate** **`MD_Mat_Desc%props`** 一致；L4 耦合弹性读 **`desc%props`**。
+- [x] **T0127** `L3_MD/Material/Contract/MD_MatHYP_Def.f90` （约 64 个子程序） — **W1**：各 **`*_MatDesc`** + **InitFromProps**；**props** 经 **Populate**→L4 **`desc%props`**（**PH_MAT_HYPERELASTIC**）。
+- [x] **T0128** `L3_MD/Material/Contract/MD_MatPLM_DescBase.f90` （约 0 个子程序） — **W1**：**PlastMatBase** 为塑性 Desc 基石；**mat_id** 真源以各模型 **PARAMETER** 与 **`MD_Mat_Ids`** 为准（头内 **MD_MAT_PLASTIC_*** 为历史 yield 标签，勿与现行 ID 混同）。
+- [x] **T0129** `L3_MD/Material/Contract/MD_MatPlgGeotech_Def.f90` （约 29 个子程序） — **W1**：**W1**?**DPProperties** ? + ?? ? **`props`** / **Populate**?L4 **PH_MatGeo_*** ? **`desc%props`**?**MD_MAT_GEO_***??
+- [x] **T0130** `L3_MD/Material/Contract/MD_MatSPU_Def.f90` （约 288 个子程序） — **W1**：大类合同分包；各 **`*_MatDesc`** 仍循 **InitFromProps** / **`props`**→**Populate**→L4 **`desc%props`**。
+- [x] **T0131** `L3_MD/Material/Contract/MD_MatVSC_Def.f90` （约 16 个子程序） — **W1**：**`*_MatDesc`**（如 **PronyVisc**）+ **InitFromProps**；**props** 与 **Populate**/**`desc%props`**、**PH_MAT_VISCOELASTIC** 协同。
+- [x] **T0132** `L3_MD/Material/Contract/MD_Mat_Def.f90` （约 130 个子程序） — **W1**：**MD_Mat_Desc** / **cfg** 为 Populate 语义真源；**`props`**、**`MD_Mat_Desc_SyncDeprecatedFlat`**； 对接 **L4 `PH_Mat_Desc`** / **`desc%props`**（见 **L3_MD/Material/CONTRACT.md**）。
+- [x] **T0133** `L3_MD/Material/Contract/MD_Mat_Ids.f90` （约 0 个子程序） — **W1**：**mat_id** 与 **`cfg%matModel`** / **PH_Mat_Desc_Effective_Model** / **RT_Mat_Brg** 路由一致；改号须联动注册与 Dispatch。
+- [x] **T0134** `L3_MD/Material/Creep/MD_Crp_Anneal.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`** / **PH_MAT_CREEP**（**604**）。
+- [x] **T0135** `L3_MD/Material/Creep/MD_Crp_Bodner.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`**（**608**）。
+- [x] **T0136** `L3_MD/Material/Creep/MD_Crp_DuvautLions.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`**（**607**）。
+- [x] **T0137** `L3_MD/Material/Creep/MD_Crp_Garofalo.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`**（**605**）。
+- [x] **T0138** `L3_MD/Material/Creep/MD_Crp_Perzyna.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`**（**606**）。
+- [x] **T0139** `L3_MD/Material/Creep/MD_Crp_PowerLaw.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`**（**601**）。
+- [x] **T0140** `L3_MD/Material/Creep/MD_Crp_TwoLayer.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`**（**603**）。
+- [x] **T0141** `L3_MD/Material/Creep/MD_Crp_UserDef.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`**（**602**）。
+- [x] **T0142** `L3_MD/Material/Creep/MD_MatPOR_CrushFoam.f90` （约 9 个子程序） — **W1**：**CrushFoamPlast_MatDesc** + **InitFromProps**；**props** 与 **Populate** / **`desc%props`**；**mat_id** 见 **`MD_MAT_CRUSHOAM_MAT_ID`**（与全局 **mat_id** 表交叉核对）。
+- [x] **T0143** `L3_MD/Material/Creep/MD_MatPOR_Foam3.f90` （约 8 个子程序） — **W1**：**Foam3Stage_MatDesc** + **InitFromProps**；**props** / **Populate** / **`desc%props`**；**`MD_MAT_FOAM3_STAGE_MAT_ID`**。
+- [x] **T0144** `L3_MD/Material/Creep/MD_MatPOR_Gurson.f90` （约 9 个子程序） — **W1**：**Gurson** 系 **MD_Mat_Desc** 子类 + **props** 布局；**Populate**→**`desc%props`**；与 L4 **GTN** 核一致；**mat_id** 以本模块 **PARAMETER** 与 **`MD_Mat_Ids`** 对表为准。
+- [x] **T0145** `L3_MD/Material/Creep/MD_MatPOR_Porous.f90` （约 0 个子程序） — **W1**：**PorousPlast_MatDesc** 占位桩；真源 **props** 仍以 **Populate** / 合同 **MD_Mat_Desc** 为准。
+- [x] **T0146** `L3_MD/Material/Creep/MD_MatPorFoam_Def.f90` （约 0 个子程序） — **W1**：**GursonMaterial** + **PlastMatBase** 冷路径结构；**mat_id** 与 **`MD_MatPOR_Gurson`/`MD_Mat_Ids`** 交叉核对后接入 **Populate**/**`desc%props`**。
+- [x] **T0147** `L3_MD/Material/Creep/MD_Mat_Creep_BiotPoroElastic.f90` （约 2 个子程序） — **W1**：**BiotPoroElastic_MatDesc**；上表 **props** ↔ **Populate** / **`desc%props`**（**111 / MD_MAT_ID_111**）。
+- [x] **T0148** `L3_MD/Material/Creep/MD_Mat_Creep_Brg.f90` （约 1 个子程序） — **W1**：**model_id** 蠕变/粘塑性子族路由；与 **PH_Mat_Desc** / **Populate** / **`desc%props`** 一致。
+- [x] **T0149** `L3_MD/Material/Creep/MD_Mat_Creep_Core.f90` （约 2 个子程序） — **W1**：**MD_Mat_Creep_Populate** → **MD_Mat_Creep_Desc**；与 L4 **PH_Mat_Creep_Core** 槽 **`desc%props`** 对齐。
+- [x] **T0150** `L3_MD/Material/Creep/MD_Mat_Creep_Def.f90` （约 0 个子程序） — **W1**：族 **Desc/State**；与 **MD_Crp_*** 叶模型、**Populate**→**`desc%props`** 协同。 Four-type: Desc + State (family-level aggregation) Status: Phase B | Created: 2026-04-28
+- [x] **T0151** `L3_MD/Material/Creep/MD_Mat_Creep_Diffusion.f90` （约 2 个子程序） — **W1**：**Diffusion_MatDesc**；**props** ↔ **Populate** / **`desc%props`**（**MD_MAT_ID_606**）。
+- [x] **T0152** `L3_MD/Material/Creep/MD_Mat_Creep_PiezoElastic.f90` （约 2 个子程序） — **W1**：**PiezoElastic_MatDesc**；**props** ↔ **Populate** / **`desc%props`**（**109 / MD_MAT_ID_109**）。
+- [x] **T0153** `L3_MD/Material/Creep/MD_Mat_Creep_Piezoelectric.f90` （约 2 个子程序） — **W1**：**Piezoelectric_MatDesc**；**props** ↔ **Populate** / **`desc%props`**（**604 / MD_MAT_ID_604**）。
+- [x] **T0154** `L3_MD/Material/Creep/MD_Mat_Creep_PoreFlow.f90` （约 2 个子程序） — **W1**：**PoreFlow_MatDesc**；**props** ↔ **Populate** / **`desc%props`**（**605 / MD_MAT_ID_605**）。
+- [x] **T0155** `L3_MD/Material/Damage/MD_Dmg_Brittle.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`** / **PH_MAT_* 损伤族**（**703**）。
+- [x] **T0156** `L3_MD/Material/Damage/MD_Dmg_CDP.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`**（**706** CDP）。
+- [x] **T0157** `L3_MD/Material/Damage/MD_Dmg_CZM.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`**（**705** CZM）。
+- [x] **T0158** `L3_MD/Material/Damage/MD_Dmg_Ductile.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`**（**701**）。
+- [x] **T0159** `L3_MD/Material/Damage/MD_Dmg_FLD.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`**（**704**）。
+- [x] **T0160** `L3_MD/Material/Damage/MD_Dmg_Shear.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`**（**702**）。
+- [x] **T0161** `L3_MD/Material/Damage/MD_Mat_Damage_Brg.f90` （约 1 个子程序） — **W1**：**model_id** 损伤族路由；与 **PH_Mat_Desc** / **Populate** / **`desc%props`** 一致。
+- [x] **T0162** `L3_MD/Material/Damage/MD_Mat_Damage_Brittle.f90` （约 2 个子程序） — **W1**：**Brittle_MatDesc**；**props** ↔ **Populate** / **`desc%props`**（**505 / MD_MAT_ID_505**）。
+- [x] **T0163** `L3_MD/Material/Damage/MD_Mat_Damage_Core.f90` （约 2 个子程序） — **W1**：**MD_Mat_Damage_Populate** → **MD_Mat_Damage_Desc**；与 L4 损伤核槽 **`desc%props`** 对齐。
+- [x] **T0164** `L3_MD/Material/Damage/MD_Mat_Damage_Def.f90` （约 0 个子程序） — **W1**：族 **Desc/State**；与 **MD_Dmg_*** / **MD_Mat_Damage_***、**Populate**→**`desc%props`** 协同。 Four-type: Desc + State (family-level aggregation) Status: Phase B | Created: 2026-04-28
+- [x] **T0165** `L3_MD/Material/Damage/MD_Mat_Damage_DuctileDamage.f90` （约 2 个子程序） — **W1**：**DuctileDamage_MatDesc**；**props** ↔ **Populate** / **`desc%props`**（**501 / MD_MAT_ID_501**）。
+- [x] **T0166** `L3_MD/Material/Damage/MD_Mat_Damage_Dynamic.f90` （约 2 个子程序） — **W1**：**Dynamic_MatDesc**；**props** ↔ **Populate** / **`desc%props`**（**509 / MD_MAT_ID_509**）。
+- [x] **T0167** `L3_MD/Material/Damage/MD_Mat_Damage_FatigueCrack.f90` （约 2 个子程序） — **W1**：**FatigueCrack_MatDesc**；**props** ↔ **Populate** / **`desc%props`**（**506 / MD_MAT_ID_506**）。
+- [x] **T0168** `L3_MD/Material/Damage/MD_Mat_Damage_LowCycleFatigue.f90` （约 2 个子程序） — **W1**：**LowCycleFatigue_MatDesc**；**props** ↔ **Populate** / **`desc%props`**（**503 / MD_MAT_ID_503**）。
+- [x] **T0169** `L3_MD/Material/Damage/MD_Mat_Damage_Multiscale.f90` （约 2 个子程序） — **W1**：**MultiscaleDamage_MatDesc**；**props** ↔ **Populate** / **`desc%props`**（**507 / MD_MAT_ID_507**）。
+- [x] **T0170** `L3_MD/Material/Damage/MD_Mat_Damage_Progressive.f90` （约 2 个子程序） — **W1**：**Progressive_MatDesc**；**props** ↔ **Populate** / **`desc%props`**（**504 / MD_MAT_ID_504**）。
+- [x] **T0171** `L3_MD/Material/Damage/MD_Mat_Damage_ViscoDamage.f90` （约 2 个子程序） — **W1**：**ViscoelasticDamage_MatDesc**；**props** ↔ **Populate** / **`desc%props`**（**508 / MD_MAT_ID_508**）。
+- [x] **T0172** `L3_MD/Material/Dispatch/MD_MatELA_ElasCall.f90` （约 10 个子程序） — **W1**：**弹性 FromDesc/Dispatch**；**`MD_Mat_Desc`/`desc%props`** + **`SyncDeprecatedFlat`**； **`UF_Elastic_Eval_Dispatch_FromDesc`** 与 **`MD_Mat_ValidatePropsForPopulate`** 弹性支路 **`material_id`** 一致；**`MD_Mat_…
+- [x] **T0173** `L3_MD/Material/Dispatch/MD_MatPLM_PlastBase.f90` （约 0 个子程序） — **W1**：**PlastModels_Desc** / 注册 API 的上游聚合；金线塑性子求值见 **`MD_MatPLM_PlastCall`** / **`UF_Plastic_Eval_Dispatch_FromDesc`**（**MD_Mat_Desc** + **props**），本模块不替代 **Populate** 填 **props**。
+- [x] **T0174** `L3_MD/Material/Dispatch/MD_MatPLM_PlastCall.f90` （约 1 个子程序） — **W1**：**cfg/pop** + **`desc%props`** 为 SSOT；**`material_id`** 与 **`MD_Mat_ValidatePropsForPopulate`** 塑性支路一致；**`MD_Mat_Lib`** 再导出 **`UF_Plastic_Eval_Dispatch_FromDesc`**。
+- [x] **T0175** `L3_MD/Material/Dispatch/MD_Mat_Lib.f90` （约 99 个子程序） — **W1**：**L3 材料库汇局面**；Populate 侧 **`MD_Mat_Validate*ForPopulate`**；**`MD_Mat_Desc`/`props`** 与 **`UF_Mat_Eval_Dispatch_FromDesc`**、**`UF_Elastic/Plastic_Eval_Dispatch_FromDesc`** 再导出；**`mat_id`/UMAT/L4** 经族 *…
+- [x] **T0176** `L3_MD/Material/Domain/MD_MatDomain_Def.f90` （约 15 个子程序） — **W1**：**MD_Mat_Domain** 持有 **`MD_Mat_Desc`** 实例阵列；**`MD_Mat_Desc_SyncDeprecatedFlat`** 与 **GetDesc/GetState（Idx）** 为 **Populate→L4 `PH_Mat_Desc`** / **`desc%props`** 冷路径真源。
+- [x] **T0177** `L3_MD/Material/Domain/MD_Mat_Mgr.f90` （约 0 个子程序） — **W1**：薄再导出；语义与 **`MD_MatDomain_Def`** 相同（**`MD_Mat_Desc`** / **Populate** 金线）。
+- [x] **T0178** `L3_MD/Material/Elas/MD_Ela_Aniso.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；**UF_Elastic_Eval_Dispatch_FromDesc** / L4 线弹性读 **`desc%props`**（**103**）。
+- [x] **T0179** `L3_MD/Material/Elas/MD_Ela_Iso.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；**UF_Elastic_*** / **`desc%props`**（**101**）。
+- [x] **T0180** `L3_MD/Material/Elas/MD_Ela_Ortho.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；**`desc%props`**（**102**）。
+- [x] **T0181** `L3_MD/Material/Elas/MD_Mat_Elas_Anisotropic.f90` （约 2 个子程序） — **W1**：**MD_Mat_Desc** 子类 + 上表 **props**；**Populate** / **`desc%props`**（**104**）。
+- [x] **T0182** `L3_MD/Material/Elas/MD_Mat_Elas_Hypoelastic.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**106**）；率型与 **UF_Elastic_*** 路由一致。
+- [x] **T0183** `L3_MD/Material/Elas/MD_Mat_Elas_Isotropic.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**101**）；与 **MD_Ela_Iso** / **MAT_ELAS_ISO** 族一致。
+- [x] **T0184** `L3_MD/Material/Elas/MD_Mat_Elas_Orthotropic.f90` （约 4 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**102 / MD_MAT_ID_102**）。
+- [x] **T0185** `L3_MD/Material/Elas/MD_Mat_Elas_Porous.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**105 / MD_MAT_ID_105**）。
+- [x] **T0186** `L3_MD/Material/Elas/MD_Mat_Elas_TransIsotropic.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（文件头 **mat_id
+- [x] **T0187** `L3_MD/Material/Geo/MD_Geo_DruckerPrager.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **PH_MatGeo_*** / **`desc%props`**（**301**）。
+- [x] **T0188** `L3_MD/Material/Geo/MD_Geo_MohrCoulomb.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**；L4 **Geo** 核（**303**）。
+- [x] **T0189** `L3_MD/Material/Geo/MD_MatPLG_BrittleCrack.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**209**）；与 **MD_MatPlgGeotech_Def** / **PH_MatGeo_*** 路由协同。
+- [x] **T0190** `L3_MD/Material/Geo/MD_MatPLG_CamClay.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**203**）。
+- [x] **T0191** `L3_MD/Material/Geo/MD_MatPLG_Cap.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**221**）。
+- [x] **T0192** `L3_MD/Material/Geo/MD_MatPLG_ConcreteDamage.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**222**）。
+- [x] **T0193** `L3_MD/Material/Geo/MD_MatPLG_DruckerPrager.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**202**）；与 **MD_Geo_DruckerPrager**/**MAT_GEO_*** 协同。
+- [x] **T0194** `L3_MD/Material/Geo/MD_MatPLG_Geotech.f90` （约 0 个子程序） — **W1**：**GeotechPlast_MatDesc** 占位桩；真源 **props** 以 **Populate** / **`MD_Mat_Desc`** / **`MD_MatPlgGeotech_Def`** 为准。
+- [x] **T0195** `L3_MD/Material/Geo/MD_MatPLG_Joint.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**216**）。
+- [x] **T0196** `L3_MD/Material/Geo/MD_MatPLG_MohrCoulomb.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**204**）；与 **MD_Geo_MohrCoulomb**/**MAT_GEO_MC** 协同。
+- [x] **T0197** `L3_MD/Material/Geo/MD_MatPLG_SmearedCrack.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**217**）。
+- [x] **T0198** `L3_MD/Material/Geo/MD_MatPLG_SoftRock.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**215**）。
+- [x] **T0199** `L3_MD/Material/Geo/MD_MatPLG_Soil.f90` （约 2 个子程序） — **W1**：**Soil_MatDesc**；**props** ↔ **Populate** / **`desc%props`**（**701 / MD_MAT_ID_701**）。
+- [x] **T0200** `L3_MD/Material/Geo/MD_Mat_Geo_Brg.f90` （约 1 个子程序） — **W1**：**`model_id`**（节段/壳/地学枚举路由）↔ **`MD_Mat_Geo_Desc`** / **Populate**；与 **MD_Mat_Geo_Core** 族级真源一致。
+- [x] **T0201** `L3_MD/Material/Geo/MD_Mat_Geo_Core.f90` （约 2 个子程序） — **W1**：**`MD_Mat_Geo_Validate_Params`** / **`MD_Mat_Geo_Populate`** — **`MD_Mat_Geo_Desc`**；与 **MD_Mat_Geo_Def** **`geo_type`** 协同。
+- [x] **T0202** `L3_MD/Material/Geo/MD_Mat_Geo_Def.f90` （约 0 个子程序） — **W1**：**`MD_Mat_Geo_Desc`/`State`** 家族聚合；**几何/截面·`geo_type`** 与 **塑性 Geo 叶**（**`MD_Geo_*`/`MD_MatPLG_*`**，**`props`/`mat_id` 201+**）分流。 Status: Phase B | Created: 2026-04-28
+- [x] **T0203** `L3_MD/Material/HyperElas/MD_Hyp_ArrudaBoyce.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **超弹** / **`desc%props`**（**406**）。
+- [x] **T0204** `L3_MD/Material/HyperElas/MD_Hyp_Foam.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **超弹** / **`desc%props`**（**408**）。
+- [x] **T0205** `L3_MD/Material/HyperElas/MD_Hyp_Gent.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **超弹** / **`desc%props`**（**407**）。
+- [x] **T0206** `L3_MD/Material/HyperElas/MD_Hyp_Marlow.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**409**）；L4 **超弹核**。
+- [x] **T0207** `L3_MD/Material/HyperElas/MD_Hyp_MooneyRivlin.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **超弹** / **`desc%props`**（**402**，与 **MR2** 同号分流）。
+- [x] **T0208** `L3_MD/Material/HyperElas/MD_Hyp_MooneyRivlin2.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **超弹** / **`desc%props`**（**402**，与 **MR** 同号分流）。
+- [x] **T0209** `L3_MD/Material/HyperElas/MD_Hyp_MooneyRivlin5.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **超弹** / **`desc%props`**（**403**，与 **Yeoh** 同号分流）。
+- [x] **T0210** `L3_MD/Material/HyperElas/MD_Hyp_NeoHookean1.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**401**，与 **NeoHk2** 同号分流）；L4 **超弹核**。
+- [x] **T0211** `L3_MD/Material/HyperElas/MD_Hyp_NeoHookean2.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **超弹** / **`desc%props`**（**401**，与 **NeoHk2** 同号分流）。
+- [x] **T0212** `L3_MD/Material/HyperElas/MD_Hyp_Ogden2.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **超弹** / **`desc%props`**（**404**）。
+- [x] **T0213** `L3_MD/Material/HyperElas/MD_Hyp_Ogden3.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **超弹** / **`desc%props`**（**405**）。
+- [x] **T0214** `L3_MD/Material/HyperElas/MD_Hyp_VanDerWaals.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **超弹** / **`desc%props`**（**410**）。
+- [x] **T0215** `L3_MD/Material/HyperElas/MD_Hyp_Yeoh.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **超弹** / **`desc%props`**（**403**，与 **MR5** 同号分流）。
+- [x] **T0216** `L3_MD/Material/HyperElas/MD_Mat_HyperElas_ArrudaBoyce.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**；**`MD_MAT_ID_305`**；L4 **超弹** / **`PH_MatHYP_*`**（**305**）。
+- [x] **T0217** `L3_MD/Material/HyperElas/MD_Mat_HyperElas_Brg.f90` （约 1 个子程序） — **W1**：**`model_id`** / **`MD_Mat_HyperElas_Desc`** → L4 **超弹** 路由；与 **`MD_Hyp_*`（401–410）** / **`MD_Mat_HyperElas_*`（301–310）** 叶模块协同。
+- [x] **T0218** `L3_MD/Material/HyperElas/MD_Mat_HyperElas_Core.f90` （约 2 个子程序） — **W1**：**`MD_Mat_HyperElas_Validate_Params`** / **`MD_Mat_HyperElas_Populate`** — **`MD_Mat_HyperElas_Desc`**；与 **MD_Mat_HyperElas_Def** **`hyper_type`** 协同。
+- [x] **T0219** `L3_MD/Material/HyperElas/MD_Mat_HyperElas_Def.f90` （约 0 个子程序） — **W1**：**`MD_Mat_HyperElas_Desc`/`State`** 家族聚合；**`hyper_type`** 枚举 vs **`MD_Hyp_*`（401–410）** / **`MD_Mat_HyperElas_*`（301–310）** 叶 **mat_id** 分流。 Status: Phase B | Created: 2026-04-28
+- [x] **T0220** `L3_MD/Material/HyperElas/MD_Mat_HyperElas_Marlow.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**；**`MD_MAT_ID_306`**；L4 **超弹** / **`PH_MatHYP_*`**（**306**）。
+- [x] **T0221** `L3_MD/Material/HyperElas/MD_Mat_HyperElas_MooneyRivlin.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**；**`MD_MAT_ID_301`**；L4 **超弹** / **`PH_MatHYP_*`**（**301**）。
+- [x] **T0222** `L3_MD/Material/HyperElas/MD_Mat_HyperElas_NeoHookean.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**；**`MD_MAT_ID_303`**；L4 **超弹** / **`PH_MatHYP_*`**（**303**）。
+- [x] **T0223** `L3_MD/Material/HyperElas/MD_Mat_HyperElas_Ogden.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**；**`MD_MAT_ID_302`**；L4 **超弹** / **`PH_MatHYP_*`**（**302**）。
+- [x] **T0224** `L3_MD/Material/HyperElas/MD_Mat_HyperElas_PermanentSet.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**；**`MD_MAT_ID_310`**；L4 **超弹** / **`PH_MatHYP_*`**（**310**）。
+- [x] **T0225** `L3_MD/Material/HyperElas/MD_Mat_HyperElas_Polynomial.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**；**`MD_MAT_ID_307`**；L4 **超弹** / **`PH_MatHYP_*`**（**307**）。
+- [x] **T0226** `L3_MD/Material/HyperElas/MD_Mat_HyperElas_ReducedPolynomial.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**；**`MD_MAT_ID_308`**；L4 **超弹** / **`PH_MatHYP_*`**（**308**）。
+- [x] **T0227** `L3_MD/Material/HyperElas/MD_Mat_HyperElas_StressSoftening.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**；**`MD_MAT_ID_309`**；L4 **超弹** / **`PH_MatHYP_*`**（**309**）。
+- [x] **T0228** `L3_MD/Material/HyperElas/MD_Mat_HyperElas_Yeoh.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**；**`MD_MAT_ID_304`**；L4 **超弹** / **`PH_MatHYP_*`**（**304**）。
+- [x] **T0229** `L3_MD/Material/Base/MD_Mat_Core.f90` （约 9 个子程序） — **W1**：**模型级材料库（Desc-only）** — **录入 / 查询 / 校验** 与 **`MD_Material_Desc`** / **Populate** / **`props`** 金线对齐。
+- [x] **T0230** `L3_MD/Material/Plast/MD_Mat_Plast_Barlat.f90` （约 0 个子程序） — **W1**：**props** / **`MD_Mat_Desc`/`cfg%id`** / **Populate** → L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`** / **`PH_MatPlast_*`**（211（与 **MD_Pls_Barlat** 叶对表））。
+- [x] **T0231** `L3_MD/Material/Plast/MD_Mat_Plast_BiVisc.f90` （约 9 个子程序） — **W1**：**props** / **`MD_Mat_Desc`/`cfg%id`** / **Populate** → L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`** / **`PH_MatPlast_*`**（**216**）。
+- [x] **T0232** `L3_MD/Material/Plast/MD_Mat_Plast_Brg.f90` （约 1 个子程序） — **W1**：**`model_id`** / **`MD_Mat_Plast_Desc`** → L4 **塑性核**；与 **`MD_Pls_*`（201–211…）** / **`MD_Mat_Plast_*`** **cfg%id** 协同。
+- [x] **T0233** `L3_MD/Material/Plast/MD_Mat_Plast_CastIron.f90` （约 8 个子程序） — **W1**：**props** / **`MD_Mat_Desc`/`cfg%id`** / **Populate** → L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`** / **`PH_MatPlast_*`**（**223**）。
+- [x] **T0234** `L3_MD/Material/Plast/MD_Mat_Plast_Ceramic.f90` （约 8 个子程序） — **W1**：**props** / **`MD_Mat_Desc`/`cfg%id`** / **Populate** → L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`** / **`PH_MatPlast_*`**（**mat_id** 见模块内 **PARAMETER** / **Init**）。
+- [x] **T0235** `L3_MD/Material/Plast/MD_Mat_Plast_Chaboche.f90` （约 17 个子程序） — **W1**：**props** / **`MD_Mat_Desc`/`cfg%id`** / **Populate** → L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`** / **`PH_MatPlast_*`**（**208**）。
+- [x] **T0236** `L3_MD/Material/Plast/MD_Mat_Plast_Core.f90` （约 2 个子程序） — **W1**：**`MD_Mat_Plast_Validate_Params`** / **`MD_Mat_Plast_Populate`** — **`MD_Mat_Plast_Desc`**；与 **MD_Mat_Plast_Def** 枚举协同。
+- [x] **T0237** `L3_MD/Material/Plast/MD_Mat_Plast_Crystal.f90` （约 15 个子程序） — **W1**：**props** / **`MD_Mat_Desc`/`cfg%id`** / **Populate** → L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`** / **`PH_MatPlast_*`**（**266**）。
+- [x] **T0238** `L3_MD/Material/Plast/MD_Mat_Plast_Def.f90` （约 0 个子程序） — **W1**：**`MD_Mat_Plast_Desc`/`State`** 家族聚合；**塑性叶 `MD_Mat_Plast_*`/`MD_Pls_*`** 与 **`props`**/**Populate**/**`desc%props`** 金线分流。
+- [x] **T0239** `L3_MD/Material/Plast/MD_Mat_Plast_Deformation.f90` （约 2 个子程序） — **W1**：**props** / **`MD_Mat_Desc`/`cfg%id`** / **Populate** → L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`** / **`PH_MatPlast_*`**（**218**）。
+- [x] **T0240** `L3_MD/Material/Plast/MD_Mat_Plast_Fgm.f90` （约 0 个子程序） — **W1**：**props** / **`MD_Mat_Desc`/`cfg%id`** / **Populate** → L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`** / **`PH_MatPlast_*`**（占位；真 **mat_id** 见注册 / **Populate**）。
+- [x] **T0241** `L3_MD/Material/Plast/MD_Mat_Plast_Hill.f90` （约 9 个子程序） — **W1**：**props** / **`MD_Mat_Desc`/`cfg%id`** / **Populate** → L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`** / **`PH_MatPlast_*`**（**202**）。
+- [x] **T0242** `L3_MD/Material/Plast/MD_Mat_Plast_HyperElastPlast.f90` （约 2 个子程序） — **W1**：**props** / **`MD_Mat_Desc`/`cfg%id`** / **Populate** → L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`** / **`PH_MatPlast_*`**（**213**）。
+- [x] **T0243** `L3_MD/Material/Plast/MD_Mat_Plast_J2.f90` （约 10 个子程序） — **W1**：**props** / **`MD_Mat_Desc`/`cfg%id`** / **Populate** → L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`** / **`PH_MatPlast_*`**（**mat_id** 见模块内 **PARAMETER** / **Init**）。
+- [x] **T0244** `L3_MD/Material/Plast/MD_Mat_Plast_JohnsonCook.f90` （约 17 个子程序） — **W1**：**props** / **`MD_Mat_Desc`/`cfg%id`** / **Populate** → L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`** / **`PH_MatPlast_*`**（**205**）。
+- [x] **T0245** `L3_MD/Material/Plast/MD_Mat_Plast_MixedHard.f90` （约 0 个子程序） — **W1**：**props** / **`MD_Mat_Desc`/`cfg%id`** / **Populate** → L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`** / **`PH_MatPlast_*`**（占位；真 **mat_id** 见注册 / **Populate**）。
+- [x] **T0246** `L3_MD/Material/Plast/MD_Mat_Plast_Nano.f90` （约 8 个子程序） — **W1**：**props** / **`MD_Mat_Desc`/`cfg%id`** / **Populate** → L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`** / **`PH_MatPlast_*`**（**256**）。
+- [x] **T0247** `L3_MD/Material/Plast/MD_Mat_Plast_ORNL.f90` （约 2 个子程序） — **W1**：**props** / **`MD_Mat_Desc`/`cfg%id`** / **Populate** → L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`** / **`PH_MatPlast_*`**（**217**）。
+- [x] **T0248** `L3_MD/Material/Plast/MD_Mat_Plast_RateDep.f90` （约 19 个子程序） — **W1**：**props** / **`MD_Mat_Desc`/`cfg%id`** / **Populate** → L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`** / **`PH_MatPlast_*`**（**267**）。
+- [x] **T0249** `L3_MD/Material/Plast/MD_Mat_Plast_SmartMat.f90` （约 0 个子程序） — **W1**：**props** / **`MD_Mat_Desc`/`cfg%id`** / **Populate** → L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`** / **`PH_MatPlast_*`**（占位；真 **mat_id** 见注册 / **Populate**）。
+- [x] **T0250** `L3_MD/Material/Plast/MD_Mat_Plast_SwiftVoce.f90` （约 0 个子程序） — **W1**：**props** / **`MD_Mat_Desc`/`cfg%id`** / **Populate** → L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`** / **`PH_MatPlast_*`**（占位；真 **mat_id** 见注册 / **Populate**）。
+- [x] **T0251** `L3_MD/Material/Plast/MD_Mat_Plast_Temm.f90` （约 0 个子程序） — **W1**：**props** / **`MD_Mat_Desc`/`cfg%id`** / **Populate** → L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`** / **`PH_MatPlast_*`**（占位；真 **mat_id** 见注册 / **Populate**）。
+- [x] **T0252** `L3_MD/Material/Plast/MD_Mat_Plast_ThermoVisc.f90` （约 0 个子程序） — **W1**：**props** / **`MD_Mat_Desc`/`cfg%id`** / **Populate** → L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`** / **`PH_MatPlast_*`**（占位；真 **mat_id** 见注册 / **Populate**）。
+- [x] **T0253** `L3_MD/Material/Plast/MD_Mat_Plast_ViscDmgEM.f90` （约 8 个子程序） — **W1**：**props** / **`MD_Mat_Desc`/`cfg%id`** / **Populate** → L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`** / **`PH_MatPlast_*`**（**255**）。
+- [x] **T0254** `L3_MD/Material/Plast/MD_Mat_Plast_Viscoplastic.f90` （约 8 个子程序） — **W1**：**props** / **`MD_Mat_Desc`/`cfg%id`** / **Populate** → L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`** / **`PH_MatPlast_*`**（**250**）。
+- [x] **T0255** `L3_MD/Material/Plast/MD_Mat_Plast_Za.f90` （约 11 个子程序） — **W1**：**props** / **`MD_Mat_Desc`/`cfg%id`** / **Populate** → L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`** / **`PH_MatPlast_*`**（**268**）。
+- [x] **T0256** `L3_MD/Material/Plast/MD_Pls_ArmstrongFrederick.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`**（**209**）。
+- [x] **T0257** `L3_MD/Material/Plast/MD_Pls_Barlat.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`**（**211**）。
+- [x] **T0258** `L3_MD/Material/Plast/MD_Pls_Chaboche.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`**（**210**）。
+- [x] **T0259** `L3_MD/Material/Plast/MD_Pls_GTN.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`**（**207**）。
+- [x] **T0260** `L3_MD/Material/Plast/MD_Pls_Hill48.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`**（**205**）。
+- [x] **T0261** `L3_MD/Material/Plast/MD_Pls_J2Iso.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**201**）；**FromDesc** / **PH_MatPlast_***。
+- [x] **T0262** `L3_MD/Material/Plast/MD_Pls_J2Tab.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`**（**202**）。
+- [x] **T0263** `L3_MD/Material/Plast/MD_Pls_JohnsonCook.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`**（**206**）。
+- [x] **T0264** `L3_MD/Material/Plast/MD_Pls_KinComb.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`**（**204**）。
+- [x] **T0265** `L3_MD/Material/Plast/MD_Pls_KinLin.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`**（**203**）。
+- [x] **T0266** `L3_MD/Material/Plast/MD_Pls_ORNL.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`** / **`UF_Plastic_Eval_Dispatch_FromDesc`**（**208**）。
+- [x] **T0267** `L3_MD/Material/Registry/MD_MatPLM_Reg.f90` （约 7 个子程序） — **W1**：**W1**?**???????** � **`UF_Plastic_*Reg`** / **`PlastModels_Desc`**?**mat_id??????**?**`props` ??** ?? **`MD_Mat_Desc`** / **Populate** / **L4 `desc%props`** ???? **MD_MatPLM_PlastBase** / **PlastCall…
+- [x] **T0268** `L3_MD/Material/Registry/MD_MatReg_Ops.f90` （约 0 个子程序） — **W1**：**统一注册/查询** — **mat_id→UMAT·Legacy 分发**；与 **`MD_Mat_Desc`** / **Populate** / **L4 槽 `desc%props`** 分工（热路径见 **MD_MAT_USER_CORE** / **Mat_Lib**）。
+- [x] **T0269** `L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90` （约 216 个子程序） — **W1**：**损伤族共享核** — **注册/分发**；**`MD_Mat_Desc`/`Dmg*Desc`**、**`props`** → **L4 `PH_MatDam_*` / `desc%props`**（与 **MD_Mat_DMG_LibBase** 基类协同）。
+- [x] **T0270** `L3_MD/Material/Shared/MD_MAT_HYPERELASTIC_CORE.f90` （约 160 个子程序） — **W1**：**超弹族共享核** — **Legacy 注册/分发**（**Hyperfoam/MR/Ogden/…**）；**Populate** / **`desc%props`** 与 **L3 叶 / L4 `PH_MatHYP_*`** 金线。
+- [x] **T0271** `L3_MD/Material/Shared/MD_MAT_THERM_CORE.f90` （约 105 个子程序） — **W1**：**W1**?**??????** � **??/??**?**`props`** / **`MD_Mat_Desc`** ? **Populate** / **L4 ???? `desc%props`**?
+- [x] **T0272** `L3_MD/Material/Shared/MD_MAT_USER_CORE.f90` （约 51 个子程序） — **W1**：**UF_UMAT_Standard** → **UF_Mat_Eval_Dispatch** (flat id/props); prefer **UF_Mat_Eval_Dispatch_FromDesc** when **MD_Mat_Desc** is already available (see call-site comment in **UF_UMAT_Standard**).
+- [x] **T0273** `L3_MD/Material/Shared/MD_MAT_VISCOSITY_CORE.f90` （约 82 个子程序） — **W1**：**粘性/粘弹族共享核** — **注册/分发**（**Prony/…**）；**`props`** / **`MD_Mat_Desc`** → **Populate** / **L4 `desc%props`**。
+- [x] **T0274** `L3_MD/Material/Shared/MD_MatELA_Damping.f90` （约 18 个子程序） — **W1**：**DampProperties**（Desc）与关键字解析侧阻尼参数；并入 **MD_Mat_Desc** / **Populate** **props** 布局后与 **L4** 槽 **`desc%props`** 协同（Rayleigh/模态等）。
+- [x] **T0275** `L3_MD/Material/Shared/MD_MatELA_ElasBase.f90` （约 20 个子程序） — **W1**：**W1**?**ElasMatBase** / **UF_Elastic_*Reg** ??????? Lame/??????? ???? **`UF_Elastic_Eval_Dispatch_FromDesc`** ?? **MD_Mat_Desc** + **`props`**?? **MD_MatELA_PopulateMap** ???????
+- [x] **T0276** `L3_MD/Material/Shared/MD_MatELA_Expansion.f90` （约 23 个子程序） — **W1**：**ExpansionProperties** 热膨胀 Desc；参数经 **Populate** 进入 **props** 向量 后与 **L4 热-力耦合** 槽 **`desc%props`** 对齐（见 **CONTRACT** / **PopulateMap**）。
+- [x] **T0277** `L3_MD/Material/Shared/MD_MatELA_PopulateMap.f90` （约 1 个子程序） — **W1**：L3 `pop%nProps` / material registration set the Desc length; this module only remaps/pads `props(:)` in place for the L4 slot layout.
+- [x] **T0278** `L3_MD/Material/Shared/MD_MatEval_Def.f90` （约 0 个子程序） — **W1**：**`MatEval_Ctx`/`MatAlgo_Algo`** 评估上下文与算法柄；供 **Damage/Hyper/Therm/Visc…** 各 **`*_CORE`** **分发签名** 共用。
+- [x] **T0279** `L3_MD/Material/Shared/MD_MatPLM_TDep.f90` （约 6 个子程序） — **W1**：**塑性温度依赖参数块 `TDepPlasticProps`**；供 **Populate/`props`** 与 **硬化曲线温度修正** 编排（与 **`MD_Mat_Desc`** 路径兼容）。
+- [x] **T0280** `L3_MD/Material/Shared/MD_Mat_Composite_Core.f90` （约 77 个子程序） — **W1**：**复合材料族共享核** — **聚合注册/分发**；**`props`** / **`MD_Mat_Desc`** 叶 → **Populate** / **L4 `PH_Mat_Composite_*` / `desc%props`**。
+- [x] **T0281** `L3_MD/Material/Shared/MD_Mat_Contract.f90` （约 3 个子程序） — **W1**：**MD_L3_to_L4_Contract** 为跨层校验辅助；**mat_id** / **props** 真源仍以 **MD_Mat_Desc**、**Populate** 与 **PH_Mat_Desc** / **`desc%props`** 合同为准。
+- [x] **T0282** `L3_MD/Material/Shared/MD_Mat_Creep_Core.f90` （约 57 个子程序） — **W1**：**蠕变族共享核** — **注册/分发**（**Norton/Garofalo/…**）；**`props`** / **`MD_Mat_Desc`** → **Populate** / **L4 `PH_Mat_Creep_*` / `desc%props`**。
+- [x] **T0283** `L3_MD/Material/Shared/MD_Mat_DMG_LibBase.f90` （约 2 个子程序） — **W1**：**损伤基类与有效应力/损伤变量更新**；**`props`**、**`MD_Mat_Desc`** 与 **L4 损伤核 `desc%props`** 衔接（**纯 L3 侧计算基元**）。 Status: Phase B | 2026-03-17
+- [x] **T0284** `L3_MD/Material/Shared/MD_Mat_Geomat_Core.f90` （约 35 个子程序） — **W1**：**地学/岩土相关共享核** — **UMAT 800+ 路由常数** 与 **模型聚合**；**`props`** / **`MD_Mat_Desc`** → **Populate** / **L4 `PH_MatGeo_*` / `desc%props`**。
+- [x] **T0285** `L3_MD/Material/Shared/MD_Mat_Legacy_Def.f90` （约 0 个子程序） — **W1**：**遗留 State 合同**；**新金线** 以 **`MD_Mat_Desc`/`StateV`** 与 **L4 槽** 为准，本模块仅 **过渡对照**。
+- [x] **T0286** `L3_MD/Material/Shared/MD_Mat_Sync.f90` （约 2 个子程序） — **W1**：**解析后** **legacy `UF_MaterialDef` → `MD_Mat_Domain`/`MD_Mat_Desc`**；**`props` 真源** 随 **`MD_Mat_Desc_SyncDeprecatedFlat` 对偶** 理解。
+- [x] **T0287** `L3_MD/Material/Shared/MD_Mat_Validation.f90` （约 8 个子程序） — **W1**：**Populate 前置校验**；输入来自 **`props`** / **`MD_Mat_Desc`** 字段，**不改变** **L4 `desc%props`** 真源约定。
+- [x] **T0288** `L3_MD/Material/Thermal/MD_Mat_Creep_ThermalConduction.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**601**）；**`MD_MAT_ID_601`**；**L4 热传导核**。 Purpose: Descriptor type and input validation for thermal conduction material model based on Fourier's law.
+- [x] **T0289** `L3_MD/Material/Thermal/MD_Mat_Creep_ThermalExpansion.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**602**）；**`MD_MAT_ID_602`**；**L4 热膨胀槽**。 Purpose: Descriptor type and input validation for thermal expansion material model based on Duhamel-Neumann law.
+- [x] **T0290** `L3_MD/Material/Thermal/MD_Mat_Creep_ThermoElastic.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**108**）；**热力耦合** / **L4**。 Purpose: Descriptor type and input validation for thermoelastic material model with temperature-dependent properties and therma…
+- [x] **T0291** `L3_MD/Material/Thermal/MD_Mat_Creep_ThermoElecElastic.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**110**）；**热电弹性** / **L4**。 Purpose: Descriptor type and input validation for thermo-electro-elastic material model with Seebeck/Peltier effects and therma…
+- [x] **T0292** `L3_MD/Material/Thermal/MD_Mat_Creep_ThermoElectric.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**603**）；**热电** / **L4**。 Purpose: Descriptor type and input validation for thermoelectric material model with Seebeck/Peltier effects for energy conversio…
+- [x] **T0293** `L3_MD/Material/Thermal/MD_Mat_Therm_Brg.f90` （约 1 个子程序） — **W1**：**`model_id`** / **`MD_Mat_Therm_Desc`** → L4 **热学核**；与 **`MD_Thm_*`（901–903）** / **多物理热文件（601–603…）** **Populate** 协同。
+- [x] **T0294** `L3_MD/Material/Thermal/MD_Mat_Therm_Core.f90` （约 2 个子程序） — **W1**：**`MD_Mat_Therm_Validate_Params`** / **`MD_Mat_Therm_Populate`** — **`MD_Mat_Therm_Desc`**；与 **MD_Mat_Therm_Def** 协同。
+- [x] **T0295** `L3_MD/Material/Thermal/MD_Mat_Therm_Def.f90` （约 0 个子程序） — **W1**：**`MD_Mat_Therm_Desc`/`State`** 家族聚合；**导热叶 `MD_Thm_*`** / **多物理热（601+）** **`props`**/**`desc%props`** 分流。
+- [x] **T0296** `L3_MD/Material/Thermal/MD_Thm_Iso.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`**（**901**）。
+- [x] **T0297** `L3_MD/Material/Thermal/MD_Thm_Ortho.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`**（**902**）。
+- [x] **T0298** `L3_MD/Material/Thermal/MD_Thm_PhaseChg.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`MD_Mat_Desc%props`**；L4 **`desc%props`**（**903**）。
+- [x] **T0299** `L3_MD/Material/User/MD_MatSPU_Connector.f90` （约 2 个子程序） — **W1**：**`MD_Mat_Desc` 叶**；**`MD_MAT_ID_707`**（**707**）；**Populate** / **`desc%props`** / **L4 连接器材料槽**。
+- [x] **T0300** `L3_MD/Material/User/MD_MatSPU_Damping.f90` （约 2 个子程序） — **W1**：**`MD_Mat_Desc` 叶**；**`MD_MAT_ID_705`**（**705**）；**Populate** / **`desc%props`**。
+- [x] **T0301** `L3_MD/Material/User/MD_MatSPU_Electromagnetic.f90` （约 2 个子程序） — **W1**：**`MD_Mat_Desc` 叶**；**`MD_MAT_ID_704`**（**704**）；**Populate** / **`desc%props`**。
+- [x] **T0302** `L3_MD/Material/User/MD_MatSPU_Eos.f90` （约 2 个子程序） — **W1**：**`MD_Mat_Desc` 叶**；**`MD_MAT_ID_702`**（**702**）；**Populate** / **`desc%props`**。
+- [x] **T0303** `L3_MD/Material/User/MD_MatSPU_HydrostaticFluid.f90` （约 2 个子程序） — **W1**：**`MD_Mat_Desc` 叶**；**`MD_MAT_ID_703`**（**703**）；**Populate** / **`desc%props`**。
+- [x] **T0304** `L3_MD/Material/User/MD_MatSPU_MassPoint.f90` （约 2 个子程序） — **W1**：**`MD_Mat_Desc` 叶**；**`MD_MAT_ID_706`**（**706**）；**Populate** / **`desc%props`**。
+- [x] **T0305** `L3_MD/Material/User/MD_Mat_User_Brg.f90` （约 1 个子程序） — **W1**：**`model_id`**（如 **9901–9903**）/ **`MD_Mat_User_Desc`** → L4 **UMAT/VUMAT/电磁** 适配；与 **`MD_Usr_*`**（**1101+**）叶 **Populate** 协同。
+- [x] **T0306** `L3_MD/Material/User/MD_Mat_User_Core.f90` （约 2 个子程序） — **W1**：**`MD_Mat_User_Validate_Params`** / **`MD_Mat_User_Populate`** — **`MD_Mat_User_Desc`**；与 **`MD_Usr_*`/`MD_MatSPU_*`** **`props`** 金线协同。
+- [x] **T0307** `L3_MD/Material/User/MD_Mat_User_Def.f90` （约 0 个子程序） — **W1**：**`MD_Mat_User_Desc`/`State`**；**`props`/`props_array`** 与 **Populate** → **L4 槽 `desc%props`**；**1101–1104·702–708** 等对表 **`MD_Mat_Ids`**。
+- [x] **T0308** `L3_MD/Material/User/MD_Mat_User_Umat.f90` （约 2 个子程序） — **W1**：**`MD_Mat_Desc` 叶**；**`MD_MAT_ID_708`**（**708**）；**UMAT 占位**；**Populate** / **`desc%props`** / **`MD_MAT_USER_CORE`**。
+- [x] **T0309** `L3_MD/Material/User/MD_Usr_Ext1.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**1103**）；**扩展用户材料** / **L4**。
+- [x] **T0310** `L3_MD/Material/User/MD_Usr_Ext2.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**1104**）；**扩展用户材料** / **L4**。
+- [x] **T0311** `L3_MD/Material/User/MD_Usr_UMAT.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**1101**）；**USER_MATERIAL** / **`MD_MAT_USER_CORE`** / **L4 UMAT**。
+- [x] **T0312** `L3_MD/Material/User/MD_Usr_VUMAT.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**1102**）；**USER_MATERIAL** / **`MD_MAT_USER_CORE`** / **L4 VUMAT**。
+- [x] **T0313** `L3_MD/Material/Viscoelas/MD_Mat_Visco_Brg.f90` （约 1 个子程序） — **W1**：**`model_id`** / **`MD_Mat_Visco_Desc`** → L4 **粘弹核**；与 **`MD_Vis_*`/`MD_Mat_Viscoelas_*`** **Populate** 协同。
+- [x] **T0314** `L3_MD/Material/Viscoelas/MD_Mat_Visco_Core.f90` （约 2 个子程序） — **W1**：**`MD_Mat_Visco_Validate_Params`** / **`MD_Mat_Visco_Populate`** — **`MD_Mat_Visco_Desc`**；与 **MD_Mat_Visco_Def** 协同。
+- [x] **T0315** `L3_MD/Material/Viscoelas/MD_Mat_Visco_Def.f90` （约 0 个子程序） — **W1**：**`MD_Mat_Visco_Desc`/`State`** 家族聚合；**`MD_Vis_*`（501–504）** / **`MD_Mat_Viscoelas_*`（107,401–408）** **`props`** / **Populate** / **`desc%props`** 分流。
+- [x] **T0316** `L3_MD/Material/Viscoelas/MD_Mat_Viscoelas_Creep.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**403**）；**`MD_MAT_ID_403`** / **L4**。
+- [x] **T0317** `L3_MD/Material/Viscoelas/MD_Mat_Viscoelas_LinearVisco.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**401**）；**`MD_MAT_ID_401`** / **L4**。
+- [x] **T0318** `L3_MD/Material/Viscoelas/MD_Mat_Viscoelas_NonlinearVisco.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**402**）；**`MD_MAT_ID_402`** / **L4**。
+- [x] **T0319** `L3_MD/Material/Viscoelas/MD_Mat_Viscoelas_Perzyna.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**405**）；**`MD_MAT_ID_405`** / **L4**。
+- [x] **T0320** `L3_MD/Material/Viscoelas/MD_Mat_Viscoelas_RateDepCreep.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**406**）；**`MD_MAT_ID_406`** / **L4**。
+- [x] **T0321** `L3_MD/Material/Viscoelas/MD_Mat_Viscoelas_Swelling.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**404**）；**`MD_MAT_ID_404`** / **L4**。
+- [x] **T0322** `L3_MD/Material/Viscoelas/MD_Mat_Viscoelas_ThermoVisco.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**407**）；**`MD_MAT_ID_407`** / **L4**。
+- [x] **T0323** `L3_MD/Material/Viscoelas/MD_Mat_Viscoelas_ViscoBase.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**107**）；**`MD_MAT_ID_107`** / **L4** 基类。
+- [x] **T0324** `L3_MD/Material/Viscoelas/MD_Mat_Viscoelas_ViscoElastPlast.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**408**）；**`MD_MAT_ID_408`** / **L4**。
+- [x] **T0325** `L3_MD/Material/Viscoelas/MD_Vis_KelvinVoigt.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**503**）；**L4 粘弹槽**。
+- [x] **T0326** `L3_MD/Material/Viscoelas/MD_Vis_PronyDev.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**501**）；**L4 `PH_Mat_Visco_*` / Prony**。
+- [x] **T0327** `L3_MD/Material/Viscoelas/MD_Vis_PronyVol.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**502**）；**L4 粘弹槽**。
+- [x] **T0328** `L3_MD/Material/Viscoelas/MD_Vis_WLF.f90` （约 2 个子程序） — **W1**：**props** ↔ **Populate** / **`desc%props`**（**504**）；**L4 粘弹槽**。
+- [x] **T0703** `L4_PH/Material/AI/PH_AI_MatInteg.f90` （约 3 个子程序） — **W1**：可选第三槽增强；经典回退与宿主 **PH_Mat_Desc** / **`desc%props`** 金线一致（接线后）。
+- [x] **T0704** `L4_PH/Material/Acoustic/PH_Mat_Acoustic_Core.f90` （约 4 个子程序） — **W1**：**MD_Mat_Acous_Desc** 体积模量等来自 Populate / 槽 **`desc%props`** 载体；与 **PH_Mat_Dispatch** / **Effective_Model** 协同。
+- [x] **T0705** `L4_PH/Material/Base/PH_Mat_BaseDefn.f90` （约 5 个子程序） — **W1**：family routing / **mat_type** at orchestration uses slot **`PH_Mat_Desc`** and **`PH_Mat_Desc_Effective_Model`**（Populate / Domain_Core）；本模块仅抽象内核形状。
+- [x] **T0706** `L4_PH/Material/Base/PH_Mat_Dispatch.f90` （约 3 个子程序） — **W1**：**`mat_type`** PH_MAT_* 须与槽位 **`PH_Mat_Desc`** 经 **`PH_Mat_Desc_Effective_Model`** 一致（勿与 **MAT_*** 离散模型 registry ID 混读）；热参数来自 **`desc%props`**。
+- [x] **T0707** `L4_PH/Material/Base/PH_Mat_Reg.f90` （约 3 个子程序） — **W1**：**MAT_*** 为离散本构注册 ID；编排层 **11-family** 路由与 **`RT_Mat_*`** 表项使用 **`PH_MAT_*`** + **`PH_Mat_Desc`**（见 **`PH_Mat_Desc_Effective_Model`** / **`RT_Mat_Brg`**）。
+- [x] **T0708** `L4_PH/Material/Composite/PH_MatComp_Castani.f90` （约 11 个子程序） — **W1**：UMAT **props** 与 Populate **`desc%props`** / **`PH_UMAT_Context`** 对齐； 族路由经 **PH_Mat_Dispatch** / **Effective_Model**（铸铁/复合塑性子路径）。
+- [x] **T0709** `L4_PH/Material/Composite/PH_Mat_Composite_Core.f90` （约 8 个子程序） — **W1**：Hashin/Tsai-Wu/MLT 参数写入槽 **`desc%props`**；与 **PH_Mat_Desc** / **PH_MAT_*** 复合材料族、**Effective_Model** 一致。
+- [x] **T0710** `L4_PH/Material/Contract/PH_MatConstit_Def.f90` （约 0 个子程序） — **W1**：point state is separate from slot **PH_Mat_Desc**; parameters still come from **desc%props** in kernels.
+- [x] **T0711** `L4_PH/Material/Contract/PH_MatCreep_Defn.f90` （约 1 个子程序） — **W1**：**Defn_Invoke_UMAT** track; slot-level truth remains **PH_Mat_Desc** / **desc%props** from Populate.
+- [x] **T0712** `L4_PH/Material/Contract/PH_MatDam_Defn.f90` （约 1 个子程序） — **W1**：**Defn_Invoke_UMAT** track; slot **desc** / **Effective_Model** drives routing at orchestration.
+- [x] **T0713** `L4_PH/Material/Contract/PH_MatGeotech_Defn.f90` （约 1 个子程序） — **W1**：same as other Defn modules — UMAT invoke path; **desc%props** is Populate carrier.
+- [x] **T0714** `L4_PH/Material/Contract/PH_MatHyperElas_Defn.f90` （约 1 个子程序） — **W1**：**Defn_Invoke_UMAT** + **PH_Mat_Desc** gold chain for hyper models.
+- [x] **T0715** `L4_PH/Material/Contract/PH_MatSpcl_Defn.f90` （约 1 个子程序） — **W1**：legacy UMAT invoke surface; align slot **desc** with **PH_Mat_Reg** entry when wiring new calls.
+- [x] **T0716** `L4_PH/Material/Contract/PH_MatTherm_Defn.f90` （约 1 个子程序） — **W1**：coupling calc uses same **desc%props** contract as mechanical branch where shared Populate applies.
+- [x] **T0717** `L4_PH/Material/Contract/PH_MatVisc_Defn.f90` （约 1 个子程序） — **W1**：**Defn** routing + slot **PH_Mat_Desc** for integrated props.
+- [x] **T0718** `L4_PH/Material/Contract/PH_Mat_Standards.f90` （约 9 个子程序） — **W1**：index constants describe **props(**:**)** layout filled from **Populate → desc%props**; keep PH ↔ L3 ordering aligned with **MD_Mat_EL*_PopulateMap** / registry where applicable.
+- [x] **T0719** `L4_PH/Material/Contract/PH_Mat_UMATIntfEnhanced.f90` （约 7 个子程序） — **W1**：LEGACY enhanced path; gold orchestration uses **PH_Mat_Core** + slot **PH_Mat_Desc** / **desc%props**.
+- [x] **T0720** `L4_PH/Material/Contract/PH_UMAT_Def.f90` （约 3 个子程序） — **W1**：**PH_UMAT_Context** is ABI workspace; physical parameters must match **slot_pool%desc%props** when wired from Populate.
+- [x] **T0721** `L4_PH/Material/Creep/PH_Mat_Creep_Core.f90` （约 7 个子程序） — **W1**：**PH_Creep_Props** / Norton–NH 常数与 **`desc%props`**、**PH_Mat_Desc** 对齐；经 **PH_MAT_CREEP** / **Effective_Model** 路由。
+- [x] **T0722** `L4_PH/Material/Damage/PH_MatDam_Gurson.f90` （约 3 个子程序） — **W1**：Populate 写入 **MD_Mat_GTN_Desc** 与槽 **`PH_Mat_Desc`** / **`desc%props`** 金线一致；金线上勿误读 **`ctx%props`**。
+- [x] **T0723** `L4_PH/Material/Damage/PH_Mat_Lemaitre_CDM.f90` （约 12 个子程序） — **W1**：**PH_CDM_Props** 由 **`desc%props`** 填充；与 **J2** 链及 **PH_MAT_*** 损伤族路由、**Effective_Model** 一致。
+- [x] **T0724** `L4_PH/Material/Dispatch/PH_MatELA_ElasCall.f90` （约 1 个子程序） — **W1**：**matType** is category-local enum for **PH_Mat_TypeToId**; Populate / slot gold path carries family on **PH_Mat_Desc** via **PH_Mat_Desc_Effective_Model**.
+- [x] **T0725** `L4_PH/Material/Dispatch/PH_MatEval.f90` （约 15 个子程序） — **W1**：W1 gold path: `PH_Mat_Core` S1–S4 + `PH_Mat_Desc` / slot `desc%props`; keep this module for legacy Eval_In/Out bundles until Dispatch migrates.
+- [x] **T0726** `L4_PH/Material/Dispatch/PH_MatPLMEval.f90` （约 34 个子程序） — **W1**：W1 gold path: orchestration uses **PH_Mat_Core** + L4 slot **PH_Mat_Desc** (**cfg%matModel** + **PH_Mat_Desc_SyncDeprecatedFlat**, **desc%props**). This module keeps **PlastModels_Desc** + **MatEval_…
+- [x] **T0727** `L4_PH/Material/Dispatch/PH_MatPLM_Kernels.f90` （约 0 个子程序） — **W1**：kernels consume **UMAT** bundles from **PH_MatPLMEval**; slot-level **PH_Mat_Desc** remains upstream（Populate / **PH_Mat_Core**）.
+- [x] **T0728** `L4_PH/Material/Dispatch/PH_MatPLM_LegacyFacadeUMATs.f90` （约 7 个子程序） — **W1**：LEGACY UMAT bodies；编排层仍以 **PH_Mat_Core** + slot **desc** 为金线。
+- [x] **T0729** `L4_PH/Material/Dispatch/PH_MatPLM_PlastCall.f90` （约 1 个子程序） — **W1**：same bridge pattern as **PH_MatELA_ElasCall** — **Defn_Invoke_UMAT** track; slot-level family/id remains on **PH_Mat_Desc** at Populate (**PH_Mat_Core** S1–S4).
+- [x] **T0730** `L4_PH/Material/Elas/PH_Mat_Elas_Brg.f90` （约 1 个子程序） — **W1**：竖切热路径以 **`PH_Mat_Desc%props`** / Populate 为准；本 Brg 为 **冷路径** L3 Iso → L4 Elas 辅助。
+- [x] **T0731** `L4_PH/Material/Elas/PH_Mat_Elas_Core.f90` （约 6 个子程序） — **W1**：**`props`** 来自槽位 **`desc%props`**（**`PH_Mat_Dispatch`** / **`PH_Elem_MaterialRoute`** 链）。
+- [x] **T0732** `L4_PH/Material/Elas/PH_Mat_Elas_Def.f90` （约 0 个子程序） — **W1**：族内 **`PH_MAT_ELAS_*`** 与槽级 **`PH_Mat_Desc_Effective_Model`** 协同；非全局 **MAT_*** registry。
+- [x] **T0733** `L4_PH/Material/Geo/PH_MatGeo_CamClay.f90` （约 5 个子程序） — **W1**：**props** from slot **PH_Mat_Desc%props**; routing via **PH_Mat_Dispatch** / **PH_MAT_*** geotech family + **Effective_Model**.
+- [x] **T0734** `L4_PH/Material/Geo/PH_MatGeo_DruckerPrager.f90` （约 3 个子程序） — **W1**：parameters from **desc%props**; family routing consistent with **PH_Mat_Reg** / **PH_Mat_Dispatch**.
+- [x] **T0735** `L4_PH/Material/Geo/PH_MatGeo_MohrCoulomb.f90` （约 4 个子程序） — **W1**：**props** / validation bridge from L3 **MohrCoulomb_MatDesc**; runtime carrier remains slot **desc%props**.
+- [x] **T0736** `L4_PH/Material/HyperElas/PH_Mat_NeoHookean.f90` （约 13 个子程序） — **W1**：**C10/D1** (or equivalent) from **desc%props** after Populate; **PH_MAT_HYPERELASTIC** routing via **PH_Mat_Desc_Effective_Model**.
+- [x] **T0737** `L4_PH/Material/PH_Mat_Aux_Def.f90` （约 0 个子程序） — **W1**：nested **PH_Mat_*** sub-TYPEs feed **PH_Mat_Desc** / Domain_Core Populate; not a second props store.
+- [x] **T0738** `L4_PH/Material/PH_Mat_Core.f90` （约 12 个子程序） — **W1**：**L4 材料热路径门面**；真源 **槽 `PH_Mat_Desc` / `desc%props` / `PH_Mat_Desc_Effective_Model`**；**S1–S4** 经 **`PH_Mat_Dispatch_*`** 与族核、**`PH_MatEval`** / **`RT_Mat_Brg`** 金线对齐。
+- [x] **T0739** `L4_PH/Material/PH_Mat_Def.f90` （约 0 个子程序） — **W1**：**四型再导出枢纽**；消费侧 **`PH_Mat_Desc`** / **`desc%props`** / **`PH_Mat_Desc_Effective_Model`**； 执行链 **`PH_Mat_Core`** / **`PH_Mat_Domain_Core`** / **`RT_Mat_Brg`**。
+- [x] **T0740** `L4_PH/Material/PH_Mat_Domain_Core.f90` （约 13 个子程序） — **W1**：**槽池与四型真源** **`PH_Mat_Slot`/`PH_Mat_Desc`**；**Populate** 写入 **`desc%props`**、**`cfg%matId`**； **`PH_Mat_Desc_SyncDeprecatedFlat`** 与 L3 **`MD_Mat_Desc`** 对偶。
+- [x] **T0741** `L4_PH/Material/Plast/PH_MatPlast_Barlat.f90` （约 8 个子程序） — **W1**：各向异性参数自 **`desc%props`**；经 **PH_MAT_PLASTIC** / **Effective_Model** 与 **PH_MatPLMEval** / **PH_Mat_Dispatch** 路由协同。
+- [x] **T0742** `L4_PH/Material/Plast/PH_MatPlast_Chaboche.f90` （约 16 个子程序） — **W1**：背应力/各向同性硬化参数自 **`desc%props`**；**PH_MAT_PLASTIC** / **Effective_Model** 与 **PH_MatPLMEval** 金线协同。
+- [x] **T0743** `L4_PH/Material/Plast/PH_MatPlast_Crystal.f90` （约 1 个子程序） — **W1**：落地后与 **`desc%props`** / **CrystalPlast_MatDesc** 金线一致； 当前 UMAT 桩仍消费 ABI **`props`**。
+- [x] **T0744** `L4_PH/Material/Plast/PH_MatPlast_Hill.f90` （约 20 个子程序） — **W1**：Hill 参数自 **`desc%props`**；**PH_MAT_PLASTIC** / **Effective_Model** / **PH_Mat_Dispatch** 与 **PH_MatPLMEval** 协同。
+- [x] **T0745** `L4_PH/Material/Plast/PH_Mat_J2_RadialReturn.f90` （约 12 个子程序） — **W1**：stress integration invoked from **PH_Mat_Dispatch** / **PH_Mat_Reg** routing; material parameters come from slot **`desc%props`** upstream (**Populate**), not L5 ctx alone.
+- [x] **T0746** `L4_PH/Material/Plast/PH_Mat_Plast_J2.f90` （约 9 个子程序） — **W1**：aligned with **PH_MAT_ELASTO_PLASTIC** + **`PH_Mat_Desc_Effective_Model`**; elastic branch uses **E, nu** from **`desc%props`** / Populate-filled Desc.
+- [x] **T0747** `L4_PH/Material/Shared/PH_Mat_hTensor.f90` （约 10 个子程序） — **W1**：math-only — does not read **PH_Mat_Desc**; kernels (J2, Neo-Hookean, …) combine these ops with **desc%props**.
+- [x] **T0748** `L4_PH/Material/Thermal/PH_Mat_Thermal_Core.f90` （约 7 个子程序） — **W1**：thermal props (**alpha**, **T_ref**, tables) from **desc%props**; coupled stiffness uses same slot truth as mechanical branch.
+- [x] **T0749** `L4_PH/Material/Viscoelas/PH_Mat_Visco_Core.f90` （约 5 个子程序） — **W1**：Prony/G_inf parameters from **desc%props**; **PH_Mat_Dispatch** routes **PH_MAT_VISCOELASTIC** using **Effective_Model**.
+- [x] **T0780** `L5_RT/Bridge/RT_Brg_Def.f90` （约 7 个子程序） — **W1**：**RT_Mat_Bridge_Ctx** mirrors assembly routing (**mat_family** / **mat_id**) with **RT_Mat_Brg** / **`RT_Mat_Dispatch_Ctx%mat_type`** ↔ **PH_Mat_Desc** — use **Sync** routines below for legacy flat f…
+- [x] **T0817** `L5_RT/Material/RT_Mat_Brg.f90` （约 4 个子程序） — **W1**：**`RT_Mat_Brg_BuildTable_FromMaterial`** 从 **`PH_Mat_Domain`** 槽读 **`PH_Mat_Desc`**，经 **`PH_Mat_Desc_Effective_Model`**、**`desc%cfg%matId`** 填 **路由表**；**`RT_Mat_Dispatch_Ctx%mat_type`** 与 L4 **`PH_Ma…
+- [x] **T0818** `L5_RT/Material/RT_Mat_Core.f90` （约 14 个子程序） — **W1**：表由 **`RT_Mat_Brg_BuildTable_FromMaterial`** 从 **`PH_Mat_Domain`** + 槽 **`desc`** 填充；**`entries%mat_type`** 对齐 **`PH_Mat_Desc_Effective_Model`**；**`RT_Mat_Dispatch_Ctx`** 见 **`RT_Mat_Def`**（与 L4 族枚举一致…
+- [x] **T0819** `L5_RT/Material/RT_Mat_Def.f90` （约 0 个子程序） — **W1**：**RT_Mat_Dispatch_Ctx%mat_type** for 11-family markers should match **PH_Mat_Desc_Effective_Model** when built from L4 **slot_pool%desc** (see **RT_Mat_Brg**).
+
+**合计**：281 个 `.f90`，约 2417 个子程序。

@@ -1,0 +1,56 @@
+{
+  "layer": "L5_RT",
+  "domain_bucket": "LoadBC",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L5_RT/LoadBC/RT_Load_Def.f90",
+      "stem": "RT_Load_Def"
+    },
+    {
+      "source_rel": "L5_RT/LoadBC/RT_Load_Impl_Def.f90",
+      "stem": "RT_Load_Impl_Def"
+    },
+    {
+      "source_rel": "L5_RT/LoadBC/RT_Load_Impl.f90",
+      "stem": "RT_Load_Impl"
+    },
+    {
+      "source_rel": "L5_RT/LoadBC/RT_Load_Brg.f90",
+      "stem": "RT_Load_Brg"
+    },
+    {
+      "source_rel": "L5_RT/LoadBC/RT_BC_Def.f90",
+      "stem": "RT_BC_Def"
+    },
+    {
+      "source_rel": "L5_RT/LoadBC/RT_BC_Impl_Def.f90",
+      "stem": "RT_BC_Impl_Def"
+    },
+    {
+      "source_rel": "L5_RT/LoadBC/RT_BC_Impl.f90",
+      "stem": "RT_BC_Impl"
+    },
+    {
+      "source_rel": "L5_RT/LoadBC/RT_BC_Brg.f90",
+      "stem": "RT_BC_Brg"
+    },
+    {
+      "source_rel": "L5_RT/LoadBC/RT_BC_ReactionForce.f90",
+      "stem": "RT_BC_ReactionForce"
+    },
+    {
+      "source_rel": "L5_RT/LoadBC/RT_LoadBC_ConstApply.f90",
+      "stem": "RT_LoadBC_ConstApply"
+    },
+    {
+      "source_rel": "L5_RT/LoadBC/RT_LoadBC_Core.f90",
+      "stem": "RT_LoadBC_Core"
+    },
+    {
+      "source_rel": "L5_RT/LoadBC/RT_LoadBC_Proc.f90",
+      "stem": "RT_LoadBC_Proc"
+    }
+  ]
+}

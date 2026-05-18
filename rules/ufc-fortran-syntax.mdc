@@ -1,0 +1,75 @@
+---
+description: UFC 生成代码必须通过 Fortran f90/f2003 语法检查
+globs: UFC/**/*.f90,ufc_core/**/*.f90,**/UFC/**/*.f90
+alwaysApply: true
+---
+
+# UFC Fortran 语法约束
+
+所有生成或修改的 Fortran 代码**必须**符合 Fortran 90 / Fortran 2003 标准，通过语法检查。
+
+## 强制要求
+
+| 约束 | 说明 |
+|------|------|
+| **标准** | 使用 Fortran 90 或 Fortran 2003 语法，避免非标准扩展 |
+| **语法检查** | 生成/修改 .f90 后，应能通过 `gfortran -std=f2003 -fsyntax-only` 或等效检查 |
+| **模块** | `MODULE`/`END MODULE`、`USE`、`IMPLICIT NONE` 正确配对 |
+| **类型** | `TYPE`/`END TYPE`、`INTENT`、`OPTIONAL` 使用正确 |
+| **子程序** | `SUBROUTINE`/`END SUBROUTINE`、`FUNCTION`/`END FUNCTION` 完整 |
+| **接口** | `INTERFACE`/`END INTERFACE`、`MODULE PROCEDURE` 匹配 |
+| **精度声明** | 必须使用 `USE IF_Prec, ONLY: wp, i4`，禁止使用 `ISO_FORTRAN_ENV` 或自定义 KIND 参数 |
+
+## 精度管理规范（强制）
+
+### 标准精度声明
+
+所有 UFC 代码**必须**使用以下统一的精度声明方式：
+
+```fortran
+MODULE Your_Module_Name
+    USE IF_Prec, ONLY: wp, i4  ! ✅ 唯一标准方式
+    IMPLICIT NONE
+    
+    ! 所有实数类型使用 wp (working precision)
+    REAL(wp) :: value, array(:), matrix(:, :)
+    INTEGER(i4) :: count, indices(:)
+END MODULE
+```
+
+### 禁止的做法
+
+```fortran
+! ❌ 禁止使用 ISO_FORTRAN_ENV
+USE ISO_FORTRAN_ENV, ONLY: wp => REAL64
+USE, INTRINSIC :: ISO_FORTRAN_ENV, ONLY: wp => REAL64
+
+! ❌ 禁止自定义 KIND 参数
+INTEGER, PARAMETER :: dp = SELECTED_REAL_KIND(15, 307)
+REAL(dp) :: value
+
+! ❌ 禁止省略精度声明
+REAL :: value  ! 未指定精度
+```
+
+### 优势
+
+- **项目一致性**：统一使用 `IF_Prec` 模块定义的 `wp` (working precision)
+- **可维护性**：通过修改 `IF_Prec.f90` 可全局切换单/双精度编译
+- **简化代码**：无需在每个文件中重复定义 KIND 参数
+- **域级规范**：BEAM/SHELL/SOLID 等所有域统一遵循此规范
+
+## 常见陷阱（避免）
+
+- 续行符 `&` 位置与数量
+- `ALLOCATABLE`/`POINTER` 与 `ALLOCATE`/`DEALLOCATE` 配对
+- 泛型/重载时参数类型与数量一致
+- `CLASS(*)` 与 `SELECT TYPE` 正确使用
+
+## 验证方式
+
+```bash
+gfortran -std=f2003 -fsyntax-only -c <file>.f90
+```
+
+或项目构建时启用 `-Wall -Werror` 确保无语法/类型错误。

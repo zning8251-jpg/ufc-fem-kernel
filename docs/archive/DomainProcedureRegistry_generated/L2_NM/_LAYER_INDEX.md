@@ -1,0 +1,120 @@
+# 层级索引：`L2_NM`（Registry）
+
+- **`.f90` 文件数**: 97
+
+> **命名 / 布局**：`generated/<层>/…/<stem>.md` — **目录树镜像** `ufc_core/<层>/…/*.f90`（仅扩展名改为 `.md`）；按 **域桶**（层下首段目录名）分组索引。**stem**=源码文件名；三段式/四段式见各篇首节。**源码路径**见各篇 `Source`。权威约定见 [CONVENTIONS.md](../CONVENTIONS.md) §0、[UFC_命名与数据结构规范.md](../../UFC_命名与数据结构规范.md) §3。
+
+## 域级 `Base`（`ufc_core/L2_NM/Base/…` 一级子目录）
+
+- [NM_BVH_Brg.md](Base/BVH/NM_BVH_Brg.md)
+- [NM_BVH_Def.md](Base/BVH/NM_BVH_Def.md)
+- [NM_BVH_Mgr.md](Base/BVH/NM_BVH_Mgr.md)
+- [NM_Base_Core.md](Base/NM_Base_Core.md)
+- [NM_Base_Def.md](Base/NM_Base_Def.md)
+- [NM_Base_ErrCodes.md](Base/NM_Base_ErrCodes.md)
+- [NM_Base_Norms.md](Base/NM_Base_Norms.md)
+- [NM_Base_Utils.md](Base/NM_Base_Utils.md)
+- [NM_Prec_Convert.md](Base/NM_Prec_Convert.md)
+
+## 域级 `Bridge`（`ufc_core/L2_NM/Bridge/…` 一级子目录）
+
+- [NM_Brg_Mgr.md](Bridge/NM_Brg_Mgr.md)
+- [NM_DirMUMPS_Brg.md](Bridge/NM_DirMUMPS_Brg.md)
+- [NM_DirSolvDispatcher_Brg.md](Bridge/NM_DirSolvDispatcher_Brg.md)
+- [NM_DirSparsePak_Brg.md](Bridge/NM_DirSparsePak_Brg.md)
+- [NM_PrecAGMGHSL_Brg.md](Bridge/NM_PrecAGMGHSL_Brg.md)
+
+## 域级 `Matrix`（`ufc_core/L2_NM/Matrix/…` 一级子目录）
+
+- [NM_Assem_Sparse.md](Matrix/NM_Assem_Sparse.md)
+- [NM_LAPACK_Brg.md](Matrix/NM_LAPACK_Brg.md)
+- [NM_LinAlg_Dense.md](Matrix/NM_LinAlg_Dense.md)
+- [NM_LinAlg_Domain.md](Matrix/NM_LinAlg_Domain.md)
+- [NM_Mtx_Core.md](Matrix/NM_Mtx_Core.md)
+- [NM_Mtx_Def.md](Matrix/NM_Mtx_Def.md)
+- [NM_Mtx_Factorization.md](Matrix/NM_Mtx_Factorization.md)
+- [NM_Mtx_Inversion.md](Matrix/NM_Mtx_Inversion.md)
+- [NM_Mtx_MatMul.md](Matrix/NM_Mtx_MatMul.md)
+- [NM_Mtx_Math.md](Matrix/NM_Mtx_Math.md)
+- [NM_Mtx_Sparse.md](Matrix/NM_Mtx_Sparse.md)
+- [NM_Mtx_Vec.md](Matrix/NM_Mtx_Vec.md)
+
+## 域级 `Solver`（`ufc_core/L2_NM/Solver/…` 一级子目录）
+
+- [NM_AI_AdjointAlgo.md](Solver/AI/NM_AI_AdjointAlgo.md)
+- [NM_AI_PrecondAlgo.md](Solver/AI/NM_AI_PrecondAlgo.md)
+- [NM_AI_SparseSolverAlgo.md](Solver/AI/NM_AI_SparseSolverAlgo.md)
+- [NM_Conv_Accel.md](Solver/Conv/NM_Conv_Accel.md)
+- [NM_Conv_Def.md](Solver/Conv/NM_Conv_Def.md)
+- [NM_Conv_IterPrec.md](Solver/Conv/NM_Conv_IterPrec.md)
+- [NM_Conv_IterSolv.md](Solver/Conv/NM_Conv_IterSolv.md)
+- [NM_Conv_KrylovExt.md](Solver/Conv/NM_Conv_KrylovExt.md)
+- [NM_Conv_LS.md](Solver/Conv/NM_Conv_LS.md)
+- [NM_Conv_MG.md](Solver/Conv/NM_Conv_MG.md)
+- [NM_Cpl_ElectroMech.md](Solver/Coupling/NM_Cpl_ElectroMech.md)
+- [NM_Cpl_FSI.md](Solver/Coupling/NM_Cpl_FSI.md)
+- [NM_Cpl_Monolithic.md](Solver/Coupling/NM_Cpl_Monolithic.md)
+- [NM_Cpl_Predictor.md](Solver/Coupling/NM_Cpl_Predictor.md)
+- [NM_Cpl_Staggered.md](Solver/Coupling/NM_Cpl_Staggered.md)
+- [NM_Cpl_ThermalStruct.md](Solver/Coupling/NM_Cpl_ThermalStruct.md)
+- [NM_Solv_AMGInterface.md](Solver/LinSolv/NM_Solv_AMGInterface.md)
+- [NM_Solv_ComplexLinear.md](Solver/LinSolv/NM_Solv_ComplexLinear.md)
+- [NM_Solv_Direct.md](Solver/LinSolv/NM_Solv_Direct.md)
+- [NM_Solv_IterSolver.md](Solver/LinSolv/NM_Solv_IterSolver.md)
+- [NM_Solv_LinCfg.md](Solver/LinSolv/NM_Solv_LinCfg.md)
+- [NM_Solv_LinDir.md](Solver/LinSolv/NM_Solv_LinDir.md)
+- [NM_Solv_LinDirCholesky.md](Solver/LinSolv/NM_Solv_LinDirCholesky.md)
+- [NM_Solv_LinDirLU.md](Solver/LinSolv/NM_Solv_LinDirLU.md)
+- [NM_Solv_LinDirMultifrontal.md](Solver/LinSolv/NM_Solv_LinDirMultifrontal.md)
+- [NM_Solv_LinIter.md](Solver/LinSolv/NM_Solv_LinIter.md)
+- [NM_Solv_LinIterAdv.md](Solver/LinSolv/NM_Solv_LinIterAdv.md)
+- [NM_Solv_LinIterBiCGSTAB.md](Solver/LinSolv/NM_Solv_LinIterBiCGSTAB.md)
+- [NM_Solv_LinIterCG.md](Solver/LinSolv/NM_Solv_LinIterCG.md)
+- [NM_Solv_LinIterGMRES.md](Solver/LinSolv/NM_Solv_LinIterGMRES.md)
+- [NM_Solv_LinPrec.md](Solver/LinSolv/NM_Solv_LinPrec.md)
+- [NM_Solv_LinPrecAMG.md](Solver/LinSolv/NM_Solv_LinPrecAMG.md)
+- [NM_Solv_LinPrecAMGMulti.md](Solver/LinSolv/NM_Solv_LinPrecAMGMulti.md)
+- [NM_Solv_LinPrecILU.md](Solver/LinSolv/NM_Solv_LinPrecILU.md)
+- [NM_Solv_LinPrecSSOR.md](Solver/LinSolv/NM_Solv_LinPrecSSOR.md)
+- [NM_Solv_Linear.md](Solver/LinSolv/NM_Solv_Linear.md)
+- [NM_Solv_MemPool.md](Solver/LinSolv/NM_Solv_MemPool.md)
+- [NM_Solv_Mgr.md](Solver/LinSolv/NM_Solv_Mgr.md)
+- [NM_Solv_Preconditioner.md](Solver/LinSolv/NM_Solv_Preconditioner.md)
+- [NM_Solv_SparseInterface.md](Solver/LinSolv/NM_Solv_SparseInterface.md)
+- [NM_Solv_SparsePakWrap.md](Solver/LinSolv/NM_Solv_SparsePakWrap.md)
+- [NM_Mtx_SpMVCSRTranspose.md](Solver/NM_Mtx_SpMVCSRTranspose.md)
+- [NM_Solv_Brg.md](Solver/NM_Solv_Brg.md)
+- [NM_Solv_Core.md](Solver/NM_Solv_Core.md)
+- [NM_Solv_Def.md](Solver/NM_Solv_Def.md)
+- [NM_Solv_Dir.md](Solver/NM_Solv_Dir.md)
+- [NM_Solv_GMRESTranspose.md](Solver/NM_Solv_GMRESTranspose.md)
+- [NM_Solv_Iter.md](Solver/NM_Solv_Iter.md)
+- [NM_Solv_Precond.md](Solver/NM_Solv_Precond.md)
+- [NM_Solv_SVD.md](Solver/NM_Solv_SVD.md)
+- [NM_Solv_ArcLength.md](Solver/NonlinSolv/NM_Solv_ArcLength.md)
+- [NM_Solv_Continuation.md](Solver/NonlinSolv/NM_Solv_Continuation.md)
+- [NM_Solv_Newton.md](Solver/NonlinSolv/NM_Solv_Newton.md)
+- [NM_Solv_Nonlin.md](Solver/NonlinSolv/NM_Solv_Nonlin.md)
+- [NM_Solv_QuasiNewton.md](Solver/NonlinSolv/NM_Solv_QuasiNewton.md)
+- [NM_Solv_TrustRegion.md](Solver/NonlinSolv/NM_Solv_TrustRegion.md)
+
+## 域级 `TimeInt`（`ufc_core/L2_NM/TimeInt/…` 一级子目录）
+
+- [NM_TimeInt_Adapt.md](TimeInt/NM_TimeInt_Adapt.md)
+- [NM_TimeInt_AdaptStep.md](TimeInt/NM_TimeInt_AdaptStep.md)
+- [NM_TimeInt_BEAM.md](TimeInt/NM_TimeInt_BEAM.md)
+- [NM_TimeInt_Brg.md](TimeInt/NM_TimeInt_Brg.md)
+- [NM_TimeInt_Core.md](TimeInt/NM_TimeInt_Core.md)
+- [NM_TimeInt_Def.md](TimeInt/NM_TimeInt_Def.md)
+- [NM_TimeInt_EventDet.md](TimeInt/NM_TimeInt_EventDet.md)
+- [NM_TimeInt_HHT.md](TimeInt/NM_TimeInt_HHT.md)
+- [NM_TimeInt_Linsolv.md](TimeInt/NM_TimeInt_Linsolv.md)
+- [NM_TimeInt_Mgr.md](TimeInt/NM_TimeInt_Mgr.md)
+- [NM_TimeInt_Newmark.md](TimeInt/NM_TimeInt_Newmark.md)
+- [NM_TimeInt_RK.md](TimeInt/NM_TimeInt_RK.md)
+- [NM_TimeInt_Scheme.md](TimeInt/NM_TimeInt_Scheme.md)
+- [NM_TimeInt_StepCtrl.md](TimeInt/NM_TimeInt_StepCtrl.md)
+
+## 域级 `_root`（`ufc_core/L2_NM/_root/…` 一级子目录）
+
+- [NM_L2_Layer.md](_root/NM_L2_Layer.md)

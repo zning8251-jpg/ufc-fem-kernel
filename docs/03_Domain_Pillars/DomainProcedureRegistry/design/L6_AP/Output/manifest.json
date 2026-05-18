@@ -1,0 +1,32 @@
+{
+  "layer": "L6_AP",
+  "domain_bucket": "Output",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L6_AP/Output/AP_Out_Def.f90",
+      "stem": "AP_Out_Def"
+    },
+    {
+      "source_rel": "L6_AP/Output/AP_OutDomain.f90",
+      "stem": "AP_OutDomain"
+    },
+    {
+      "source_rel": "L6_AP/Output/AP_OutFmt.f90",
+      "stem": "AP_OutFmt"
+    },
+    {
+      "source_rel": "L6_AP/Output/AP_OutRT_Brg.f90",
+      "stem": "AP_OutRT_Brg"
+    },
+    {
+      "source_rel": "L6_AP/Output/AP_PostProcDataAnal.f90",
+      "stem": "AP_PostProcDataAnal"
+    },
+    {
+      "source_rel": "L6_AP/Output/AP_PostProcVisual.f90",
+      "stem": "AP_PostProcVisual"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Recurse -File D:\\\\UFC)",
+      "Bash(Select-Object FullName, Length)",
+      "Bash(Sort-Object FullName)",
+      "PowerShell(Get-Content *)",
+      "PowerShell($item = Get-Item 'D:\\\\UFC\\\\.git' -Force -ErrorAction Stop; Write-Host \"Exists: $\\($item.Exists\\)\"; Write-Host \"Mode: $\\($item.Mode\\)\"; Write-Host \"Attributes: $\\($item.Attributes\\)\"; Write-Host \"Type: $\\($item.GetType\\(\\).Name\\)\")",
+      "PowerShell(Write-Host \"=== 根目录新增文件 ===\"; Get-ChildItem D:\\\\UFC -File | Where-Object { $_.Name -match '^\\(LICENSE|NOTICE|README|ARCHITECTURE|IP_PROTECTION|CONTRIBUTING\\)' } | Select-Object Name, Length; Write-Host \"`n=== company_seed 结构 ===\"; Get-ChildItem D:\\\\UFC\\\\company_seed -Recurse -File | Select-Object FullName)",
+      "PowerShell(Get-ChildItem D:\\\\UFC -File | Where-Object { $_.Name -match '^\\(LICENSE|NOTICE|README|ARCHITECTURE|IP_PROTECTION|CONTRIBUTING\\)' } | Select-Object Name, Length | Format-Table -AutoSize)",
+      "PowerShell(gh auth *)",
+      "Bash(git add *)",
+      "PowerShell(winget install *)"
+    ]
+  }
+}

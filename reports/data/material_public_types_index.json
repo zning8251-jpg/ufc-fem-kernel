@@ -1,0 +1,4273 @@
+{
+  "generated_utc": "2026-05-02T14:50:52.815853+00:00",
+  "scan_root": "ufc_core/L3_MD/Material",
+  "count": 711,
+  "public_types": [
+    {
+      "type_name": "MD_Mat_AcoAbsorb_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Acoustic/MD_Aco_Absorb.f90",
+      "line": 27
+    },
+    {
+      "type_name": "MD_Mat_AcoLinear_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Acoustic/MD_Aco_Linear.f90",
+      "line": 27
+    },
+    {
+      "type_name": "MD_Mat_Acous_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Acoustic/MD_Mat_Acous_Def.f90",
+      "line": 20
+    },
+    {
+      "type_name": "MD_Mat_Acous_State",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Acoustic/MD_Mat_Acous_Def.f90",
+      "line": 31
+    },
+    {
+      "type_name": "MD_Mat_Acoustic_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Acoustic/MD_Mat_AcousticProps.f90",
+      "line": 25
+    },
+    {
+      "type_name": "Acoustic_Derived_Props",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Acoustic/MD_Mat_AcousticProps.f90",
+      "line": 373
+    },
+    {
+      "type_name": "Acoustic_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Acoustic/MD_Mat_Creep_Acoustic.f90",
+      "line": 31
+    },
+    {
+      "type_name": "MD_Mat_LiteDesc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Base/MD_Mat_BaseDef.f90",
+      "line": 33
+    },
+    {
+      "type_name": "MD_Mat_ElasticProps",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Base/MD_Mat_BaseDef.f90",
+      "line": 49
+    },
+    {
+      "type_name": "MD_Mat_PlastProps",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Base/MD_Mat_BaseDef.f90",
+      "line": 70
+    },
+    {
+      "type_name": "MD_Mat_DamageProps",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Base/MD_Mat_BaseDef.f90",
+      "line": 85
+    },
+    {
+      "type_name": "MD_Mat_ThermalProps",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Base/MD_Mat_BaseDef.f90",
+      "line": 99
+    },
+    {
+      "type_name": "MD_Mat_State",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Base/MD_Mat_BaseDef.f90",
+      "line": 112
+    },
+    {
+      "type_name": "MD_Mat_Ctx",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Base/MD_Mat_BaseDef.f90",
+      "line": 125
+    },
+    {
+      "type_name": "MD_Mat_PH_UMAT_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Bridge/MD_Mat_Brg.f90",
+      "line": 72
+    },
+    {
+      "type_name": "MD_Mat_PH_UMAT_Algo",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Bridge/MD_Mat_Brg.f90",
+      "line": 79
+    },
+    {
+      "type_name": "MD_Mat_PH_UMAT_Ctx",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Bridge/MD_Mat_Brg.f90",
+      "line": 87
+    },
+    {
+      "type_name": "MD_Mat_PH_UMAT_State",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Bridge/MD_Mat_Brg.f90",
+      "line": 108
+    },
+    {
+      "type_name": "MD_Mat_PH_UMAT_In",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Bridge/MD_Mat_Brg.f90",
+      "line": 126
+    },
+    {
+      "type_name": "MD_Mat_PH_UMAT_Out",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Bridge/MD_Mat_Brg.f90",
+      "line": 134
+    },
+    {
+      "type_name": "MD_Mat_CLT_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Composite/MD_Cmp_CLT.f90",
+      "line": 28
+    },
+    {
+      "type_name": "MD_Mat_Fabric_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Composite/MD_Cmp_Fabric.f90",
+      "line": 25
+    },
+    {
+      "type_name": "MD_Mat_FoamVE_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Composite/MD_Cmp_FoamVE.f90",
+      "line": 26
+    },
+    {
+      "type_name": "MD_Mat_Hashin_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Composite/MD_Cmp_Hashin.f90",
+      "line": 26
+    },
+    {
+      "type_name": "MD_Mat_Jointed_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Composite/MD_Cmp_Jointed.f90",
+      "line": 25
+    },
+    {
+      "type_name": "MD_Mat_Comp_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Composite/MD_Mat_Comp_Def.f90",
+      "line": 31
+    },
+    {
+      "type_name": "MD_Mat_Comp_State",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Composite/MD_Mat_Comp_Def.f90",
+      "line": 50
+    },
+    {
+      "type_name": "Delamination_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Composite/MD_Mat_Composite_Delamination.f90",
+      "line": 40
+    },
+    {
+      "type_name": "FabricPlast_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Composite/MD_Mat_Composite_Fabric.f90",
+      "line": 41
+    },
+    {
+      "type_name": "FiberDamage_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Composite/MD_Mat_Composite_FiberDamage.f90",
+      "line": 38
+    },
+    {
+      "type_name": "Interface_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Composite/MD_Mat_Composite_Interface.f90",
+      "line": 38
+    },
+    {
+      "type_name": "Laminate_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Composite/MD_Mat_Composite_Laminate.f90",
+      "line": 36
+    },
+    {
+      "type_name": "DuctileDmg_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 25
+    },
+    {
+      "type_name": "DuctileDmg_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 42
+    },
+    {
+      "type_name": "DuctileDmg_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 55
+    },
+    {
+      "type_name": "DuctileDmg_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 71
+    },
+    {
+      "type_name": "ThermalDmg_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 82
+    },
+    {
+      "type_name": "ThermalDmg_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 93
+    },
+    {
+      "type_name": "ThermalDmg_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 104
+    },
+    {
+      "type_name": "ThermalDmg_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 114
+    },
+    {
+      "type_name": "CreepDmg_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 125
+    },
+    {
+      "type_name": "CreepDmg_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 133
+    },
+    {
+      "type_name": "CreepDmg_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 142
+    },
+    {
+      "type_name": "CreepDmg_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 152
+    },
+    {
+      "type_name": "CDP_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 163
+    },
+    {
+      "type_name": "CDP_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 175
+    },
+    {
+      "type_name": "CDP_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 186
+    },
+    {
+      "type_name": "CDP_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 196
+    },
+    {
+      "type_name": "Hashin_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 207
+    },
+    {
+      "type_name": "Hashin_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 216
+    },
+    {
+      "type_name": "Hashin_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 226
+    },
+    {
+      "type_name": "Hashin_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 236
+    },
+    {
+      "type_name": "DiffuseCrack_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 246
+    },
+    {
+      "type_name": "DiffuseCrack_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 255
+    },
+    {
+      "type_name": "DiffuseCrack_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 265
+    },
+    {
+      "type_name": "DiffuseCrack_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 275
+    },
+    {
+      "type_name": "Puck_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 286
+    },
+    {
+      "type_name": "Puck_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 295
+    },
+    {
+      "type_name": "Puck_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 304
+    },
+    {
+      "type_name": "Puck_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 314
+    },
+    {
+      "type_name": "BrittleCrack_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 322
+    },
+    {
+      "type_name": "BrittleCrack_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 330
+    },
+    {
+      "type_name": "BrittleCrack_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 339
+    },
+    {
+      "type_name": "BrittleCrack_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 349
+    },
+    {
+      "type_name": "ProgressiveDmg_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 357
+    },
+    {
+      "type_name": "ProgressiveDmg_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 366
+    },
+    {
+      "type_name": "ProgressiveDmg_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 375
+    },
+    {
+      "type_name": "ProgressiveDmg_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatDMG_Def.f90",
+      "line": 385
+    },
+    {
+      "type_name": "Hyperfoam_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 23
+    },
+    {
+      "type_name": "Hyperfoam_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 33
+    },
+    {
+      "type_name": "Hyperfoam_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 42
+    },
+    {
+      "type_name": "Hyperfoam_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 52
+    },
+    {
+      "type_name": "Mullins_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 62
+    },
+    {
+      "type_name": "Mullins_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 72
+    },
+    {
+      "type_name": "Mullins_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 81
+    },
+    {
+      "type_name": "Mullins_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 91
+    },
+    {
+      "type_name": "NeoHookean_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 102
+    },
+    {
+      "type_name": "NeoHookean_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 110
+    },
+    {
+      "type_name": "NeoHookean_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 118
+    },
+    {
+      "type_name": "NeoHookean_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 128
+    },
+    {
+      "type_name": "MooneyRivlin_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 136
+    },
+    {
+      "type_name": "MooneyRivlin_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 144
+    },
+    {
+      "type_name": "MooneyRivlin_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 152
+    },
+    {
+      "type_name": "MooneyRivlin_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 162
+    },
+    {
+      "type_name": "Ogden_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 170
+    },
+    {
+      "type_name": "Ogden_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 180
+    },
+    {
+      "type_name": "Ogden_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 188
+    },
+    {
+      "type_name": "Ogden_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 198
+    },
+    {
+      "type_name": "Yeoh_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 208
+    },
+    {
+      "type_name": "Yeoh_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 216
+    },
+    {
+      "type_name": "Yeoh_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 224
+    },
+    {
+      "type_name": "Yeoh_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 234
+    },
+    {
+      "type_name": "ArrudaBoyce_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 242
+    },
+    {
+      "type_name": "ArrudaBoyce_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 250
+    },
+    {
+      "type_name": "ArrudaBoyce_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 258
+    },
+    {
+      "type_name": "ArrudaBoyce_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 268
+    },
+    {
+      "type_name": "DielectricElast_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 276
+    },
+    {
+      "type_name": "DielectricElast_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 284
+    },
+    {
+      "type_name": "DielectricElast_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 293
+    },
+    {
+      "type_name": "DielectricElast_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatHYP_Def.f90",
+      "line": 304
+    },
+    {
+      "type_name": "PlastStateVariables",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatPLM_DescBase.f90",
+      "line": 32
+    },
+    {
+      "type_name": "PlastHardeningRule",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatPLM_DescBase.f90",
+      "line": 40
+    },
+    {
+      "type_name": "PlastFlowRule",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatPLM_DescBase.f90",
+      "line": 48
+    },
+    {
+      "type_name": "PlastMatBase",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatPLM_DescBase.f90",
+      "line": 53
+    },
+    {
+      "type_name": "ComputeDeviatoricStress_In",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatPLM_DescBase.f90",
+      "line": 63
+    },
+    {
+      "type_name": "ComputeDeviatoricStress_Out",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatPLM_DescBase.f90",
+      "line": 67
+    },
+    {
+      "type_name": "ComputeFlowDirection_In",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatPLM_DescBase.f90",
+      "line": 71
+    },
+    {
+      "type_name": "ComputeFlowDirection_Out",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatPLM_DescBase.f90",
+      "line": 76
+    },
+    {
+      "type_name": "DPProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatPlgGeotech_Def.f90",
+      "line": 30
+    },
+    {
+      "type_name": "DPPropertiesManager",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatPlgGeotech_Def.f90",
+      "line": 67
+    },
+    {
+      "type_name": "DruckerPragerProperties",
+      "extends": "DPProperties",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatPlgGeotech_Def.f90",
+      "line": 76
+    },
+    {
+      "type_name": "MCProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatPlgGeotech_Def.f90",
+      "line": 89
+    },
+    {
+      "type_name": "MCPropertiesManager",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatPlgGeotech_Def.f90",
+      "line": 116
+    },
+    {
+      "type_name": "MohrCoulombProperties",
+      "extends": "MCProperties",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatPlgGeotech_Def.f90",
+      "line": 125
+    },
+    {
+      "type_name": "NortonCreep_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 24
+    },
+    {
+      "type_name": "NortonCreep_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 34
+    },
+    {
+      "type_name": "NortonCreep_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 44
+    },
+    {
+      "type_name": "NortonCreep_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 54
+    },
+    {
+      "type_name": "GarofaloCreep_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 65
+    },
+    {
+      "type_name": "GarofaloCreep_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 73
+    },
+    {
+      "type_name": "GarofaloCreep_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 83
+    },
+    {
+      "type_name": "GarofaloCreep_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 93
+    },
+    {
+      "type_name": "CompLamina_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 104
+    },
+    {
+      "type_name": "CompLamina_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 113
+    },
+    {
+      "type_name": "CompLamina_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 123
+    },
+    {
+      "type_name": "CompLamina_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 133
+    },
+    {
+      "type_name": "MCC_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 144
+    },
+    {
+      "type_name": "MCC_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 153
+    },
+    {
+      "type_name": "MCC_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 163
+    },
+    {
+      "type_name": "MCC_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 173
+    },
+    {
+      "type_name": "SMA_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 186
+    },
+    {
+      "type_name": "SMA_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 197
+    },
+    {
+      "type_name": "SMA_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 207
+    },
+    {
+      "type_name": "SMA_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 217
+    },
+    {
+      "type_name": "CrushFoam_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 228
+    },
+    {
+      "type_name": "CrushFoam_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 239
+    },
+    {
+      "type_name": "CrushFoam_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 249
+    },
+    {
+      "type_name": "CrushFoam_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 259
+    },
+    {
+      "type_name": "Piezo_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 271
+    },
+    {
+      "type_name": "Piezo_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 279
+    },
+    {
+      "type_name": "Piezo_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 288
+    },
+    {
+      "type_name": "Piezo_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 299
+    },
+    {
+      "type_name": "RateFoam_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 308
+    },
+    {
+      "type_name": "RateFoam_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 318
+    },
+    {
+      "type_name": "RateFoam_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 328
+    },
+    {
+      "type_name": "RateFoam_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 338
+    },
+    {
+      "type_name": "LaRC_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 351
+    },
+    {
+      "type_name": "LaRC_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 361
+    },
+    {
+      "type_name": "LaRC_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 370
+    },
+    {
+      "type_name": "LaRC_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 380
+    },
+    {
+      "type_name": "SMP_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 389
+    },
+    {
+      "type_name": "SMP_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 398
+    },
+    {
+      "type_name": "SMP_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 408
+    },
+    {
+      "type_name": "SMP_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 418
+    },
+    {
+      "type_name": "NoTension_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 427
+    },
+    {
+      "type_name": "NoTension_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 435
+    },
+    {
+      "type_name": "NoTension_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 444
+    },
+    {
+      "type_name": "NoTension_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 454
+    },
+    {
+      "type_name": "PQFiber_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 465
+    },
+    {
+      "type_name": "PQFiber_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 474
+    },
+    {
+      "type_name": "PQFiber_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 483
+    },
+    {
+      "type_name": "PQFiber_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 493
+    },
+    {
+      "type_name": "CZM_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 503
+    },
+    {
+      "type_name": "CZM_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 512
+    },
+    {
+      "type_name": "CZM_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 521
+    },
+    {
+      "type_name": "CZM_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 531
+    },
+    {
+      "type_name": "Fabric_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 540
+    },
+    {
+      "type_name": "Fabric_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 549
+    },
+    {
+      "type_name": "Fabric_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 558
+    },
+    {
+      "type_name": "Fabric_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 568
+    },
+    {
+      "type_name": "ThermoMech_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 579
+    },
+    {
+      "type_name": "ThermoMech_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 588
+    },
+    {
+      "type_name": "ThermoMech_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 598
+    },
+    {
+      "type_name": "ThermoMech_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 608
+    },
+    {
+      "type_name": "MagnetoMech_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 617
+    },
+    {
+      "type_name": "MagnetoMech_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 626
+    },
+    {
+      "type_name": "MagnetoMech_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 635
+    },
+    {
+      "type_name": "MagnetoMech_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 646
+    },
+    {
+      "type_name": "PoroFluid_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 655
+    },
+    {
+      "type_name": "PoroFluid_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 664
+    },
+    {
+      "type_name": "PoroFluid_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 673
+    },
+    {
+      "type_name": "PoroFluid_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 683
+    },
+    {
+      "type_name": "BioSoftTissue_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 692
+    },
+    {
+      "type_name": "BioSoftTissue_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 701
+    },
+    {
+      "type_name": "BioSoftTissue_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 709
+    },
+    {
+      "type_name": "BioSoftTissue_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 719
+    },
+    {
+      "type_name": "NoCompression_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 730
+    },
+    {
+      "type_name": "NoCompression_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 738
+    },
+    {
+      "type_name": "NoCompression_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 747
+    },
+    {
+      "type_name": "NoCompression_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 757
+    },
+    {
+      "type_name": "Multiscale_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 766
+    },
+    {
+      "type_name": "Multiscale_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 775
+    },
+    {
+      "type_name": "Multiscale_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 784
+    },
+    {
+      "type_name": "Multiscale_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 794
+    },
+    {
+      "type_name": "TempDependent_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 803
+    },
+    {
+      "type_name": "TempDependent_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 812
+    },
+    {
+      "type_name": "TempDependent_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 821
+    },
+    {
+      "type_name": "TempDependent_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 831
+    },
+    {
+      "type_name": "MC_Geo_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 840
+    },
+    {
+      "type_name": "MC_Geo_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 848
+    },
+    {
+      "type_name": "MC_Geo_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 858
+    },
+    {
+      "type_name": "MC_Geo_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 868
+    },
+    {
+      "type_name": "MD_MAT_DP_Geo_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 878
+    },
+    {
+      "type_name": "MD_MAT_DP_Geo_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 886
+    },
+    {
+      "type_name": "MD_MAT_DP_Geo_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 896
+    },
+    {
+      "type_name": "MD_MAT_DP_Geo_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 906
+    },
+    {
+      "type_name": "CappedDP_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 918
+    },
+    {
+      "type_name": "CappedDP_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 927
+    },
+    {
+      "type_name": "CappedDP_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 937
+    },
+    {
+      "type_name": "CappedDP_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 947
+    },
+    {
+      "type_name": "JointedRock_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 957
+    },
+    {
+      "type_name": "JointedRock_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 966
+    },
+    {
+      "type_name": "JointedRock_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 975
+    },
+    {
+      "type_name": "JointedRock_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 985
+    },
+    {
+      "type_name": "GeoCreep_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 994
+    },
+    {
+      "type_name": "GeoCreep_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1003
+    },
+    {
+      "type_name": "GeoCreep_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1013
+    },
+    {
+      "type_name": "GeoCreep_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1023
+    },
+    {
+      "type_name": "ExtDP_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1034
+    },
+    {
+      "type_name": "ExtDP_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1043
+    },
+    {
+      "type_name": "ExtDP_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1053
+    },
+    {
+      "type_name": "ExtDP_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1063
+    },
+    {
+      "type_name": "Ortho3D_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1073
+    },
+    {
+      "type_name": "Ortho3D_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1083
+    },
+    {
+      "type_name": "Ortho3D_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1091
+    },
+    {
+      "type_name": "Ortho3D_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1101
+    },
+    {
+      "type_name": "Aniso21_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1110
+    },
+    {
+      "type_name": "Aniso21_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1118
+    },
+    {
+      "type_name": "Aniso21_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1126
+    },
+    {
+      "type_name": "Aniso21_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1136
+    },
+    {
+      "type_name": "VDW_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1149
+    },
+    {
+      "type_name": "VDW_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1158
+    },
+    {
+      "type_name": "VDW_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1166
+    },
+    {
+      "type_name": "VDW_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1176
+    },
+    {
+      "type_name": "Marlow_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1185
+    },
+    {
+      "type_name": "Marlow_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1194
+    },
+    {
+      "type_name": "Marlow_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1202
+    },
+    {
+      "type_name": "Marlow_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1212
+    },
+    {
+      "type_name": "Gent_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1221
+    },
+    {
+      "type_name": "Gent_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1229
+    },
+    {
+      "type_name": "Gent_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1237
+    },
+    {
+      "type_name": "Gent_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1247
+    },
+    {
+      "type_name": "MC_Concrete_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1258
+    },
+    {
+      "type_name": "MC_Concrete_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1266
+    },
+    {
+      "type_name": "MC_Concrete_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1276
+    },
+    {
+      "type_name": "MC_Concrete_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1286
+    },
+    {
+      "type_name": "NL_Visc_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1297
+    },
+    {
+      "type_name": "NL_Visc_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1307
+    },
+    {
+      "type_name": "NL_Visc_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1316
+    },
+    {
+      "type_name": "NL_Visc_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1326
+    },
+    {
+      "type_name": "PolymerCure_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1334
+    },
+    {
+      "type_name": "PolymerCure_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1343
+    },
+    {
+      "type_name": "PolymerCure_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1352
+    },
+    {
+      "type_name": "PolymerCure_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1362
+    },
+    {
+      "type_name": "ViscPlastDmg_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1370
+    },
+    {
+      "type_name": "ViscPlastDmg_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1379
+    },
+    {
+      "type_name": "ViscPlastDmg_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1389
+    },
+    {
+      "type_name": "ViscPlastDmg_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatSPU_Def.f90",
+      "line": 1399
+    },
+    {
+      "type_name": "PronyVisc_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatVSC_Def.f90",
+      "line": 24
+    },
+    {
+      "type_name": "PronyVisc_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatVSC_Def.f90",
+      "line": 34
+    },
+    {
+      "type_name": "PronyVisc_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatVSC_Def.f90",
+      "line": 43
+    },
+    {
+      "type_name": "PronyVisc_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatVSC_Def.f90",
+      "line": 53
+    },
+    {
+      "type_name": "RateFoamExt_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatVSC_Def.f90",
+      "line": 64
+    },
+    {
+      "type_name": "RateFoamExt_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatVSC_Def.f90",
+      "line": 75
+    },
+    {
+      "type_name": "RateFoamExt_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatVSC_Def.f90",
+      "line": 85
+    },
+    {
+      "type_name": "RateFoamExt_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_MatVSC_Def.f90",
+      "line": 95
+    },
+    {
+      "type_name": "MD_Mat_Cfg_Init_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 58
+    },
+    {
+      "type_name": "MD_Mat_Pop_Vld_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 68
+    },
+    {
+      "type_name": "MD_Mat_Desc",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 74
+    },
+    {
+      "type_name": "DP_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 94
+    },
+    {
+      "type_name": "MD_MatModel",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 103
+    },
+    {
+      "type_name": "Desc_MaterialModel",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 114
+    },
+    {
+      "type_name": "State_IntPoint",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 123
+    },
+    {
+      "type_name": "MatCtxLegacy",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 133
+    },
+    {
+      "type_name": "MatRes",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 158
+    },
+    {
+      "type_name": "MatFlags",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 176
+    },
+    {
+      "type_name": "MatProps",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 183
+    },
+    {
+      "type_name": "MD_MAT_UMAT_Intf",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 194
+    },
+    {
+      "type_name": "MD_MAT_UMAT_Input",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 207
+    },
+    {
+      "type_name": "MD_MAT_UMAT_Output",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 240
+    },
+    {
+      "type_name": "MD_MatMeta",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 258
+    },
+    {
+      "type_name": "MatReg",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 278
+    },
+    {
+      "type_name": "MatInst",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 294
+    },
+    {
+      "type_name": "MatPoolMgr",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 312
+    },
+    {
+      "type_name": "MatOri",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 329
+    },
+    {
+      "type_name": "MatPropValid",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 338
+    },
+    {
+      "type_name": "MD_Mat_Base_Algo",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 358
+    },
+    {
+      "type_name": "MD_Mat_Base_State",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 362
+    },
+    {
+      "type_name": "MD_MaterialEntry",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 366
+    },
+    {
+      "type_name": "MD_Material_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 375
+    },
+    {
+      "type_name": "MD_MatState",
+      "extends": "StateBase",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 380
+    },
+    {
+      "type_name": "MD_MatSta",
+      "extends": "StateBase",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 391
+    },
+    {
+      "type_name": "MD_MatCtx",
+      "extends": "CtxBase",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 395
+    },
+    {
+      "type_name": "MD_MatAlgo",
+      "extends": "AlgoBase",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 399
+    },
+    {
+      "type_name": "MD_MatPointSta",
+      "extends": "StateBase",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 403
+    },
+    {
+      "type_name": "MD_ElasticMatDesc",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 407
+    },
+    {
+      "type_name": "MD_PlasticMatDesc",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 409
+    },
+    {
+      "type_name": "MD_HyperElasticMatDesc",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 411
+    },
+    {
+      "type_name": "MD_DamageMatDesc",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 413
+    },
+    {
+      "type_name": "MD_PronyMatDesc",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 415
+    },
+    {
+      "type_name": "MD_CompositeMatDesc",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 417
+    },
+    {
+      "type_name": "MD_MatModelDesc",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 419
+    },
+    {
+      "type_name": "MD_Material_Ctx",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 422
+    },
+    {
+      "type_name": "ExpDataPt",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 451
+    },
+    {
+      "type_name": "ExpDataSet",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 459
+    },
+    {
+      "type_name": "MatParamId",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90",
+      "line": 465
+    },
+    {
+      "type_name": "MD_Mat_Anneal_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Creep/MD_Crp_Anneal.f90",
+      "line": 26
+    },
+    {
+      "type_name": "MD_Mat_Bodner_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Creep/MD_Crp_Bodner.f90",
+      "line": 26
+    },
+    {
+      "type_name": "MD_Mat_DuvautLions_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Creep/MD_Crp_DuvautLions.f90",
+      "line": 26
+    },
+    {
+      "type_name": "MD_Mat_Garofalo_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Creep/MD_Crp_Garofalo.f90",
+      "line": 26
+    },
+    {
+      "type_name": "MD_Mat_Perzyna_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Creep/MD_Crp_Perzyna.f90",
+      "line": 26
+    },
+    {
+      "type_name": "MD_Mat_Creep_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Creep/MD_Crp_PowerLaw.f90",
+      "line": 26
+    },
+    {
+      "type_name": "MD_Mat_TwoLayer_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Creep/MD_Crp_TwoLayer.f90",
+      "line": 26
+    },
+    {
+      "type_name": "MD_Mat_UserDefCrp_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Creep/MD_Crp_UserDef.f90",
+      "line": 26
+    },
+    {
+      "type_name": "CrushFoamPlast_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Creep/MD_MatPOR_CrushFoam.f90",
+      "line": 34
+    },
+    {
+      "type_name": "CrushFoamPlast_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Creep/MD_MatPOR_CrushFoam.f90",
+      "line": 48
+    },
+    {
+      "type_name": "CrushFoamPlast_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Creep/MD_MatPOR_CrushFoam.f90",
+      "line": 59
+    },
+    {
+      "type_name": "CrushFoamPlast_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Creep/MD_MatPOR_CrushFoam.f90",
+      "line": 73
+    },
+    {
+      "type_name": "Foam3Stage_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Creep/MD_MatPOR_Foam3.f90",
+      "line": 21
+    },
+    {
+      "type_name": "Foam3Stage_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Creep/MD_MatPOR_Foam3.f90",
+      "line": 63
+    },
+    {
+      "type_name": "Foam3Stage_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Creep/MD_MatPOR_Foam3.f90",
+      "line": 79
+    },
+    {
+      "type_name": "Foam3Stage_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Creep/MD_MatPOR_Foam3.f90",
+      "line": 95
+    },
+    {
+      "type_name": "Gurson_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Creep/MD_MatPOR_Gurson.f90",
+      "line": 33
+    },
+    {
+      "type_name": "Gurson_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Creep/MD_MatPOR_Gurson.f90",
+      "line": 61
+    },
+    {
+      "type_name": "Gurson_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Creep/MD_MatPOR_Gurson.f90",
+      "line": 75
+    },
+    {
+      "type_name": "Gurson_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Creep/MD_MatPOR_Gurson.f90",
+      "line": 90
+    },
+    {
+      "type_name": "PorousPlast_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Creep/MD_MatPOR_Porous.f90",
+      "line": 14
+    },
+    {
+      "type_name": "GursonMaterial",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Creep/MD_MatPorFoam_Def.f90",
+      "line": 18
+    },
+    {
+      "type_name": "BiotPoroElastic_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Creep/MD_Mat_Creep_BiotPoroElastic.f90",
+      "line": 35
+    },
+    {
+      "type_name": "MD_Mat_Creep_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Creep/MD_Mat_Creep_Def.f90",
+      "line": 28
+    },
+    {
+      "type_name": "MD_Mat_Creep_State",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Creep/MD_Mat_Creep_Def.f90",
+      "line": 40
+    },
+    {
+      "type_name": "Diffusion_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Creep/MD_Mat_Creep_Diffusion.f90",
+      "line": 30
+    },
+    {
+      "type_name": "PiezoElastic_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Creep/MD_Mat_Creep_PiezoElastic.f90",
+      "line": 33
+    },
+    {
+      "type_name": "Piezoelectric_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Creep/MD_Mat_Creep_Piezoelectric.f90",
+      "line": 35
+    },
+    {
+      "type_name": "PoreFlow_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Creep/MD_Mat_Creep_PoreFlow.f90",
+      "line": 34
+    },
+    {
+      "type_name": "MD_Mat_Brittle_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Damage/MD_Dmg_Brittle.f90",
+      "line": 30
+    },
+    {
+      "type_name": "MD_Mat_CDP_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Damage/MD_Dmg_CDP.f90",
+      "line": 30
+    },
+    {
+      "type_name": "MD_Mat_CZM_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Damage/MD_Dmg_CZM.f90",
+      "line": 30
+    },
+    {
+      "type_name": "MD_Mat_DmgDuct_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Damage/MD_Dmg_Ductile.f90",
+      "line": 30
+    },
+    {
+      "type_name": "MD_Mat_FLD_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Damage/MD_Dmg_FLD.f90",
+      "line": 29
+    },
+    {
+      "type_name": "MD_Mat_Shear_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Damage/MD_Dmg_Shear.f90",
+      "line": 29
+    },
+    {
+      "type_name": "Brittle_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Damage/MD_Mat_Damage_Brittle.f90",
+      "line": 30
+    },
+    {
+      "type_name": "MD_Mat_Damage_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Damage/MD_Mat_Damage_Def.f90",
+      "line": 28
+    },
+    {
+      "type_name": "MD_Mat_Damage_State",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Damage/MD_Mat_Damage_Def.f90",
+      "line": 39
+    },
+    {
+      "type_name": "DuctileDamage_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Damage/MD_Mat_Damage_DuctileDamage.f90",
+      "line": 33
+    },
+    {
+      "type_name": "Dynamic_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Damage/MD_Mat_Damage_Dynamic.f90",
+      "line": 35
+    },
+    {
+      "type_name": "FatigueCrack_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Damage/MD_Mat_Damage_FatigueCrack.f90",
+      "line": 32
+    },
+    {
+      "type_name": "LowCycleFatigue_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Damage/MD_Mat_Damage_LowCycleFatigue.f90",
+      "line": 48
+    },
+    {
+      "type_name": "MultiscaleDamage_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Damage/MD_Mat_Damage_Multiscale.f90",
+      "line": 49
+    },
+    {
+      "type_name": "Progressive_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Damage/MD_Mat_Damage_Progressive.f90",
+      "line": 47
+    },
+    {
+      "type_name": "ViscoelasticDamage_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Damage/MD_Mat_Damage_ViscoDamage.f90",
+      "line": 50
+    },
+    {
+      "type_name": "ContmMatRes",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 95
+    },
+    {
+      "type_name": "MatProperties",
+      "extends": "MatProps",
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 107
+    },
+    {
+      "type_name": "UF_HardeningTable",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 180
+    },
+    {
+      "type_name": "MatTree",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 216
+    },
+    {
+      "type_name": "DmgState",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 267
+    },
+    {
+      "type_name": "FatigueState",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 278
+    },
+    {
+      "type_name": "CreepState",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 288
+    },
+    {
+      "type_name": "PhaseTransformationState",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 298
+    },
+    {
+      "type_name": "Mat_Entry",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 1234
+    },
+    {
+      "type_name": "ParameterValidResult",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 1618
+    },
+    {
+      "type_name": "UnifMatInfo",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 1629
+    },
+    {
+      "type_name": "UF_MaterialModel",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 1678
+    },
+    {
+      "type_name": "HardeningTable_Init_In",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 1761
+    },
+    {
+      "type_name": "HardeningTable_AddPoint_In",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 1766
+    },
+    {
+      "type_name": "HardeningTable_Interpolate_In",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 1774
+    },
+    {
+      "type_name": "HardeningTable_Interpolate_Out",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 1779
+    },
+    {
+      "type_name": "UF_DampingDef",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 1790
+    },
+    {
+      "type_name": "DampingDef_Set_In",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 1800
+    },
+    {
+      "type_name": "UF_ExpansionDef",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 1813
+    },
+    {
+      "type_name": "ExpansionDef_SetIso_In",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 1825
+    },
+    {
+      "type_name": "MaterialDef_Init_In",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 1950
+    },
+    {
+      "type_name": "MaterialDef_SetElasticIso_In",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 1956
+    },
+    {
+      "type_name": "MaterialDef_SetPlasticMises_In",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 1962
+    },
+    {
+      "type_name": "MaterialDef_SetDamping_In",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 1968
+    },
+    {
+      "type_name": "MaterialDef_SetExpansion_In",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 1975
+    },
+    {
+      "type_name": "MaterialDef_SetElasticOrtho_In",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 1981
+    },
+    {
+      "type_name": "MaterialDef_SetElasticTransIso_In",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 1994
+    },
+    {
+      "type_name": "MaterialDef_SetElasticAniso_In",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 2003
+    },
+    {
+      "type_name": "ExpDataPt",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 3862
+    },
+    {
+      "type_name": "ExpDataSet",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 3872
+    },
+    {
+      "type_name": "MatParamId",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 3880
+    },
+    {
+      "type_name": "MatPropertyDef",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90",
+      "line": 4337
+    },
+    {
+      "type_name": "MD_Mat_GetDesc_Arg",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Domain/MD_MatDomain_Def.f90",
+      "line": 38
+    },
+    {
+      "type_name": "MD_Mat_GetState_Arg",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Domain/MD_MatDomain_Def.f90",
+      "line": 41
+    },
+    {
+      "type_name": "MD_Mat_GetSummary_Arg",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Domain/MD_MatDomain_Def.f90",
+      "line": 44
+    },
+    {
+      "type_name": "MD_Mat_GetLegacyView_Arg",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Domain/MD_MatDomain_Def.f90",
+      "line": 48
+    },
+    {
+      "type_name": "MD_Mat_GetUMATPropsView_Arg",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Domain/MD_MatDomain_Def.f90",
+      "line": 52
+    },
+    {
+      "type_name": "MD_Mat_GetByName_Arg",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Domain/MD_MatDomain_Def.f90",
+      "line": 57
+    },
+    {
+      "type_name": "MD_Mat_Aniso_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Elas/MD_Ela_Aniso.f90",
+      "line": 27
+    },
+    {
+      "type_name": "MD_Mat_Iso_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Elas/MD_Ela_Iso.f90",
+      "line": 27
+    },
+    {
+      "type_name": "MD_Mat_Ortho_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Elas/MD_Ela_Ortho.f90",
+      "line": 27
+    },
+    {
+      "type_name": "AnisotropicElastic_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Elas/MD_Mat_Elas_Anisotropic.f90",
+      "line": 34
+    },
+    {
+      "type_name": "HypoElastic_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Elas/MD_Mat_Elas_Hypoelastic.f90",
+      "line": 32
+    },
+    {
+      "type_name": "IsoElastic_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Elas/MD_Mat_Elas_Isotropic.f90",
+      "line": 36
+    },
+    {
+      "type_name": "OrthoElastic_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Elas/MD_Mat_Elas_Orthotropic.f90",
+      "line": 38
+    },
+    {
+      "type_name": "PorousElastic_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Elas/MD_Mat_Elas_Porous.f90",
+      "line": 35
+    },
+    {
+      "type_name": "TransIsoElastic_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Elas/MD_Mat_Elas_TransIsotropic.f90",
+      "line": 34
+    },
+    {
+      "type_name": "MD_Mat_DP_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Geo/MD_Geo_DruckerPrager.f90",
+      "line": 27
+    },
+    {
+      "type_name": "MD_Mat_MC_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Geo/MD_Geo_MohrCoulomb.f90",
+      "line": 27
+    },
+    {
+      "type_name": "BrittleCrack_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Geo/MD_MatPLG_BrittleCrack.f90",
+      "line": 36
+    },
+    {
+      "type_name": "CamClay_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Geo/MD_MatPLG_CamClay.f90",
+      "line": 37
+    },
+    {
+      "type_name": "Cap_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Geo/MD_MatPLG_Cap.f90",
+      "line": 38
+    },
+    {
+      "type_name": "CDP_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Geo/MD_MatPLG_ConcreteDamage.f90",
+      "line": 39
+    },
+    {
+      "type_name": "MD_MAT_DP_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Geo/MD_MatPLG_DruckerPrager.f90",
+      "line": 35
+    },
+    {
+      "type_name": "GeotechPlast_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Geo/MD_MatPLG_Geotech.f90",
+      "line": 14
+    },
+    {
+      "type_name": "JointPlast_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Geo/MD_MatPLG_Joint.f90",
+      "line": 36
+    },
+    {
+      "type_name": "MohrCoulomb_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Geo/MD_MatPLG_MohrCoulomb.f90",
+      "line": 39
+    },
+    {
+      "type_name": "SmearedCrack_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Geo/MD_MatPLG_SmearedCrack.f90",
+      "line": 36
+    },
+    {
+      "type_name": "SoftRock_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Geo/MD_MatPLG_SoftRock.f90",
+      "line": 36
+    },
+    {
+      "type_name": "Soil_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Geo/MD_MatPLG_Soil.f90",
+      "line": 23
+    },
+    {
+      "type_name": "MD_Mat_Geo_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Geo/MD_Mat_Geo_Def.f90",
+      "line": 29
+    },
+    {
+      "type_name": "MD_Mat_Geo_State",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Geo/MD_Mat_Geo_Def.f90",
+      "line": 42
+    },
+    {
+      "type_name": "MD_Mat_AB_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/HyperElas/MD_Hyp_ArrudaBoyce.f90",
+      "line": 29
+    },
+    {
+      "type_name": "MD_Mat_Foam_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/HyperElas/MD_Hyp_Foam.f90",
+      "line": 29
+    },
+    {
+      "type_name": "MD_Mat_Gent_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/HyperElas/MD_Hyp_Gent.f90",
+      "line": 30
+    },
+    {
+      "type_name": "MD_Mat_Marlow_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/HyperElas/MD_Hyp_Marlow.f90",
+      "line": 26
+    },
+    {
+      "type_name": "MD_Mat_MR_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/HyperElas/MD_Hyp_MooneyRivlin.f90",
+      "line": 30
+    },
+    {
+      "type_name": "MD_Mat_Moon2_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/HyperElas/MD_Hyp_MooneyRivlin2.f90",
+      "line": 30
+    },
+    {
+      "type_name": "MD_Mat_Moon5_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/HyperElas/MD_Hyp_MooneyRivlin5.f90",
+      "line": 30
+    },
+    {
+      "type_name": "MD_Mat_NeoHk_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/HyperElas/MD_Hyp_NeoHookean1.f90",
+      "line": 26
+    },
+    {
+      "type_name": "MD_Mat_NeoHk_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/HyperElas/MD_Hyp_NeoHookean2.f90",
+      "line": 30
+    },
+    {
+      "type_name": "MD_Mat_Ogdn2_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/HyperElas/MD_Hyp_Ogden2.f90",
+      "line": 29
+    },
+    {
+      "type_name": "MD_Mat_Ogdn3_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/HyperElas/MD_Hyp_Ogden3.f90",
+      "line": 29
+    },
+    {
+      "type_name": "MD_Mat_VdW_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/HyperElas/MD_Hyp_VanDerWaals.f90",
+      "line": 29
+    },
+    {
+      "type_name": "MD_Mat_Yeoh_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/HyperElas/MD_Hyp_Yeoh.f90",
+      "line": 31
+    },
+    {
+      "type_name": "ArrudaBoyce_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/HyperElas/MD_Mat_HyperElas_ArrudaBoyce.f90",
+      "line": 30
+    },
+    {
+      "type_name": "MD_Mat_HyperElas_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/HyperElas/MD_Mat_HyperElas_Def.f90",
+      "line": 33
+    },
+    {
+      "type_name": "MD_Mat_HyperElas_State",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/HyperElas/MD_Mat_HyperElas_Def.f90",
+      "line": 52
+    },
+    {
+      "type_name": "Marlow_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/HyperElas/MD_Mat_HyperElas_Marlow.f90",
+      "line": 30
+    },
+    {
+      "type_name": "MooneyRivlin_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/HyperElas/MD_Mat_HyperElas_MooneyRivlin.f90",
+      "line": 30
+    },
+    {
+      "type_name": "NeoHookean_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/HyperElas/MD_Mat_HyperElas_NeoHookean.f90",
+      "line": 30
+    },
+    {
+      "type_name": "Ogden_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/HyperElas/MD_Mat_HyperElas_Ogden.f90",
+      "line": 31
+    },
+    {
+      "type_name": "PermanentSet_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/HyperElas/MD_Mat_HyperElas_PermanentSet.f90",
+      "line": 30
+    },
+    {
+      "type_name": "Polynomial_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/HyperElas/MD_Mat_HyperElas_Polynomial.f90",
+      "line": 32
+    },
+    {
+      "type_name": "ReducedPolynomial_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/HyperElas/MD_Mat_HyperElas_ReducedPolynomial.f90",
+      "line": 32
+    },
+    {
+      "type_name": "StressSoftening_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/HyperElas/MD_Mat_HyperElas_StressSoftening.f90",
+      "line": 30
+    },
+    {
+      "type_name": "Yeoh_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/HyperElas/MD_Mat_HyperElas_Yeoh.f90",
+      "line": 30
+    },
+    {
+      "type_name": "BarlatPlast_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Barlat.f90",
+      "line": 14
+    },
+    {
+      "type_name": "BiViscPlast_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_BiVisc.f90",
+      "line": 36
+    },
+    {
+      "type_name": "BiViscPlast_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_BiVisc.f90",
+      "line": 53
+    },
+    {
+      "type_name": "BiViscPlast_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_BiVisc.f90",
+      "line": 64
+    },
+    {
+      "type_name": "BiViscPlast_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_BiVisc.f90",
+      "line": 78
+    },
+    {
+      "type_name": "CastIron_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_CastIron.f90",
+      "line": 20
+    },
+    {
+      "type_name": "CastIron_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_CastIron.f90",
+      "line": 41
+    },
+    {
+      "type_name": "CastIron_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_CastIron.f90",
+      "line": 55
+    },
+    {
+      "type_name": "CastIron_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_CastIron.f90",
+      "line": 70
+    },
+    {
+      "type_name": "Ceramic_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Ceramic.f90",
+      "line": 17
+    },
+    {
+      "type_name": "Ceramic_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Ceramic.f90",
+      "line": 55
+    },
+    {
+      "type_name": "Ceramic_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Ceramic.f90",
+      "line": 72
+    },
+    {
+      "type_name": "Ceramic_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Ceramic.f90",
+      "line": 88
+    },
+    {
+      "type_name": "Chab_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Chaboche.f90",
+      "line": 43
+    },
+    {
+      "type_name": "Chab_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Chaboche.f90",
+      "line": 65
+    },
+    {
+      "type_name": "Chab_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Chaboche.f90",
+      "line": 80
+    },
+    {
+      "type_name": "Chab_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Chaboche.f90",
+      "line": 95
+    },
+    {
+      "type_name": "ChabProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Chaboche.f90",
+      "line": 105
+    },
+    {
+      "type_name": "ChabocheProperties",
+      "extends": "ChabProperties",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Chaboche.f90",
+      "line": 119
+    },
+    {
+      "type_name": "CrystalPlasticityProperties",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Crystal.f90",
+      "line": 28
+    },
+    {
+      "type_name": "CrystalPlast_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Crystal.f90",
+      "line": 48
+    },
+    {
+      "type_name": "MD_Mat_Plast_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Def.f90",
+      "line": 31
+    },
+    {
+      "type_name": "MD_Mat_Plast_State",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Def.f90",
+      "line": 42
+    },
+    {
+      "type_name": "Deformation_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Deformation.f90",
+      "line": 23
+    },
+    {
+      "type_name": "FgmPlast_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Fgm.f90",
+      "line": 14
+    },
+    {
+      "type_name": "Hill_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Hill.f90",
+      "line": 37
+    },
+    {
+      "type_name": "Hill_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Hill.f90",
+      "line": 67
+    },
+    {
+      "type_name": "Hill_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Hill.f90",
+      "line": 80
+    },
+    {
+      "type_name": "Hill_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Hill.f90",
+      "line": 95
+    },
+    {
+      "type_name": "HyperElastPlast_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_HyperElastPlast.f90",
+      "line": 23
+    },
+    {
+      "type_name": "VM_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_J2.f90",
+      "line": 26
+    },
+    {
+      "type_name": "VM_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_J2.f90",
+      "line": 50
+    },
+    {
+      "type_name": "VM_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_J2.f90",
+      "line": 71
+    },
+    {
+      "type_name": "VM_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_J2.f90",
+      "line": 87
+    },
+    {
+      "type_name": "JCProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_JohnsonCook.f90",
+      "line": 38
+    },
+    {
+      "type_name": "JohnsonCookProperties",
+      "extends": "JCProperties",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_JohnsonCook.f90",
+      "line": 51
+    },
+    {
+      "type_name": "MD_MAT_JC_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_JohnsonCook.f90",
+      "line": 55
+    },
+    {
+      "type_name": "MD_MAT_JC_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_JohnsonCook.f90",
+      "line": 81
+    },
+    {
+      "type_name": "MD_MAT_JC_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_JohnsonCook.f90",
+      "line": 94
+    },
+    {
+      "type_name": "MD_MAT_JC_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_JohnsonCook.f90",
+      "line": 110
+    },
+    {
+      "type_name": "MixedHardPlast_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_MixedHard.f90",
+      "line": 14
+    },
+    {
+      "type_name": "NanoMat_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Nano.f90",
+      "line": 21
+    },
+    {
+      "type_name": "NanoMat_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Nano.f90",
+      "line": 56
+    },
+    {
+      "type_name": "NanoMat_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Nano.f90",
+      "line": 70
+    },
+    {
+      "type_name": "NanoMat_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Nano.f90",
+      "line": 86
+    },
+    {
+      "type_name": "ORNL_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_ORNL.f90",
+      "line": 23
+    },
+    {
+      "type_name": "RateDependentProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_RateDep.f90",
+      "line": 37
+    },
+    {
+      "type_name": "RateDependentPropertiesManager",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_RateDep.f90",
+      "line": 61
+    },
+    {
+      "type_name": "RateDepPlast_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_RateDep.f90",
+      "line": 70
+    },
+    {
+      "type_name": "SmartMatPlast_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_SmartMat.f90",
+      "line": 14
+    },
+    {
+      "type_name": "SwiftVocePlast_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_SwiftVoce.f90",
+      "line": 14
+    },
+    {
+      "type_name": "TemmPlast_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Temm.f90",
+      "line": 14
+    },
+    {
+      "type_name": "ThermoViscPlast_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_ThermoVisc.f90",
+      "line": 14
+    },
+    {
+      "type_name": "ViscDmgEM_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_ViscDmgEM.f90",
+      "line": 21
+    },
+    {
+      "type_name": "ViscDmgEM_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_ViscDmgEM.f90",
+      "line": 65
+    },
+    {
+      "type_name": "ViscDmgEM_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_ViscDmgEM.f90",
+      "line": 85
+    },
+    {
+      "type_name": "ViscDmgEM_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_ViscDmgEM.f90",
+      "line": 104
+    },
+    {
+      "type_name": "ViscPlastMat",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Viscoplastic.f90",
+      "line": 23
+    },
+    {
+      "type_name": "ViscPlast_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Viscoplastic.f90",
+      "line": 38
+    },
+    {
+      "type_name": "ViscPlast_MatState",
+      "extends": "MD_MatSta",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Viscoplastic.f90",
+      "line": 55
+    },
+    {
+      "type_name": "ViscPlast_MatCtx",
+      "extends": "MD_MatCtx",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Viscoplastic.f90",
+      "line": 68
+    },
+    {
+      "type_name": "ViscPlast_MatAlgo",
+      "extends": "MD_MatAlgo",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Viscoplastic.f90",
+      "line": 83
+    },
+    {
+      "type_name": "ZAProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Za.f90",
+      "line": 20
+    },
+    {
+      "type_name": "ZerilliArmstrongProperties",
+      "extends": "ZAProperties",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Za.f90",
+      "line": 34
+    },
+    {
+      "type_name": "ZaPlast_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Za.f90",
+      "line": 39
+    },
+    {
+      "type_name": "MD_Mat_AF_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Pls_ArmstrongFrederick.f90",
+      "line": 26
+    },
+    {
+      "type_name": "MD_Mat_Barlat_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Pls_Barlat.f90",
+      "line": 26
+    },
+    {
+      "type_name": "MD_Mat_Chaboche_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Pls_Chaboche.f90",
+      "line": 27
+    },
+    {
+      "type_name": "MD_Mat_GTN_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Pls_GTN.f90",
+      "line": 26
+    },
+    {
+      "type_name": "MD_Mat_Hill48_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Pls_Hill48.f90",
+      "line": 26
+    },
+    {
+      "type_name": "MD_Mat_J2Iso_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Pls_J2Iso.f90",
+      "line": 55
+    },
+    {
+      "type_name": "MD_Mat_J2Tab_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Pls_J2Tab.f90",
+      "line": 34
+    },
+    {
+      "type_name": "MD_Mat_JohnsonCook_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Pls_JohnsonCook.f90",
+      "line": 26
+    },
+    {
+      "type_name": "MD_Mat_KinComb_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Pls_KinComb.f90",
+      "line": 26
+    },
+    {
+      "type_name": "MD_Mat_KinLin_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Pls_KinLin.f90",
+      "line": 34
+    },
+    {
+      "type_name": "MD_Mat_ORNL_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Plast/MD_Pls_ORNL.f90",
+      "line": 26
+    },
+    {
+      "type_name": "PlastModels_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Registry/MD_MatPLM_Reg.f90",
+      "line": 41
+    },
+    {
+      "type_name": "PlastMatInfo",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Registry/MD_MatPLM_Reg.f90",
+      "line": 48
+    },
+    {
+      "type_name": "PlastMat_GetInfo_In",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Registry/MD_MatPLM_Reg.f90",
+      "line": 59
+    },
+    {
+      "type_name": "PlastMat_GetInfo_Out",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Registry/MD_MatPLM_Reg.f90",
+      "line": 63
+    },
+    {
+      "type_name": "MatLibModelEntry",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Registry/MD_MatReg_Ops.f90",
+      "line": 199
+    },
+    {
+      "type_name": "MatLibIntegration",
+      "extends": "BaseRegistry",
+      "file": "ufc_core/L3_MD/Material/Registry/MD_MatReg_Ops.f90",
+      "line": 214
+    },
+    {
+      "type_name": "MD_Mat_CohBehavior_Desc",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 44
+    },
+    {
+      "type_name": "MD_Mat_CohBehaviorMgr_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 77
+    },
+    {
+      "type_name": "MD_Mat_CompProps_Desc",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 91
+    },
+    {
+      "type_name": "MD_Mat_DmgInit_Desc",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 289
+    },
+    {
+      "type_name": "MD_Mat_DmgEvol_Desc",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 307
+    },
+    {
+      "type_name": "MD_Mat_DmgData_Desc",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 328
+    },
+    {
+      "type_name": "MD_Mat_DmgPropsMgr_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 344
+    },
+    {
+      "type_name": "CompMatBase",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 375
+    },
+    {
+      "type_name": "CompMatInfo",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 399
+    },
+    {
+      "type_name": "FiberReinforcedCompMat",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 441
+    },
+    {
+      "type_name": "FiberReinfComp_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 457
+    },
+    {
+      "type_name": "LaminateCompMat",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 482
+    },
+    {
+      "type_name": "LamComp_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 496
+    },
+    {
+      "type_name": "CreepDamageMat",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 528
+    },
+    {
+      "type_name": "CreepDmg_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 536
+    },
+    {
+      "type_name": "DuctileDamageMat",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 593
+    },
+    {
+      "type_name": "DuctileDmg_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 611
+    },
+    {
+      "type_name": "DmgMatCtx",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 629
+    },
+    {
+      "type_name": "DmgMatResult",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 643
+    },
+    {
+      "type_name": "TDepDamageProps",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 678
+    },
+    {
+      "type_name": "ThermDamageMat",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 725
+    },
+    {
+      "type_name": "ThermalDmg_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 739
+    },
+    {
+      "type_name": "PuckCriterionProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 750
+    },
+    {
+      "type_name": "HashinCriterionProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 766
+    },
+    {
+      "type_name": "FiberReinforcedProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 785
+    },
+    {
+      "type_name": "LaminateProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 802
+    },
+    {
+      "type_name": "ProgDamageStage",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 829
+    },
+    {
+      "type_name": "ProgDamageProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 842
+    },
+    {
+      "type_name": "ProgDamagePropertiesManager",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 866
+    },
+    {
+      "type_name": "DmgMatInfo",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_DAMAGE_CORE.f90",
+      "line": 919
+    },
+    {
+      "type_name": "ABProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_HYPERELASTIC_CORE.f90",
+      "line": 29
+    },
+    {
+      "type_name": "AnisoHyperelasticProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_HYPERELASTIC_CORE.f90",
+      "line": 45
+    },
+    {
+      "type_name": "FabricProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_HYPERELASTIC_CORE.f90",
+      "line": 61
+    },
+    {
+      "type_name": "Mullins_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_HYPERELASTIC_CORE.f90",
+      "line": 95
+    },
+    {
+      "type_name": "Mullins_State",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_HYPERELASTIC_CORE.f90",
+      "line": 107
+    },
+    {
+      "type_name": "VDW_Ext_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_HYPERELASTIC_CORE.f90",
+      "line": 122
+    },
+    {
+      "type_name": "Marlow_Ext_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_HYPERELASTIC_CORE.f90",
+      "line": 137
+    },
+    {
+      "type_name": "HyperfoamTerm",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_HYPERELASTIC_CORE.f90",
+      "line": 172
+    },
+    {
+      "type_name": "HyperfoamProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_HYPERELASTIC_CORE.f90",
+      "line": 181
+    },
+    {
+      "type_name": "HyperfoamPropertiesManager",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_HYPERELASTIC_CORE.f90",
+      "line": 209
+    },
+    {
+      "type_name": "MarlowProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_HYPERELASTIC_CORE.f90",
+      "line": 223
+    },
+    {
+      "type_name": "VDWProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_HYPERELASTIC_CORE.f90",
+      "line": 239
+    },
+    {
+      "type_name": "HypMatInfo",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_HYPERELASTIC_CORE.f90",
+      "line": 299
+    },
+    {
+      "type_name": "HypAB_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_HYPERELASTIC_CORE.f90",
+      "line": 336
+    },
+    {
+      "type_name": "HypMatBase",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_HYPERELASTIC_CORE.f90",
+      "line": 390
+    },
+    {
+      "type_name": "IncompressibilityMethod",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_HYPERELASTIC_CORE.f90",
+      "line": 408
+    },
+    {
+      "type_name": "ABHypMat",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_HYPERELASTIC_CORE.f90",
+      "line": 418
+    },
+    {
+      "type_name": "HypMat_ApplyLagrangeMultiplier_In",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_HYPERELASTIC_CORE.f90",
+      "line": 444
+    },
+    {
+      "type_name": "HypMat_ApplyLagrangeMultiplier_Out",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_HYPERELASTIC_CORE.f90",
+      "line": 452
+    },
+    {
+      "type_name": "HypMat_ApplyPenaltyMethod_In",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_HYPERELASTIC_CORE.f90",
+      "line": 458
+    },
+    {
+      "type_name": "HypMat_ApplyPenaltyMethod_Out",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_HYPERELASTIC_CORE.f90",
+      "line": 466
+    },
+    {
+      "type_name": "HypStd_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_HYPERELASTIC_CORE.f90",
+      "line": 523
+    },
+    {
+      "type_name": "NHHypMat",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_HYPERELASTIC_CORE.f90",
+      "line": 540
+    },
+    {
+      "type_name": "MRHypMat",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_HYPERELASTIC_CORE.f90",
+      "line": 555
+    },
+    {
+      "type_name": "OgdenHypMat",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_HYPERELASTIC_CORE.f90",
+      "line": 570
+    },
+    {
+      "type_name": "YeohHypMat",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_HYPERELASTIC_CORE.f90",
+      "line": 586
+    },
+    {
+      "type_name": "JouleHeatProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_THERM_CORE.f90",
+      "line": 25
+    },
+    {
+      "type_name": "PhaseChangeData",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_THERM_CORE.f90",
+      "line": 38
+    },
+    {
+      "type_name": "LatentHeatProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_THERM_CORE.f90",
+      "line": 47
+    },
+    {
+      "type_name": "PermeabilityProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_THERM_CORE.f90",
+      "line": 71
+    },
+    {
+      "type_name": "SorptionProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_THERM_CORE.f90",
+      "line": 113
+    },
+    {
+      "type_name": "SpecificHeatProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_THERM_CORE.f90",
+      "line": 146
+    },
+    {
+      "type_name": "ThermConductivityProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_THERM_CORE.f90",
+      "line": 176
+    },
+    {
+      "type_name": "JouleHeatPropertiesManager",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_THERM_CORE.f90",
+      "line": 215
+    },
+    {
+      "type_name": "LatentHeatPropertiesManager",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_THERM_CORE.f90",
+      "line": 525
+    },
+    {
+      "type_name": "PermeabilityPropertiesManager",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_THERM_CORE.f90",
+      "line": 965
+    },
+    {
+      "type_name": "SorptionPropertiesManager",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_THERM_CORE.f90",
+      "line": 1374
+    },
+    {
+      "type_name": "SpecificHeatPropertiesManager",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_THERM_CORE.f90",
+      "line": 1835
+    },
+    {
+      "type_name": "SpecificHeatProperties_Init_In",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_THERM_CORE.f90",
+      "line": 1861
+    },
+    {
+      "type_name": "SpecificHeatProperties_Init_Out",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_THERM_CORE.f90",
+      "line": 1866
+    },
+    {
+      "type_name": "SpecificHeatProperties_GetCpAtTemp_In",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_THERM_CORE.f90",
+      "line": 1871
+    },
+    {
+      "type_name": "SpecificHeatProperties_GetCpAtTemp_Out",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_THERM_CORE.f90",
+      "line": 1876
+    },
+    {
+      "type_name": "SpecificHeatProperties_ComputeHeat_In",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_THERM_CORE.f90",
+      "line": 1881
+    },
+    {
+      "type_name": "SpecificHeatProperties_ComputeHeat_Out",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_THERM_CORE.f90",
+      "line": 1888
+    },
+    {
+      "type_name": "ThermConductivityPropertiesManager",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_THERM_CORE.f90",
+      "line": 2331
+    },
+    {
+      "type_name": "ThermConductivityProperties_Init_In",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_THERM_CORE.f90",
+      "line": 2361
+    },
+    {
+      "type_name": "ThermConductivityProperties_Init_Out",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_THERM_CORE.f90",
+      "line": 2370
+    },
+    {
+      "type_name": "ThermConductivityProperties_GetKAtTemp_In",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_THERM_CORE.f90",
+      "line": 2375
+    },
+    {
+      "type_name": "ThermConductivityProperties_GetKAtTemp_Out",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_THERM_CORE.f90",
+      "line": 2380
+    },
+    {
+      "type_name": "ThermConductivityPropertiesManager_Add_In",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_THERM_CORE.f90",
+      "line": 2385
+    },
+    {
+      "type_name": "ThermConductivityPropertiesManager_Add_Out",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_THERM_CORE.f90",
+      "line": 2390
+    },
+    {
+      "type_name": "MD_MAT_UMAT_Ifc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_USER_CORE.f90",
+      "line": 58
+    },
+    {
+      "type_name": "MD_MAT_UMAT_In",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_USER_CORE.f90",
+      "line": 73
+    },
+    {
+      "type_name": "MD_MAT_UMAT_Out",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_USER_CORE.f90",
+      "line": 81
+    },
+    {
+      "type_name": "MD_MAT_UMAT_MaterialEntry",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_USER_CORE.f90",
+      "line": 94
+    },
+    {
+      "type_name": "UserMat_Registry",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_USER_CORE.f90",
+      "line": 138
+    },
+    {
+      "type_name": "UHARD_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_USER_CORE.f90",
+      "line": 153
+    },
+    {
+      "type_name": "USDFLD_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_USER_CORE.f90",
+      "line": 165
+    },
+    {
+      "type_name": "UEXPAN_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_USER_CORE.f90",
+      "line": 176
+    },
+    {
+      "type_name": "UserDefinedFieldProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_USER_CORE.f90",
+      "line": 330
+    },
+    {
+      "type_name": "UserMaterialProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_USER_CORE.f90",
+      "line": 353
+    },
+    {
+      "type_name": "UserSubroutineProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_USER_CORE.f90",
+      "line": 381
+    },
+    {
+      "type_name": "UMATInputType",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_USER_CORE.f90",
+      "line": 424
+    },
+    {
+      "type_name": "UMATOutputType",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_USER_CORE.f90",
+      "line": 449
+    },
+    {
+      "type_name": "UMATCallCache",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_USER_CORE.f90",
+      "line": 464
+    },
+    {
+      "type_name": "UMATDebugInfo",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_USER_CORE.f90",
+      "line": 477
+    },
+    {
+      "type_name": "UserMaterialProperties_Init_In",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_USER_CORE.f90",
+      "line": 1246
+    },
+    {
+      "type_name": "UserMaterialProperties_Init_Out",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_USER_CORE.f90",
+      "line": 1253
+    },
+    {
+      "type_name": "UserMatInfo",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_USER_CORE.f90",
+      "line": 3736
+    },
+    {
+      "type_name": "UserMatMgr",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_USER_CORE.f90",
+      "line": 3758
+    },
+    {
+      "type_name": "ViscMatBase",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_VISCOSITY_CORE.f90",
+      "line": 60
+    },
+    {
+      "type_name": "ViscMatInfo",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_VISCOSITY_CORE.f90",
+      "line": 97
+    },
+    {
+      "type_name": "NLVisc_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_VISCOSITY_CORE.f90",
+      "line": 138
+    },
+    {
+      "type_name": "Viscoplast_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_VISCOSITY_CORE.f90",
+      "line": 161
+    },
+    {
+      "type_name": "PolymerCure_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_VISCOSITY_CORE.f90",
+      "line": 182
+    },
+    {
+      "type_name": "ViscoplDmg_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_VISCOSITY_CORE.f90",
+      "line": 211
+    },
+    {
+      "type_name": "RateFoam_Ext_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_VISCOSITY_CORE.f90",
+      "line": 231
+    },
+    {
+      "type_name": "ViscMatCtx",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_VISCOSITY_CORE.f90",
+      "line": 265
+    },
+    {
+      "type_name": "PronyVisc_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_VISCOSITY_CORE.f90",
+      "line": 305
+    },
+    {
+      "type_name": "PronyViscoelasticMat",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_VISCOSITY_CORE.f90",
+      "line": 310
+    },
+    {
+      "type_name": "PronyTerm",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_VISCOSITY_CORE.f90",
+      "line": 340
+    },
+    {
+      "type_name": "ViscoProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_VISCOSITY_CORE.f90",
+      "line": 349
+    },
+    {
+      "type_name": "ViscosityProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_VISCOSITY_CORE.f90",
+      "line": 387
+    },
+    {
+      "type_name": "ViscMatResult",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_VISCOSITY_CORE.f90",
+      "line": 1126
+    },
+    {
+      "type_name": "ViscoPropertiesManager",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_VISCOSITY_CORE.f90",
+      "line": 1832
+    },
+    {
+      "type_name": "ViscosityPropertiesManager",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MAT_VISCOSITY_CORE.f90",
+      "line": 2266
+    },
+    {
+      "type_name": "DampProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MatELA_Damping.f90",
+      "line": 33
+    },
+    {
+      "type_name": "DampPropertiesManager",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MatELA_Damping.f90",
+      "line": 70
+    },
+    {
+      "type_name": "ElasMatBase",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MatELA_ElasBase.f90",
+      "line": 29
+    },
+    {
+      "type_name": "TDepElasticProps",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MatELA_ElasBase.f90",
+      "line": 41
+    },
+    {
+      "type_name": "PDepElasticProps",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MatELA_ElasBase.f90",
+      "line": 48
+    },
+    {
+      "type_name": "ElasMatInfo",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MatELA_ElasBase.f90",
+      "line": 95
+    },
+    {
+      "type_name": "ExpansionProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MatELA_Expansion.f90",
+      "line": 33
+    },
+    {
+      "type_name": "ExpansionPropertiesManager",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MatELA_Expansion.f90",
+      "line": 76
+    },
+    {
+      "type_name": "MatEval_Ctx",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MatEval_Def.f90",
+      "line": 20
+    },
+    {
+      "type_name": "MatAlgo_Algo",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MatEval_Def.f90",
+      "line": 55
+    },
+    {
+      "type_name": "TDepPlasticProps",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_MatPLM_TDep.f90",
+      "line": 24
+    },
+    {
+      "type_name": "Lamina_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_Mat_Composite_Core.f90",
+      "line": 87
+    },
+    {
+      "type_name": "CompDmg_State",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_Mat_Composite_Core.f90",
+      "line": 109
+    },
+    {
+      "type_name": "CZM_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_Mat_Composite_Core.f90",
+      "line": 123
+    },
+    {
+      "type_name": "CrushFoam_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_Mat_Composite_Core.f90",
+      "line": 162
+    },
+    {
+      "type_name": "RateFoam_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_Mat_Composite_Core.f90",
+      "line": 178
+    },
+    {
+      "type_name": "Multiscale_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_Mat_Composite_Core.f90",
+      "line": 191
+    },
+    {
+      "type_name": "SMA_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_Mat_Composite_Core.f90",
+      "line": 235
+    },
+    {
+      "type_name": "Biot_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_Mat_Composite_Core.f90",
+      "line": 252
+    },
+    {
+      "type_name": "HolzapfelOgden_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_Mat_Composite_Core.f90",
+      "line": 265
+    },
+    {
+      "type_name": "MD_L3_to_L4_Contract",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_Mat_Contract.f90",
+      "line": 37
+    },
+    {
+      "type_name": "AnandProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_Mat_Creep_Core.f90",
+      "line": 25
+    },
+    {
+      "type_name": "BodnerPartomProperties",
+      "extends": "DescBase",
+      "file": "ufc_core/L3_MD/Material/Shared/MD_Mat_Creep_Core.f90",
+      "line": 50
+    },
+    {
+      "type_name": "CreepMatBase",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_Mat_Creep_Core.f90",
+      "line": 103
+    },
+    {
+      "type_name": "CreepMatInfo",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_Mat_Creep_Core.f90",
+      "line": 144
+    },
+    {
+      "type_name": "CreepModels_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_Mat_Creep_Core.f90",
+      "line": 186
+    },
+    {
+      "type_name": "NortonCreepMat",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_Mat_Creep_Core.f90",
+      "line": 202
+    },
+    {
+      "type_name": "GarofaloCreepMat",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_Mat_Creep_Core.f90",
+      "line": 211
+    },
+    {
+      "type_name": "CreepMatCtx",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_Mat_Creep_Core.f90",
+      "line": 222
+    },
+    {
+      "type_name": "CreepMatResult",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_Mat_Creep_Core.f90",
+      "line": 231
+    },
+    {
+      "type_name": "DmgMatBase",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_Mat_DMG_LibBase.f90",
+      "line": 58
+    },
+    {
+      "type_name": "MCC_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_Mat_Geomat_Core.f90",
+      "line": 60
+    },
+    {
+      "type_name": "MCC_State",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_Mat_Geomat_Core.f90",
+      "line": 75
+    },
+    {
+      "type_name": "JointedRock_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_Mat_Geomat_Core.f90",
+      "line": 85
+    },
+    {
+      "type_name": "CDP_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_Mat_Geomat_Core.f90",
+      "line": 132
+    },
+    {
+      "type_name": "CDP_State",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_Mat_Geomat_Core.f90",
+      "line": 155
+    },
+    {
+      "type_name": "SmearedCrack_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Shared/MD_Mat_Geomat_Core.f90",
+      "line": 168
+    },
+    {
+      "type_name": "ThermalConduction_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Thermal/MD_Mat_Creep_ThermalConduction.f90",
+      "line": 33
+    },
+    {
+      "type_name": "ThermalExpansion_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Thermal/MD_Mat_Creep_ThermalExpansion.f90",
+      "line": 32
+    },
+    {
+      "type_name": "ThermoElastic_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Thermal/MD_Mat_Creep_ThermoElastic.f90",
+      "line": 36
+    },
+    {
+      "type_name": "ThermoElecElastic_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Thermal/MD_Mat_Creep_ThermoElecElastic.f90",
+      "line": 38
+    },
+    {
+      "type_name": "ThermoElectric_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Thermal/MD_Mat_Creep_ThermoElectric.f90",
+      "line": 35
+    },
+    {
+      "type_name": "MD_Mat_Therm_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Thermal/MD_Mat_Therm_Def.f90",
+      "line": 20
+    },
+    {
+      "type_name": "MD_Mat_Therm_State",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Thermal/MD_Mat_Therm_Def.f90",
+      "line": 32
+    },
+    {
+      "type_name": "MD_Mat_ThmIso_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Thermal/MD_Thm_Iso.f90",
+      "line": 26
+    },
+    {
+      "type_name": "MD_Mat_ThmOrtho_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Thermal/MD_Thm_Ortho.f90",
+      "line": 26
+    },
+    {
+      "type_name": "MD_Mat_PhaseChg_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Thermal/MD_Thm_PhaseChg.f90",
+      "line": 26
+    },
+    {
+      "type_name": "Connector_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/User/MD_MatSPU_Connector.f90",
+      "line": 23
+    },
+    {
+      "type_name": "Damping_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/User/MD_MatSPU_Damping.f90",
+      "line": 23
+    },
+    {
+      "type_name": "Electromagnetic_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/User/MD_MatSPU_Electromagnetic.f90",
+      "line": 23
+    },
+    {
+      "type_name": "Eos_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/User/MD_MatSPU_Eos.f90",
+      "line": 23
+    },
+    {
+      "type_name": "HydrostaticFluid_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/User/MD_MatSPU_HydrostaticFluid.f90",
+      "line": 23
+    },
+    {
+      "type_name": "MassPoint_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/User/MD_MatSPU_MassPoint.f90",
+      "line": 23
+    },
+    {
+      "type_name": "MD_Mat_User_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/User/MD_Mat_User_Def.f90",
+      "line": 26
+    },
+    {
+      "type_name": "MD_Mat_User_State",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/User/MD_Mat_User_Def.f90",
+      "line": 36
+    },
+    {
+      "type_name": "Umat_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/User/MD_Mat_User_Umat.f90",
+      "line": 23
+    },
+    {
+      "type_name": "MD_Mat_UsrExt1_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/User/MD_Usr_Ext1.f90",
+      "line": 24
+    },
+    {
+      "type_name": "MD_Mat_UsrExt2_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/User/MD_Usr_Ext2.f90",
+      "line": 24
+    },
+    {
+      "type_name": "MD_Mat_UsrUMAT_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/User/MD_Usr_UMAT.f90",
+      "line": 26
+    },
+    {
+      "type_name": "MD_Mat_UsrVUMAT_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/User/MD_Usr_VUMAT.f90",
+      "line": 26
+    },
+    {
+      "type_name": "MD_Mat_Visco_Desc",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Viscoelas/MD_Mat_Visco_Def.f90",
+      "line": 25
+    },
+    {
+      "type_name": "MD_Mat_Visco_State",
+      "extends": null,
+      "file": "ufc_core/L3_MD/Material/Viscoelas/MD_Mat_Visco_Def.f90",
+      "line": 40
+    },
+    {
+      "type_name": "Creep_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Viscoelas/MD_Mat_Viscoelas_Creep.f90",
+      "line": 30
+    },
+    {
+      "type_name": "LinearVisco_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Viscoelas/MD_Mat_Viscoelas_LinearVisco.f90",
+      "line": 31
+    },
+    {
+      "type_name": "NonlinearVisco_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Viscoelas/MD_Mat_Viscoelas_NonlinearVisco.f90",
+      "line": 30
+    },
+    {
+      "type_name": "Perzyna_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Viscoelas/MD_Mat_Viscoelas_Perzyna.f90",
+      "line": 30
+    },
+    {
+      "type_name": "RateDepCreep_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Viscoelas/MD_Mat_Viscoelas_RateDepCreep.f90",
+      "line": 30
+    },
+    {
+      "type_name": "Swelling_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Viscoelas/MD_Mat_Viscoelas_Swelling.f90",
+      "line": 30
+    },
+    {
+      "type_name": "ThermoVisco_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Viscoelas/MD_Mat_Viscoelas_ThermoVisco.f90",
+      "line": 30
+    },
+    {
+      "type_name": "ViscoBase_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Viscoelas/MD_Mat_Viscoelas_ViscoBase.f90",
+      "line": 30
+    },
+    {
+      "type_name": "ViscoElastPlast_MatDesc",
+      "extends": "MD_Mat_Desc",
+      "file": "ufc_core/L3_MD/Material/Viscoelas/MD_Mat_Viscoelas_ViscoElastPlast.f90",
+      "line": 30
+    },
+    {
+      "type_name": "MD_Mat_KV_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Viscoelas/MD_Vis_KelvinVoigt.f90",
+      "line": 30
+    },
+    {
+      "type_name": "MD_Mat_PronyDev_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Viscoelas/MD_Vis_PronyDev.f90",
+      "line": 30
+    },
+    {
+      "type_name": "MD_Mat_PronyVol_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Viscoelas/MD_Vis_PronyVol.f90",
+      "line": 29
+    },
+    {
+      "type_name": "MD_Mat_WLF_Desc",
+      "extends": "MD_Mat_Base_Desc",
+      "file": "ufc_core/L3_MD/Material/Viscoelas/MD_Vis_WLF.f90",
+      "line": 29
+    }
+  ]
+}

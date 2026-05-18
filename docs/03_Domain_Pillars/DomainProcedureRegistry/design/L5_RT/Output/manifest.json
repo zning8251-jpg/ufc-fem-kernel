@@ -1,0 +1,36 @@
+{
+  "layer": "L5_RT",
+  "domain_bucket": "Output",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L5_RT/Output/RT_Out.f90",
+      "stem": "RT_Out"
+    },
+    {
+      "source_rel": "L5_RT/Output/RT_Out_Def.f90",
+      "stem": "RT_Out_Def"
+    },
+    {
+      "source_rel": "L5_RT/Output/RT_OutImpl.f90",
+      "stem": "RT_OutImpl"
+    },
+    {
+      "source_rel": "L5_RT/Output/RT_OutProc.f90",
+      "stem": "RT_OutProc"
+    },
+    {
+      "source_rel": "L5_RT/Output/RT_OutRestart.f90",
+      "stem": "RT_OutRestart"
+    },
+    {
+      "source_rel": "L5_RT/Output/RT_WriterHDF5.f90",
+      "stem": "RT_WriterHDF5"
+    },
+    {
+      "source_rel": "L5_RT/Output/RT_WriterODB.f90",
+      "stem": "RT_WriterODB"
+    }
+  ]
+}

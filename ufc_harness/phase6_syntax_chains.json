@@ -1,0 +1,73 @@
+{
+  "l1_base": [
+    "L1_IF/Error/IF_Err_Def.f90",
+    "L1_IF/Error/IF_Err_Brg.f90",
+    "L1_IF/Precision/IF_Prec_Core.f90"
+  ],
+  "l1_mem": [
+    "L1_IF/Memory/IF_Mem_Mgr.f90",
+    "L1_IF/Memory/IF_Mem_Algo.f90"
+  ],
+  "l3_kin": [
+    "L3_MD/Base/MD_Kinematics_Def.f90"
+  ],
+  "phase6_md_def_deps": [
+    "tests/phase6_stubs/PHASE6_Stub_IF_Base_DP.f90",
+    "tests/phase6_stubs/PHASE6_Stub_MD_Base_ObjModel.f90"
+  ],
+  "phase6_matstate_stub": [
+    "tests/phase6_stubs/PHASE6_Stub_MD_Mat_Def.f90"
+  ],
+  "l3_md_mat_def": [
+    "L3_MD/Material/Contract/MD_Mat_Def.f90"
+  ],
+  "profiles": {
+    "baseline": {
+      "compile": ["l1_base"],
+      "syntax_only": []
+    },
+    "phase6-track13": {
+      "compile": ["l1_base", "l1_mem", "l3_kin", "phase6_matstate_stub"],
+      "syntax_only": [],
+      "standalone": []
+    },
+    "phase6-track13-md-def": {
+      "compile": ["l1_base", "l1_mem", "l3_kin", "phase6_md_def_deps"],
+      "syntax_only": ["l3_md_mat_def"],
+      "standalone": []
+    },
+    "phase6-track12": {
+      "compile": ["l1_base"],
+      "syntax_only": [],
+      "standalone": []
+    },
+    "phase6-track21": {
+      "compile": ["l1_base", "l1_mem"],
+      "syntax_only": []
+    },
+    "phase6-track22": {
+      "compile": ["l1_base"],
+      "syntax_only": []
+    },
+    "phase6-track32": {
+      "compile": ["l1_base"],
+      "syntax_only": [
+        "L4_PH/Element/Solid3D/PH_Elem_FBarHook.f90",
+        "L5_RT/Assembly/RT_Asm_Tripartite.f90"
+      ]
+    },
+    "phase6-all": {
+      "compile": ["l1_base", "l1_mem", "l3_kin", "phase6_matstate_stub"],
+      "syntax_only": [
+        "L5_RT/Assembly/RT_Asm_Tripartite.f90",
+        "L4_PH/Element/Solid3D/PH_Elem_FBarHook.f90"
+      ],
+      "standalone": []
+    },
+    "phase6-track12-arclen": {
+      "compile": ["l1_base"],
+      "syntax_only": [],
+      "standalone": []
+    }
+  }
+}

@@ -1,0 +1,41 @@
+# `PH_Mat_Plast_Core.f90`
+
+- **Source**: `L4_PH/Material/Plast/PH_Mat_Plast_Core.f90`
+- **Generated (UTC)**: 2026-05-14T07:52:52Z
+- **MODULE (heuristic)**: `PH_Mat_Plast_Core`
+
+> Heuristic scan: verify critical files against compiler view; nested TYPE / continuations may mis-classify.
+
+## 命名 — 三段式 / 四段式（对照规范）
+
+与 [CONVENTIONS.md](../../../../CONVENTIONS.md) §1.1–§1.2、[UFC_命名与数据结构规范.md](../../../../../UFC_命名与数据结构规范.md) §3 一致（以下为 **按 `.f90` 文件名 stem 的启发式**，非编译器语义）：
+
+- **stem**: `PH_Mat_Plast_Core`
+- **逻辑主线（默认三段式 `PH_{Domain+Feature}`）**: `PH_Mat_Plast`
+- **第四段角色（四段式）**: `_Core`
+- **源码子路径（层下目录，不含文件名）**: `Material/Plast`
+- **Registry 布局（镜像 `ufc_core` 相对路径 + `.md`）**: `generated/L4_PH/Material/Plast/PH_Mat_Plast_Core.md` — *与 [`UFC_ufc_core_目录权威分类.md`](../../../../../PPLAN/06_核心架构/UFC_ufc_core_目录权威分类.md) 物理树一致；三段式/四段式解析见上*
+
+## TYPE blocks
+
+*(no TYPE definition blocks detected)*
+
+## Module-level procedures (`SUBROUTINE` / `FUNCTION`)
+
+| Kind | Name | Line | Signature (first line) |
+|------|------|------|-------------------------|
+| SUBROUTINE | `PH_Mat_Plast_Populate_From_L3` | 31 | `SUBROUTINE PH_Mat_Plast_Populate_From_L3(desc, l3_props, l3_nprops, &` |
+| SUBROUTINE | `PH_Mat_Plast_Build_Elastic_Stiffness` | 59 | `SUBROUTINE PH_Mat_Plast_Build_Elastic_Stiffness(desc, ctx, status)` |
+| SUBROUTINE | `PH_Mat_Plast_Compute_Trial_Stress` | 79 | `SUBROUTINE PH_Mat_Plast_Compute_Trial_Stress(ctx, strain, stress_trial, status)` |
+| SUBROUTINE | `PH_Mat_Plast_Check_Yield` | 97 | `SUBROUTINE PH_Mat_Plast_Check_Yield(desc, state, stress_trial, &` |
+| SUBROUTINE | `PH_Mat_Plast_Return_Mapping` | 127 | `SUBROUTINE PH_Mat_Plast_Return_Mapping(desc, state, algo, ctx, &` |
+| SUBROUTINE | `PH_Mat_Plast_Update_State` | 169 | `SUBROUTINE PH_Mat_Plast_Update_State(state, stress, strain, status)` |
+| SUBROUTINE | `J2_Radial_Return` | 188 | `SUBROUTINE J2_Radial_Return(desc, stress_trial, yield_func, &` |
+
+## Procedures detected inside TYPE bodies
+
+*(none — type-bound bodies often use `PROCEDURE ::` only; see TYPE blocks above)*
+
+## INTERFACE blocks (outline)
+
+*(none)*

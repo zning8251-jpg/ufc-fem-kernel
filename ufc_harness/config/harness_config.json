@@ -1,0 +1,78 @@
+{
+    "version": "1.1.0",
+    "project": "UFC Harness Engineering",
+    "_comment_paths": "路径由 harness_paths 按 ufc_harness 位置解析；勿在此写本机绝对路径。`plan_relative_to_ufc` 即未传 plan 时的默认根（相对 UFC 根）；**Windows 上勿用 `PLAN` 与 `plan/` 仅靠大小写区分**，故默认 `design_plan`。可用环境变量 `UFC_DEFAULT_PLAN` 覆盖。",
+    "paths": {
+        "plan_relative_to_ufc": "design_plan",
+        "ufc_core_relative_to_ufc": "ufc_core",
+        "build_relative_to_ufc": "build"
+    },
+    "modules": {
+        "doc_management": {
+            "enabled": true,
+            "tools": [
+                "doc_structure_checker.py",
+                "cross_ref_validator.py",
+                "redundancy_detector.py",
+                "analyze_links.py",
+                "analyze_anchors.py",
+                "analyze_file_links.py",
+                "anchor_link_fixer.py"
+            ]
+        },
+        "code_development": {
+            "enabled": true,
+            "tools": [
+                "module_scaffold.py",
+                "naming_checker.py",
+                "build_trigger.py"
+            ]
+        },
+        "algo_mapping": {
+            "enabled": true,
+            "tools": [
+                "algo_tracing.py",
+                "contract_linker.py",
+                "l3l4l5_mapper.py"
+            ]
+        },
+        "arch_validation": {
+            "enabled": true,
+            "tools": [
+                "arch_consistency.py",
+                "contract_completeness.py"
+            ]
+        }
+    },
+    "thresholds": {
+        "max_root_files": 25,
+        "max_files_per_dir": 50,
+        "min_doc_quality_score": 0.6
+    },
+    "reports_root_md_guard": {
+        "enabled": true,
+        "max_lines": 250,
+        "allowlist_basenames": [
+            "README.md",
+            "DESIGN_GENERATED_DRIFT.md"
+        ],
+        "_comment": "UFC/REPORTS/*.md 行数上限（不含子目录）。除 README 与机器生成的 `DESIGN_GENERATED_DRIFT.md` 外，根 Markdown ≤250 行；超长须 stub+archive。"
+    },
+    "doc_structure": {
+        "required_dirs": [
+            "01_架构总纲与设计哲学",
+            "02_域级建模与实施清单",
+            "03_技术规范与标准",
+            "04_实施路线与任务规划",
+            "05_技术标准与参考",
+            "06_实施指南",
+            "99_归档库"
+        ],
+        "_optional_dirs_note": "archive/、架构设计/ 等为常见子目录，由 PLAN/README 说明；结构检查器不要求其存在。"
+    },
+    "naming_rules": {
+        "file_prefixes": ["UFC_", "L1_", "L2_", "L3_", "L4_", "L5_", "L6_", "PH_", "MD_", "NM_", "RT_"],
+        "forbidden_patterns": ["_temp", "_tmp", "_backup", "草稿", "临时"],
+        "allowed_extensions": [".md", ".txt", ".f90", ".json"]
+    }
+}

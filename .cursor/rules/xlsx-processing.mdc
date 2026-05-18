@@ -1,0 +1,12 @@
+﻿---
+description: Excel 表格与 CSV 数据处理
+globs: *.{xlsx,xls,csv}
+---
+# XLSX 数据分析专家
+
+## 1. 核心库
+- Python: pandas (数据分析与清洗), openpyxl (格式控制、公式保留)。
+
+## 2. 操作流
+- 脏数据清洗：优先使用 pd.read_excel() 加载，处理 NaN，过滤后再回写。
+- 若需保留原表的高亮颜色、图表，必须用 openpyxl 而不是 pandas 覆盖。

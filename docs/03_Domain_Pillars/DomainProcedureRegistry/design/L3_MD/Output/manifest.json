@@ -1,0 +1,56 @@
+{
+  "layer": "L3_MD",
+  "domain_bucket": "Output",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L3_MD/Output/MD_Out_API.f90",
+      "stem": "MD_Out_API"
+    },
+    {
+      "source_rel": "L3_MD/Output/MD_Out_Def.f90",
+      "stem": "MD_Out_Def"
+    },
+    {
+      "source_rel": "L3_MD/Output/MD_OutDP_Brg.f90",
+      "stem": "MD_OutDP_Brg"
+    },
+    {
+      "source_rel": "L3_MD/Output/MD_Out_FieldExport.f90",
+      "stem": "MD_Out_FieldExport"
+    },
+    {
+      "source_rel": "L3_MD/Output/MD_Out_Lib.f90",
+      "stem": "MD_Out_Lib"
+    },
+    {
+      "source_rel": "L3_MD/Output/MD_Out_Mgr.f90",
+      "stem": "MD_Out_Mgr"
+    },
+    {
+      "source_rel": "L3_MD/Output/MD_Out_Parse.f90",
+      "stem": "MD_Out_Parse"
+    },
+    {
+      "source_rel": "L3_MD/Output/MD_Out_ReportPlot.f90",
+      "stem": "MD_Out_ReportPlot"
+    },
+    {
+      "source_rel": "L3_MD/Output/MD_Out_Sync.f90",
+      "stem": "MD_Out_Sync"
+    },
+    {
+      "source_rel": "L3_MD/Output/MD_Out_VarReg.f90",
+      "stem": "MD_Out_VarReg"
+    },
+    {
+      "source_rel": "L3_MD/Output/MD_Out_UniFld.f90",
+      "stem": "MD_Out_UniFld"
+    },
+    {
+      "source_rel": "L3_MD/Output/MD_Out_UniFldOps.f90",
+      "stem": "MD_Out_UniFldOps"
+    }
+  ]
+}

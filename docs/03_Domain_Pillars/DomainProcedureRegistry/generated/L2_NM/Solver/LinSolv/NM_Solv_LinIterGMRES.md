@@ -1,0 +1,85 @@
+# `NM_Solv_LinIterGMRES.f90`
+
+- **Source**: `L2_NM/Solver/LinSolv/NM_Solv_LinIterGMRES.f90`
+- **Generated (UTC)**: 2026-05-14T07:52:51Z
+- **MODULE (heuristic)**: `NM_Solv_LinIterGMRES`
+
+> Heuristic scan: verify critical files against compiler view; nested TYPE / continuations may mis-classify.
+
+## 命名 — 三段式 / 四段式（对照规范）
+
+与 [CONVENTIONS.md](../../../../CONVENTIONS.md) §1.1–§1.2、[UFC_命名与数据结构规范.md](../../../../../UFC_命名与数据结构规范.md) §3 一致（以下为 **按 `.f90` 文件名 stem 的启发式**，非编译器语义）：
+
+- **stem**: `NM_Solv_LinIterGMRES`
+- **逻辑主线（默认三段式 `NM_{Domain+Feature}`）**: `NM_Solv_LinIterGMRES`
+- **第四段角色**: *(未解析到闭集内后缀 — 可能为纯三段式主线，或非标准 stem；以源码与合同为准)*
+- **源码子路径（层下目录，不含文件名）**: `Solver/LinSolv`
+- **Registry 布局（镜像 `ufc_core` 相对路径 + `.md`）**: `generated/L2_NM/Solver/LinSolv/NM_Solv_LinIterGMRES.md` — *与 [`UFC_ufc_core_目录权威分类.md`](../../../../../PPLAN/06_核心架构/UFC_ufc_core_目录权威分类.md) 物理树一致；三段式/四段式解析见上*
+
+## TYPE blocks
+
+### `NM_GMRES_Params` (lines 36–44)
+
+```fortran
+  TYPE, PUBLIC :: NM_GMRES_Params
+    INTEGER(i4) :: max_iter = 1000_i4     ! Maximum outer iterations
+    INTEGER(i4) :: restart = 30_i4        ! Restart after m iterations (GMRES(m))
+    REAL(wp) :: tolerance = 1.0e-8_wp     ! Convergence tolerance
+    REAL(wp) :: breakdown_tol = 1.0e-30_wp ! Breakdown detection
+    LOGICAL :: verbose = .FALSE.          ! Print convergence history
+    INTEGER(i4) :: print_every = 1_i4     ! Print frequency (per restart)
+    LOGICAL :: use_mgs = .TRUE.           ! Modified Gram-Schmidt (vs Classical GS)
+  END TYPE NM_GMRES_Params
+```
+
+### `NM_GMRES_State` (lines 49–58)
+
+```fortran
+  TYPE, PUBLIC :: NM_GMRES_State
+    INTEGER(i4) :: num_outer = 0_i4       ! Outer iterations (restarts)
+    INTEGER(i4) :: num_inner = 0_i4       ! Inner iterations (last cycle)
+    INTEGER(i4) :: total_matvec = 0_i4    ! Total matrix-vector products
+    REAL(wp) :: final_residual = 0.0_wp   ! ||r_k|| / ||r_0||
+    REAL(wp) :: initial_residual = 0.0_wp ! ||r_0||
+    LOGICAL :: converged = .FALSE.        ! Convergence flag
+    LOGICAL :: breakdown = .FALSE.        ! Breakdown detected
+    CHARACTER(LEN=256) :: message = ""    ! Status message
+  END TYPE NM_GMRES_State
+```
+
+## Module-level procedures (`SUBROUTINE` / `FUNCTION`)
+
+| Kind | Name | Line | Signature (first line) |
+|------|------|------|-------------------------|
+| SUBROUTINE | `Apply_Givens` | 62 | `SUBROUTINE Apply_Givens(a, b, c, s)` |
+| SUBROUTINE | `Calc_Givens` | 72 | `SUBROUTINE Calc_Givens(a, b, c, s)` |
+| FUNCTION | `i4_to_str` | 92 | `FUNCTION i4_to_str(i) RESULT(str)` |
+| SUBROUTINE | `MatVec_Product` | 98 | `SUBROUTINE MatVec_Product(A, x, y, SpMV_proc, status)` |
+| SUBROUTINE | `SpMV_proc` | 103 | `SUBROUTINE SpMV_proc(A, x, y, status)` |
+| SUBROUTINE | `NM_FGMRES_Solv` | 122 | `SUBROUTINE NM_FGMRES_Solv(A, b, x, params, state, SpMV_proc, Prec_proc, status)` |
+| SUBROUTINE | `SpMV_proc` | 138 | `SUBROUTINE SpMV_proc(A, x, y, status)` |
+| SUBROUTINE | `Prec_proc` | 145 | `SUBROUTINE Prec_proc(M, r, z, status)` |
+| SUBROUTINE | `NM_GMRES_GetKrylovBasis` | 173 | `SUBROUTINE NM_GMRES_GetKrylovBasis(V, num_vectors, basis, status)` |
+| SUBROUTINE | `NM_GMRES_GetStatistics` | 201 | `SUBROUTINE NM_GMRES_GetStatistics(state, stats, status)` |
+| SUBROUTINE | `NM_GMRES_Solv` | 219 | `SUBROUTINE NM_GMRES_Solv(A, b, x, params, state, SpMV_proc, status)` |
+| SUBROUTINE | `SpMV_proc` | 242 | `SUBROUTINE SpMV_proc(A, x, y, status)` |
+| SUBROUTINE | `NM_GMRES_Solv_Precond` | 420 | `SUBROUTINE NM_GMRES_Solv_Precond(A, M, b, x, params, state, SpMV_proc, Prec_proc, status)` |
+| SUBROUTINE | `SpMV_proc` | 434 | `SUBROUTINE SpMV_proc(A, x, y, status)` |
+| SUBROUTINE | `Prec_proc` | 441 | `SUBROUTINE Prec_proc(M, r, z, status)` |
+| SUBROUTINE | `Precond_Solv` | 582 | `SUBROUTINE Precond_Solv(M, r, z, Prec_proc, status)` |
+| SUBROUTINE | `Prec_proc` | 587 | `SUBROUTINE Prec_proc(M, r, z, status)` |
+| SUBROUTINE | `Solv_Upper_Triangular` | 606 | `SUBROUTINE Solv_Upper_Triangular(U, b, x)` |
+
+## Procedures detected inside TYPE bodies
+
+*(none — type-bound bodies often use `PROCEDURE ::` only; see TYPE blocks above)*
+
+## INTERFACE blocks (outline)
+
+| Lines | Header |
+|-------|--------|
+| 102–110 | `INTERFACE` |
+| 137–152 | `INTERFACE` |
+| 241–249 | `INTERFACE` |
+| 433–448 | `INTERFACE` |
+| 586–594 | `INTERFACE` |

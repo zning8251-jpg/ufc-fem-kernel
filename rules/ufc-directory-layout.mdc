@@ -1,0 +1,25 @@
+---
+description: UFC 仓库根下目录分区；禁止把文档/工具/报告塞进 ufc_core 或混放 build
+globs: UFC/**
+alwaysApply: false
+---
+
+# UFC 目录分区（与 `AGENTS.md` Repository rules 第 8 条一致）
+
+在 **`UFC/`** 下修改或新增文件时，按桶放置：
+
+| 路径 | 用途 |
+|------|------|
+| `ufc_core/` | 六层架构 **纯生产代码**（内核 Fortran、`Tests/`、层内合同等）；**禁止**任务草稿、长文调研、非构建产出 |
+| `plan/` | **运行任务区**（小写）：`tasks/`、`backlog/`、`archive/`、**`changes/`**（规格变更包）；见 `plan/README.md`。**禁止**生产级 `.f90` 与可进构建的源码树 |
+| `design_plan/` | **Harness 默认 `--plan` 设计计划骨架**（`doc_structure.required_dirs`）；与 `docs/05_Project_Planning/PPLAN/` 正文可交叉引用。**勿**与 `plan/` 混桶；Windows 不可用 `PLAN`/`plan` 仅靠大小写区分，故采用此目录名 |
+| `tools/` | 仓库 **工具脚本**（可复用） |
+| `config/` | **配置** |
+| `docs/` | **文档**（规范、模板、手册类） |
+| `REPORTS/` | **报告文档**（Harness/Guardian/closure 等机器生成为主） |
+| `build/` | **编译区** / 产物 |
+| `ufc_harness/` | **控制系统**（harness / 驱动 / 编排） |
+| `ufc_governance/` | **工程治理与三件套**（规格/流程/纪律模板、`library/` 分级规范库、`migration/` 清单）；**不**放可执行 harness 脚本；与 `docs/` 双轨期规则见 `ufc_governance/MIGRATION.md` |
+| `scripts/` | 维护/清理/一次性脚本；**不**替代 `tools` 或 `ufc_core` |
+
+**禁止**：把 Markdown 手册、报告、任务编排、通用工具脚本塞进 `ufc_core/`；不要把源码塞进 `build/`；不要把 `plan/` 任务产出塞进 `REPORTS/` 冒充报告；不要无说明地跨桶乱放。

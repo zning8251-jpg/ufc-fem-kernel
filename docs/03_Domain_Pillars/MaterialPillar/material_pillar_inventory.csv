@@ -1,0 +1,204 @@
+layer,rel_path,family,module,role,has_desc,has_state,has_algo,has_ctx,is_hot_path,is_bridge,has_legacy_hot_path,tested,note
+L3_MD,ufc_core/L3_MD/Material/Acoustic/MD_Mat_Acou_Absorb.f90,Acoustic,MD_Mat_Acou_Absorb,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Acoustic/MD_Mat_Acou_Acoustic.f90,Acoustic,MD_Mat_Acou_Acoustic,Def,True,True,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Acoustic/MD_Mat_Acou_Brg.f90,Acoustic,MD_Mat_Acou_Brg,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Acoustic/MD_Mat_Acou_Core.f90,Acoustic,MD_Mat_Acou_Core,Def,True,False,True,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Acoustic/MD_Mat_Acou_Def.f90,Acoustic,MD_Mat_Acou_Def,Def,True,True,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Acoustic/MD_Mat_Acou_Linear.f90,Acoustic,MD_Mat_Acou_Linear,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Composite/MD_Mat_Comp_Brg.f90,Composite,MD_Mat_Comp_Brg,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Composite/MD_Mat_Comp_Core.f90,Composite,MD_Mat_Comp_Core,Def,True,False,True,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Composite/MD_Mat_Comp_Def.f90,Composite,MD_Mat_Comp_Def,Def,True,True,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Composite/MD_Mat_Comp_Fabric.f90,Composite,MD_Mat_Composite_Fabric,Domain,True,True,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Composite/MD_Mat_Comp_Hashin.f90,Composite,MD_Mat_Comp_Hashin,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Composite/MD_Mat_Comp_Laminate.f90,Composite,MD_Mat_Composite_Laminate,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Contract/MD_Mat_Damage_Contract.f90,Contract,MD_Mat_Damage_Contract,Def,True,True,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Contract/MD_Mat_Def.f90,Contract,MD_Mat_Def,Def,True,True,True,True,False,True,False,True,
+L3_MD,ufc_core/L3_MD/Material/Contract/MD_Mat_Elas_Contract.f90,Contract,MD_Mat_Elas_Contract,Def,False,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Contract/MD_Mat_Family_Def.f90,Contract,MD_Mat_Family_Def,Def,False,False,False,False,False,False,False,False,
+L3_MD,ufc_core/L3_MD/Material/Contract/MD_Mat_Geo_Contract.f90,Contract,MD_Mat_Geo_Contract,Def,True,False,True,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Contract/MD_Mat_Hyper_Contract.f90,Contract,MD_Mat_Hyper_Contract,Def,True,True,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Contract/MD_Mat_Ids.f90,Contract,MD_Mat_Ids,Def,False,False,True,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Contract/MD_Mat_Plast_Contract.f90,Contract,MD_Mat_Plast_Contract,Def,False,True,True,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Contract/MD_Mat_User_Contract.f90,Contract,MD_Mat_User_Contract,Def,True,True,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Contract/MD_Mat_Visco_Contract.f90,Contract,MD_Mat_Visco_Contract,Def,True,True,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Creep/MD_Mat_Creep_Brg.f90,Creep,MD_Mat_Creep_Brg,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Creep/MD_Mat_Creep_Core.f90,Creep,MD_Mat_Creep_Core,Def,True,True,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Creep/MD_Mat_Creep_Def.f90,Creep,MD_Mat_Creep_Def,Def,True,True,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Creep/MD_Mat_Creep_Garofalo.f90,Creep,MD_Mat_Creep_Garofalo,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Creep/MD_Mat_Creep_Gurson.f90,Creep,MD_Mat_Creep_Gurson,Def,True,True,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Creep/MD_Mat_Creep_PowerLaw.f90,Creep,MD_Mat_Creep_PowerLaw,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Damage/MD_Mat_Damage_Brg.f90,Damage,MD_Mat_Damage_Brg,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Damage/MD_Mat_Damage_Brittle.f90,Damage,MD_Mat_Damage_Brittle,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Damage/MD_Mat_Damage_CDP.f90,Damage,MD_Mat_Damage_CDP,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Damage/MD_Mat_Damage_Core.f90,Damage,MD_Mat_Damage_Core,Def,True,True,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Damage/MD_Mat_Damage_Def.f90,Damage,MD_Mat_Damage_Def,Def,True,True,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Damage/MD_Mat_Damage_DuctileDamage.f90,Damage,MD_Mat_Damage_DuctileDamage,Def,True,True,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Damage/MD_Mat_Damage_FatigueCrack.f90,Damage,MD_Mat_Damage_FatigueCrack,Def,True,True,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Dispatch/MD_Mat_Elas_Dispatch.f90,Dispatch,MD_Mat_Elas_Dispatch,Def,True,False,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Dispatch/MD_Mat_Eval_Types.f90,Dispatch,MD_Mat_Eval_Types,Def,False,False,True,True,False,False,False,False,
+L3_MD,ufc_core/L3_MD/Material/Dispatch/MD_Mat_Lib.f90,Dispatch,MD_Mat_Lib,Def,True,True,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Dispatch/MD_Mat_Plast_Dispatch.f90,Dispatch,MD_Mat_Plast_Dispatch,Def,True,False,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Dispatch/MD_Mat_Plast_Dispatch_Base.f90,Dispatch,MD_Mat_Plast_Dispatch_Base,Domain,False,True,True,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Elas/MD_Mat_Elas_Aniso.f90,Elas,MD_Mat_Elas_Aniso,Def,True,False,True,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Elas/MD_Mat_Elas_Brg.f90,Elas,MD_Mat_Elas_Brg,Def,True,True,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Elas/MD_Mat_Elas_Compat.f90,Elas,MD_Mat_Elas_Compat,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Elas/MD_Mat_Elas_Core.f90,Elas,MD_Mat_Elas_Core,Def,True,True,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Elas/MD_Mat_Elas_Def.f90,Elas,MD_Mat_Elas_Def,Def,True,True,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Elas/MD_Mat_Elas_Hypo.f90,Elas,MD_Mat_Elas_Hypo,Def,True,True,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Elas/MD_Mat_Elas_Iso.f90,Elas,MD_Mat_Elas_Iso,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Elas/MD_Mat_Elas_Ortho.f90,Elas,MD_Mat_Elas_Ortho,Domain,True,True,True,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Elas/MD_Mat_Elas_Porous.f90,Elas,MD_Mat_Elas_Porous,Def,True,True,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Elas/MD_Mat_Elas_TransIso.f90,Elas,MD_Mat_Elas_TransIso,Def,True,True,True,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Geo/MD_Mat_Geo_Brg.f90,Geo,MD_Mat_Geo_Brg,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Geo/MD_Mat_Geo_CamClay.f90,Geo,MD_Mat_Geo_CamClay,Def,True,True,True,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Geo/MD_Mat_Geo_ConcreteDamage.f90,Geo,MD_Mat_Geo_ConcreteDamage,Domain,True,True,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Geo/MD_Mat_Geo_Core.f90,Geo,MD_Mat_Geo_Core,Def,True,False,True,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Geo/MD_Mat_Geo_Def.f90,Geo,MD_Mat_Geo_Def,Def,True,True,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Geo/MD_Mat_Geo_DruckerPrager.f90,Geo,MD_Mat_Geo_DruckerPrager,Def,True,True,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Geo/MD_Mat_Geo_MohrCoulomb.f90,Geo,MD_Mat_Geo_MohrCoulomb,Def,True,True,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Hyper/MD_Mat_Hyper_ArrudaBoyce.f90,Hyper,MD_Mat_Hyper_ArrudaBoyce,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Hyper/MD_Mat_Hyper_Brg.f90,Hyper,MD_Mat_Hyper_Brg,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Hyper/MD_Mat_Hyper_Core.f90,Hyper,MD_Mat_Hyper_Core,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Hyper/MD_Mat_Hyper_Def.f90,Hyper,MD_Mat_Hyper_Def,Def,True,True,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Hyper/MD_Mat_Hyper_Foam.f90,Hyper,MD_Mat_Hyper_Foam,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Hyper/MD_Mat_Hyper_MooneyRivlin.f90,Hyper,MD_Mat_Hyper_MooneyRivlin,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Hyper/MD_Mat_Hyper_NeoHookean.f90,Hyper,MD_Mat_HyperElas_NeoHookean,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Hyper/MD_Mat_Hyper_Ogden.f90,Hyper,MD_Mat_HyperElas_Ogden,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Hyper/MD_Mat_Hyper_Yeoh.f90,Hyper,MD_Mat_Hyper_Yeoh,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Barlat.f90,Plast,MD_Mat_Plast_Barlat,Def,True,False,True,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Brg.f90,Plast,MD_Mat_Plast_Brg,Def,True,True,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Chaboche.f90,Plast,MD_Mat_Plast_Chaboche,Def,True,True,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Core.f90,Plast,MD_Mat_Plast_Core,Def,True,True,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Def.f90,Plast,MD_Mat_Plast_Def,Def,True,True,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_GTN.f90,Plast,MD_Mat_Plast_GTN,Def,True,False,True,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_Hill.f90,Plast,MD_Mat_Plast_Hill,Def,True,True,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_J2.f90,Plast,MD_Mat_Plast_J2,Def,True,True,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_JohnsonCook.f90,Plast,MD_Mat_Plast_JohnsonCook,Def,True,True,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Plast/MD_Mat_Plast_RateDep.f90,Plast,MD_Mat_Plast_RateDep,Def,True,True,True,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Registry/MD_Mat_Plast_Reg.f90,Registry,MD_Mat_Plast_Reg,Domain,True,False,True,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Registry/MD_Mat_Reg_Ops.f90,Registry,MD_Mat_Reg_Ops,Def,True,True,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Registry/MD_Mat_Registry.f90,Registry,MD_Mat_Registry,Def,False,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Thermal/MD_Mat_Therm_Brg.f90,Thermal,MD_Mat_Therm_Brg,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Thermal/MD_Mat_Therm_Conduction.f90,Thermal,MD_Mat_Therm_Conduction,Def,True,True,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Thermal/MD_Mat_Therm_Core.f90,Thermal,MD_Mat_Therm_Core,Def,True,False,True,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Thermal/MD_Mat_Therm_Def.f90,Thermal,MD_Mat_Therm_Def,Def,True,True,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Thermal/MD_Mat_Therm_Expansion.f90,Thermal,MD_Mat_Therm_Expansion,Def,True,True,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Thermal/MD_Mat_Therm_Iso.f90,Thermal,MD_Mat_Therm_Iso,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Thermal/MD_Mat_Therm_Ortho.f90,Thermal,MD_Mat_Therm_Ortho,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Thermal/MD_Mat_Therm_PhaseChg.f90,Thermal,MD_Mat_Therm_PhaseChg,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/User/MD_Mat_User_Brg.f90,User,MD_Mat_User_Brg,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/User/MD_Mat_User_Core.f90,User,MD_Mat_User_Core,Def,True,False,True,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/User/MD_Mat_User_Def.f90,User,MD_Mat_User_Def,Def,True,True,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/User/MD_Mat_User_Umat.f90,User,MD_Mat_User_Umat,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/User/MD_Mat_User_UMAT_Simple.f90,User,MD_Mat_User_UMAT_Simple,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/User/MD_Mat_User_VUMAT.f90,User,MD_Mat_User_VUMAT,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Viscoelas/MD_Mat_Visco_Brg.f90,Viscoelas,MD_Mat_Visco_Brg,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Viscoelas/MD_Mat_Visco_Core.f90,Viscoelas,MD_Mat_Visco_Core,Def,True,True,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Viscoelas/MD_Mat_Visco_Creep.f90,Viscoelas,MD_Mat_Viscoelas_Creep,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Viscoelas/MD_Mat_Visco_Def.f90,Viscoelas,MD_Mat_Visco_Def,Def,True,True,True,True,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Viscoelas/MD_Mat_Visco_KelvinVoigt.f90,Viscoelas,MD_Mat_Visco_KelvinVoigt,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Viscoelas/MD_Mat_Visco_PronyDev.f90,Viscoelas,MD_Mat_Visco_PronyDev,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Viscoelas/MD_Mat_Visco_PronyVol.f90,Viscoelas,MD_Mat_Visco_PronyVol,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Material/Viscoelas/MD_Mat_Visco_ViscoElastPlast.f90,Viscoelas,MD_Mat_Viscoelas_ViscoElastPlast,Def,True,False,False,False,False,True,False,False,
+L3_MD,ufc_core/L3_MD/Bridge/Bridge_L4/MD_MatLibPH_Brg.f90,CrossLayer,MD_MatLibPH_Brg,Domain,True,True,True,True,True,True,True,False,L3 hot-path marker: freeze or migrate; legacy material route dependency
+L3_MD,ufc_core/L3_MD/MD_L3_Layer.f90,CrossLayer,MD_L3_Layer,Def,True,False,False,False,False,True,False,True,
+L4_PH,ufc_core/L4_PH/Material/Acoustic/PH_Mat_Acou_Def.f90,Acoustic,PH_Mat_Acou_Def,Def,True,True,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Acoustic/PH_Mat_Acou_Eval.f90,Acoustic,PH_Mat_Acou_Eval,Eval,False,False,False,False,False,False,False,False,
+L4_PH,ufc_core/L4_PH/Material/Acoustic/PH_Mat_Acou_Linear_Core.f90,Acoustic,PH_Mat_Acou_Linear_Core,Def,True,True,True,False,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Composite/PH_Mat_Comp_Cast_Core.f90,Composite,PH_Mat_Comp_Cast_Core,Def,False,False,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Composite/PH_Mat_Comp_Core.f90,Composite,PH_Mat_Comp_Core,Def,True,True,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Composite/PH_Mat_Comp_Def.f90,Composite,PH_Mat_Comp_Def,Def,True,True,True,True,False,False,False,False,
+L4_PH,ufc_core/L4_PH/Material/Composite/PH_Mat_Comp_Eval.f90,Composite,PH_Mat_Comp_Eval,Eval,False,False,False,False,False,False,False,False,
+L4_PH,ufc_core/L4_PH/Material/Composite/PH_Mat_Comp_Hashin_Core.f90,Composite,PH_Mat_Comp_Hashin_Core,Domain,False,True,True,False,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Contract/PH_Mat_Constit_Def.f90,Contract,PH_Mat_Constit_Def,Def,False,True,False,True,False,False,False,False,
+L4_PH,ufc_core/L4_PH/Material/Contract/PH_Mat_Props_Def.f90,Contract,PH_Mat_Props_Def,Def,False,True,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Contract/PH_Mat_Spcl_Def.f90,Contract,PH_Mat_Spcl_Def,Def,False,False,False,False,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Contract/PH_Mat_UMAT_Brg.f90,Contract,PH_Mat_UMAT_Brg,Def,False,True,True,False,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Contract/PH_Mat_UMAT_Def.f90,Contract,PH_Mat_UMAT_Def,Def,False,False,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Creep/PH_Mat_Creep_Core.f90,Creep,PH_Mat_Creep_Core,Def,False,True,True,False,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Creep/PH_Mat_Creep_Def.f90,Creep,PH_Mat_Creep_Def,Def,True,True,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Creep/PH_Mat_Creep_Eval.f90,Creep,PH_Mat_Creep_Eval,Def,True,True,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Damage/PH_Mat_Damage_Core.f90,Damage,PH_Mat_Damage_Core,Def,True,True,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Damage/PH_Mat_Damage_Def.f90,Damage,PH_Mat_Damage_Def,Def,True,True,True,True,False,False,False,False,
+L4_PH,ufc_core/L4_PH/Material/Damage/PH_Mat_Damage_Eval.f90,Damage,PH_Mat_Damage_Eval,Eval,False,False,False,False,False,False,False,False,
+L4_PH,ufc_core/L4_PH/Material/Damage/PH_Mat_Damage_Gurson_Core.f90,Damage,PH_Mat_Damage_Gurson_Core,Def,True,True,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Damage/PH_Mat_Damage_Lemaitre_Core.f90,Damage,PH_Mat_Damage_Lemaitre_Core,Domain,False,True,True,False,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Dispatch/PH_MatELA_ElasCall.f90,Dispatch,PH_MatELA_ElasCall,Def,False,False,True,False,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Dispatch/PH_MatEval.f90,Dispatch,PH_MatEval,Domain,True,True,True,True,False,False,False,False,
+L4_PH,ufc_core/L4_PH/Material/Dispatch/PH_MatPLM_Kernels.f90,Dispatch,PH_MatPLM_Kernels,Def,False,False,True,False,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Dispatch/PH_MatPLM_LegacyFacadeUMATs.f90,Dispatch,PH_MatPLM_LegacyFacadeUMATs,Def,False,True,True,False,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Dispatch/PH_MatPLM_PlastCall.f90,Dispatch,PH_MatPLM_PlastCall,Def,False,False,True,False,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Dispatch/PH_MatPLMEval.f90,Dispatch,PH_MatPLMEval,Def,True,False,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Elas/PH_Mat_Elas_Brg.f90,Elas,PH_Mat_Elas_Brg,Def,True,False,False,False,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Elas/PH_Mat_Elas_Core.f90,Elas,PH_Mat_Elas_Core,Def,True,True,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Elas/PH_Mat_Elas_Def.f90,Elas,PH_Mat_Elas_Def,Def,True,True,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Elas/PH_Mat_Elas_Eval.f90,Elas,PH_Mat_Elas_Eval,Def,True,True,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Geo/PH_Mat_Geo_CamClay_Core.f90,Geo,PH_Mat_Geo_CamClay_Core,Domain,True,True,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Geo/PH_Mat_Geo_Core.f90,Geo,PH_Mat_Geo_Core,Def,True,True,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Geo/PH_Mat_Geo_Def.f90,Geo,PH_Mat_Geo_Def,Def,True,True,True,True,False,False,False,False,
+L4_PH,ufc_core/L4_PH/Material/Geo/PH_Mat_Geo_DP_Core.f90,Geo,PH_Mat_Geo_DP_Core,Def,True,True,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Geo/PH_Mat_Geo_DP_Proc.f90,Geo,PH_Mat_Geo_DP_Proc,Def,True,True,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Geo/PH_Mat_Geo_DruckerPrager_Core.f90,Geo,PH_Mat_Geo_DruckerPrager_Core,Domain,True,True,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Geo/PH_Mat_Geo_Eval.f90,Geo,PH_Mat_Geo_Eval,Eval,False,False,False,False,False,False,False,False,
+L4_PH,ufc_core/L4_PH/Material/Geo/PH_Mat_Geo_MohrCoulomb_Core.f90,Geo,PH_Mat_Geo_MohrCoulomb_Core,Def,True,True,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Hyper/PH_Mat_Hyper_Core.f90,Hyper,PH_Mat_Hyper_Core,Def,True,True,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Hyper/PH_Mat_Hyper_Def.f90,Hyper,PH_Mat_Hyper_Def,Def,True,True,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Hyper/PH_Mat_Hyper_Eval.f90,Hyper,PH_Mat_Hyper_Eval,Def,True,True,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/PH_L4_L3MatContract.f90,Root,PH_L4_L3MatContract,Def,False,False,False,False,False,True,False,True,
+L4_PH,ufc_core/L4_PH/Material/PH_L4_Populate.f90,Root,PH_L4_Populate,Def,True,True,False,False,False,True,False,True,
+L4_PH,ufc_core/L4_PH/Material/PH_Mat_Aux_Def.f90,Root,PH_Mat_Aux_Def,Def,True,True,True,True,True,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/PH_Mat_Core.f90,Root,PH_Mat_Core,Domain,True,True,True,True,True,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/PH_Mat_Core_Types.f90,Root,PH_Mat_Core_Types,Def,False,True,False,False,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/PH_Mat_Def.f90,Root,PH_Mat_Def,Def,False,True,True,True,True,True,False,True,
+L4_PH,ufc_core/L4_PH/Material/PH_Mat_Dispatch.f90,Root,PH_Mat_Dispatch,Def,False,False,True,False,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/PH_Mat_Domain_Core.f90,Root,PH_Mat_Domain_Core,Def,True,True,True,True,True,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/PH_Mat_Dsp.f90,Root,PH_Mat_Dsp,Def,False,False,True,False,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/PH_Mat_Enum.f90,Root,PH_Mat_Enum,Def,False,False,False,False,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/PH_Mat_Interp_Core.f90,Root,PH_Mat_Interp_Core,Domain,False,False,False,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/PH_Mat_KernelDefn.f90,Root,PH_Mat_KernelDefn,Domain,False,False,True,False,False,False,False,False,
+L4_PH,ufc_core/L4_PH/Material/PH_Mat_Reg.f90,Root,PH_Mat_Reg,Domain,False,True,True,False,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Plast/PH_Mat_Plast_Barlat_Core.f90,Plast,PH_Mat_Plast_Barlat_Core,Domain,False,True,True,False,False,False,False,False,
+L4_PH,ufc_core/L4_PH/Material/Plast/PH_Mat_Plast_Chaboche_Core.f90,Plast,PH_Mat_Plast_Chaboche_Core,Domain,False,True,True,False,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Plast/PH_Mat_Plast_Core.f90,Plast,PH_Mat_Plast_Core,Def,True,True,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Plast/PH_Mat_Plast_Crystal_Core.f90,Plast,PH_Mat_Plast_Crystal_Core,Def,True,False,False,False,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Plast/PH_Mat_Plast_Def.f90,Plast,PH_Mat_Plast_Def,Def,True,True,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Plast/PH_Mat_Plast_Eval.f90,Plast,PH_Mat_Plast_Eval,Def,True,True,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Plast/PH_Mat_Plast_Hill_Core.f90,Plast,PH_Mat_Plast_Hill_Core,Domain,True,True,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Plast/PH_Mat_Plast_J2_Iso_Core.f90,Plast,PH_Mat_Plast_J2_Iso_Core,Domain,True,True,True,False,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Plast/PH_Mat_Plast_J2_UMAT_Core.f90,Plast,PH_Mat_Plast_J2_UMAT_Core,Def,True,True,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Shared/PH_Mat_hTensor.f90,Shared,PH_Mat_hTensor,Def,False,False,True,False,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Thermal/PH_Mat_Therm_Def.f90,Thermal,PH_Mat_Therm_Def,Def,True,True,True,True,False,False,False,False,
+L4_PH,ufc_core/L4_PH/Material/Thermal/PH_Mat_Therm_Eval.f90,Thermal,PH_Mat_Therm_Eval,Eval,False,False,False,False,False,False,False,False,
+L4_PH,ufc_core/L4_PH/Material/Thermal/PH_Mat_Therm_Iso_Core.f90,Thermal,PH_Mat_Therm_Iso_Core,Def,False,True,True,False,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/User/PH_Mat_User_Def.f90,User,PH_Mat_User_Def,Def,True,True,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/User/PH_Mat_User_Eval.f90,User,PH_Mat_User_Eval,Eval,False,False,False,False,False,False,False,False,
+L4_PH,ufc_core/L4_PH/Material/Viscoelas/PH_Mat_Visco_Core.f90,Viscoelas,PH_Mat_Visco_Core,Def,True,True,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Viscoelas/PH_Mat_Visco_Def.f90,Viscoelas,PH_Mat_Visco_Def,Def,True,True,True,True,False,True,False,False,needs closure-test anchor
+L4_PH,ufc_core/L4_PH/Material/Viscoelas/PH_Mat_Visco_Eval.f90,Viscoelas,PH_Mat_Visco_Eval,Eval,False,False,False,False,False,False,False,False,
+L4_PH,ufc_core/L4_PH/Element/Shared/PH_Elem_MaterialRoute.f90,CrossLayer,PH_Elem_MaterialRoute,Def,True,True,True,True,True,True,False,True,
+L5_RT,ufc_core/L5_RT/Material/RT_Mat_Acou_Core.f90,Root,RT_Mat_Acou_Core,Def,True,True,True,True,False,True,False,False,check thin-router boundary; needs closure-test anchor
+L5_RT,ufc_core/L5_RT/Material/RT_Mat_Acou_Def.f90,Root,RT_Mat_Acou_Def,Def,True,True,True,True,False,True,False,False,check thin-router boundary; needs closure-test anchor
+L5_RT,ufc_core/L5_RT/Material/RT_Mat_Aux_Def.f90,Root,RT_Mat_Aux_Def,Def,False,False,True,False,False,False,False,False,
+L5_RT,ufc_core/L5_RT/Material/RT_Mat_Brg.f90,Root,RT_Mat_Brg,Def,False,True,True,True,True,True,False,True,check thin-router boundary
+L5_RT,ufc_core/L5_RT/Material/RT_Mat_Comp_Core.f90,Root,RT_Mat_Comp_Core,Def,True,True,True,True,False,True,False,False,check thin-router boundary; needs closure-test anchor
+L5_RT,ufc_core/L5_RT/Material/RT_Mat_Comp_Def.f90,Root,RT_Mat_Comp_Def,Def,True,True,True,True,False,True,False,False,check thin-router boundary; needs closure-test anchor
+L5_RT,ufc_core/L5_RT/Material/RT_Mat_Core.f90,Root,RT_Mat_Core,Def,False,True,True,True,True,True,False,True,check thin-router boundary
+L5_RT,ufc_core/L5_RT/Material/RT_Mat_Creep_Core.f90,Root,RT_Mat_Creep_Core,Def,True,True,True,True,False,True,False,False,check thin-router boundary; needs closure-test anchor
+L5_RT,ufc_core/L5_RT/Material/RT_Mat_Creep_Def.f90,Root,RT_Mat_Creep_Def,Def,True,True,True,True,False,True,False,False,check thin-router boundary; needs closure-test anchor
+L5_RT,ufc_core/L5_RT/Material/RT_Mat_Damage_Core.f90,Root,RT_Mat_Damage_Core,Def,True,True,True,True,False,True,False,False,check thin-router boundary; needs closure-test anchor
+L5_RT,ufc_core/L5_RT/Material/RT_Mat_Damage_Def.f90,Root,RT_Mat_Damage_Def,Def,True,True,True,True,False,True,False,False,check thin-router boundary; needs closure-test anchor
+L5_RT,ufc_core/L5_RT/Material/RT_Mat_Def.f90,Root,RT_Mat_Def,Def,False,False,True,True,True,True,False,True,
+L5_RT,ufc_core/L5_RT/Material/RT_Mat_Elas_Core.f90,Root,RT_Mat_Elas_Core,Def,True,True,True,True,False,True,False,False,check thin-router boundary; needs closure-test anchor
+L5_RT,ufc_core/L5_RT/Material/RT_Mat_Elas_Def.f90,Root,RT_Mat_Elas_Def,Def,True,True,True,True,False,True,False,False,check thin-router boundary; needs closure-test anchor
+L5_RT,ufc_core/L5_RT/Material/RT_Mat_Geo_Core.f90,Root,RT_Mat_Geo_Core,Def,True,True,True,True,False,True,False,False,check thin-router boundary; needs closure-test anchor
+L5_RT,ufc_core/L5_RT/Material/RT_Mat_Geo_Def.f90,Root,RT_Mat_Geo_Def,Def,True,True,True,True,False,True,False,False,check thin-router boundary; needs closure-test anchor
+L5_RT,ufc_core/L5_RT/Material/RT_Mat_Hyper_Core.f90,Root,RT_Mat_Hyper_Core,Def,True,True,True,True,False,True,False,False,check thin-router boundary; needs closure-test anchor
+L5_RT,ufc_core/L5_RT/Material/RT_Mat_Hyper_Def.f90,Root,RT_Mat_Hyper_Def,Def,True,True,True,True,False,True,False,False,check thin-router boundary; needs closure-test anchor
+L5_RT,ufc_core/L5_RT/Material/RT_Mat_Plast_Core.f90,Root,RT_Mat_Plast_Core,Def,True,True,True,True,False,True,False,False,check thin-router boundary; needs closure-test anchor
+L5_RT,ufc_core/L5_RT/Material/RT_Mat_Plast_Def.f90,Root,RT_Mat_Plast_Def,Def,True,True,True,True,False,True,False,False,check thin-router boundary; needs closure-test anchor
+L5_RT,ufc_core/L5_RT/Material/RT_Mat_Therm_Core.f90,Root,RT_Mat_Therm_Core,Def,True,True,True,True,False,True,False,False,check thin-router boundary; needs closure-test anchor
+L5_RT,ufc_core/L5_RT/Material/RT_Mat_Therm_Def.f90,Root,RT_Mat_Therm_Def,Def,True,True,True,True,False,True,False,False,check thin-router boundary; needs closure-test anchor
+L5_RT,ufc_core/L5_RT/Material/RT_Mat_User_Core.f90,Root,RT_Mat_User_Core,Def,True,True,True,True,False,True,False,False,check thin-router boundary; needs closure-test anchor
+L5_RT,ufc_core/L5_RT/Material/RT_Mat_User_Def.f90,Root,RT_Mat_User_Def,Def,True,True,True,True,False,True,False,False,check thin-router boundary; needs closure-test anchor
+L5_RT,ufc_core/L5_RT/Material/RT_Mat_Visco_Core.f90,Root,RT_Mat_Visco_Core,Def,True,True,True,True,False,True,False,False,check thin-router boundary; needs closure-test anchor
+L5_RT,ufc_core/L5_RT/Material/RT_Mat_Visco_Def.f90,Root,RT_Mat_Visco_Def,Def,True,True,True,True,False,True,False,False,check thin-router boundary; needs closure-test anchor

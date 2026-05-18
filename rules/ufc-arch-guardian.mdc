@@ -1,0 +1,35 @@
+---
+description: UFC 架构守卫 arch_guardian（层间 USE、单元核禁止全局容器）；修改 ufc_core Fortran 时应对齐 DEP-001 / GLB-001 等 rule_id
+globs: UFC/ufc_core/**/*.f90,UFC/ufc_harness/**/*.py
+alwaysApply: false
+---
+
+# UFC Architecture Guardian（编译期契约）
+
+修改 `ufc_core` 内 `.f90` 时，**不得违反**已在 `arch_guardian.py` 中编码的 P0/P1 规则；合并前应对修改路径运行 Guardian。
+
+## 脚本与 Harness
+
+- 守卫引擎：`UFC/ufc_core/scripts/arch_guardian.py`
+- 统一入口：`python UFC/ufc_harness/run_harness.py guardian [path] [--fail-on-p0] [--rules RULE,...]`
+
+## 须优先对齐的 rule_id（与 PLAN §10.3 一致）
+
+| rule_id | 级别 | 要求摘要 |
+|---------|------|-----------|
+| **DEP-001** | P0 | 禁止依赖反转：`L3_MD` 不得 `USE` `PH_`/`RT_`/`AP_` 等高层模块名；**`/Bridge/`、`Bridge` 子目录、`*_Brg.f90`、`*_PH_Brg` 等桥接路径豁免**。 |
+| **GLB-001** | P1 | `L4_PH/Element/` 下单元核 `PH_Elem_*_Core.f90` / `PH_Elm_*_Core.f90`（已排除 `*Domain_Core*`、`*Reg_Core*`、`Contm_Core`、含 `Bridge`/`Brg` 路径）**禁止** `USE UFC_GlobalContainer_Core` 与 **`g_ufc_global`**；数据经 Populate/Ctx 注入。 |
+
+## 关联文档
+
+- `docs/05_Project_Planning/PPLAN/05_实施指南/L3_MD_L4_PH_联通契约与缺陷分析.md` — L3↔L4 联通契约与闸门/验证叙事。  
+- 原 `UFC_三层联通总规范.md`（旧 `UFC/PLAN/...`）**未随库**；架构脊索与替代入口见 `docs/05_Project_Planning/PPLAN/06_核心架构/UFC_Architecture_Spine_Index.md`。
+
+## 自检命令示例
+
+```bash
+python UFC/ufc_core/scripts/arch_guardian.py UFC/ufc_core --fail-on-p0
+python UFC/ufc_harness/run_harness.py guardian --rules DEP-001,GLB-001
+```
+
+更多规则（HOT-001/003/004、WB-001、DATA-001、DEP-002、NAME-002、T4-001、IDX-001）见引擎内 `GuardianEngine` 注册列表。

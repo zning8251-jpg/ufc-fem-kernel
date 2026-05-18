@@ -1,0 +1,31 @@
+# L3_MD/Model — MD_Mo_* token expansion (LEGACY ALIASES ONLY)
+# Authoritative public names: UFC/REPORTS/Model_Domain_FourType_Procedure_Naming_Spec.md v1.2
+#   MD_Model_<TopicSlug>_Parse / MD_Model_<TopicSlug>_Cfg (full "Model", no "Mo" abbreviation).
+# Do not add new PUBLIC symbols from this table. Decoding-only for old MD_Mo_* during migration.
+
+prefix: "MD_Mo_"
+
+tokens:
+  Mo: Model
+  Da: Data
+  CS: CoordSys
+  Adv: Adv
+  Tb: Table
+  Pr: Parameter
+  Fi: Field
+  Di: Distribution
+  Va: Variable
+  Fl: Filter
+  PhCo: PhysicalConstants
+  Xfm: Transform
+  Sys: System
+  Ori: Orientation
+  Nor: Normal
+  Im: Import
+  Ps: Prestress
+  Su: Substructure
+  Un: Unified
+  Pa: Parse
+  Cf: Configure
+
+# Role suffix: Un_Pa = unified parse entry; Un_Cf = unified configure/cfg entry

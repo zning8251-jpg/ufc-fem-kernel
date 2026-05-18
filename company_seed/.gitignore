@@ -1,0 +1,25 @@
+# Build artifacts
+build/
+*.mod
+*.o
+*.so
+*.a
+*.exe
+*.dll
+
+# IDE
+.idea/
+.vscode/
+.vs/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local
+*.log

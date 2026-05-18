@@ -1,0 +1,56 @@
+{
+  "layer": "L2_NM",
+  "domain_bucket": "TimeInt",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L2_NM/TimeInt/NM_AdaptiveTimeStep.f90",
+      "stem": "NM_AdaptiveTimeStep"
+    },
+    {
+      "source_rel": "L2_NM/TimeInt/NM_TimeInt.f90",
+      "stem": "NM_TimeInt"
+    },
+    {
+      "source_rel": "L2_NM/TimeInt/NM_TimeInt_Def.f90",
+      "stem": "NM_TimeInt_Def"
+    },
+    {
+      "source_rel": "L2_NM/TimeInt/NM_TimeIntAdapt.f90",
+      "stem": "NM_TimeIntAdapt"
+    },
+    {
+      "source_rel": "L2_NM/TimeInt/NM_TimeIntBEAM.f90",
+      "stem": "NM_TimeIntBEAM"
+    },
+    {
+      "source_rel": "L2_NM/TimeInt/NM_TimeIntHHT.f90",
+      "stem": "NM_TimeIntHHT"
+    },
+    {
+      "source_rel": "L2_NM/TimeInt/NM_TimeIntLinsolv.f90",
+      "stem": "NM_TimeIntLinsolv"
+    },
+    {
+      "source_rel": "L2_NM/TimeInt/NM_TimeIntNewmark.f90",
+      "stem": "NM_TimeIntNewmark"
+    },
+    {
+      "source_rel": "L2_NM/TimeInt/NM_TimeIntRK.f90",
+      "stem": "NM_TimeIntRK"
+    },
+    {
+      "source_rel": "L2_NM/TimeInt/NM_TimeIntScheme.f90",
+      "stem": "NM_TimeIntScheme"
+    },
+    {
+      "source_rel": "L2_NM/TimeInt/NM_TimeStepController.f90",
+      "stem": "NM_TimeStepController"
+    },
+    {
+      "source_rel": "L2_NM/TimeInt/NM_TSEventDet.f90",
+      "stem": "NM_TSEventDet"
+    }
+  ]
+}

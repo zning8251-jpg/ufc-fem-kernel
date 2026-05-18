@@ -1,0 +1,40 @@
+{
+  "layer": "L1_IF",
+  "domain_bucket": "Memory",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L1_IF/Memory/IF_Mem.f90",
+      "stem": "IF_Mem"
+    },
+    {
+      "source_rel": "L1_IF/Memory/IF_Mem_Chunk.f90",
+      "stem": "IF_Mem_Chunk"
+    },
+    {
+      "source_rel": "L1_IF/Memory/IF_Mem_Mgr.f90",
+      "stem": "IF_Mem_Mgr"
+    },
+    {
+      "source_rel": "L1_IF/Memory/IF_Mem_Serial.f90",
+      "stem": "IF_Mem_Serial"
+    },
+    {
+      "source_rel": "L1_IF/Memory/IF_Mem_ThreadSlab.f90",
+      "stem": "IF_Mem_ThreadSlab"
+    },
+    {
+      "source_rel": "L1_IF/Memory/IF_Mem_WS.f90",
+      "stem": "IF_Mem_WS"
+    },
+    {
+      "source_rel": "L1_IF/Memory/IF_StructMemPool.f90",
+      "stem": "IF_StructMemPool"
+    },
+    {
+      "source_rel": "L1_IF/Memory/IF_UnstructMemPool.f90",
+      "stem": "IF_UnstructMemPool"
+    }
+  ]
+}

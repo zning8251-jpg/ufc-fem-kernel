@@ -1,0 +1,52 @@
+{
+  "layer": "L3_MD",
+  "domain_bucket": "Analysis",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L3_MD/Analysis/Amplitude/MD_Amplitude.f90",
+      "stem": "MD_Amplitude"
+    },
+    {
+      "source_rel": "L3_MD/Analysis/Amplitude/MD_Amp_Def.f90",
+      "stem": "MD_Amp_Def"
+    },
+    {
+      "source_rel": "L3_MD/Analysis/Amplitude/MD_Amplitude_Idx.f90",
+      "stem": "MD_Amplitude_Idx"
+    },
+    {
+      "source_rel": "L3_MD/Analysis/Amplitude/MD_Amplitude_UF.f90",
+      "stem": "MD_Amplitude_UF"
+    },
+    {
+      "source_rel": "L3_MD/Analysis/Solver/MD_Solv.f90",
+      "stem": "MD_Solv"
+    },
+    {
+      "source_rel": "L3_MD/Analysis/Solver/MD_Solv_Def.f90",
+      "stem": "MD_Solv_Def"
+    },
+    {
+      "source_rel": "L3_MD/Analysis/Solver/MD_Solv_Sync.f90",
+      "stem": "MD_Solv_Sync"
+    },
+    {
+      "source_rel": "L3_MD/Analysis/Step/MD_Step.f90",
+      "stem": "MD_Step"
+    },
+    {
+      "source_rel": "L3_MD/Analysis/Step/MD_Step_Def.f90",
+      "stem": "MD_Step_Def"
+    },
+    {
+      "source_rel": "L3_MD/Analysis/Step/MD_Step_Proc.f90",
+      "stem": "MD_Step_Proc"
+    },
+    {
+      "source_rel": "L3_MD/Analysis/Step/MD_Step_Sync.f90",
+      "stem": "MD_Step_Sync"
+    }
+  ]
+}

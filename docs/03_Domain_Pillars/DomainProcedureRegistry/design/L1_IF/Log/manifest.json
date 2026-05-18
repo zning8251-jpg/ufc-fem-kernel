@@ -1,0 +1,20 @@
+{
+  "layer": "L1_IF",
+  "domain_bucket": "Log",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L1_IF/Log/IF_Log.f90",
+      "stem": "IF_Log"
+    },
+    {
+      "source_rel": "L1_IF/Log/IF_Log_Def.f90",
+      "stem": "IF_Log_Def"
+    },
+    {
+      "source_rel": "L1_IF/Log/IF_Log_Logger.f90",
+      "stem": "IF_Log_Logger"
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "layer": "L3_MD",
+  "domain_bucket": "Bridge",
+  "intent_doc": "INTENT.md",
+  "infer_list_anchor": "docs/05_Project_Planning/PPLAN/06_核心架构/UFC_层级域级f90文件推断清单_v2.0.md",
+  "modules": [
+    {
+      "source_rel": "L3_MD/Bridge/Bridge_L4/MD_ConstraintPH_Brg.f90",
+      "stem": "MD_ConstraintPH_Brg"
+    },
+    {
+      "source_rel": "L3_MD/Bridge/Bridge_L4/MD_ContPH_Brg.f90",
+      "stem": "MD_ContPH_Brg"
+    },
+    {
+      "source_rel": "L3_MD/Bridge/Bridge_L4/MD_ElemPH_Brg.f90",
+      "stem": "MD_ElemPH_Brg"
+    },
+    {
+      "source_rel": "L3_MD/Bridge/Bridge_L4/MD_GeomPH_Brg.f90",
+      "stem": "MD_GeomPH_Brg"
+    },
+    {
+      "source_rel": "L3_MD/Bridge/Bridge_L4/MD_LBCPH_Brg.f90",
+      "stem": "MD_LBCPH_Brg"
+    },
+    {
+      "source_rel": "L3_MD/Bridge/Bridge_L4/MD_MatLibPH_Brg.f90",
+      "stem": "MD_MatLibPH_Brg"
+    },
+    {
+      "source_rel": "L3_MD/Bridge/Bridge_L5/MD_AssemRT_Brg.f90",
+      "stem": "MD_AssemRT_Brg"
+    },
+    {
+      "source_rel": "L3_MD/Bridge/Bridge_L5/MD_ContRT_Brg.f90",
+      "stem": "MD_ContRT_Brg"
+    },
+    {
+      "source_rel": "L3_MD/Bridge/Bridge_L5/MD_ElemRT_Brg.f90",
+      "stem": "MD_ElemRT_Brg"
+    },
+    {
+      "source_rel": "L3_MD/Bridge/Bridge_L5/MD_Int_Brg.f90",
+      "stem": "MD_Int_Brg"
+    },
+    {
+      "source_rel": "L3_MD/Bridge/Bridge_L5/MD_KWRT_Brg.f90",
+      "stem": "MD_KWRT_Brg"
+    },
+    {
+      "source_rel": "L3_MD/Bridge/Bridge_L5/MD_LBCRT_Brg.f90",
+      "stem": "MD_LBCRT_Brg"
+    },
+    {
+      "source_rel": "L3_MD/Bridge/Bridge_L5/MD_Mesh_Brg.f90",
+      "stem": "MD_Mesh_Brg",
+      "module": "RT_Mesh_Brg"
+    },
+    {
+      "source_rel": "L3_MD/Bridge/Bridge_L5/MD_Model_Brg.f90",
+      "stem": "MD_Model_Brg"
+    },
+    {
+      "source_rel": "L3_MD/Bridge/Bridge_L5/MD_ModelRT_Brg.f90",
+      "stem": "MD_ModelRT_Brg"
+    },
+    {
+      "source_rel": "L3_MD/Bridge/Bridge_L5/MD_Out_Brg.f90",
+      "stem": "MD_Out_Brg"
+    },
+    {
+      "source_rel": "L3_MD/Bridge/Bridge_L5/MD_UIRT_Brg.f90",
+      "stem": "MD_UIRT_Brg"
+    },
+    {
+      "source_rel": "L3_MD/Bridge/Bridge_L5/MD_UniFldRT_Brg.f90",
+      "stem": "MD_UniFldRT_Brg"
+    }
+  ]
+}

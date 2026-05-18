@@ -1,0 +1,23 @@
+# UFC 根目录 Git 忽略项（生成物 / IDE / 缓存）
+
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+
+# IDE（工程文件勿入库；团队共享规则请用 `rules/`、`UFC/.cursor/` 另行约定）
+.idea/
+.vscode/
+.vs/
+.obsidian/
+
+# 构建产物（保留空桶占位）
+/build/*
+!/build/.gitkeep
+
+# 本地/临时
+*.log
+.DS_Store
+
+# Node（OpenSpec 等治理兜底 CLI；锁文件 package-lock.json 须入库）
+node_modules/
