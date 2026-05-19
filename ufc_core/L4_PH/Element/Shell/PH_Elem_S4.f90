@@ -17,7 +17,7 @@ MODULE PH_Elem_S4
   USE MD_Elem_Mgr, ONLY: ElemType, ElemFormul, ElemCtx, ElemFlags, ElemState
   USE MD_Mat_Lib, ONLY: MatPropertyDef, UF_MatProp_Init
   USE MD_Sect_Mgr, ONLY: MatDesc
-  USE PH_Elem_CPS4, ONLY: PH_Elem_CPS4_FormStiffMatrix, PH_Elem_CPS4_FormIntForce, &
+  USE PH_Elem_CPS4, ONLY: PH_Elem_CPS4_StiffMatrix, PH_Elem_CPS4_FormIntForce, &
        PH_Elem_CPS4_ConsMass, PH_Elem_CPS4_LumpMass, PH_Elem_CPS4_ThermStrainVector, &
        PH_Elem_CPS4_ShapeFunc, PH_Elem_CPS4_Jac, PH_Elem_CPS4_GaussPoints, &
        PH_Elem_CPS4_BMatrix, PH_Elem_CPS4_ConstMatrix
@@ -160,7 +160,7 @@ CONTAINS
     SELECT CASE (integration_scheme)
     CASE (PH_ELEM_S4_INTEGRATION_FULL)
       ! Full integration: 4 Gauss points (22)
-      CALL PH_Elem_CPS4_FormStiffMatrix(coords(1:2, 1:4), E_young, nu, Ke_m)
+      CALL PH_Elem_CPS4_StiffMatrix(coords(1:2, 1:4), E_young, nu, Ke_m)
       DO i = 1, 8
         DO j = 1, 8
           Ke(PH_ELEM_S4_MEM_DOF(i), PH_ELEM_S4_MEM_DOF(j)) = Ke_m(i, j)
@@ -199,7 +199,7 @@ CONTAINS
       
     CASE DEFAULT
       ! Default to full integration
-      CALL PH_Elem_CPS4_FormStiffMatrix(coords(1:2, 1:4), E_young, nu, Ke_m)
+      CALL PH_Elem_CPS4_StiffMatrix(coords(1:2, 1:4), E_young, nu, Ke_m)
       DO i = 1, 8
         DO j = 1, 8
           Ke(PH_ELEM_S4_MEM_DOF(i), PH_ELEM_S4_MEM_DOF(j)) = Ke_m(i, j)
