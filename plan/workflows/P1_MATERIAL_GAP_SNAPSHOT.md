@@ -1,7 +1,7 @@
 # P1 Material — 差距快照（Registry + Guardian）
 
 > **生成**：2026-05-19 · **任务**：[`plan/tasks/w0-registry-refresh/TASK_RUN.md`](../tasks/w0-registry-refresh/TASK_RUN.md)  
-> **消费方**：[`p1-material-wave3-plast-loc`](../tasks/p1-material-wave3-plast-loc/TASK_RUN.md) · change_id `p1-material-wave3-plast-loc`
+> **消费方**：wave3 Plast · wave4 Dispatch · wave5 非 J2 / mateval
 
 ---
 
@@ -24,55 +24,51 @@
 
 ---
 
-## 2. L4 `Plast/` Guardian 基线（2026-05-19）
+## 2. L4 Guardian 基线
 
-命令：`python ufc_harness/run_harness.py guardian ufc_core/L4_PH/Material/Plast --fail-on-p0` → **rc=1**
+### 2.1 `Plast/`（wave3 — merged PR #1）
 
-### 2.1 优先修复（wave3 §2 预算）
+命令：`python ufc_harness/run_harness.py guardian ufc_core/L4_PH/Material/Plast --fail-on-p0` → 非 J2 族仍失败；**J2 脊索**三文件 P0=0。
 
-| 优先级 | 规则 | 文件 | 行 | 说明 |
-|--------|------|------|-----|------|
-| ~~**P0-1**~~ | DEP-001 | `PH_Mat_Plast_J2_UMAT_Core.f90` | — | **已修 2026-05-19**：`PH_PNEWDT_NO_CHANGE`；去掉未用 `RT_Com_Base_Ctx` 与 `USE RT_Com_Def` |
-| **P1-1** | INTF-001 | `PH_Mat_Plast_J2_Iso_Core.f90` | 136,309,337,449,613 | 公开过程参数>4；优先 **`PH_J2_*` 入口** 收拢为 `*_Arg`（与 intf001 一致） |
-| **P1-2** | INTF-001 | `PH_Mat_Plast_Hill_Core.f90` | 499 | `UF_Hill_UMAT` 参数过多 |
-| **P2** | MOD-001 | `PH_Mat_Plast_Eval.f90`, `PH_Mat_Plast_J2_Iso_Core.f90`, `PH_Mat_Plast_J2_UMAT_Core.f90` | 模块头 | 补 Purpose/Theory/Status |
-| **P2** | CHAIN-001 | `PH_Mat_Plast_J2_Iso_Core.f90` | 136 | 四链注释 |
-| **P2** | NAME-001 | 多文件 | — | 存量命名；本波 **不** 全量重命名，仅 touched 文件 |
+| 优先级 | 规则 | 说明 |
+|--------|------|------|
+| ~~**P0-1**~~ | DEP-001 | `PH_Mat_Plast_J2_UMAT_Core.f90` — **已修** |
+| **P1-2** | INTF-001 | Hill/Barlat/Crystal — wave5 PR-A/B |
+| **P2** | MOD-001 / CHAIN-001 | 非 J2 + Chaboche — **post-wave5 清债** |
 
-### 2.2 Plast 目录文件清单（9）
+**G1–G6（J2）**：见 [`plan/changes/p1-material-wave3-plast-loc/PR_BODY.md`](../changes/p1-material-wave3-plast-loc/PR_BODY.md)
 
-| stem | wave3 默认范围 |
-|------|----------------|
-| `PH_Mat_Plast_Def.f90` | S5 · 四型核对 |
-| `PH_Mat_Plast_Core.f90` | S5 · Loc Eval 门面 |
-| `PH_Mat_Plast_Eval.f90` | S5 · Eval + Args |
-| `PH_Mat_Plast_J2_Iso_Core.f90` | S5 · **J2 竖切核**（INTF 优先） |
-| `PH_Mat_Plast_J2_UMAT_Core.f90` | S5 · **DEP-001 必修** |
-| `PH_Mat_Plast_J2_UMAT_Core.f90` 以外族 | 本 change **不含**（另开 change_id） |
+### 2.2 `Dispatch/`（wave4 · PR #2）
+
+命令：`python ufc_harness/run_harness.py guardian ufc_core/L4_PH/Material/Dispatch --fail-on-p0` → **P0=0**（wave4 分支）
+
+| 项 | 状态 | 说明 |
+|----|------|------|
+| **FLOW-003** | ✅ | `PH_MatEval`：`md_elas_wire`；`PH_MatPLMEval`：无 `%desc%=` 直写 |
+| **INTF-001** | ✅ 脊索 | `UF_Plastic_Eval_Dispatch_Arg` + `UF_Plastic_UMAT_Dispatch_Arg` |
+| **MOD-001** | 🔄 | `PH_MatPLMEval` 已补头 |
+
+**change**：`p1-material-wave4-dispatch-flow`
 
 ---
 
-## 3. 已完成波次（勿重复开 change）
+## 3. 已完成 / 进行中波次
 
 | change_id | 范围 | 状态 |
 |-----------|------|------|
-| `rollout-l4-material-binary-trivium` | L4 脊索 Def/Dsp/Populate | done |
-| `rollout-l4-material-wave2-dispatch` | `Dispatch/` | done |
-| `intf001-mat-plast-spcl-arg` | Dispatch SIO + bridge | done（follow-up 3.1–3.3 见该包 tasks §3） |
+| `rollout-l4-material-binary-trivium` | L4 脊索 | done |
+| `rollout-l4-material-wave2-dispatch` | Dispatch 基线 | done |
+| `intf001-mat-plast-spcl-arg` | bridge SIO | done |
+| `p1-material-wave3-plast-loc` | Plast J2 | **merged** #1 |
+| `p1-material-wave4-dispatch-flow` | Dispatch Eval+UMAT SIO | PR #2 |
+| `p1-material-wave5-plast-nonj2` | Hill/Barlat/Crystal Arg | PR #3 / #4 |
+| `p1-material-wave5-mateval-arg` | PH_MatEval 文档 | PR #5 |
 
 ---
 
-## 4. G1–G6（Plast/J2 脊索 — wave3 已验收）
+## 4. Roll-forward
 
-| 检查项 | 结果 | 证据 |
-|--------|------|------|
-| G1 | ✅ | `L4_PH/Material/CONTRACT.md` Plast/Dispatch 一致 |
-| G2 | ✅ | `PH_Mat_Plast_Def` + `PH_J2_*` nested types |
-| G3 | ✅ | `PH_Mat_Plast_Eval_Arg`, `PH_J2_ComputeStress_Arg` |
-| G4 | ✅ | `PH_Mat_Plast_IP_Incr_Eval`, `PH_J2_ComputeStress` |
-| G5 | ✅ | `PH_` 前缀 |
-| G6 | ✅ | 无新 inp/out 对偶 |
-
-**PR 正文**：[`plan/changes/p1-material-wave3-plast-loc/PR_BODY.md`](../changes/p1-material-wave3-plast-loc/PR_BODY.md)
+- wave4–5 合并后：**Plast 清债**（Chaboche + 全 Plast guardian）· **C2 PH_MatEval 按族吸收** · **Crystal 实装**
+- 编排：[`plan/backlog/p1-material-post-wave5-backlog.md`](../backlog/p1-material-post-wave5-backlog.md)
 
 *维护：合并后在本节末追加 `（PR #___ / 日期）`。*
