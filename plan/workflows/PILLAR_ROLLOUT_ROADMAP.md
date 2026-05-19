@@ -32,7 +32,7 @@
 | 柱 | 名称 | L3 ↔ L4 ↔ L5 | 当前状态（2026-05-19） | 下一 change_id / 动作 |
 |----|------|----------------|------------------------|------------------------|
 | **P1** | Material | `L3_MD/Material` ↔ `L4_PH/Material` ↔ `L5_RT/Material` | W2 **#14–#16**；NAME **#17–#19**（Plast P2=0） | **P1 S7** 复核 + GAP 快照更新 |
-| **P2** | Element | `L3_MD/Elem` ↔ `L4_PH/Element` ↔ `L5_RT/Element` | S1–S3 #15；PR01 文档包就绪 | `p2-element-pr01-seam-doc` PR → `material-route-audit` |
+| **P2** | Element | `L3_MD/Elem` ↔ `L4_PH/Element` ↔ `L5_RT/Element` | S1–S3 #15；PR01 #20；MaterialRoute P0=0 | `ke-arg-align` → `legacy-contm` |
 | **P3** | Contact | `Interaction` ↔ `Contact` ↔ `Contact` | 待柱级金线 | 新 change；依赖 P2 Step3 接缝（见 MASTER §6） |
 | **P4** | LoadBC | `Boundary` ↔ `LoadBC` ↔ `LoadBC` | 待柱级金线 | 新 change |
 | **P5** | Output | `Output` ↔ `Bridge/Output` ↔ `Output` | 待柱级金线 | 闭环 Output 合同（Phase C） |
