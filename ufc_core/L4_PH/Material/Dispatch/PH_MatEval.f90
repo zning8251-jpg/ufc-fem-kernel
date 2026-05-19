@@ -3,7 +3,7 @@
 ! LAYER:  L4_PH
 ! DOMAIN: Material
 ! ROLE:   Eval
-! BRIEF:  Legacy aggregate Eval facade (staging until plan C2 per-family split).
+! BRIEF:  Legacy aggregate Eval facade; C2 split: Elas+Plast point Eval in family modules (re-export).
 !   W1 gold path: `PH_Mat_Core` + slot `PH_Mat_Desc`; Arg-only public API (no Eval_In/Out pairs).
 ! Purpose: Document and stabilize SIO entry points; no new Arg types in this change.
 ! Theory: Point models — elastic, plastic, hyper, damage, creep, visco, composite (Voigt 6).
@@ -16,6 +16,10 @@ MODULE PH_MatEval
   USE IF_Prec_Core, ONLY: i4, wp
   USE MD_Mat_Lib, ONLY: MD_ElasticMatDesc, MD_PlasticMatDesc, MD_HyperElasticMatDesc, &
                             MD_PronyMatDesc, MD_CompositeMatDesc
+  USE PH_Mat_Elas_PointEval, ONLY: PH_Mat_ElasticIsotropic_Eval_Arg, PH_Mat_ElasticOrthotropic_Eval_Arg, &
+      PH_Mat_ElasticIsotropic_Eval, PH_Mat_ElasticOrthotropic_Eval
+  USE PH_Mat_Plast_PointEval, ONLY: PH_Mat_PlasticVonMises_Eval_Arg, PH_Mat_PlasticHill_Eval_Arg, &
+      PH_Mat_PlasticVonMises_Eval, PH_Mat_PlasticHill_Eval
   IMPLICIT NONE
   PRIVATE
 
@@ -59,56 +63,16 @@ MODULE PH_MatEval
   ! Arg bundles (Principle #14) — legacy Eval_In/Eval_Out pairs removed from docs
   ! ==========================================================================
   
-  !> @brief Input structure for isotropic elastic evaluation
-  
-  !> @brief Output structure for isotropic elastic evaluation
-  TYPE, PUBLIC :: PH_Mat_ElasticIsotropic_Eval_Arg
-    TYPE(MD_ElasticMatDesc) :: mat_desc                   ! [IN]
-    REAL(wp) :: strain(6) = 0.0_wp
-    REAL(wp) :: sigma(6) = 0.0_wp
-    REAL(wp) :: D_matrix(6, 6) = 0.0_wp
-    TYPE(ErrorStatusType) :: status                   ! [OUT]
-  END TYPE PH_Mat_ElasticIsotropic_Eval_Arg
+  ! C2: PH_Mat_ElasticIsotropic_* → Elas/PH_Mat_Elas_PointEval.f90
 
   
-  !> @brief Input structure for orthotropic elastic evaluation
-  
-  !> @brief Output structure for orthotropic elastic evaluation
-  TYPE, PUBLIC :: PH_Mat_ElasticOrthotropic_Eval_Arg
-    TYPE(MD_ElasticMatDesc) :: mat_desc                   ! [IN]
-    REAL(wp) :: strain(6) = 0.0_wp
-    REAL(wp) :: sigma(6) = 0.0_wp
-    REAL(wp) :: D_matrix(6, 6) = 0.0_wp
-    TYPE(ErrorStatusType) :: status                   ! [OUT]
-  END TYPE PH_Mat_ElasticOrthotropic_Eval_Arg
+  ! C2: PH_Mat_ElasticOrthotropic_* → Elas/PH_Mat_Elas_PointEval.f90
 
   
-  !> @brief Input structure for Von Mises plasticity evaluation
-  
-  !> @brief Output structure for Von Mises plasticity evaluation
-  TYPE, PUBLIC :: PH_Mat_PlasticVonMises_Eval_Arg
-    TYPE(MD_PlasticMatDesc) :: mat_desc                   ! [IN]
-    REAL(wp) :: strain_increment(6) = 0.0_wp
-    REAL(wp) :: stress_old(6) = 0.0_wp
-    REAL(wp) :: stress_new(6) = 0.0_wp
-    REAL(wp) :: D_matrix(6, 6) = 0.0_wp
-    REAL(wp) :: equiv_plastic_strain  ! Equivalent plastic strain ε̄_p                   ! [INOUT]
-    TYPE(ErrorStatusType) :: status                   ! [OUT]
-  END TYPE PH_Mat_PlasticVonMises_Eval_Arg
+  ! C2: PH_Mat_PlasticVonMises_* → Plast/PH_Mat_Plast_PointEval.f90
 
   
-  !> @brief Input structure for Hill plasticity evaluation
-  
-  !> @brief Output structure for Hill plasticity evaluation
-  TYPE, PUBLIC :: PH_Mat_PlasticHill_Eval_Arg
-    TYPE(MD_PlasticMatDesc) :: mat_desc                   ! [IN]
-    REAL(wp) :: strain_increment(6) = 0.0_wp
-    REAL(wp) :: stress_old(6) = 0.0_wp
-    REAL(wp) :: stress_new(6) = 0.0_wp
-    REAL(wp) :: D_matrix(6, 6) = 0.0_wp
-    REAL(wp) :: equiv_plastic_strain  ! Equivalent plastic strain ε̄_p                   ! [INOUT]
-    TYPE(ErrorStatusType) :: status                   ! [OUT]
-  END TYPE PH_Mat_PlasticHill_Eval_Arg
+  ! C2: PH_Mat_PlasticHill_* → Plast/PH_Mat_Plast_PointEval.f90
 
   
   !> @brief Input structure for Neo-Hookean hyperelastic evaluation
@@ -384,121 +348,6 @@ contains
     
   END SUBROUTINE PH_Mat_DamageDuctile_Eval
 
-  ! Theory: Isotropic Hooke σ = D·ε.
-  ! Logic: Read E, ν from mat_desc → Lame → D → stress from strain.
-  ! Compute: Voigt 6×6 σ_i = Σ_j D_ij ε_j.
-  ! Data: arg%strain [IN]; arg%sigma, arg%D_matrix, arg%status [OUT]; mat_desc read-only.
-  SUBROUTINE PH_Mat_ElasticIsotropic_Eval(arg)
-    TYPE(PH_Mat_ElasticIsotropic_Eval_Arg), INTENT(INOUT) :: arg
-    
-    REAL(wp) :: PH_MAT_E, nu
-    REAL(wp) :: lambda, mu, factor
-    INTEGER(i4) :: i, j
-    
-    CALL init_error_status(arg%status)
-    
-    ! Extract material properties from structure
-    PH_MAT_E = arg%mat_desc%PH_MAT_E
-    nu = arg%mat_desc%nu
-    
-    ! Lame parameters
-    lambda = PH_MAT_E * nu / ((ONE + nu) * (ONE - TWO * nu))
-    mu = PH_MAT_E / (TWO * (ONE + nu))
-    factor = PH_MAT_E / ((ONE + nu) * (ONE - TWO * nu))
-    
-    ! Build elastic stiffness matrix D
-    arg%D_matrix = ZERO
-    arg%D_matrix(1,1) = factor * (ONE - nu)
-    arg%D_matrix(1,2) = factor * nu
-    arg%D_matrix(1,3) = factor * nu
-    arg%D_matrix(2,1) = factor * nu
-    arg%D_matrix(2,2) = factor * (ONE - nu)
-    arg%D_matrix(2,3) = factor * nu
-    arg%D_matrix(3,1) = factor * nu
-    arg%D_matrix(3,2) = factor * nu
-    arg%D_matrix(3,3) = factor * (ONE - nu)
-    arg%D_matrix(4,4) = mu
-    arg%D_matrix(5,5) = mu
-    arg%D_matrix(6,6) = mu
-    
-    ! Compute stress: σ = D·ε
-    arg%sigma = ZERO
-    DO i = 1, 6
-      DO j = 1, 6
-        arg%sigma(i) = arg%sigma(i) + arg%D_matrix(i,j) * arg%strain(j)
-      END DO
-    END DO
-    
-    arg%status%status_code = IF_STATUS_OK
-    
-  END SUBROUTINE PH_Mat_ElasticIsotropic_Eval
-
-  ! Theory: Orthotropic Hooke σ = D·ε (engineering constants, diagonal S approx).
-  ! Logic: Read E_i, ν_ij, G_ij from mat_desc → compliance S → invert diag → stress.
-  ! Data: arg%strain [IN]; arg%sigma, arg%D_matrix, arg%status [OUT].
-  SUBROUTINE PH_Mat_ElasticOrthotropic_Eval(arg)
-    TYPE(PH_Mat_ElasticOrthotropic_Eval_Arg), INTENT(INOUT) :: arg
-    
-    REAL(wp) :: E1, E2, E3, nu12, nu23, nu13, G12, G23, G13
-    REAL(wp) :: nu21, nu31, nu32
-    REAL(wp) :: S(6,6)
-    INTEGER(i4) :: i, j
-    
-    CALL init_error_status(arg%status)
-    
-    ! Extract orthotropic properties from structure
-    E1 = arg%mat_desc%E1
-    E2 = arg%mat_desc%E2
-    E3 = arg%mat_desc%E3
-    nu12 = arg%mat_desc%nu12
-    nu23 = arg%mat_desc%nu23
-    nu13 = arg%mat_desc%nu13
-    G12 = arg%mat_desc%G12
-    G23 = arg%mat_desc%G23
-    G13 = arg%mat_desc%G13
-    
-    ! Compute dependent Poisson's ratios: ν_ji = ν_ij·E_j/E_i
-    nu21 = nu12 * E2 / E1
-    nu31 = nu13 * E3 / E1
-    nu32 = nu23 * E3 / E2
-    
-    ! Build compliance matrix S (simplified)
-    S = ZERO
-    S(1,1) = ONE / E1
-    S(1,2) = -nu12 / E1
-    S(1,3) = -nu13 / E1
-    S(2,1) = -nu21 / E2
-    S(2,2) = ONE / E2
-    S(2,3) = -nu23 / E2
-    S(3,1) = -nu31 / E3
-    S(3,2) = -nu32 / E3
-    S(3,3) = ONE / E3
-    S(4,4) = ONE / G12
-    S(5,5) = ONE / G23
-    S(6,6) = ONE / G13
-    
-    ! Invert compliance to get stiffness (simplified: assume diagonal)
-    ! Production should use proper matrix inversion
-    arg%D_matrix = ZERO
-    IF (ABS(S(1,1)) > 1.0e-12_wp) arg%D_matrix(1,1) = ONE / S(1,1)
-    IF (ABS(S(2,2)) > 1.0e-12_wp) arg%D_matrix(2,2) = ONE / S(2,2)
-    IF (ABS(S(3,3)) > 1.0e-12_wp) arg%D_matrix(3,3) = ONE / S(3,3)
-    IF (ABS(S(4,4)) > 1.0e-12_wp) arg%D_matrix(4,4) = ONE / S(4,4)
-    IF (ABS(S(5,5)) > 1.0e-12_wp) arg%D_matrix(5,5) = ONE / S(5,5)
-    IF (ABS(S(6,6)) > 1.0e-12_wp) arg%D_matrix(6,6) = ONE / S(6,6)
-    
-    ! Compute stress: σ = D·ε
-    arg%sigma = ZERO
-    DO i = 1, 6
-      DO j = 1, 6
-        arg%sigma(i) = arg%sigma(i) + arg%D_matrix(i,j) * arg%strain(j)
-      END DO
-    END DO
-    
-    arg%status%status_code = IF_STATUS_OK
-    
-  END SUBROUTINE PH_Mat_ElasticOrthotropic_Eval
-
   SUBROUTINE PH_Mat_HyperelasticMooneyRivlin_Eval(arg)
     TYPE(PH_Mat_HyperelasticMooneyRivlin_Eval_Arg), INTENT(INOUT) :: arg
     
@@ -537,157 +386,6 @@ contains
     arg%status%status_code = IF_STATUS_OK
     
   END SUBROUTINE PH_Mat_HyperelasticNeoHookean_Eval
-
-  ! Theory: Hill48 equivalent stress + isotropic hardening; radial return if φ > σ_y.
-  ! Logic: Elastic trial via wired iso Eval → Hill φ → scale stress or elastic branch.
-  ! Compute: φ from Hill coefficients; Δε̄_p increment on yield.
-  ! Data: stress_old/strain_increment [IN]; stress_new/D_matrix/status [OUT]; wire Desc for trial.
-  SUBROUTINE PH_Mat_PlasticHill_Eval(arg)
-    TYPE(PH_Mat_PlasticHill_Eval_Arg), INTENT(INOUT) :: arg
-    
-    REAL(wp) :: PH_MAT_E, nu, sigma_y0, H
-    REAL(wp) :: F, G, Hh, L, M, N  ! Hill anisotropy coefficients
-    REAL(wp) :: D_elastic(6,6), stress_trial(6)
-    REAL(wp) :: sigma_y, phi_trial, phi_factor
-    TYPE(MD_ElasticMatDesc) :: md_elas_wire
-    TYPE(PH_Mat_ElasticIsotropic_Eval_Arg) :: elastic_in
-    
-    CALL init_error_status(arg%status)
-    
-    ! Extract material properties from structure
-    PH_MAT_E = arg%mat_desc%PH_MAT_E
-    nu = arg%mat_desc%nu
-    sigma_y0 = arg%mat_desc%yieldStress
-    H = arg%mat_desc%hardeningModulus
-    F = arg%mat_desc%Hill_F
-    G = arg%mat_desc%Hill_G
-    Hh = arg%mat_desc%Hill_H
-    L = arg%mat_desc%Hill_L
-    M = arg%mat_desc%Hill_M
-    N = arg%mat_desc%Hill_N
-    
-    ! Current yield stress (isotropic hardening): σ_y = σ_y0 + H·ε̄_p
-    sigma_y = sigma_y0 + H * arg%equiv_plastic_strain
-    
-    ! Build elastic stiffness using structured interface
-    CALL init_error_status(elastic_in%status)
-    md_elas_wire%PH_MAT_E = PH_MAT_E
-    md_elas_wire%nu = nu
-    elastic_in%mat_desc = md_elas_wire
-    elastic_in%strain = arg%strain_increment
-    CALL PH_Mat_ElasticIsotropic_Eval(elastic_in)
-    IF (elastic_in%status%status_code /= IF_STATUS_OK) THEN
-      arg%status = elastic_in%status
-      RETURN
-    END IF
-    D_elastic = elastic_in%D_matrix
-    stress_trial = elastic_in%sigma
-    
-    ! Compute trial stress: σ_trial = σ_n + D_e·Δε
-    stress_trial = arg%stress_old + stress_trial
-    
-    ! Compute Hill equivalent stress: φ² = F(σ_yy-σ_zz)² + G(σ_zz-σ_xx)² + H(σ_xx-σ_yy)² + 2Lτ_yz² + 2Mτ_zx² + 2Nτ_xy²
-    phi_trial = SQRT( &
-      F * (stress_trial(2) - stress_trial(3))**2 + &
-      G * (stress_trial(3) - stress_trial(1))**2 + &
-      Hh * (stress_trial(1) - stress_trial(2))**2 + &
-      TWO * L * stress_trial(4)**2 + &
-      TWO * M * stress_trial(5)**2 + &
-      TWO * N * stress_trial(6)**2 )
-    
-    ! Check yield condition: f = φ_trial - σ_y
-    IF (phi_trial > sigma_y) THEN
-      ! Plastic loading: radial return to yield surface
-      phi_factor = sigma_y / phi_trial
-      arg%stress_new = stress_trial * phi_factor
-      
-      ! Update equivalent plastic strain: Δε̄_p = (φ_trial - σ_y)/H
-      arg%equiv_plastic_strain = arg%equiv_plastic_strain + (phi_trial - sigma_y) / H
-    ELSE
-      ! Elastic loading
-      arg%stress_new = stress_trial
-      arg%equiv_plastic_strain = arg%equiv_plastic_strain
-    END IF
-    
-    ! Simplified tangent modulus (elastic)
-    arg%D_matrix = D_elastic
-    
-    arg%status%status_code = IF_STATUS_OK
-    
-  END SUBROUTINE PH_Mat_PlasticHill_Eval
-
-  ! Theory: J2 von Mises with isotropic hardening; deviatoric q vs σ_y.
-  ! Logic: Elastic trial → q_trial; radial return factor or elastic branch.
-  ! Compute: deviatoric q; σ_y = σ_y0 + H·ε̄_p.
-  ! Data: same Arg bundle pattern as Hill; md_elas_wire for elastic predictor.
-  SUBROUTINE PH_Mat_PlasticVonMises_Eval(arg)
-    TYPE(PH_Mat_PlasticVonMises_Eval_Arg), INTENT(INOUT) :: arg
-    
-    REAL(wp) :: PH_MAT_E, nu, sigma_y0, H
-    REAL(wp) :: D_elastic(6,6), stress_trial(6)
-    REAL(wp) :: s_dev(6), q_trial, sigma_y
-    TYPE(MD_ElasticMatDesc) :: md_elas_wire
-    TYPE(PH_Mat_ElasticIsotropic_Eval_Arg) :: elastic_in
-    
-    CALL init_error_status(arg%status)
-    
-    ! Extract material properties from structure
-    PH_MAT_E = arg%mat_desc%PH_MAT_E
-    nu = arg%mat_desc%nu
-    sigma_y0 = arg%mat_desc%yieldStress
-    H = arg%mat_desc%hardeningModulus
-    
-    ! Current yield stress (hardening): σ_y = σ_y0 + H·ε̄_p
-    sigma_y = sigma_y0 + H * arg%equiv_plastic_strain
-    
-    ! Build elastic stiffness using structured interface
-    CALL init_error_status(elastic_in%status)
-    md_elas_wire%PH_MAT_E = PH_MAT_E
-    md_elas_wire%nu = nu
-    elastic_in%mat_desc = md_elas_wire
-    elastic_in%strain = arg%strain_increment
-    CALL PH_Mat_ElasticIsotropic_Eval(elastic_in)
-    IF (elastic_in%status%status_code /= IF_STATUS_OK) THEN
-      arg%status = elastic_in%status
-      RETURN
-    END IF
-    D_elastic = elastic_in%D_matrix
-    stress_trial = elastic_in%sigma
-    
-    ! Compute trial stress: σ_trial = σ_n + D_e·Δε
-    stress_trial = arg%stress_old + stress_trial
-    
-    ! Compute deviatoric stress: s = dev(σ)
-    s_dev(1) = stress_trial(1) - (stress_trial(1) + stress_trial(2) + stress_trial(3)) / THREE
-    s_dev(2) = stress_trial(2) - (stress_trial(1) + stress_trial(2) + stress_trial(3)) / THREE
-    s_dev(3) = stress_trial(3) - (stress_trial(1) + stress_trial(2) + stress_trial(3)) / THREE
-    s_dev(4) = stress_trial(4)
-    s_dev(5) = stress_trial(5)
-    s_dev(6) = stress_trial(6)
-    
-    ! von Mises: q = sqrt(3/2 * s:s)
-    q_trial = SQRT(1.5_wp * (s_dev(1)**2 + s_dev(2)**2 + s_dev(3)**2 + &
-                              TWO * (s_dev(4)**2 + s_dev(5)**2 + s_dev(6)**2)))
-    
-    ! Check yield condition: f = q_trial - σ_y
-    IF (q_trial > sigma_y) THEN
-      ! Plastic loading: radial return σ_{n+1} = σ_trial·(σ_y/q_trial)
-      arg%stress_new = stress_trial * (sigma_y / q_trial)
-      ! Update equivalent plastic strain: Δε̄_p = (q_trial - σ_y)/(3G + H)
-      arg%equiv_plastic_strain = arg%equiv_plastic_strain + &
-        (q_trial - sigma_y) / (THREE * PH_MAT_E / (TWO * (ONE + nu)) + H)
-    ELSE
-      ! Elastic loading
-      arg%stress_new = stress_trial
-      arg%equiv_plastic_strain = arg%equiv_plastic_strain
-    END IF
-    
-    ! Simplified tangent modulus (use elastic for now)
-    arg%D_matrix = D_elastic
-    
-    arg%status%status_code = IF_STATUS_OK
-    
-  END SUBROUTINE PH_Mat_PlasticVonMises_Eval
 
   SUBROUTINE PH_Mat_UMATEnsureWorkspace(arg)
     TYPE(PH_Mat_UMATEnsureWorkspace_Arg), INTENT(INOUT) :: arg
@@ -799,4 +497,4 @@ contains
     arg%status%status_code = IF_STATUS_OK
     
   END SUBROUTINE PH_Mat_ViscoelasticProny_Eval
-end module PH_MatEval
+END MODULE PH_MatEval
