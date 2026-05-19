@@ -32,7 +32,8 @@ MODULE PH_MatPLMEval
         UF_Viscoplastic_UMAT, UF_ViscoplasticDamageEM_UMAT, UF_Nanomaterial_UMAT, UF_FGM_UMAT, &
         UF_SmartMaterial_UMAT, UF_ViscoelasticDamage_UMAT, UF_ThermoViscoplastic_UMAT, &
         UF_MultiscaleDamage_UMAT, UF_ThermoElectroMagnetoMechanical_UMAT, &
-        UF_Geotechnical_UMAT, UF_CrystalPlasticity_UMAT, UF_RateDependentPlasticity_UMAT, &
+        UF_Geotechnical_UMAT, UF_CrystalPlasticity_UMAT, UF_CrystalPlasticity_UMAT_Arg, &
+        UF_RateDependentPlasticity_UMAT, &
         UF_ZerilliArmstrong_UMAT
 
     ! Legacy mat_id constants (modules MD_MatPLM_* / MD_MatPOR_* deleted)
@@ -396,10 +397,40 @@ CONTAINS
            ctx%temp, ctx%dtemp, [0.0_wp], [0.0_wp], ctx%ndi, ctx%nshr, MAX(nstatv,1), np, &
            plm_in%props(1:np), ctx%cfg%ndim, algo%kstep, algo%kinc, status)
     CASE (PH_MAT_CRYSTAL_PLASTICITY_MAT_ID)
-      CALL UF_CrystalPlasticity_UMAT(stress_loc, statev_loc(1:MAX(nstatv,1)), ddsdde_loc, sse_loc, spd_loc, scd_loc, &
-           rpl_loc, ddsddt_loc, drplde_loc, drpldt_loc, ctx%stran, ctx%dstran, ctx%time, ctx%dtime, &
-           ctx%temp, ctx%dtemp, [0.0_wp], [0.0_wp], ctx%ndi, ctx%nshr, MAX(nstatv,1), np, &
-           plm_in%props(1:np), ctx%cfg%ndim, algo%kstep, algo%kinc, status)
+      BLOCK
+        TYPE(UF_CrystalPlasticity_UMAT_Arg) :: xtal_arg
+        INTEGER(i4) :: nsv_xtal
+        nsv_xtal = MIN(MAX(nstatv, 0_i4), SIZE(xtal_arg%statev, KIND=i4))
+        xtal_arg%stress = stress_loc
+        xtal_arg%nstatev = nsv_xtal
+        IF (nsv_xtal > 0) xtal_arg%statev(1:nsv_xtal) = statev_loc(1:nsv_xtal)
+        xtal_arg%stran = ctx%stran
+        xtal_arg%dstran = ctx%dstran
+        xtal_arg%time = ctx%time
+        xtal_arg%dtime = ctx%dtime
+        xtal_arg%temp = ctx%temp
+        xtal_arg%dtemp = ctx%dtemp
+        xtal_arg%ndir = ctx%ndi
+        xtal_arg%nshr = ctx%nshr
+        xtal_arg%ndim = ctx%cfg%ndim
+        xtal_arg%kstep = algo%kstep
+        xtal_arg%kinc = algo%kinc
+        xtal_arg%nprops = np
+        IF (np > 0) xtal_arg%props(1:np) = plm_in%props(1:np)
+        CALL init_error_status(xtal_arg%status)
+        CALL UF_CrystalPlasticity_UMAT(xtal_arg)
+        stress_loc = xtal_arg%stress
+        ddsdde_loc = xtal_arg%ddsdde
+        sse_loc = xtal_arg%sse
+        spd_loc = xtal_arg%spd
+        scd_loc = xtal_arg%scd
+        rpl_loc = xtal_arg%rpl
+        ddsddt_loc = xtal_arg%ddsddt
+        drplde_loc = xtal_arg%drplde
+        drpldt_loc = xtal_arg%drpldt
+        IF (nsv_xtal > 0) statev_loc(1:nsv_xtal) = xtal_arg%statev(1:nsv_xtal)
+        status = xtal_arg%status
+      END BLOCK
     CASE (PH_MAT_RATE_DEPENDENT_PLAST_MAT_ID)
       CALL UF_RateDependentPlasticity_UMAT(stress_loc, statev_loc(1:MAX(nstatv,1)), ddsdde_loc, sse_loc, spd_loc, scd_loc, &
            rpl_loc, ddsddt_loc, drplde_loc, drpldt_loc, ctx%stran, ctx%dstran, ctx%time, ctx%dtime, &

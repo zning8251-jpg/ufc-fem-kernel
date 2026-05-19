@@ -29,13 +29,13 @@
 
 ## 3. PR-B — Crystal
 
-- [ ] 3.1 `UF_CrystalPlasticity_UMAT_Arg` + 单参入口
-- [ ] 3.2 MOD-001 Crystal 模块头
-- [ ] 3.3 harness（同上）
+- [x] 3.1 `UF_CrystalPlasticity_UMAT_Arg` + 单参入口
+- [x] 3.2 MOD-001 Crystal 模块头
+- [x] 3.3 harness（同上）
 
 ## 4. Closure
 
-- [ ] 4.1 G1–G6 勾选 + `PR_BODY.md`
+- [x] 4.1 G1–G6 勾选 + `PR_BODY_PR-A.md` / `PR_BODY_PR-B.md`
 - [ ] 4.2 合并后 `plan/tasks/p1-material-wave5-plast-nonj2` → `plan/archive/`
 
 ## 5. Roll-forward

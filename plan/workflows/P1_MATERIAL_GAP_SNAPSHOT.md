@@ -29,7 +29,7 @@
 | 子树 | P0 | 备注 |
 |------|-----|------|
 | J2 脊索（wave3） | 0 | **merged** #1 |
-| Hill / Barlat（wave5 PR-A） | 0 | per-file INTF 已清（PR #3） |
+| Hill / Barlat（wave5 PR-A） | 0 | **merged** #3 |
 | Crystal stub（wave5 PR-B） | 0 | Arg 脊索；实装另开 change |
 | 全域 `--fail-on-p0` | **>0** | Chaboche + 存量 — **post-wave5 清债** |
 
@@ -48,14 +48,14 @@
 |-----------|------|------|
 | `p1-material-wave3-plast-loc` | Plast J2 | **merged** #1 |
 | `p1-material-wave4-dispatch-flow` | Dispatch SIO | **merged** #2 |
-| `p1-material-wave5-plast-nonj2` | Hill/Barlat/Crystal Arg | PR #3 / #4 |
+| `p1-material-wave5-plast-nonj2` | Hill/Barlat/Crystal Arg | #3 merged · #4 PR-B |
 | `p1-material-wave5-mateval-arg` | PH_MatEval 文档 | PR #5 |
 
 ---
 
 ## 4. Roll-forward
 
-1. 合并 #3 → #4 → #5；`plan/tasks/*` 归档（[`p1-material-post-wave5-backlog.md`](../backlog/p1-material-post-wave5-backlog.md)）
+1. 合并 #4 → #5；`plan/tasks/*` 归档（[`p1-material-post-wave5-backlog.md`](../backlog/p1-material-post-wave5-backlog.md)）
 2. **Plast 清债** · **C2 PH_MatEval** · **Crystal 实装** — 各独立 change_id
 
 *维护：合并后追加 `（PR #___ / 日期）`。*
