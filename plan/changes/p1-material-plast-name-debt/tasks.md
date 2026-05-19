@@ -22,4 +22,5 @@
 ## 4. 收尾
 
 - [x] `guardian Plast` → P2=0
-- [ ] 归档 task
+- [x] 归档 task → `plan/archive/p1-material-plast-name-debt/`
+- [x] P1 S7 见 `plan/workflows/P1_MATERIAL_S7_SIGNOFF.md`

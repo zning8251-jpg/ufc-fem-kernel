@@ -46,7 +46,7 @@ MD_Mesh + MD_Elem Desc
 
 | change_id（拟） | 范围 | 依赖 |
 |-----------------|------|------|
-| `p2-element-pr01-seam-doc` | PR01 接缝文档化 + guardian 三路径 | 本包 S3 |
+| `p2-element-pr01-seam-doc` | PR01 接缝文档化 + guardian 锚点基线 | **文档包就绪**（见 `plan/changes/p2-element-pr01-seam-doc/`） |
 | `p2-element-material-route-audit` | `PH_Elem_MaterialRoute` / slot 只读审计 | P1 slot 稳定 |
 | `p2-element-ke-arg-align` | `PH_Element_Compute_Ke_Arg` ↔ `RT_Asm_Solv` 字段对齐 | pr01 |
 | `p2-element-legacy-contm-retire` | `PH_Elem_Contm` 裁剪或门面化 | ke-arg |
