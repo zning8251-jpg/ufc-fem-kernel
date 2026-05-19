@@ -1,9 +1,10 @@
 ---
 task_run_version: "1.0"
 session: "p1-material-c2-mateval-split"
-status: active
-current_step_id: "1"
-updated_at: "2026-05-19T04:46:11Z"
+status: completed
+current_step_id: "S7"
+updated_at: "2026-05-19T13:30:00Z"
+governance_change_id: "p1-material-c2-mateval-split"
 ---
 
 # TASK_RUN
