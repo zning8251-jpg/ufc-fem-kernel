@@ -93,7 +93,7 @@ git push origin main
 | 1 | `p1-material-plast-guardian-debt` | Chaboche + 全 `Plast/` guardian P0/P1 清扫 |
 | 2 | `p1-material-orthotropic-eval-fix` | `PH_Mat_ElasticOrthotropic_Eval` dummy 小修 |
 | 3 | `p1-material-c2-mateval-split` | C2：按族吸收 `PH_MatEval` |
-| 4 | `p1-material-crystal-impl` | Crystal `STATUS_UNSUPPORTED` → 实装 |
+| 4 | `p1-material-crystal-impl` | Crystal `STATUS_UNSUPPORTED` → 实装；**plan 草案** `plan/changes/p1-material-crystal-impl/`（等 #7–#10） |
 
 每项：`agent-task init` → `plan/changes/<id>/` → 单 PR → 合并后归档。
 
