@@ -10,7 +10,6 @@ from pathlib import Path
 ALLOWLIST_PREFIXES = (
     "ufc_core/L4_PH/Element/Legacy/",
     "ufc_core/L4_PH/Element/PH_Elem_Contm.f90",
-    "ufc_core/L4_PH/Element/PH_ElemContm_Ops.f90",
     "ufc_core/L4_PH/Element/Solid2D/PH_Elem_Sld2D_Def.f90",
     "ufc_core/L4_PH/Element/Solid3D/PH_Elem_Sld3D_Def.f90",
     "ufc_core/L4_PH/Element/Solid2Dt/",

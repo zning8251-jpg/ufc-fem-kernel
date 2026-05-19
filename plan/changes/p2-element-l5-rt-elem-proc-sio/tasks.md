@@ -7,4 +7,4 @@
 - [x] 修复 `RT_Elem_Brg_ComputeKe` 使用 `mat_props_in`
 - [x] `L5_RT/Element/CONTRACT.md` SIO 对照表
 - [x] `tools/verify_rt_elem_ke_in_align.py`
-- [ ] PR → `main`
+- [x] PR → `main`（#25）

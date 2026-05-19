@@ -44,7 +44,7 @@
 | `PH_Elem_Core.f90` | `PH_Elem_Core` | `_Core` | **active** | 单元计算核心入口 (热路径) |
 | `PH_Elem_Domain.f90` | `PH_Elem_Domain` | Domain | **active** | 域容器 + 金线 Compute_Ke/Compute_Fe |
 | `PH_Elem_Reg.f90` | `PH_Elem_Reg` | `_Reg` | **active** | L4 单元族注册表 |
-| `PH_ElemContm_Ops.f90` | `PH_ElemContm_Ops` | `_Ops` | **active** | 连续体单元通用操作 (141KB, 热路径核心) |
+| `Legacy/PH_ElemContm_Ops.f90` | `PH_ElemContm_Ops` | `_Ops` | **legacy** | 连续体 legacy 实现（非金线；见 `Legacy/LEGACY_CONTM_BOUNDARY.md`） |
 | `PH_ElemDomain_Ops.f90` | `PH_ElemDomain_Ops` | `_Ops` | **active** | 单元域级操作 |
 | `PH_Elem_ShapeFunc.f90` | `PH_Elem_ShapeFunc` | — | **active** | 形函数求值 (35KB, 热路径) |
 | `PH_Elem_ShapeMechField.f90` | `PH_Elem_ShapeMechField` | — | **active** | 力学场形函数 (热路径) |
