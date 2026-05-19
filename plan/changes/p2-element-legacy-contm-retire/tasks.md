@@ -15,6 +15,8 @@
 - [x] `Calc_Continuum3D`：`in_struct` / `mat_models` 修复
 - [x] `PH_Elem_Sld2D_Def` / `Solid*Dt` 显式路由（G6-W1b）
 - [x] `Compute_Ke_C3D8` / `C3D4` → 族 `FormStiffMatrix`；补 `PH_Elem_C3D8_StiffMatrix(coords)`
+- [x] `Compute_Ke_CPE4/CPS4/CAX4/CPE8/CPS8/CAX8` → 族 `StiffMatrix` / `FormStiffMatrix`
+- [ ] PR → `main`（`feat/p2-element-legacy-contm-g6w1b`）
 
 ## G6-W2（后续）
 

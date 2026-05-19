@@ -121,6 +121,7 @@ MODULE PH_Elem_CPE8
   PUBLIC :: PH_Elem_CPE8_ConstMatrix
   PUBLIC :: PH_Elem_CPE8_FormIntForce
   PUBLIC :: PH_Elem_CPE8_FormIntForceFromStress
+  PUBLIC :: PH_Elem_CPE8_StiffMatrix
   PUBLIC :: PH_Elem_CPE8_ConsMass
   PUBLIC :: PH_Elem_CPE8_LumpMass
   PUBLIC :: PH_Elem_CPE8_ThermStrainVector
@@ -372,6 +373,26 @@ CONTAINS
       R_int = R_int + MATMUL(TRANSPOSE(B), sigma3) * detJ * weights(ip)
     END DO
   END SUBROUTINE PH_Elem_CPE8_FormIntForceFromStress
+
+  SUBROUTINE PH_Elem_CPE8_StiffMatrix(coords, E_young, nu, Ke)
+    REAL(wp), INTENT(IN)  :: coords(2, 8)
+    REAL(wp), INTENT(IN)  :: E_young, nu
+    REAL(wp), INTENT(OUT) :: Ke(16, 16)
+    REAL(wp) :: xi(9), eta(9), weights(9)
+    REAL(wp) :: N(8), dNdx(2, 8), J(2, 2), B(3, 16), D(3, 3)
+    REAL(wp) :: BTD(16, 3), detJ, dV
+    INTEGER(i4) :: ip
+    Ke = ZERO
+    CALL PH_Elem_CPE8_ConstMatrix(E_young, nu, D)
+    CALL PH_Elem_CPE8_GaussPoints(xi, eta, weights)
+    DO ip = 1, 9
+      CALL PH_Elem_CPE8_JacB_Legacy(coords, xi(ip), eta(ip), N, dNdx, J, detJ, B)
+      IF (ABS(detJ) <= 1.0e-12_wp) CYCLE
+      dV = detJ * weights(ip)
+      BTD = MATMUL(TRANSPOSE(B), D)
+      Ke = Ke + dV * MATMUL(BTD, B)
+    END DO
+  END SUBROUTINE PH_Elem_CPE8_StiffMatrix
 
   SUBROUTINE PH_Elem_CPE8_FormStiffMatrix(arg)
     TYPE(PH_Elem_CPE8_StiffMatrix_Arg), INTENT(INOUT) :: arg

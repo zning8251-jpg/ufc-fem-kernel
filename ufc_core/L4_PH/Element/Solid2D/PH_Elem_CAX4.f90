@@ -116,6 +116,7 @@ MODULE PH_Elem_CAX4
   PUBLIC :: PH_Elem_CAX4_Stress
   PUBLIC :: PH_Elem_CAX4_StiffMatrix_Arg
   PUBLIC :: PH_Elem_CAX4_FormStiffMatrix
+  PUBLIC :: PH_Elem_CAX4_StiffMatrix
   PUBLIC :: PH_Elem_CAX4_NL_TL_Arg
   PUBLIC :: PH_Elem_CAX4_NL_TL
   PUBLIC :: PH_Elem_CAX4_NL_UL_Arg
@@ -392,6 +393,26 @@ CONTAINS
       R_int = R_int + TWOPI * r_pt * MATMUL(TRANSPOSE(B), sigma4) * detJ * weights(ip)
     END DO
   END SUBROUTINE PH_Elem_CAX4_FormIntForceFromStress
+
+  SUBROUTINE PH_Elem_CAX4_StiffMatrix(coords, E_young, nu, Ke)
+    REAL(wp), INTENT(IN)  :: coords(2, 4)
+    REAL(wp), INTENT(IN)  :: E_young, nu
+    REAL(wp), INTENT(OUT) :: Ke(8, 8)
+    REAL(wp) :: xi(4), eta(4), weights(4)
+    REAL(wp) :: N(4), dNdx(2, 4), J(2, 2), B(4, 8), D(4, 4)
+    REAL(wp) :: BTD(8, 4), detJ, r_pt, dV
+    INTEGER(i4) :: ip
+    Ke = ZERO
+    CALL PH_Elem_CAX4_ConstMatrix(E_young, nu, D)
+    CALL PH_Elem_CAX4_GaussPoints(xi, eta, weights)
+    DO ip = 1, 4
+      CALL PH_Elem_CAX4_JacB_Legacy(coords, xi(ip), eta(ip), N, dNdx, J, detJ, r_pt, B)
+      IF (ABS(detJ) <= 1.0e-12_wp .OR. r_pt < 1.0e-12_wp) CYCLE
+      dV = TWOPI * r_pt * detJ * weights(ip)
+      BTD = MATMUL(TRANSPOSE(B), D)
+      Ke = Ke + dV * MATMUL(BTD, B)
+    END DO
+  END SUBROUTINE PH_Elem_CAX4_StiffMatrix
 
   SUBROUTINE PH_Elem_CAX4_FormStiffMatrix(arg)
     TYPE(PH_Elem_CAX4_StiffMatrix_Arg), INTENT(INOUT) :: arg
