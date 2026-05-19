@@ -32,7 +32,7 @@
 ! Coupling with J2 Module (§5.5):
 !   This module USE-s PH_Mat_Plast_J2_Iso_Core for:
 !     - PH_J2_Hardening (yield stress evaluation)
-!     - PH_J2_HardeningTangent (hardening slope)
+!     - PH_J2_ComputeHardeningTangent (hardening slope)
 !   The radial return in effective stress space follows identical logic.
 !
 ! State Variable Layout (§6.3):
@@ -54,7 +54,7 @@ MODULE PH_Mat_Damage_Lemaitre_Core
   USE IF_Err_Brg, ONLY: ErrorStatusType, init_error_status, &
                          IF_STATUS_OK, IF_STATUS_ERROR
   USE PH_Mat_Plast_J2_Iso_Core, ONLY: PH_J2_Props, PH_J2_Hardening, &
-                                     PH_J2_HardeningTangent
+                                     PH_J2_ComputeHardeningTangent
   IMPLICIT NONE
   PRIVATE
 
@@ -316,7 +316,7 @@ CONTAINS
     ! ---- Step 3: Radial return in effective stress space (§5.3 Step 3) ----
     ! Same algorithm as J2 but operating on σ̃
     ! Initial guess: Δγ^(0) = f̃ / (3G + H')
-    CALL PH_J2_HardeningTangent(j2_props, state%eps_p_eq, H_tan)
+    CALL PH_J2_ComputeHardeningTangent(j2_props, state%eps_p_eq, H_tan)
     dg = f_trial / (3.0_wp * G + H_tan)
 
     ! Local Newton iteration for nonlinear hardening
@@ -324,7 +324,7 @@ CONTAINS
     DO iter = 1, PH_MAT_LEMAITRE_MAX_LOCAL_ITER
       peeq_trial = state%eps_p_eq + dg
       CALL PH_J2_Hardening(j2_props, peeq_trial, sigma_y)
-      CALL PH_J2_HardeningTangent(j2_props, peeq_trial, H_tan)
+      CALL PH_J2_ComputeHardeningTangent(j2_props, peeq_trial, H_tan)
 
       R_nrloc = q_eff_trial - 3.0_wp * G * dg - sigma_y
       IF (ABS(R_nrloc) < TOL_NRLOC * props%sigma_y0) EXIT

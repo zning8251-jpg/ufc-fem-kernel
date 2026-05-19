@@ -7,9 +7,9 @@
 
 ## 1. PR-A — J2
 
-- [ ] 重命名 J2_Iso / J2_UMAT 违规符号
-- [ ] CHAIN-001（J2_Iso 若仍缺）
-- [ ] guardian P2 下降计数
+- [x] 重命名 J2_Iso / J2_UMAT 违规符号（NAME-001）
+- [x] CHAIN-001（J2_Iso + J2_UMAT 四链注释）
+- [x] guardian：两文件 P2=0；全 Plast P2 下降（Hill/Barlat 留 PR-B）
 
 ## 2. PR-B — Hill / Barlat
 

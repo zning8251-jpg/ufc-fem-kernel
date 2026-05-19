@@ -1,5 +1,5 @@
 !===============================================================================
-! test_umat_plastic_j2: Unit test for PH_Mat_PLM_J2_UMAT (mat_id 201 registry path)
+! test_umat_plastic_j2: Unit test for PH_Mat_Compute_J2_UMAT (mat_id 201 registry path)
 ! Run: BUILD_TESTING=ON, cmake --build build, ctest -R UMAT_PlasticJ2 (ctest name unchanged)
 !
 ! Theory: J2 plasticity; props(1:4)=E,nu,sigma_y0,H; statev(1)=eq_pl, (2:7)=pl_strain
@@ -10,7 +10,7 @@ program test_umat_plastic_j2
   use IF_Prec_Core, only: wp
   use IF_Err_API, only: ErrorStatusType, init_error_status, IF_STATUS_OK
   use PH_UMAT_Types, only: PH_UMAT_Context
-  use PH_Mat_PLM_J2, only: PH_Mat_PLM_J2_UMAT
+  use PH_Mat_Plast_J2_UMAT_Core, only: PH_Mat_Compute_J2_UMAT
   implicit none
 
   type(PH_UMAT_Context) :: ctx
@@ -38,9 +38,9 @@ program test_umat_plastic_j2
   ctx%dstran = 0.0_wp
   ctx%dstran(1) = 0.001_wp
 
-  call PH_Mat_PLM_J2_UMAT(ctx, st)
+  call PH_Mat_Compute_J2_UMAT(ctx, st)
   if (st%status_code /= IF_STATUS_OK) then
-    write(*,*) 'FAIL: PH_Mat_PLM_J2_UMAT step1 returned status ', st%status_code, ' ', trim(st%message)
+    write(*,*) 'FAIL: PH_Mat_Compute_J2_UMAT step1 returned status ', st%status_code, ' ', trim(st%message)
     call ctx%Cleanup()
     stop 1
   endif
@@ -62,9 +62,9 @@ program test_umat_plastic_j2
 
   ! --- Step 2: Larger strain to trigger plasticity ---
   ctx%dstran(1) = 0.004_wp
-  call PH_Mat_PLM_J2_UMAT(ctx, st)
+  call PH_Mat_Compute_J2_UMAT(ctx, st)
   if (st%status_code /= IF_STATUS_OK) then
-    write(*,*) 'FAIL: PH_Mat_PLM_J2_UMAT step2 returned status ', st%status_code
+    write(*,*) 'FAIL: PH_Mat_Compute_J2_UMAT step2 returned status ', st%status_code
     call ctx%Cleanup()
     stop 1
   endif
@@ -84,5 +84,5 @@ program test_umat_plastic_j2
   endif
 
   call ctx%Cleanup()
-  write(*,*) 'PASS: PH_Mat_PLM_J2_UMAT unit test'
+  write(*,*) 'PASS: PH_Mat_Compute_J2_UMAT unit test'
 end program test_umat_plastic_j2

@@ -21,11 +21,11 @@ MODULE PH_Mat_Plast_J2_Iso_Core
   ! Public Interface
   !-----------------------------------------------------------------------------
   PUBLIC :: PH_J2_Init
-  PUBLIC :: PH_J2_TrialStress
+  PUBLIC :: PH_J2_ComputeTrialStress
   PUBLIC :: PH_J2_ComputeStress_Arg
   PUBLIC :: PH_J2_ComputeStress
-  PUBLIC :: PH_J2_Hardening
-  PUBLIC :: PH_J2_HardeningTangent
+  PUBLIC :: PH_J2_ComputeHardening
+  PUBLIC :: PH_J2_ComputeHardeningTangent
 
   !-----------------------------------------------------------------------------
   ! Hardening Type Constants (§3.3)
@@ -144,10 +144,10 @@ CONTAINS
   ! PH_J2_ComputeStress_Core — radial return spine (module-private callers)
   !===========================================================================
   SUBROUTINE PH_J2_ComputeStress_Core(props, strain_inc, state, tangent, pnewdt, ierr)
-    ! Theory: J2 von Mises radial return with isotropic/kinematic hardening laws.
-    ! Logic:  Trial elastic predictor; yield check; plastic branch calls RadialReturn.
-    ! Compute: PH_J2_TrialStress, PH_J2_YieldCheck, PH_J2_RadialReturn, PH_J2_ConsistentTangent.
-    ! Data:   props (IN), state (INOUT), tangent/pnewdt/status (OUT/INOUT).
+    ! 理论链: J2 von Mises 径向返回 + 等向/随动硬化。
+    ! 逻辑链: 弹性试应力 → 屈服判据 → 塑性分支径向返回。
+    ! 计算链: PH_J2_ComputeTrialStress / ComputeYieldCheck / ApplyRadialReturn / ComputeConsistentTangent。
+    ! 数据链: props(IN); state(INOUT); tangent·pnewdt·status(OUT/INOUT)。
     TYPE(PH_J2_Props),      INTENT(IN)    :: props
     REAL(wp),               INTENT(IN)    :: strain_inc(6)  ! Δε (Voigt)
     TYPE(PH_J2_State),      INTENT(INOUT) :: state
@@ -172,12 +172,12 @@ CONTAINS
 
     ! ---- Step 1: Elastic Prediction (§3.2) ----
     ! σ_trial = σ_n + D_e : Δε
-    CALL PH_J2_TrialStress(props, state%stress%stress, strain_inc, &
+    CALL PH_J2_ComputeTrialStress(props, state%stress%stress, strain_inc, &
                             D_el, sigma_trial, s_trial, q_trial, p_mean)
 
     ! ---- Step 2: Yield Check (§3.2) ----
     ! f_trial = q_trial - σ_y(ε̄_p_n)
-    CALL PH_J2_YieldCheck(props, state%plastic%eps_p_eq, q_trial, f_trial, sigma_y)
+    CALL PH_J2_ComputeYieldCheck(props, state%plastic%eps_p_eq, q_trial, f_trial, sigma_y)
 
     IF (f_trial <= 0.0_wp) THEN
       ! Elastic step: accept trial stress, tangent = D_el
@@ -192,13 +192,13 @@ CONTAINS
     ! ---- Step 3: Radial Return (§3.2 Step 3 + §3.5 Newton) ----
     ! Plastic step: find Δγ via Newton iteration
     G = props%elastic%E / (2.0_wp * (1.0_wp + props%elastic%nu))
-    CALL PH_J2_RadialReturn(props, state, G, q_trial, s_trial, p_mean, &
+    CALL PH_J2_ApplyRadialReturn(props, state, G, q_trial, s_trial, p_mean, &
                              dg, n_dir, beta, pnewdt, ierr)
     IF (ierr%status_code /= IF_STATUS_OK) RETURN
 
     ! ---- Step 4: Consistent Tangent (§3.4) ----
     ! D_ep = D_e - correction terms
-    CALL PH_J2_ConsistentTangent(props, D_el, G, dg, q_trial, n_dir, &
+    CALL PH_J2_ComputeConsistentTangent(props, D_el, G, dg, q_trial, n_dir, &
                                   state%plastic%eps_p_eq, tangent)
     state%tangent%D_ep  = tangent
     state%plastic%yielded = .TRUE.
@@ -243,7 +243,7 @@ CONTAINS
   END SUBROUTINE PH_J2_Init
 
   !===========================================================================
-  ! PH_J2_TrialStress — Step 1: Elastic predictor (trial stress)
+  ! PH_J2_ComputeTrialStress — Step 1: Elastic predictor (trial stress)
   !
   ! Design Doc: §3.2 Step 1
   ! Formula: σ_trial = σ_n + D_e : Δε
@@ -251,8 +251,12 @@ CONTAINS
   !          q_trial = sqrt(3/2 * s:s)
   !          p_mean  = (1/3) tr(σ_trial)
   !===========================================================================
-  SUBROUTINE PH_J2_TrialStress(props, stress_n, strain_inc, &
+  SUBROUTINE PH_J2_ComputeTrialStress(props, stress_n, strain_inc, &
                                  D_el, sigma_trial, s_trial, q_trial, p_mean)
+    ! 理论链: σ_tr = σ_n + D_e Δε；偏应力与 von Mises q。
+    ! 逻辑链: 构造 D_e，更新试应力与偏量。
+    ! 计算链: Construct_Elastic_D + 张量偏量分解。
+    ! 数据链: stress_n·strain_inc(IN); D_el·sigma_trial·s_trial·q_trial·p_mean(OUT)。
     TYPE(PH_J2_Props), INTENT(IN)  :: props
     REAL(wp),          INTENT(IN)  :: stress_n(6)     ! σ_n (previous converged)
     REAL(wp),          INTENT(IN)  :: strain_inc(6)   ! Δε
@@ -310,17 +314,17 @@ CONTAINS
     ! Scale to Von Mises: q = sqrt(3/2) * ||s||
     q_trial = SQRT(1.5_wp) * q_trial
 
-  END SUBROUTINE PH_J2_TrialStress
+  END SUBROUTINE PH_J2_ComputeTrialStress
 
   !===========================================================================
-  ! PH_J2_YieldCheck — Step 2: Yield function evaluation
+  ! PH_J2_ComputeYieldCheck — Step 2: Yield function evaluation
   !
   ! Design Doc: §3.2 Step 2
   ! Formula: f_trial = q_trial - σ_y(ε̄_p_n)
   !          If f_trial <= 0 → elastic step
   !          If f_trial > 0  → plastic step (proceed to radial return)
   !===========================================================================
-  SUBROUTINE PH_J2_YieldCheck(props, eps_p_eq, q_trial, f_trial, sigma_y)
+  SUBROUTINE PH_J2_ComputeYieldCheck(props, eps_p_eq, q_trial, f_trial, sigma_y)
     TYPE(PH_J2_Props), INTENT(IN)  :: props
     REAL(wp),          INTENT(IN)  :: eps_p_eq  ! Current ε̄_p
     REAL(wp),          INTENT(IN)  :: q_trial   ! Trial Von Mises stress
@@ -328,15 +332,15 @@ CONTAINS
     REAL(wp),          INTENT(OUT) :: sigma_y   ! Current yield stress
 
     ! Evaluate hardening law at current plastic strain
-    CALL PH_J2_Hardening(props, eps_p_eq, sigma_y)
+    CALL PH_J2_ComputeHardening(props, eps_p_eq, sigma_y)
 
     ! Yield function: f = q - σ_y
     f_trial = q_trial - sigma_y
 
-  END SUBROUTINE PH_J2_YieldCheck
+  END SUBROUTINE PH_J2_ComputeYieldCheck
 
   !===========================================================================
-  ! PH_J2_RadialReturn — Step 3: Radial return mapping with Newton iteration
+  ! PH_J2_ApplyRadialReturn — Step 3: Radial return mapping with Newton iteration
   !
   ! Design Doc: §3.2 Step 3, §3.5
   ! Algorithm:
@@ -348,7 +352,7 @@ CONTAINS
   !   Convergence: |R| < tol_nrloc · σ_y0
   !   Updates: stress, ε̄_p, ε_p, backstress
   !===========================================================================
-  SUBROUTINE PH_J2_RadialReturn(props, state, G, q_trial, s_trial, p_mean, &
+  SUBROUTINE PH_J2_ApplyRadialReturn(props, state, G, q_trial, s_trial, p_mean, &
                                   dg, n_dir, beta, pnewdt, ierr)
     TYPE(PH_J2_Props),      INTENT(IN)    :: props
     TYPE(PH_J2_State),      INTENT(INOUT) :: state
@@ -377,14 +381,14 @@ CONTAINS
     ! Since q_trial = sqrt(3/2) * ||s_trial||, ||s_trial|| = q_trial / sqrt(3/2)
     IF (q_trial < 1.0E-30_wp) THEN
       ierr%status_code = IF_STATUS_ERROR
-      ierr%message = '[PH_J2_RadialReturn]: q_trial near zero, degenerate state'
+      ierr%message = '[PH_J2_ApplyRadialReturn]: q_trial near zero, degenerate state'
       RETURN
     END IF
     n_dir = s_trial / (q_trial / SQRT(1.5_wp))  ! n = s/||s||
 
     ! Initial guess (linear approximation): Δγ^(0) = f / (3G + H'(ε̄_p_n))
-    CALL PH_J2_HardeningTangent(props, state%plastic%eps_p_eq, H_tan)
-    CALL PH_J2_Hardening(props, state%plastic%eps_p_eq, sigma_y)
+    CALL PH_J2_ComputeHardeningTangent(props, state%plastic%eps_p_eq, H_tan)
+    CALL PH_J2_ComputeHardening(props, state%plastic%eps_p_eq, sigma_y)
     f_trial = q_trial - sigma_y
     dg = f_trial / (3.0_wp * G + H_tan)
 
@@ -393,8 +397,8 @@ CONTAINS
     ! Jacobian: dR/dΔγ = -(3G + H')
     DO iter = 1, PH_MAT_J2_MAX_LOCAL_ITER
       peeq_trial = state%plastic%eps_p_eq + dg
-      CALL PH_J2_Hardening(props, peeq_trial, sigma_y)
-      CALL PH_J2_HardeningTangent(props, peeq_trial, H_tan)
+      CALL PH_J2_ComputeHardening(props, peeq_trial, sigma_y)
+      CALL PH_J2_ComputeHardeningTangent(props, peeq_trial, H_tan)
 
       R_nrloc = q_trial - 3.0_wp * G * dg - sigma_y
 
@@ -405,7 +409,7 @@ CONTAINS
       dR_ddg = -(3.0_wp * G + H_tan)
       IF (ABS(dR_ddg) < 1.0E-30_wp) THEN
         ierr%status_code = IF_STATUS_ERROR
-        ierr%message = '[PH_J2_RadialReturn]: Zero Jacobian in local Newton'
+        ierr%message = '[PH_J2_ApplyRadialReturn]: Zero Jacobian in local Newton'
         RETURN
       END IF
       dg = dg - R_nrloc / dR_ddg
@@ -417,7 +421,7 @@ CONTAINS
     ! Check convergence
     IF (iter > PH_MAT_J2_MAX_LOCAL_ITER) THEN
       ierr%status_code = IF_STATUS_ERROR
-      ierr%message = '[PH_J2_RadialReturn]: Local Newton did not converge'
+      ierr%message = '[PH_J2_ApplyRadialReturn]: Local Newton did not converge'
       pnewdt = PNEWDT_MIN
       RETURN
     END IF
@@ -449,10 +453,10 @@ CONTAINS
     END IF
 
     ierr%status_code = IF_STATUS_OK
-  END SUBROUTINE PH_J2_RadialReturn
+  END SUBROUTINE PH_J2_ApplyRadialReturn
 
   !===========================================================================
-  ! PH_J2_ConsistentTangent — Step 4: Consistent tangent modulus D_ep
+  ! PH_J2_ComputeConsistentTangent — Step 4: Consistent tangent modulus D_ep
   !
   ! Design Doc: §3.4
   ! Formula (simplified): D_ep = D_e - (6G²/(3G+H')) · n⊗n
@@ -460,8 +464,12 @@ CONTAINS
   !   D_ep = D_e - (6G²·Δγ/q_trial)·I_dev
   !        + 6G²·(Δγ/q_trial - 1/(3G+H'))·n⊗n
   !===========================================================================
-  SUBROUTINE PH_J2_ConsistentTangent(props, D_el, G, dg, q_trial, n_dir, &
+  SUBROUTINE PH_J2_ComputeConsistentTangent(props, D_el, G, dg, q_trial, n_dir, &
                                        eps_p_eq, tangent)
+    ! 理论链: 一致切线 D_ep（径向返回线性化）。
+    ! 逻辑链: 由 Δγ、q_trial 与硬化切线组装 D_ep。
+    ! 计算链: 6×6 Voigt 修正弹性刚度。
+    ! 数据链: D_el·G·dg·n_dir(IN); tangent(OUT)。
     TYPE(PH_J2_Props), INTENT(IN)  :: props
     REAL(wp),          INTENT(IN)  :: D_el(6,6)    ! Elastic stiffness
     REAL(wp),          INTENT(IN)  :: G            ! Shear modulus
@@ -476,7 +484,7 @@ CONTAINS
     REAL(wp) :: theta1, theta2 ! Simo & Taylor coefficients
     INTEGER(i4) :: i, j
 
-    CALL PH_J2_HardeningTangent(props, eps_p_eq, H_tan)
+    CALL PH_J2_ComputeHardeningTangent(props, eps_p_eq, H_tan)
 
     ! Coefficients (§3.4):
     ! θ₁ = 1 - 3G·Δγ/q_trial  (= β, radial return factor)
@@ -528,17 +536,17 @@ CONTAINS
       END DO
     END DO
 
-  END SUBROUTINE PH_J2_ConsistentTangent
+  END SUBROUTINE PH_J2_ComputeConsistentTangent
 
   !===========================================================================
-  ! PH_J2_Hardening — Evaluate yield stress σ_y(ε̄_p)
+  ! PH_J2_ComputeHardening — Evaluate yield stress σ_y(ε̄_p)
   !
   ! Design Doc: §3.3
   ! Type 1: σ_y = σ_y0 + H · ε̄_p
   ! Type 2: σ_y = K_swift · (eps0_swift + ε̄_p)^n_swift
   ! Type 3: σ_y = σ_y0 + sigma_inf · (1 - exp(-delta_voce · ε̄_p))
   !===========================================================================
-  SUBROUTINE PH_J2_Hardening(props, eps_p_eq, sigma_y)
+  SUBROUTINE PH_J2_ComputeHardening(props, eps_p_eq, sigma_y)
     TYPE(PH_J2_Props), INTENT(IN)  :: props
     REAL(wp),          INTENT(IN)  :: eps_p_eq  ! Equivalent plastic strain
     REAL(wp),          INTENT(OUT) :: sigma_y   ! Yield stress
@@ -561,17 +569,17 @@ CONTAINS
       sigma_y = props%yield%sigma_y0 + props%harden%H * eps_p_eq
     END SELECT
 
-  END SUBROUTINE PH_J2_Hardening
+  END SUBROUTINE PH_J2_ComputeHardening
 
   !===========================================================================
-  ! PH_J2_HardeningTangent — Evaluate hardening tangent H' = dσ_y/dε̄_p
+  ! PH_J2_ComputeHardeningTangent — Evaluate hardening tangent H' = dσ_y/dε̄_p
   !
   ! Design Doc: §3.3
   ! Type 1: H' = H (constant)
   ! Type 2: H' = K · n · (ε0 + ε̄_p)^(n-1)
   ! Type 3: H' = sigma_inf · delta · exp(-delta · ε̄_p)
   !===========================================================================
-  SUBROUTINE PH_J2_HardeningTangent(props, eps_p_eq, H_tan)
+  SUBROUTINE PH_J2_ComputeHardeningTangent(props, eps_p_eq, H_tan)
     TYPE(PH_J2_Props), INTENT(IN)  :: props
     REAL(wp),          INTENT(IN)  :: eps_p_eq  ! Equivalent plastic strain
     REAL(wp),          INTENT(OUT) :: H_tan     ! Hardening tangent
@@ -594,7 +602,7 @@ CONTAINS
       H_tan = props%harden%H
     END SELECT
 
-  END SUBROUTINE PH_J2_HardeningTangent
+  END SUBROUTINE PH_J2_ComputeHardeningTangent
 
   !---------------------------------------------------------------------------
   ! PH_Mat_J2_Validate_Params — validation (module-private)
