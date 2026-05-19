@@ -5,6 +5,8 @@
 | change_id | `p1-material-c2-mateval-split` |
 | branch | `feat/p1-material-c2-mateval-split-prb` |
 | base | `feat/p1-material-c2-mateval-split-pra` |
+| PR-A | [#9](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/9) |
+| PR-B | [#10](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/10) |
 | date | 2026-05-19 |
 
 ## Done

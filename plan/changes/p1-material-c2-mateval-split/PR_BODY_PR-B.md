@@ -11,7 +11,7 @@
 
 ## Depends on
 
-- **PR-A** (`feat/p1-material-c2-mateval-split-pra`) — Elas/Plast PointEval
+- **PR-A** [#9](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/9) (`feat/p1-material-c2-mateval-split-pra`) — Elas/Plast PointEval
 
 ## Test plan
 
