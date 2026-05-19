@@ -60,6 +60,6 @@
 
 1. ~~wave3–5 合并 + `plan/tasks` 归档~~（2026-05-19 完成）
 2. ~~#7–#10 + plan 草案 #11~~（2026-05-19 完成）
-3. **Crystal 实装** — `p1-material-crystal-impl`（plan 在 `main`；见 backlog §4）
+3. ~~**Crystal W1**~~ — **done** #12+#13；**W2 多滑移** 新 change_id（见 backlog §5）
 
 *维护：合并后追加 `（PR #___ / 日期）`。*

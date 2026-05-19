@@ -1,6 +1,6 @@
 # P1 Material — post wave3–5 merge order & housekeeping
 
-> **Status (2026-05-19)**：#1–#3、#5–#6 **MERGED**；原 #4 因 base 分支删除已 **CLOSED**，Crystal 由 [#6](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/6) 入主。`plan/tasks/` wave3–5 四包已迁入 `plan/archive/`（见 §3.2）。
+> **Status (2026-05-19)**：**post-wave5 主链完成**（#7–#13 + plan #11）。wave3–5 与 crystal/C2/guardian/ortho 任务均已归档（§3.2）。**W2 多滑移** 另开 change_id。
 
 ---
 
@@ -86,19 +86,29 @@ git push origin main
 | `p1-material-plast-guardian-debt` | #7 | 2026-05-19 | → `plan/archive/p1-material-plast-guardian-debt/` |
 | `p1-material-orthotropic-eval-fix` | #8 | 2026-05-19 | → `plan/archive/p1-material-orthotropic-eval-fix/` |
 | `p1-material-c2-mateval-split` | #9 + #10 | 2026-05-19 | → `plan/archive/p1-material-c2-mateval-split/` |
+| `p1-material-crystal-impl` | #12 + #13 | 2026-05-19 | → `plan/archive/p1-material-crystal-impl/` |
 
 ---
 
-## 4. 下一波 change_id（立项顺序）
+## 4. post-wave5 主链 — **COMPLETE**
 
-| 顺序 | 建议 change_id | 范围 |
-|------|----------------|------|
-| — | ~~#7–#11~~ | **done**（2026-05-19） |
-| **next** | `p1-material-crystal-impl` | W1 UMAT 实装 — plan 在 `main`，`plan/tasks/p1-material-crystal-impl/` |
+| PR 段 | 范围 | 状态 |
+|-------|------|------|
+| #7–#8 | Plast guardian · ortho Eval | **merged** |
+| #9–#10 | C2 MatEval split | **merged** |
+| #11 | crystal plan 草案 | **merged** |
+| #12–#13 | crystal W1a (deprecated) + **W1b Schmid** | **merged** |
+
+## 5. 后续（新 change_id，非本 backlog）
+
+| 建议 change_id | 范围 |
+|----------------|------|
+| `p1-material-crystal-w2-multislip`（名待定） | 多滑移 CPFEM、潜硬化、`statev(8+)` |
+| （可选）Plast NAME-001 清扫 | 全 `Plast/` P2 命名债 |
 
 每项：`agent-task init` → `plan/changes/<id>/` → 单 PR → 合并后归档。
 
-## 5. 相关链接
+## 6. 相关链接
 
 - 变更包：`plan/changes/p1-material-wave3-plast-loc/` … `p1-material-wave5-mateval-arg/`
 - GAP 快照：`plan/workflows/P1_MATERIAL_GAP_SNAPSHOT.md`
