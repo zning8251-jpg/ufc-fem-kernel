@@ -28,7 +28,7 @@
 | 项 | 状态 | 说明 |
 |----|------|------|
 | **FLOW-003** | ✅ | `PH_MatEval`：`md_elas_wire`；`PH_MatPLMEval`：无 `%desc%=` 直写 |
-| **INTF-001** | 🔄 | `UF_Plastic_Eval_Dispatch_Arg` 脊索已收口；UMAT/legacy stubs P2 渐进 |
+| **INTF-001** | ✅ 脊索 | `UF_Plastic_Eval_Dispatch_Arg` + `UF_Plastic_UMAT_Dispatch_Arg`；`UF_Plastic_Leg_*` P2 渐进 |
 | **MOD-001** | 🔄 | `PH_MatPLMEval` 已补头 |
 
 **change**：`p1-material-wave4-dispatch-flow` · [`TASK_RUN`](../tasks/p1-material-wave4-dispatch-flow/TASK_RUN.md)
@@ -43,7 +43,7 @@
 | `rollout-l4-material-wave2-dispatch` | Dispatch 基线 | done |
 | `intf001-mat-plast-spcl-arg` | bridge SIO | done |
 | `p1-material-wave3-plast-loc` | Plast J2 | PR #1 |
-| `p1-material-wave4-dispatch-flow` | Dispatch Eval SIO | **in progress** |
+| `p1-material-wave4-dispatch-flow` | Dispatch Eval+UMAT SIO | PR（与 #1 并行） |
 
 ---
 

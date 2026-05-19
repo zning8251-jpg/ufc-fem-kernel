@@ -93,7 +93,7 @@ MODULE MD_MatLibPH_Brg
         PH_MAT_ID_INVALID, Defn_Invoke_UMAT, Defn_Invoke_UMAT_Arg
     USE UFC_GlobalContainer_Core, ONLY: g_ufc_global
     USE PH_MatPLMEval, ONLY: UF_Plastic_Eval_Dispatch, UF_Plastic_Eval_Dispatch_Arg, &
-         UF_Plastic_UMAT_Dispatch, &
+         UF_Plastic_UMAT_Dispatch, UF_Plastic_UMAT_Dispatch_Arg, &
          UF_Plastic_UMAT_Wrapper, PH_MAT_UMAT_Plastic_Dispatch, UF_Plastic_GetLegacyID, &
          UF_Plastic_Legacy_VonMises, UF_Plastic_Legacy_Hill, UF_Plastic_Legacy_CamClay, &
          UF_Plastic_Leg_MohrCoulomb, UF_Plastic_Leg_ConcreteDmg, UF_Plastic_Leg_DruckerPrager, &
@@ -140,7 +140,8 @@ MODULE MD_MatLibPH_Brg
     PUBLIC :: MD_PH_GetMaterialType_FromDesc
     ! Data transfer functions for Flow domain (L4_PH to L3_MD)
     PUBLIC :: MD_PH_TransferModelDef
-    PUBLIC :: UF_Plastic_Eval_Dispatch, UF_Plastic_Eval_Dispatch_Arg, UF_Plastic_UMAT_Dispatch
+    PUBLIC :: UF_Plastic_Eval_Dispatch, UF_Plastic_Eval_Dispatch_Arg
+    PUBLIC :: UF_Plastic_UMAT_Dispatch, UF_Plastic_UMAT_Dispatch_Arg
     PUBLIC :: UF_Plastic_UMAT_Wrapper, PH_MAT_UMAT_Plastic_Dispatch, UF_Plastic_GetLegacyID
     PUBLIC :: UF_Plastic_Legacy_VonMises, UF_Plastic_Legacy_Hill, UF_Plastic_Legacy_CamClay
     PUBLIC :: UF_Plastic_Leg_MohrCoulomb, UF_Plastic_Leg_ConcreteDmg, UF_Plastic_Leg_DruckerPrager

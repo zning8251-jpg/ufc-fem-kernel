@@ -25,7 +25,7 @@ MODULE MD_Mat_Lib
          MD_MAT_STATUS_NOT_FOUND, MD_MAT_STATUS_WARN, Desc_MaterialModel, State_IntPoint, MD_MatPointSta, MD_MatState
     USE MD_MatReg_Ops, ONLY: MatReg, g_matlib
     USE MD_MatLibPH_Brg, ONLY: UF_Plastic_Eval_Dispatch, UF_Plastic_Eval_Dispatch_Arg, &
-        UF_Plastic_UMAT_Dispatch
+        UF_Plastic_UMAT_Dispatch, UF_Plastic_UMAT_Dispatch_Arg
     USE MD_Mat_Plast_Reg, ONLY: MD_MAT_VONMISES_MAT_ID, MD_MAT_VONMISES_MAT_NA, &
          UF_Plastic_GetMaterialInfo, PlastModels_Desc, PlastMatInfo, &
          MD_MAT_HILL_MAT_ID, MD_MAT_DRUCKERPRAGER_M, MD_MAT_CAMCLAY_MAT_ID, &
