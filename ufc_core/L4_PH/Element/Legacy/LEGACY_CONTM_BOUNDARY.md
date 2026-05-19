@@ -37,5 +37,6 @@ RT_Asm_GlobalStiffness / RT_Asm_ComputeResidual  (L5_RT/Assembly/RT_Asm_Solv.f90
 | **G6-W0** | 金线无 Contm 依赖（本文件 + verifier） | **已交付**（#22） |
 | **G6-W1** | `Sld3D/2D/2Dt/3Dt` 显式路由；`Compute_Ke_C3D8/C3D4` → 族刚度核 | **已交付**（G6-W1b） |
 | **G6-W2** | `PH_Elem_Contm_Brg` 隔离 `USE MD_*`；`MD_ElemPH_Brg`→Ops/Brg；`verify_element_contm_legacy_boundary.py` | **已交付**（#23） |
+| **G6-W3** | `PH_ElemContm_Ops` 迁 `Legacy/`、削减 `USE MD_*` | **计划中** — `plan/changes/p2-element-legacy-contm-g6w3/` |
 
 **不宣称 P2 柱 S7**，直至 G3–G6 全绿（见 `P2_ELEMENT_GAP_SNAPSHOT.md`）。

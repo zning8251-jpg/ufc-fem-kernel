@@ -24,3 +24,8 @@
 - [x] `PH_Elem_Contm.f90` 薄 facade（无 `USE MD_*`）
 - [x] `MD_ElemPH_Brg` → `PH_ElemContm_Ops` + `PH_Elem_Contm_Brg`
 - [x] `tools/verify_element_contm_legacy_boundary.py` + harness `p2-element-golden-seam`
+- [x] PR → `main`（#23）
+
+## G6-W3（计划）
+
+见 [`plan/changes/p2-element-legacy-contm-g6w3/`](../p2-element-legacy-contm-g6w3/tasks.md)

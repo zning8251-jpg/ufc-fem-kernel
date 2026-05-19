@@ -49,8 +49,9 @@ MD_Mesh + MD_Elem Desc
 | `p2-element-pr01-seam-doc` | PR01 接缝文档化 + guardian 锚点基线 | **已归档**（#20） |
 | `p2-element-material-route-audit` | `PH_Elem_MaterialRoute`：销 DEP-001 P0；slot 只读审计 | **P0=0**（`ValidateRtCtx`）；P1/P2 命名债后续 |
 | `p2-element-ke-arg-align` | `PH_Element_Compute_Ke_Arg` ↔ `RT_Asm_Solv`；L4 门控 | **已落地**（`CONTRACT` + `PH_Elem_Domain%Compute_Ke`） |
-| `p2-element-legacy-contm-retire` | G6-W0 隔离 + verifier；W1/W2 裁剪 Contm | **G6-W0 进行中**（#22 拟） |
-| `p2-element-l5-rt-elem-proc-sio` | `RT_Elem_Proc` → `*_Arg` | 可选，半柱 H3 接缝 |
+| `p2-element-legacy-contm-retire` | G6-W0–W2 隔离 + verifier | **已合**（#23） |
+| `p2-element-legacy-contm-g6w3` | Ops 迁 Legacy / 去 `MD_*` | **计划** |
+| `p2-element-l5-rt-elem-proc-sio` | `Elem_Ke_In` ↔ `PH_Element_Compute_Ke_Arg` | **W0 交付中** |
 
 **建议实现顺序**：pr01-seam → material-route-audit → ke-arg-align → legacy-contm → rt-elem-proc-sio。
 

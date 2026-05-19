@@ -14,7 +14,7 @@
 | P2-G2 | 绿 | `PH_Elem_Def` / `PH_Elem_Ctx` 四型 |
 | P2-G3 | 黄 | `PH_Element_Compute_Ke_Arg` 存在；L5 `RT_Elem_Proc` 对偶未收敛 |
 | P2-G4 | 黄 | `PH_NLGeomEval` / `PH_Elem_Eval` 命名与体积 |
-| P2-G5 | 黄 | `RT_Elem_Proc` 骨架 vs `RT_Asm_Solv` 生产路径 |
+| P2-G5 | 黄 → **W0 绿*** | `Elem_Ke_In` 与 `PH_Element_Compute_Ke_Arg` 对齐；*生产仍走 `RT_Asm_Solv`* |
 | P2-G6 | **黄** | `PH_Elem_Contm_Brg` 隔离 MD；`PH_ElemContm_Ops` 仍 `USE MD_*`；金线 verifier 绿 |
 
 **柱级 S7**：**未**达成 — 需 G3–G6 实现波次 + guardian 全绿。
@@ -41,5 +41,6 @@
 | `p2-element-material-route-audit` | **P0 已销**（`PH_Elem_MatRoute_ValidateRtCtx`）— PR 待合并 |
 | `p2-element-ke-arg-align` | **已合入**（#21） |
 | `p2-element-legacy-contm-retire` | **G6-W0–W2 已合**（#23） |
-| `p2-element-ke-shell-s4s8` | `Compute_Ke_S4/S8` → 族核（膜刚度 scatter） | 可选 follow-up |
-| `p2-element-l5-rt-elem-proc-sio` | `RT_Elem_Proc` `*_Arg` 与 L4 对偶 | 可选，G5 |
+| `p2-element-ke-shell-s4s8` | `Compute_Ke_S4/S8` → 族核 | **已合**（#24） |
+| `p2-element-l5-rt-elem-proc-sio` | `Elem_Ke_In` 字段对齐 + Brg 填充 | **W0 交付中** |
+| `p2-element-legacy-contm-g6w3` | Ops 迁 Legacy / 去 `MD_*` | **计划** |
