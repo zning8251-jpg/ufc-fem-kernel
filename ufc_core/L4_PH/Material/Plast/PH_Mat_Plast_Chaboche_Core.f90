@@ -3,9 +3,10 @@
 ! LAYER:  L4_PH
 ! DOMAIN: Material
 ! ROLE:   Core
-! BRIEF:  Chaboche multi-backstress plasticity for cyclic loading —
-!         **W1**：背应力/各向同性硬化参数自 **`desc%props`**；**PH_MAT_PLASTIC** /
-!         **Effective_Model** 与 **PH_MatPLMEval** 金线协同。
+! BRIEF:  Chaboche multi-backstress plasticity (cyclic / ratcheting).
+! Purpose: Chaboche UMAT SIO via UF_Chaboche_UMAT_Arg; props from L3/dispatch ABI.
+! Theory: Multi-backstress Armstrong–Frederick + isotropic hardening (Chaboche 1989).
+! Status: Production (partial) | Last verified: 2026-05-19
 !===============================================================================
 ! ! @details Chaboche multi-backstress plastic constitutive model
 ! ! Core objective: Cyclic plasticity and ratcheting effect modeling
@@ -60,6 +61,8 @@ MODULE PH_Mat_Plast_Chaboche_Core
   USE IF_Base_Def, ONLY: ZERO, ONE, TWO, THREE, THIRD
   USE IF_Err_Brg, ONLY: ErrorStatusType, init_error_status, IF_STATUS_OK, IF_STATUS_INVALID
   USE IF_Prec_Core, ONLY: wp, i4
+  USE MD_Mat_Eval_Types, ONLY: MD_MATCTX_MAX_STATEV
+  USE MD_Mat_Plast_Reg, ONLY: MD_MAT_PLAST_MAX_PROPS
   USE MD_Mat_Plast_Contract, ONLY: PlastMatBase
   USE MD_Mat_Plast_Chaboche, ONLY: MD_MAT_CHABOCHE_MAT_ID, CHABOCHE_MAT_NA, UF_Chaboche_ValidateProps, &
       MD_MAT_CHAB_PROP_E, MD_MAT_CHAB_PROP_NU, MD_MAT_CHAB_PROP_SIGMA_Y0, MD_MAT_CHAB_PROP_H, &
@@ -153,9 +156,48 @@ MODULE PH_Mat_Plast_Chaboche_Core
   END TYPE
 
   PUBLIC :: PH_Mat_Chaboche_Init, PH_Mat_Chaboche_Calc_Stress
-  PUBLIC :: UF_Chaboche_UMAT
+  PUBLIC :: UF_Chaboche_UMAT, UF_Chaboche_UMAT_Arg
+
+  TYPE, PUBLIC :: UF_Chaboche_UMAT_Arg
+    REAL(wp) :: stress(6) = 0.0_wp                       ! [INOUT]
+    INTEGER(i4) :: nstatev = 0_i4                        ! [IN]
+    REAL(wp) :: statev(MD_MATCTX_MAX_STATEV) = 0.0_wp    ! [INOUT]
+    REAL(wp) :: ddsdde(6, 6) = 0.0_wp                    ! [OUT]
+    REAL(wp) :: sse = 0.0_wp                             ! [OUT]
+    REAL(wp) :: spd = 0.0_wp                             ! [OUT]
+    REAL(wp) :: scd = 0.0_wp                             ! [OUT]
+    REAL(wp) :: rpl = 0.0_wp                             ! [OUT]
+    REAL(wp) :: ddsddt(6) = 0.0_wp                       ! [OUT]
+    REAL(wp) :: drplde(6) = 0.0_wp                       ! [OUT]
+    REAL(wp) :: drpldt = 0.0_wp                          ! [OUT]
+    REAL(wp) :: stran(6) = 0.0_wp                        ! [IN]
+    REAL(wp) :: dstran(6) = 0.0_wp                       ! [IN]
+    REAL(wp) :: time(2) = 0.0_wp                         ! [IN]
+    REAL(wp) :: dtime = 0.0_wp                           ! [IN]
+    REAL(wp) :: temp = 0.0_wp                            ! [IN]
+    REAL(wp) :: dtemp = 0.0_wp                           ! [IN]
+    INTEGER(i4) :: ndir = 0_i4                           ! [IN]
+    INTEGER(i4) :: nshr = 0_i4                           ! [IN]
+    INTEGER(i4) :: nprops = 0_i4                         ! [IN]
+    REAL(wp) :: props(MD_MAT_PLAST_MAX_PROPS) = 0.0_wp   ! [IN]
+    INTEGER(i4) :: ndim = 0_i4                           ! [IN]
+    INTEGER(i4) :: kstep = 0_i4                          ! [IN]
+    INTEGER(i4) :: kinc = 0_i4                           ! [IN]
+    TYPE(ErrorStatusType) :: status                      ! [OUT]
+  END TYPE UF_Chaboche_UMAT_Arg
 
 CONTAINS
+
+  SUBROUTINE UF_Chaboche_UMAT(arg)
+    TYPE(UF_Chaboche_UMAT_Arg), INTENT(INOUT) :: arg
+    REAL(wp) :: predef_dummy(1), dpred_dummy(1)
+    INTEGER(i4) :: nsv
+    nsv = MAX(arg%nstatev, 1_i4)
+    CALL UF_Chaboche_UMAT_Legacy(arg%stress, arg%statev(1:nsv), arg%ddsdde, arg%sse, arg%spd, arg%scd, arg%rpl, &
+        arg%ddsddt, arg%drplde, arg%drpldt, arg%stran, arg%dstran, arg%time, arg%dtime, arg%temp, arg%dtemp, &
+        predef_dummy, dpred_dummy, arg%ndir, arg%nshr, nsv, arg%nprops, arg%props(1:MAX(arg%nprops, 1)), &
+        arg%ndim, arg%kstep, arg%kinc, arg%status)
+  END SUBROUTINE UF_Chaboche_UMAT
 
   SUBROUTINE PH_Mat_Chaboche_Init(params, state)
     TYPE(Chab_Params), INTENT(IN) :: params
@@ -449,7 +491,7 @@ CONTAINS
   ! Standard UMAT Interface
   !=============================================================================
 
-  SUBROUTINE UF_Chaboche_UMAT(sigma, statev, ddsdde, sse, spd, scd, rpl, &
+  SUBROUTINE UF_Chaboche_UMAT_Legacy(sigma, statev, ddsdde, sse, spd, scd, rpl, &
                                ddsddt, drplde, drpldt, &
                                stran, dstran, time, dtime, temp, dtemp, &
                                predef, dpred, ndir, nshr, nstatev, nprops, &
@@ -631,7 +673,7 @@ CONTAINS
 
     status%status_code = IF_STATUS_OK
 
-  END SUBROUTINE UF_Chaboche_UMAT
+  END SUBROUTINE UF_Chaboche_UMAT_Legacy
 
   !=============================================================================
   ! Helper: Build Elastic Stiffness Matrix
@@ -776,7 +818,7 @@ CONTAINS
       props(CHAB_PROP_GAMMA3) = Mat%gamma(3)
     END IF
 
-    CALL UF_Chaboche_UMAT(stress, statev, ddsdde, sse, spd, scd, rpl, &
+    CALL UF_Chaboche_UMAT_Legacy(stress, statev, ddsdde, sse, spd, scd, rpl, &
                           ddsddt, drplde, drpldt, &
                           stran, dstran, time, dtime, temp, dtemp, &
                           [ZERO], [ZERO], ndir, nshr, nstatev, CHAB_MAX_PROPS, &

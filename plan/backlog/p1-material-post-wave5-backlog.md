@@ -90,7 +90,7 @@ git push origin main
 
 | 顺序 | 建议 change_id | 范围 |
 |------|----------------|------|
-| 1 | `p1-material-plast-guardian-debt` | Chaboche + 全 `Plast/` guardian P0/P1 清扫 |
+| 1 | `p1-material-plast-guardian-debt` | Chaboche + Plast **P0/P1** — PR [#7](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/7) |
 | 2 | `p1-material-orthotropic-eval-fix` | `PH_Mat_ElasticOrthotropic_Eval` dummy 小修 |
 | 3 | `p1-material-c2-mateval-split` | C2：按族吸收 `PH_MatEval` |
 | 4 | `p1-material-crystal-impl` | Crystal `STATUS_UNSUPPORTED` → 实装；**plan 草案** `plan/changes/p1-material-crystal-impl/`（等 #7–#10） |

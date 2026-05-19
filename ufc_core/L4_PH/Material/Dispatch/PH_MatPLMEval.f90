@@ -26,7 +26,7 @@ MODULE PH_MatPLMEval
     USE IF_Mem_Algo, ONLY: IF_Mem_Algo_Scratch_Real1D, IF_Mem_Algo_Release_Real1D
     USE PH_MatPLM_Kernels, ONLY: &
         UF_Hill_UMAT, UF_Hill_UMAT_Arg, UF_DruckerPrager_UMAT, UF_CamClay_UMAT, UF_MohrCoulomb_UMAT, &
-        UF_JohnsonCook_UMAT, UF_Gurson_UMAT, UF_Chaboche_UMAT, &
+        UF_JohnsonCook_UMAT, UF_Gurson_UMAT, UF_Chaboche_UMAT, UF_Chaboche_UMAT_Arg, &
         UF_CapPlasticity_UMAT, UF_CrushableFoam_UMAT, UF_CastIron_UMAT, &
         UF_SoftRock_UMAT, UF_Foam3Stage_UMAT, UF_Ceramic_UMAT, &
         UF_Viscoplastic_UMAT, UF_ViscoplasticDamageEM_UMAT, UF_Nanomaterial_UMAT, UF_FGM_UMAT, &
@@ -284,10 +284,40 @@ CONTAINS
            ctx%temp, ctx%dtemp, [0.0_wp], [0.0_wp], ctx%ndi, ctx%nshr, MAX(nstatv,1), np, &
            plm_in%props(1:np), ctx%cfg%ndim, algo%kstep, algo%kinc, status)
     CASE (PH_MAT_CHABOCHE_MAT_ID)
-      CALL UF_Chaboche_UMAT(stress_loc, statev_loc(1:MAX(nstatv,1)), ddsdde_loc, sse_loc, spd_loc, scd_loc, &
-           rpl_loc, ddsddt_loc, drplde_loc, drpldt_loc, ctx%stran, ctx%dstran, ctx%time, ctx%dtime, &
-           ctx%temp, ctx%dtemp, [0.0_wp], [0.0_wp], ctx%ndi, ctx%nshr, MAX(nstatv,1), np, &
-           plm_in%props(1:np), ctx%cfg%ndim, algo%kstep, algo%kinc, status)
+      BLOCK
+        TYPE(UF_Chaboche_UMAT_Arg) :: chab_arg
+        INTEGER(i4) :: nsv_chab
+        nsv_chab = MIN(MAX(nstatv, 0_i4), SIZE(chab_arg%statev, KIND=i4))
+        chab_arg%stress = stress_loc
+        chab_arg%nstatev = nsv_chab
+        IF (nsv_chab > 0) chab_arg%statev(1:nsv_chab) = statev_loc(1:nsv_chab)
+        chab_arg%stran = ctx%stran
+        chab_arg%dstran = ctx%dstran
+        chab_arg%time = ctx%time
+        chab_arg%dtime = ctx%dtime
+        chab_arg%temp = ctx%temp
+        chab_arg%dtemp = ctx%dtemp
+        chab_arg%ndir = ctx%ndi
+        chab_arg%nshr = ctx%nshr
+        chab_arg%ndim = ctx%cfg%ndim
+        chab_arg%kstep = algo%kstep
+        chab_arg%kinc = algo%kinc
+        chab_arg%nprops = np
+        IF (np > 0) chab_arg%props(1:np) = plm_in%props(1:np)
+        CALL init_error_status(chab_arg%status)
+        CALL UF_Chaboche_UMAT(chab_arg)
+        stress_loc = chab_arg%stress
+        ddsdde_loc = chab_arg%ddsdde
+        sse_loc = chab_arg%sse
+        spd_loc = chab_arg%spd
+        scd_loc = chab_arg%scd
+        rpl_loc = chab_arg%rpl
+        ddsddt_loc = chab_arg%ddsddt
+        drplde_loc = chab_arg%drplde
+        drpldt_loc = chab_arg%drpldt
+        IF (nsv_chab > 0) statev_loc(1:nsv_chab) = chab_arg%statev(1:nsv_chab)
+        status = chab_arg%status
+      END BLOCK
     CASE (PH_MAT_CAP_PLASTICITY, 221_i4)
       CALL UF_CapPlasticity_UMAT(stress_loc, statev_loc(1:MAX(nstatv,1)), ddsdde_loc, sse_loc, spd_loc, scd_loc, &
            rpl_loc, ddsddt_loc, drplde_loc, drpldt_loc, ctx%stran, ctx%dstran, ctx%time, ctx%dtime, &
