@@ -40,4 +40,4 @@
 | `p2-element-pr01-seam-doc` | **已归档**（#20）— [`design.md`](../changes/p2-element-pr01-seam-doc/design.md) |
 | `p2-element-material-route-audit` | **P0 已销**（`PH_Elem_MatRoute_ValidateRtCtx`）— PR 待合并 |
 | `p2-element-ke-arg-align` | **已合入**（#21） |
-| `p2-element-legacy-contm-retire` | **G6-W0/W1 已合**（#22）；W1b 路由+Ke 待 PR |
+| `p2-element-legacy-contm-retire` | **G6-W0–W2 待合**（#23：W1b 路由+Ke+Contm 门面化） |
