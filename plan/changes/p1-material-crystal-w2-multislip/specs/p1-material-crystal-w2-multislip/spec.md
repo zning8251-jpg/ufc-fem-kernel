@@ -22,10 +22,16 @@ When only W1b-length props are used (single slip), behavior **must** match pre-W
 
 ## Scenarios
 
-### Scenario A — Two active slips
+### Scenario A — W2-REF-01（系1单增量）
 
-- **Given** symmetric double-slip props and stress path activating both systems  
-- **When** `UF_CrystalPlasticity_UMAT` runs  
+- **Given** `nprops=19`, W2-REF-01 props/`dstran`（`design.md` §6）  
+- **When** `UF_CrystalPlasticity_UMAT` runs one increment from zero state  
+- **Then** `gamma^{(1)}≈0.003307009`, `gamma^{(2)}=0`, `IF_STATUS_OK`
+
+### Scenario A2 — Two active slips
+
+- **Given** stress path with both \(|\tau^{tr}_\alpha|>\tau^\alpha_c\)  
+- **When** the UMAT runs  
 - **Then** both `statev(1:2)` increase and `IF_STATUS_OK`  
 
 ### Scenario B — W1b regression

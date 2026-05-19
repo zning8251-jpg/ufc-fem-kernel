@@ -74,18 +74,26 @@
 
 ### Crystal UMAT（mat_id 266 · `PH_Mat_Plast_Crystal_Core`）
 
-> **W1b（当前）**：**1-slip Schmid** — \(\tau = P:\sigma\)，\(P=\mathrm{sym}(s\otimes m)\)，率无关滑移返回。  
-> **W1a iso-surrogate**（#12）：**DEPRECATED**，已由 W1b 取代；勿再用于新算例。
+> **W1b**：**1-slip Schmid**（`nprops < 19`）— \(\tau = P:\sigma\)，率无关返回。  
+> **W2a**：**N=2 双滑移 + 2×2 潜硬化**（`nprops ≥ 19`）— Gauss–Seidel 耦合返回；一致切线 W2a 为 **弹性 \(D\)**（见 plan W2）。  
+> **W1a iso-surrogate**（#12）：**DEPRECATED**。
+
+| 模式 | 触发 | `nprops_min` | `nstatev_min` |
+|------|------|--------------|---------------|
+| W1b | `nprops < 19` | 4 | 7 |
+| W2a | `nprops ≥ 19` | 19 | 8 |
 
 | 项 | 约定 |
 |----|------|
 | 入口 | `UF_CrystalPlasticity_UMAT(UF_CrystalPlasticity_UMAT_Arg)` |
 | PLM | `PH_MatPLMEval` CASE `266`（Arg 打包，wave5 #6） |
-| `props(1:4)` | `E`, `nu`, `tau_c0`, `H`（`nprops_min = 4`） |
-| `props(5:7)` | `s1,s2,s3` 滑移方向（`nprops < 9` 时默认 `[0,0,1]`） |
-| `props(8:9)` | `m1,m2` 滑移面法向（`m3=0` 后归一化；`nprops≥10` 时 `props(10)=m3`） |
-| `statev(1)` | `gamma` 累积滑移 |
-| `statev(2:7)` | `eps_p` Voigt 6（`nstatev_min = 7`） |
+| `props(1:4)` | `E`, `nu`, `tau_c0`, `H11` |
+| `props(5:7)` / `(8:10)` | 系1 `s`, `m`（W1b：`nprops<9` 默认 `s=[0,0,1]`, `m=[1,0,0]`） |
+| `props(11:13)` / `(14:16)` | 系2 `s`, `m`（仅 W2a） |
+| `props(17:19)` | `H12`, `H21`, `H22`（仅 W2a） |
+| W1b `statev` | `(1)=gamma`, `(2:7)=eps_p` |
+| W2a `statev` | `(1:2)=gamma^{(1:2)}`, `(3:8)=eps_p` |
+| 参考算例 | **W2-REF-01** — [`plan/changes/p1-material-crystal-w2-multislip/design.md`](../../../plan/changes/p1-material-crystal-w2-multislip/design.md) §6 |
 | 错误 | `nprops`/`nstatev` 不足或 `s`/`m` 零长 → `IF_STATUS_INVALID` |
 
 ---
