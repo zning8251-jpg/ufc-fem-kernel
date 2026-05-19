@@ -1,14 +1,16 @@
 !===============================================================================
 ! MODULE: PH_ElemContm_Ops
 ! LAYER:  L4_PH
-! DOMAIN: Element
+! DOMAIN: Element/Legacy
 ! ROLE:   Proc
-! BRIEF:  Continuum element unified computation module
+! BRIEF:  Continuum element unified computation module (LEGACY — frozen)
+! LEGACY-FROZEN: Not on production Ke/Fe gold path; see LEGACY_CONTM_BOUNDARY.md
+! Status: LEGACY | G6-W3a: physical path under Element/Legacy/
 !===============================================================================
 MODULE PH_ElemContm_Ops
-!> [CORE] Continuum element unified computation module
+!> [LEGACY] Continuum element unified computation module
 !> Theory: K = integral B^T*D*B dV, R_int = integral B^T*sigma dV, B-bar method
-!> Status: Production | Last verified: 2026-02-28
+!> Status: LEGACY | Do not extend | change: p2-element-legacy-contm-g6w3
 
   USE IF_Err_Brg, only: ErrorStatusType, init_error_status, IF_STATUS_OK, IF_STATUS_INVALID
   use IF_Mem_WS, only: GetStructWS, RT_Elem_WS_GetMultiField, RT_Elem_WS_GetStructBm_2

@@ -2,9 +2,9 @@
 
 ## G6-W3a（迁移）
 
-- [ ] `git mv` `PH_ElemContm_Ops.f90` → `Legacy/PH_ElemContm_Ops.f90`
-- [ ] 更新 `LEGACY_CONTM_BOUNDARY.md` 与 `verify_element_contm_legacy_boundary.py` allowlist
-- [ ] syntax / golden-seam harness
+- [x] `git mv` `PH_ElemContm_Ops.f90` → `Legacy/PH_ElemContm_Ops.f90`
+- [x] 更新 `LEGACY_CONTM_BOUNDARY.md` 与 `verify_element_contm_legacy_boundary.py` allowlist
+- [ ] PR → `main`
 
 ## G6-W3b（去 MD_*）
 

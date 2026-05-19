@@ -42,5 +42,5 @@
 | `p2-element-ke-arg-align` | **已合入**（#21） |
 | `p2-element-legacy-contm-retire` | **G6-W0–W2 已合**（#23） |
 | `p2-element-ke-shell-s4s8` | `Compute_Ke_S4/S8` → 族核 | **已合**（#24） |
-| `p2-element-l5-rt-elem-proc-sio` | `Elem_Ke_In` 字段对齐 + Brg 填充 | **W0 交付中** |
-| `p2-element-legacy-contm-g6w3` | Ops 迁 Legacy / 去 `MD_*` | **计划** |
+| `p2-element-l5-rt-elem-proc-sio` | `Elem_Ke_In` 字段对齐 + Brg 填充 | **已合**（#25） |
+| `p2-element-legacy-contm-g6w3` | Ops 迁 Legacy / 去 `MD_*` | **W3a 交付中** |
