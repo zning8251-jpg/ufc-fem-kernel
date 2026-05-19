@@ -22,7 +22,7 @@ MODULE PH_MatPLMEval
     USE MD_Mat_Plast_Reg, ONLY: PlastModels_Desc, UF_Plastic_InitReg, MD_MAT_PLAST_MAX_PROPS
     USE IF_Mem_Algo, ONLY: IF_Mem_Algo_Scratch_Real1D, IF_Mem_Algo_Release_Real1D
     USE PH_MatPLM_Kernels, ONLY: &
-        UF_Hill_UMAT, UF_DruckerPrager_UMAT, UF_CamClay_UMAT, UF_MohrCoulomb_UMAT, &
+        UF_Hill_UMAT, UF_Hill_UMAT_Arg, UF_DruckerPrager_UMAT, UF_CamClay_UMAT, UF_MohrCoulomb_UMAT, &
         UF_JohnsonCook_UMAT, UF_Gurson_UMAT, UF_Chaboche_UMAT, &
         UF_CapPlasticity_UMAT, UF_CrushableFoam_UMAT, UF_CastIron_UMAT, &
         UF_SoftRock_UMAT, UF_Foam3Stage_UMAT, UF_Ceramic_UMAT, &
@@ -170,10 +170,41 @@ CONTAINS
       drpldt_loc = out_struct%state%drpldt
       status = out_struct%status
     CASE (PH_MAT_HILL_MAT_ID)
-      CALL UF_Hill_UMAT(stress_loc, statev_loc(1:MAX(nstatv,1)), ddsdde_loc, sse_loc, spd_loc, scd_loc, &
-           rpl_loc, ddsddt_loc, drplde_loc, drpldt_loc, ctx%stran, ctx%dstran, ctx%time, ctx%dtime, &
-           ctx%temp, ctx%dtemp, [0.0_wp], [0.0_wp], ctx%ndi, ctx%nshr, MAX(nstatv,1), np, &
-           plm_in%props(1:np), ctx%cfg%ndim, algo%kstep, algo%kinc, status)
+      BLOCK
+        TYPE(UF_Hill_UMAT_Arg) :: hill_arg
+        INTEGER(i4) :: nsv_hill
+        nsv_hill = MIN(MAX(nstatv, 0_i4), SIZE(hill_arg%statev, KIND=i4))
+        hill_arg%stress = stress_loc
+        hill_arg%nstatev = nsv_hill
+        IF (nsv_hill > 0) hill_arg%statev(1:nsv_hill) = statev_loc(1:nsv_hill)
+        hill_arg%stran = ctx%stran
+        hill_arg%dstran = ctx%dstran
+        hill_arg%time = ctx%time
+        hill_arg%dtime = ctx%dtime
+        hill_arg%temp = ctx%temp
+        hill_arg%dtemp = ctx%dtemp
+        hill_arg%ndir = ctx%ndi
+        hill_arg%nshr = ctx%nshr
+        hill_arg%ndim = ctx%cfg%ndim
+        hill_arg%kstep = algo%kstep
+        hill_arg%kinc = algo%kinc
+        hill_arg%nprops = np
+        IF (np > 0) hill_arg%props(1:np) = plm_in%props(1:np)
+        hill_arg%sse = sse_loc
+        CALL init_error_status(hill_arg%status)
+        CALL UF_Hill_UMAT(hill_arg)
+        stress_loc = hill_arg%stress
+        ddsdde_loc = hill_arg%ddsdde
+        sse_loc = hill_arg%sse
+        spd_loc = hill_arg%spd
+        scd_loc = hill_arg%scd
+        rpl_loc = hill_arg%rpl
+        ddsddt_loc = hill_arg%ddsddt
+        drplde_loc = hill_arg%drplde
+        drpldt_loc = hill_arg%drpldt
+        IF (nsv_hill > 0) statev_loc(1:nsv_hill) = hill_arg%statev(1:nsv_hill)
+        status = hill_arg%status
+      END BLOCK
     CASE (PH_MAT_DRUCKERPRAGER_M)
       CALL UF_DruckerPrager_UMAT(stress_loc, statev_loc(1:MAX(nstatv,1)), ddsdde_loc, sse_loc, spd_loc, scd_loc, &
            rpl_loc, ddsddt_loc, drplde_loc, drpldt_loc, ctx%stran, ctx%dstran, ctx%time, ctx%dtime, &

@@ -6,6 +6,9 @@
 ! BRIEF:  Hill anisotropic plasticity model for rolled metal sheets —
 !         **W1**：Hill 参数自 **`desc%props`**；**PH_MAT_PLASTIC** / **Effective_Model** /
 !         **PH_Mat_Dispatch** 与 **PH_MatPLMEval** 协同。
+! Purpose: Hill48 anisotropic plasticity + legacy UMAT dispatch entry (mat_id 205).
+! Theory: Hill (1948) yield; return mapping via UF_Hill_ComputeStress/Tangent.
+! Status: Production (legacy UMAT path) | Last verified: 2026-05-19
 !===============================================================================
 !!   Core objective: Anisotropic plasticity for rolled metal sheets
 !!   Theoretical basis: Hill's anisotropic yield criterion (Hill48)
@@ -72,6 +75,8 @@ MODULE PH_Mat_Plast_Hill_Core
   USE PH_Mat_Core_UMAT_Adapter, ONLY: Unpack_From_UMAT_Context, Pack_To_UMAT_Context
   USE PH_Mat_Integ_Shared, ONLY: Construct_Elastic_D
   USE PH_Mat_UMAT_Def, ONLY: PH_UMAT_Context
+  USE MD_Mat_Eval_Types, ONLY: MD_MATCTX_MAX_STATEV
+  USE MD_Mat_Plast_Reg, ONLY: MD_MAT_PLAST_MAX_PROPS
 
   ! Legacy naming aliases (former module MD_MatPLMHill deleted)
   INTEGER(i4), PARAMETER :: HILL_MAT_ID = MD_MAT_HILL_MAT_ID
@@ -171,7 +176,35 @@ MODULE PH_Mat_Plast_Hill_Core
   PUBLIC :: PH_Hill_Plasticity_Eval  ! UFC refactored interface
   PUBLIC :: PH_MAT_UMAT_HillPlasticity       ! PH_UMAT_Intf compatible wrapper (for registry)
   PUBLIC :: HillPlasticity_UpdateStress
-  PUBLIC :: UF_Hill_UMAT
+  PUBLIC :: UF_Hill_UMAT, UF_Hill_UMAT_Arg
+
+  TYPE, PUBLIC :: UF_Hill_UMAT_Arg
+    REAL(wp) :: stress(6) = 0.0_wp                       ! [INOUT]
+    INTEGER(i4) :: nstatev = 0_i4                        ! [IN]
+    REAL(wp) :: statev(MD_MATCTX_MAX_STATEV) = 0.0_wp    ! [INOUT]
+    REAL(wp) :: ddsdde(6, 6) = 0.0_wp                    ! [OUT]
+    REAL(wp) :: sse = 0.0_wp                             ! [INOUT]
+    REAL(wp) :: spd = 0.0_wp                             ! [OUT]
+    REAL(wp) :: scd = 0.0_wp                             ! [OUT]
+    REAL(wp) :: rpl = 0.0_wp                             ! [OUT]
+    REAL(wp) :: ddsddt(6) = 0.0_wp                       ! [OUT]
+    REAL(wp) :: drplde(6) = 0.0_wp                       ! [OUT]
+    REAL(wp) :: drpldt = 0.0_wp                          ! [OUT]
+    REAL(wp) :: stran(6) = 0.0_wp                        ! [IN]
+    REAL(wp) :: dstran(6) = 0.0_wp                       ! [IN]
+    REAL(wp) :: time(2) = 0.0_wp                         ! [IN]
+    REAL(wp) :: dtime = 0.0_wp                           ! [IN]
+    REAL(wp) :: temp = 0.0_wp                            ! [IN]
+    REAL(wp) :: dtemp = 0.0_wp                           ! [IN]
+    INTEGER(i4) :: ndir = 0_i4                           ! [IN]
+    INTEGER(i4) :: nshr = 0_i4                           ! [IN]
+    INTEGER(i4) :: nprops = 0_i4                         ! [IN]
+    REAL(wp) :: props(MD_MAT_PLAST_MAX_PROPS) = 0.0_wp   ! [IN]
+    INTEGER(i4) :: ndim = 0_i4                           ! [IN]
+    INTEGER(i4) :: kstep = 0_i4                          ! [IN]
+    INTEGER(i4) :: kinc = 0_i4                           ! [IN]
+    TYPE(ErrorStatusType) :: status                      ! [OUT]
+  END TYPE UF_Hill_UMAT_Arg
 
 CONTAINS
 
@@ -496,55 +529,38 @@ CONTAINS
 
   END SUBROUTINE UF_Hill_Init
 
-  SUBROUTINE UF_Hill_UMAT(sigma, statev, ddsdde, sse, spd, scd, &
-      rpl, ddsddt, drplde, drpldt, &
-      stran, dstran, time, dtime, temp, dtemp, &
-      predef, dpred, ndir, nshr, nstatev, nprops, &
-      props, ndim, kstep, kinc, status)
-    REAL(wp), INTENT(INOUT) :: stress(6)
-    REAL(wp), INTENT(INOUT) :: statev(:)
-    REAL(wp), INTENT(OUT) :: ddsdde(6, 6)
-    REAL(wp), INTENT(OUT) :: sse, spd, scd, rpl
-    REAL(wp), INTENT(OUT) :: ddsddt(6), drplde(6), drpldt
-    REAL(wp), INTENT(IN) :: stran(6), dstran(6)
-    REAL(wp), INTENT(IN) :: time(2), dtime
-    REAL(wp), INTENT(IN) :: temp, dtemp
-    REAL(wp), INTENT(IN) :: predef(*), dpred(*)
-    INTEGER(i4), INTENT(IN) :: ndir, nshr, nstatev, nprops, ndim, kstep, kinc
-    REAL(wp), INTENT(IN) :: props(:)
-    TYPE(ErrorStatusType), INTENT(OUT) :: status
-
+  SUBROUTINE UF_Hill_UMAT(arg)
+    TYPE(UF_Hill_UMAT_Arg), INTENT(INOUT) :: arg
     TYPE(HilMat) :: Mat
     REAL(wp) :: stress_out(6)
     REAL(wp) :: ddsdde_out(6, 6)
+    INTEGER(i4) :: ntens, nsv
 
-    CALL init_error_status(status)
+    CALL init_error_status(arg%status)
+    ntens = arg%ndir + arg%nshr
+    nsv = MIN(MAX(arg%nstatev, 0_i4), MD_MATCTX_MAX_STATEV)
 
-    CALL UF_Hill_Init(Mat, props, nprops, status)
-    IF (status%status_code /= IF_STATUS_OK) RETURN
+    CALL UF_Hill_Init(Mat, arg%props, arg%nprops, arg%status)
+    IF (arg%status%status_code /= IF_STATUS_OK) RETURN
 
-    CALL UF_Hill_ComputeStress(Mat, stress, statev, dstran, &
-        ndir, nshr, nstatev, stress_out, status)
-    IF (status%status_code /= IF_STATUS_OK) RETURN
+    CALL UF_Hill_ComputeStress(Mat, arg%stress, arg%statev, arg%dstran, &
+        arg%ndir, arg%nshr, nsv, stress_out, arg%status)
+    IF (arg%status%status_code /= IF_STATUS_OK) RETURN
 
-    CALL UF_Hill_ComputeTangent(Mat, stress_out, statev, &
-        ndir, nshr, nstatev, ddsdde_out, status)
-    IF (status%status_code /= IF_STATUS_OK) RETURN
+    CALL UF_Hill_ComputeTangent(Mat, stress_out, arg%statev, &
+        arg%ndir, arg%nshr, nsv, ddsdde_out, arg%status)
+    IF (arg%status%status_code /= IF_STATUS_OK) RETURN
 
-    stress(1:ndir + nshr) = stress_out(1:ndir + nshr)
-    ddsdde(1:ndir + nshr, 1:ndir + nshr) = ddsdde_out(1:ndir + nshr, 1:ndir + nshr)
-
-    sse = 0.5_wp * DOT_PRODUCT(stress_out(1:ndir + nshr), &
-        stran(1:ndir + nshr) + dstran(1:ndir + nshr))
-    spd = 0.0_wp
-    scd = 0.0_wp
-    rpl = 0.0_wp
-    ddsddt = 0.0_wp
-    drplde = 0.0_wp
-    drpldt = 0.0_wp
-
-    status%status_code = IF_STATUS_OK
-
+    arg%stress(1:ntens) = stress_out(1:ntens)
+    arg%ddsdde(1:ntens, 1:ntens) = ddsdde_out(1:ntens, 1:ntens)
+    arg%sse = 0.5_wp * DOT_PRODUCT(stress_out(1:ntens), arg%stran(1:ntens) + arg%dstran(1:ntens))
+    arg%spd = 0.0_wp
+    arg%scd = 0.0_wp
+    arg%rpl = 0.0_wp
+    arg%ddsddt = 0.0_wp
+    arg%drplde = 0.0_wp
+    arg%drpldt = 0.0_wp
+    arg%status%status_code = IF_STATUS_OK
   END SUBROUTINE UF_Hill_UMAT
 
   SUBROUTINE UF_Hill_ComputeStress(Mat, stress_old, statev, dstran, &

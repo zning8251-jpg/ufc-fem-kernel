@@ -6,6 +6,9 @@
 ! BRIEF:  Barlat anisotropic plasticity for sheet metal forming —
 !         **W1**：各向异性参数自 **`desc%props`**；经 **PH_MAT_PLASTIC** / **Effective_Model**
 !         与 **PH_MatPLMEval** / **PH_Mat_Dispatch** 路由协同。
+! Purpose: Barlat/Yld anisotropic sheet plasticity (Yld89 / Yld2000-2d / Yld2004-18p).
+! Theory: Barlat yield surfaces; elastic predictor + return mapping on trial stress.
+! Status: Production (progressive) | Last verified: 2026-05-19
 !===============================================================================
 !! @details Barlat anisotropic plastic constitutive model
 ! ! Core objective: High-precision sheet metal anisotropic plasticity (superior to Hill 48)
@@ -102,7 +105,14 @@ MODULE PH_Mat_Plast_Barlat_Core
     LOGICAL  :: is_plastic = .FALSE.
   END TYPE
 
-  PUBLIC :: PH_Mat_Barlat_Init, PH_Mat_Barlat_Calc_Stress
+  PUBLIC :: PH_Mat_Barlat_Init, PH_Mat_Barlat_Calc_Stress, PH_Mat_Barlat_Calc_Stress_Arg
+
+  TYPE, PUBLIC :: PH_Mat_Barlat_Calc_Stress_Arg
+    TYPE(Barlat_Params) :: params                 ! [IN]
+    TYPE(Barlat_State) :: state                  ! [INOUT]
+    REAL(wp) :: strain_increment(6) = 0.0_wp     ! [IN]
+    REAL(wp) :: sigma(6) = 0.0_wp                ! [OUT]
+  END TYPE PH_Mat_Barlat_Calc_Stress_Arg
 
 CONTAINS
 
@@ -117,7 +127,12 @@ CONTAINS
     state%is_plastic = .FALSE.
   END SUBROUTINE PH_Mat_Barlat_Init
 
-  SUBROUTINE PH_Mat_Barlat_Calc_Stress(params, state, strain_increment, sigma)
+  SUBROUTINE PH_Mat_Barlat_Calc_Stress(arg)
+    TYPE(PH_Mat_Barlat_Calc_Stress_Arg), INTENT(INOUT) :: arg
+    CALL PH_Mat_Barlat_Calc_Stress_Core(arg%params, arg%state, arg%strain_increment, arg%sigma)
+  END SUBROUTINE PH_Mat_Barlat_Calc_Stress
+
+  SUBROUTINE PH_Mat_Barlat_Calc_Stress_Core(params, state, strain_increment, sigma)
     TYPE(Barlat_Params), INTENT(IN) :: params
     TYPE(Barlat_State), INTENT(INOUT) :: state
     REAL(wp), INTENT(IN) :: strain_increment(6)
@@ -146,7 +161,7 @@ CONTAINS
     END IF
     
     state%stress_current = sigma
-  END SUBROUTINE PH_Mat_Barlat_Calc_Stress
+  END SUBROUTINE PH_Mat_Barlat_Calc_Stress_Core
 
   !> @brief Yld2000-2d yield function (   surface stress )
   FUNCTION Eval_Yld2000_2d(params, state, sigma) RESULT(f)
