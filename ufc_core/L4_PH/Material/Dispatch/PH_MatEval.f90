@@ -3,103 +3,14 @@
 ! LAYER:  L4_PH
 ! DOMAIN: Material
 ! ROLE:   Eval
-! BRIEF:  Material constitutive evaluation (LEGACY dispatch entry points).
-!   W1 gold path: `PH_Mat_Core` S1–S4 + `PH_Mat_Desc` / slot `desc%props`; keep this
-!   module for legacy Eval_In/Out bundles until Dispatch migrates.
-!
-! NOTE (plan **C2**, 2026-05-03): family-specific `PH_Mat_<Family>_<Model>_Eval`
-!   modules should absorb `PH_MatEval` entry points; this file remains the staging
-!   aggregate until per-family USE paths in `PH_MatPLM_*Call.f90` are rewired.
+! BRIEF:  Legacy aggregate Eval facade (staging until plan C2 per-family split).
+!   W1 gold path: `PH_Mat_Core` + slot `PH_Mat_Desc`; Arg-only public API (no Eval_In/Out pairs).
+! Purpose: Document and stabilize SIO entry points; no new Arg types in this change.
+! Theory: Point models — elastic, plastic, hyper, damage, creep, visco, composite (Voigt 6).
+! Status: Production (legacy staging) | Last verified: 2026-05-19
+! Contract: L4_PH/Material/CONTRACT.md — "Legacy PH_MatEval aggregate" table.
 !===============================================================================
-! Theory:
-!   Constitutive relations for various material models:
-!   1. Elastic: σ = D·ε, where D is elastic stiffness matrix
-!   2. Plastic: Return mapping algorithm, σ_{n+1} = σ_trial - Δλ·∂f/�??
-!   3. Hyperelastic: S = 2·∂W/∂C, where C = F^T·F is right Cauchy-Green tensor
-!   4. Damage: σ_eff = (1-D)·σ, D_eff = (1-D)·D
-!   5. Creep: ε̇_cr = A·σ^n·exp(-Q/(R·T))
-!   6. Viscoelastic: Prony series G(t) = G_ ?+ Σ g_i·exp(-t/τ_i)
-!   7. Composite: Rule of mixtures E_eff = E_f·V_f + E_m·V_m
-! Status: Production | Last verified: 2026-03-06
-!
-! Logic Chain (Mermaid):
-! ```mermaid
-! flowchart TB
-!     subgraph Material["Material Evaluation"]
-!         A[PH_MatEval_Algo Entry] --> B{Material Type?}
-!     end
-!     
-!     B -->|Elastic| C[Elastic: σ=D·ε]
-!     B -->|Plastic| D[Plastic: Return Mapping]
-!     B -->|Hyperelastic| PH_MAT_E[Hyperelastic: S=2∂W/∂C]
-!     B -->|Damage| F[Damage: σ_eff=(1-D)σ]
-!     B -->|Creep| G[Creep: Norton Law]
-!     B -->|Viscoelastic| H[Viscoelastic: Prony Series]
-!     
-!     C --> I[Return σ, D]
-!     D --> I
-!     PH_MAT_E --> I
-!     F --> I
-!     G --> I
-!     H --> I
-! ```
-!
-! Plastic Return Mapping (Mermaid):
-! ```mermaid
-! flowchart LR
-!     A[Elastic Trial: σ_trial] --> B{Yield?}
-!     B -->|f ?| C[Elastic: σ=σ_trial]
-!     B -->|f>0| D[Plastic Correction]
-!     D --> PH_MAT_E[Compute Δλ]
-!     PH_MAT_E --> F[Update σ, ε_p]
-!     F --> G[Consistent Tangent]
-!     C --> H[Return]
-!     G --> H
-! ```
-!
-! Contents (A-Z):
-!   Types:
-!     - PH_Mat_ElasticIsotropic_Eval_In, PH_Mat_ElasticIsotropic_Eval_Out
-!     - PH_Mat_ElasticOrthotropic_Eval_In, PH_Mat_ElasticOrthotropic_Eval_Out
-!     - PH_Mat_PlasticVonMises_Eval_In, PH_Mat_PlasticVonMises_Eval_Out
-!     - PH_Mat_PlasticHill_Eval_In, PH_Mat_PlasticHill_Eval_Out
-!     - PH_Mat_HyperelasticNeoHookean_Eval_In, PH_Mat_HyperelasticNeoHookean_Eval_Out
-!     - PH_Mat_HyperelasticMooneyRivlin_Eval_In, PH_Mat_HyperelasticMooneyRivlin_Eval_Out
-!     - PH_Mat_DamageDuctile_Eval_In, PH_Mat_DamageDuctile_Eval_Out
-!     - PH_Mat_DamageBrittle_Eval_In, PH_Mat_DamageBrittle_Eval_Out
-!     - PH_Mat_CreepNorton_Eval_In, PH_Mat_CreepNorton_Eval_Out
-!     - PH_Mat_ViscoelasticProny_Eval_In, PH_Mat_ViscoelasticProny_Eval_Out
-!     - PH_Mat_ViscoelasticMaxwell_Eval_In, PH_Mat_ViscoelasticMaxwell_Eval_Out
-!     - PH_Mat_ViscoelasticKelvinVoigt_Eval_In, PH_Mat_ViscoelasticKelvinVoigt_Eval_Out
-!     - PH_Mat_CompositeLaminate_Eval_In, PH_Mat_CompositeLaminate_Eval_Out
-!     - PH_Mat_CompositeFiberReinforced_Eval_In, PH_Mat_CompositeFiberReinforced_Eval_Out
-!     - PH_Mat_UMATEnsureWorkspace_In, PH_Mat_UMATEnsureWorkspace_Out
-!   Subroutines:
-!     - PH_Mat_ElasticIsotropic_Eval
-!     - PH_Mat_ElasticOrthotropic_Eval
-!     - PH_Mat_PlasticVonMises_Eval
-!     - PH_Mat_PlasticHill_Eval
-!     - PH_Mat_HyperelasticNeoHookean_Eval
-!     - PH_Mat_HyperelasticMooneyRivlin_Eval
-!     - PH_Mat_DamageDuctile_Eval
-!     - PH_Mat_DamageBrittle_Eval
-!     - PH_Mat_CreepNorton_Eval
-!     - PH_Mat_ViscoelasticProny_Eval
-!     - PH_Mat_ViscoelasticMaxwell_Eval
-!     - PH_Mat_ViscoelasticKelvinVoigt_Eval
-!     - PH_Mat_CompositeLaminate_Eval
-!     - PH_Mat_CompositeFiberReinforced_Eval
-!     - PH_Mat_UMATEnsureWorkspace
-! Contract: L4_PH/Material/CONTRACT.md
-! G4: USE MD_MatLib �?收敛�?PLAN/04_实施路线�任务规�?域分级重�?M0_L4L5_热路径违规USE_audit.md
-!===============================================================================
-!>>> UFC_PH_QUENCH | Domain:Material | Role:Eval | FuncSet?Compute | 热路�?部分
-!>>> Basis:PLAN/04_实施路线�任务规�?实施路线/UFC借鉴HYPLAS_PROGRAM淬炼L3L4L5方案.md ��?5.1�L4 Material�显式本�?Eval?!>>> UFC_PH_CONTRACT | Material/CONTRACT.md
-
 MODULE PH_MatEval
-!> [CORE] Material constitutive relation evaluation
-!> Theory: σ = D·ε, return mapping, hyperelasticity, damage, creep, viscoelasticity
-!> Status: Production | Last verified: 2026-02-28
   USE IF_Base_Def, ONLY: ZERO, ONE, TWO, THREE, HALF
   USE IF_Err_Brg, ONLY: ErrorStatusType, init_error_status, IF_STATUS_OK, IF_STATUS_INVALID
   USE IF_Prec_Core, ONLY: i4, wp
@@ -109,7 +20,9 @@ MODULE PH_MatEval
   PRIVATE
 
   ! ==========================================================================
-  ! PUBLIC TYPES AND SUBROUTINES
+  ! PUBLIC API — each Eval is SUBROUTINE PH_Mat_<Model>_Eval(PH_Mat_<Model>_Eval_Arg)
+  !   TYPE names end in _Eval_Arg; procedure names end in _Eval (single Arg dummy).
+  !   FLOW-003: effective moduli use local wire Desc (md_elas_wire), not in-place mat_desc.
   ! ==========================================================================
   PUBLIC :: PH_Mat_ElasticIsotropic_Eval_Arg
   PUBLIC :: PH_Mat_ElasticOrthotropic_Eval_Arg
@@ -143,7 +56,7 @@ MODULE PH_MatEval
   PUBLIC :: PH_Mat_UMATEnsureWorkspace
 
   ! ==========================================================================
-  ! INPUT/OUTPUT STRUCTURES FOR STRUCTURED INTERFACES
+  ! Arg bundles (Principle #14) — legacy Eval_In/Eval_Out pairs removed from docs
   ! ==========================================================================
   
   !> @brief Input structure for isotropic elastic evaluation
@@ -468,6 +381,10 @@ contains
     
   END SUBROUTINE PH_Mat_DamageDuctile_Eval
 
+  ! Theory: Isotropic Hooke σ = D·ε.
+  ! Logic: Read E, ν from mat_desc → Lame → D → stress from strain.
+  ! Compute: Voigt 6×6 σ_i = Σ_j D_ij ε_j.
+  ! Data: arg%strain [IN]; arg%sigma, arg%D_matrix, arg%status [OUT]; mat_desc read-only.
   SUBROUTINE PH_Mat_ElasticIsotropic_Eval(arg)
     TYPE(PH_Mat_ElasticIsotropic_Eval_Arg), INTENT(INOUT) :: arg
     
@@ -620,6 +537,10 @@ contains
     
   END SUBROUTINE PH_Mat_HyperelasticNeoHookean_Eval
 
+  ! Theory: Hill48 equivalent stress + isotropic hardening; radial return if φ > σ_y.
+  ! Logic: Elastic trial via wired iso Eval → Hill φ → scale stress or elastic branch.
+  ! Compute: φ from Hill coefficients; Δε̄_p increment on yield.
+  ! Data: stress_old/strain_increment [IN]; stress_new/D_matrix/status [OUT]; wire Desc for trial.
   SUBROUTINE PH_Mat_PlasticHill_Eval(arg)
     TYPE(PH_Mat_PlasticHill_Eval_Arg), INTENT(INOUT) :: arg
     
@@ -694,6 +615,10 @@ contains
     
   END SUBROUTINE PH_Mat_PlasticHill_Eval
 
+  ! Theory: J2 von Mises with isotropic hardening; deviatoric q vs σ_y.
+  ! Logic: Elastic trial → q_trial; radial return factor or elastic branch.
+  ! Compute: deviatoric q; σ_y = σ_y0 + H·ε̄_p.
+  ! Data: same Arg bundle pattern as Hill; md_elas_wire for elastic predictor.
   SUBROUTINE PH_Mat_PlasticVonMises_Eval(arg)
     TYPE(PH_Mat_PlasticVonMises_Eval_Arg), INTENT(INOUT) :: arg
     

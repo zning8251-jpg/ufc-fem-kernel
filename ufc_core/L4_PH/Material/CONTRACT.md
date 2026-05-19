@@ -49,6 +49,19 @@
 | Contract 子树 | `Contract/PH_Mat_*.f90` | 本构点状态、props、UMAT 上下文与桥 |
 | 族内核 | `Elas/`、`Plast/`、`Geo/`、`Damage/`、`Composite/`、`Hyper/`、`Creep/`、`Viscoelas/`、`Thermal/`、`Acoustic/` 等 | 具体本构积分 |
 
+### Legacy `PH_MatEval` aggregate（staging · wave5-mateval-arg）
+
+> **真源**：`Dispatch/PH_MatEval.f90`。公开入口均为 **单参** `PH_Mat_<Model>_Eval(PH_Mat_<Model>_Eval_Arg)`（无独立 `Eval_In`/`Eval_Out` 对）。  
+> **迁出**：plan C2 — 按族收入 `Elas/`、`Plast/`、`Hyper/` 等；新功能优先 `PH_Mat_Core` + slot，不经本表新增模型。
+
+| Eval 入口 | Arg TYPE | 备注 |
+|-----------|----------|------|
+| `PH_Mat_ElasticIsotropic_Eval` | `PH_Mat_ElasticIsotropic_Eval_Arg` | Hooke D·ε |
+| `PH_Mat_PlasticVonMises_Eval` | `PH_Mat_PlasticVonMises_Eval_Arg` | J2 + wire Desc |
+| `PH_Mat_PlasticHill_Eval` | `PH_Mat_PlasticHill_Eval_Arg` | Hill48 + wire Desc |
+| `PH_Mat_CompositeFiberReinforced_Eval` | `PH_Mat_CompositeFiberReinforced_Eval_Arg` | mixture → `md_elas_wire` |
+| 其余 `PH_Mat_*_Eval` | 同名 `*_Eval_Arg` | 见模块 PUBLIC 列表 |
+
 ---
 
 ## 三、层域坐标（A7）
