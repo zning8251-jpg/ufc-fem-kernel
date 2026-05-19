@@ -99,14 +99,15 @@ git push origin main
 | #11 | crystal plan 草案 | **merged** |
 | #12–#13 | crystal W1a (deprecated) + **W1b Schmid** | **merged** |
 
-## 5. 后续（新 change_id，非本 backlog）
+## 5. 后续（新 change_id — plan 草案已建）
 
-| 建议 change_id | 范围 |
-|----------------|------|
-| `p1-material-crystal-w2-multislip`（名待定） | 多滑移 CPFEM、潜硬化、`statev(8+)` |
-| （可选）Plast NAME-001 清扫 | 全 `Plast/` P2 命名债 |
+| change_id | 范围 | plan |
+|-----------|------|------|
+| `p1-material-crystal-w2-multislip` | N=2 滑移 + 潜硬化 | [`plan/changes/p1-material-crystal-w2-multislip/`](../changes/p1-material-crystal-w2-multislip/) |
+| `p1-material-plast-name-debt` | Plast NAME-001（P2=17） | [`plan/changes/p1-material-plast-name-debt/`](../changes/p1-material-plast-name-debt/) |
+| （切换域） | Element / L5 / … | [`p1-domain-next-options.md`](p1-domain-next-options.md) |
 
-每项：`agent-task init` → `plan/changes/<id>/` → 单 PR → 合并后归档。
+每项：确认算例/范围 → 实现 PR → 归档 `plan/tasks/<id>/`。
 
 ## 6. 相关链接
 
