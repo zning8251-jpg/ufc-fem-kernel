@@ -2,6 +2,8 @@
 
 **编排总览（目录 × 七段闭环 × 状态机/持久化/策略）** → [`UFC_DIRECTORY_AND_AGENT_PLAYBOOK.md`](UFC_DIRECTORY_AND_AGENT_PLAYBOOK.md)
 
+**L3/L4/L5 域柱改造工作流（七步·任务分解·交接·验收）** → [`workflows/README.md`](workflows/README.md) · 规范 [`docs/05_Project_Planning/PPLAN/03_实施规划/实施路线/UFC_L3L4L5_域柱改造固化工作流_v1.0.md`](../docs/05_Project_Planning/PPLAN/03_实施规划/实施路线/UFC_L3L4L5_域柱改造固化工作流_v1.0.md)
+
 本目录 **`UFC/plan/`**（小写）存放**任务编排、长任务状态、非生产产出**；**不得**放入 `ufc_core` 级生产 Fortran 或内核实现代码。
 
 Harness **默认 `--plan` 设计骨架**在同级目录 **`design_plan/`**（因 Windows 上不可与 `plan/` 仅靠大小写区分 `PLAN` / `plan`）。

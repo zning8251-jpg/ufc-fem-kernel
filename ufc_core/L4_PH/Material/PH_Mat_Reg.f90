@@ -39,7 +39,8 @@ MODULE PH_Mat_Reg
     PH_MAT_COMPOSITE, PH_MAT_THERMAL, PH_MAT_ACOUSTIC, &
     PH_MAT_USER, PH_MAT_USER_VUMAT
   USE PH_Mat_KernelDefn, ONLY: PH_Mat_KernelBase, PH_Mat_Update_Arg
-  USE PH_Mat_Plast_J2_Iso_Core, ONLY: PH_J2_Props, PH_J2_State, PH_J2_ComputeStress, PH_MAT_J2_HARD_LINEAR
+  USE PH_Mat_Plast_J2_Iso_Core, ONLY: PH_J2_Props, PH_J2_State, PH_J2_ComputeStress, &
+      PH_J2_ComputeStress_Arg, PH_MAT_J2_HARD_LINEAR
   IMPLICIT NONE
   PRIVATE
 
@@ -211,8 +212,7 @@ CONTAINS
     INTEGER(i4) :: nt, i, j
     TYPE(PH_J2_Props) :: j2p
     TYPE(PH_J2_State) :: j2s
-    TYPE(ErrorStatusType) :: ierr
-    REAL(wp) :: tan6(6, 6), pnewdt
+    TYPE(PH_J2_ComputeStress_Arg) :: j2arg
 
     istat = 0_i4
     this%last_valid = .FALSE.
@@ -234,16 +234,19 @@ CONTAINS
         j2s%plastic%strain_p(1:6) = uarg%sdv_n(2:7)
       END IF
 
-      pnewdt = 1.0_wp
-      CALL init_error_status(ierr)
-      CALL PH_J2_ComputeStress(j2p, uarg%dstrain, j2s, tan6, pnewdt, ierr)
-      IF (ierr%status_code /= IF_STATUS_OK) THEN
+      j2arg%props = j2p
+      j2arg%strain_inc = uarg%dstrain
+      j2arg%state = j2s
+      j2arg%pnewdt = 1.0_wp
+      CALL init_error_status(j2arg%status)
+      CALL PH_J2_ComputeStress(j2arg)
+      IF (j2arg%status%status_code /= IF_STATUS_OK) THEN
         istat = -1_i4
         RETURN
       END IF
 
-      uarg%stress_new(1:6) = j2s%stress%stress(1:6)
-      uarg%D_tang(1:6, 1:6) = tan6(1:6, 1:6)
+      uarg%stress_new(1:6) = j2arg%state%stress%stress(1:6)
+      uarg%D_tang(1:6, 1:6) = j2arg%tangent(1:6, 1:6)
       this%last_D(:, :) = tan6(:, :)
       this%last_valid = .TRUE.
 
