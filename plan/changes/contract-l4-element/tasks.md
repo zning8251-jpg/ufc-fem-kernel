@@ -10,7 +10,7 @@
 
 ## 1. S1 — 合同审计
 
-- [ ] 1.1 完成 `design.md` §2 五项勾选（PR 描述贴表）
+- [x] 1.1 完成 `design.md` §2 五项勾选（见 `S1_AUDIT_20260519.md`）
 - [ ] 1.2 L3 `Element/Mesh/CONTRACT.md` 与 L4 §Populate 无矛盾
 - [ ] 1.3 Material R2 ↔ Element 材料路由交叉引用
 
