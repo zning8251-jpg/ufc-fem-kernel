@@ -9,6 +9,9 @@
 !   This module keeps **PlastModels_Desc** + **MatEval_Ctx** UMAT dispatch for
 !   mat_id 201+ legacy kernels — do not fold **PH_Mat_Desc** here without a
 !   dedicated migration MR.
+! Purpose: Legacy mat_id 201+ plastic eval dispatch (struct ctx + PlastModels_Desc).
+! Theory: CASE on material_id → UMAT kernel or UF_PH_UMAT_Dispatch; no runtime Desc SSOT.
+! Status: Production (legacy path) | Last verified: 2026-05-19
 !===============================================================================
 
 MODULE PH_MatPLMEval
@@ -16,20 +19,21 @@ MODULE PH_MatPLMEval
         init_error_status
     USE IF_Prec_Core, ONLY: i4, wp
     USE MD_Mat_Brg, ONLY: MD_Mat_PH_UMAT_In, MD_Mat_PH_UMAT_Out, UF_PH_UMAT_Dispatch
-    USE MD_Mat_Eval_Types, ONLY: MatEval_Ctx, MatAlgo_Algo
+    USE MD_Mat_Eval_Types, ONLY: MatEval_Ctx, MatAlgo_Algo, MD_MATCTX_MAX_STATEV
     ! Legacy stub constants (modules MD_MATLIB_PLAST_* deleted)
     INTEGER(i4), PARAMETER :: PH_MAT_CRUSHABLE_FOAM = 222_i4
     USE MD_Mat_Plast_Reg, ONLY: PlastModels_Desc, UF_Plastic_InitReg, MD_MAT_PLAST_MAX_PROPS
     USE IF_Mem_Algo, ONLY: IF_Mem_Algo_Scratch_Real1D, IF_Mem_Algo_Release_Real1D
     USE PH_MatPLM_Kernels, ONLY: &
-        UF_Hill_UMAT, UF_DruckerPrager_UMAT, UF_CamClay_UMAT, UF_MohrCoulomb_UMAT, &
+        UF_Hill_UMAT, UF_Hill_UMAT_Arg, UF_DruckerPrager_UMAT, UF_CamClay_UMAT, UF_MohrCoulomb_UMAT, &
         UF_JohnsonCook_UMAT, UF_Gurson_UMAT, UF_Chaboche_UMAT, &
         UF_CapPlasticity_UMAT, UF_CrushableFoam_UMAT, UF_CastIron_UMAT, &
         UF_SoftRock_UMAT, UF_Foam3Stage_UMAT, UF_Ceramic_UMAT, &
         UF_Viscoplastic_UMAT, UF_ViscoplasticDamageEM_UMAT, UF_Nanomaterial_UMAT, UF_FGM_UMAT, &
         UF_SmartMaterial_UMAT, UF_ViscoelasticDamage_UMAT, UF_ThermoViscoplastic_UMAT, &
         UF_MultiscaleDamage_UMAT, UF_ThermoElectroMagnetoMechanical_UMAT, &
-        UF_Geotechnical_UMAT, UF_CrystalPlasticity_UMAT, UF_RateDependentPlasticity_UMAT, &
+        UF_Geotechnical_UMAT, UF_CrystalPlasticity_UMAT, UF_CrystalPlasticity_UMAT_Arg, &
+        UF_RateDependentPlasticity_UMAT, &
         UF_ZerilliArmstrong_UMAT
 
     ! Legacy mat_id constants (modules MD_MatPLM_* / MD_MatPOR_* deleted)
@@ -59,7 +63,48 @@ MODULE PH_MatPLMEval
     INTEGER(i4), PARAMETER :: PH_MAT_LEGACY_UMAT_204 = 204_i4
     INTEGER(i4), PARAMETER :: PH_MAT_LEGACY_UMAT_212 = 212_i4
     INTEGER(i4), PARAMETER :: PH_MAT_LEGACY_UMAT_231 = 231_i4
-    PUBLIC :: UF_Plastic_Eval_Dispatch, UF_Plastic_UMAT_Dispatch
+
+    ! SIO: plastic eval dispatch (INTF-001 spine — wave4)
+    TYPE, PUBLIC :: UF_Plastic_Eval_Dispatch_Arg
+      INTEGER(i4) :: material_id = 0_i4              ! [IN]
+      TYPE(PlastModels_Desc) :: plm_in               ! [IN]
+      TYPE(MatEval_Ctx) :: ctx                       ! [INOUT]
+      TYPE(MatAlgo_Algo) :: algo                     ! [IN]
+      TYPE(ErrorStatusType) :: status                ! [OUT]
+    END TYPE UF_Plastic_Eval_Dispatch_Arg
+
+    ! SIO: legacy UMAT facade → Eval dispatch (INTF-001 spine — wave4 §3.2)
+    TYPE, PUBLIC :: UF_Plastic_UMAT_Dispatch_Arg
+      INTEGER(i4) :: material_id = 0_i4                    ! [IN]
+      REAL(wp) :: stress(6) = 0.0_wp                       ! [INOUT]
+      INTEGER(i4) :: nstatev = 0_i4                      ! [IN]
+      REAL(wp) :: statev(MD_MATCTX_MAX_STATEV) = 0.0_wp    ! [INOUT]
+      REAL(wp) :: ddsdde(6, 6) = 0.0_wp                    ! [OUT]
+      REAL(wp) :: sse = 0.0_wp                             ! [INOUT]
+      REAL(wp) :: spd = 0.0_wp                             ! [OUT]
+      REAL(wp) :: scd = 0.0_wp                             ! [OUT]
+      REAL(wp) :: rpl = 0.0_wp                             ! [OUT]
+      REAL(wp) :: ddsddt(6) = 0.0_wp                       ! [OUT]
+      REAL(wp) :: drplde(6) = 0.0_wp                       ! [OUT]
+      REAL(wp) :: drpldt = 0.0_wp                          ! [OUT]
+      REAL(wp) :: stran(6) = 0.0_wp                        ! [IN]
+      REAL(wp) :: dstran(6) = 0.0_wp                       ! [IN]
+      REAL(wp) :: time(2) = 0.0_wp                         ! [IN]
+      REAL(wp) :: dtime = 0.0_wp                           ! [IN]
+      REAL(wp) :: temp = 0.0_wp                            ! [IN]
+      REAL(wp) :: dtemp = 0.0_wp                           ! [IN]
+      INTEGER(i4) :: ndir = 0_i4                           ! [IN]
+      INTEGER(i4) :: nshr = 0_i4                           ! [IN]
+      INTEGER(i4) :: nprops = 0_i4                         ! [IN]
+      REAL(wp) :: props(MD_MAT_PLAST_MAX_PROPS) = 0.0_wp   ! [IN]
+      INTEGER(i4) :: ndim = 0_i4                           ! [IN]
+      INTEGER(i4) :: kstep = 0_i4                          ! [IN]
+      INTEGER(i4) :: kinc = 0_i4                           ! [IN]
+      TYPE(ErrorStatusType) :: status                      ! [OUT]
+    END TYPE UF_Plastic_UMAT_Dispatch_Arg
+
+    PUBLIC :: UF_Plastic_Eval_Dispatch, UF_Plastic_Eval_Dispatch_Arg
+    PUBLIC :: UF_Plastic_UMAT_Dispatch, UF_Plastic_UMAT_Dispatch_Arg
     PUBLIC :: UF_Plastic_UMAT_Wrapper, PH_MAT_UMAT_Plastic_Dispatch, UF_Plastic_GetLegacyID
     PUBLIC :: UF_Plastic_Legacy_VonMises, UF_Plastic_Legacy_Hill, UF_Plastic_Legacy_CamClay
     PUBLIC :: UF_Plastic_Leg_MohrCoulomb, UF_Plastic_Leg_ConcreteDmg, UF_Plastic_Leg_DruckerPrager
@@ -75,10 +120,18 @@ MODULE PH_MatPLMEval
 CONTAINS
 
   !---------------------------------------------------------------------------
-  ! UF_Plastic_Eval_Dispatch: struct-only dispatch (plm_in+ctx+algo)
+  ! UF_Plastic_Eval_Dispatch: SIO entry (plm_in + ctx + algo)
+  !---------------------------------------------------------------------------
+  SUBROUTINE UF_Plastic_Eval_Dispatch(arg)
+    TYPE(UF_Plastic_Eval_Dispatch_Arg), INTENT(INOUT) :: arg
+    CALL UF_Plastic_Eval_Dispatch_Core(arg%material_id, arg%plm_in, arg%ctx, arg%algo, arg%status)
+  END SUBROUTINE UF_Plastic_Eval_Dispatch
+
+  !---------------------------------------------------------------------------
+  ! UF_Plastic_Eval_Dispatch_Core: struct-only dispatch (plm_in+ctx+algo)
   !   Calls each model's UMAT internally, unpacking/repacking ctx.
   !---------------------------------------------------------------------------
-  SUBROUTINE UF_Plastic_Eval_Dispatch(material_id, plm_in, ctx, algo, status)
+  SUBROUTINE UF_Plastic_Eval_Dispatch_Core(material_id, plm_in, ctx, algo, status)
     INTEGER(i4),           INTENT(IN)    :: material_id
     TYPE(PlastModels_Desc),INTENT(IN)    :: plm_in
     TYPE(MatEval_Ctx),     INTENT(INOUT) :: ctx
@@ -170,10 +223,41 @@ CONTAINS
       drpldt_loc = out_struct%state%drpldt
       status = out_struct%status
     CASE (PH_MAT_HILL_MAT_ID)
-      CALL UF_Hill_UMAT(stress_loc, statev_loc(1:MAX(nstatv,1)), ddsdde_loc, sse_loc, spd_loc, scd_loc, &
-           rpl_loc, ddsddt_loc, drplde_loc, drpldt_loc, ctx%stran, ctx%dstran, ctx%time, ctx%dtime, &
-           ctx%temp, ctx%dtemp, [0.0_wp], [0.0_wp], ctx%ndi, ctx%nshr, MAX(nstatv,1), np, &
-           plm_in%props(1:np), ctx%cfg%ndim, algo%kstep, algo%kinc, status)
+      BLOCK
+        TYPE(UF_Hill_UMAT_Arg) :: hill_arg
+        INTEGER(i4) :: nsv_hill
+        nsv_hill = MIN(MAX(nstatv, 0_i4), SIZE(hill_arg%statev, KIND=i4))
+        hill_arg%stress = stress_loc
+        hill_arg%nstatev = nsv_hill
+        IF (nsv_hill > 0) hill_arg%statev(1:nsv_hill) = statev_loc(1:nsv_hill)
+        hill_arg%stran = ctx%stran
+        hill_arg%dstran = ctx%dstran
+        hill_arg%time = ctx%time
+        hill_arg%dtime = ctx%dtime
+        hill_arg%temp = ctx%temp
+        hill_arg%dtemp = ctx%dtemp
+        hill_arg%ndir = ctx%ndi
+        hill_arg%nshr = ctx%nshr
+        hill_arg%ndim = ctx%cfg%ndim
+        hill_arg%kstep = algo%kstep
+        hill_arg%kinc = algo%kinc
+        hill_arg%nprops = np
+        IF (np > 0) hill_arg%props(1:np) = plm_in%props(1:np)
+        hill_arg%sse = sse_loc
+        CALL init_error_status(hill_arg%status)
+        CALL UF_Hill_UMAT(hill_arg)
+        stress_loc = hill_arg%stress
+        ddsdde_loc = hill_arg%ddsdde
+        sse_loc = hill_arg%sse
+        spd_loc = hill_arg%spd
+        scd_loc = hill_arg%scd
+        rpl_loc = hill_arg%rpl
+        ddsddt_loc = hill_arg%ddsddt
+        drplde_loc = hill_arg%drplde
+        drpldt_loc = hill_arg%drpldt
+        IF (nsv_hill > 0) statev_loc(1:nsv_hill) = hill_arg%statev(1:nsv_hill)
+        status = hill_arg%status
+      END BLOCK
     CASE (PH_MAT_DRUCKERPRAGER_M)
       CALL UF_DruckerPrager_UMAT(stress_loc, statev_loc(1:MAX(nstatv,1)), ddsdde_loc, sse_loc, spd_loc, scd_loc, &
            rpl_loc, ddsddt_loc, drplde_loc, drpldt_loc, ctx%stran, ctx%dstran, ctx%time, ctx%dtime, &
@@ -313,10 +397,40 @@ CONTAINS
            ctx%temp, ctx%dtemp, [0.0_wp], [0.0_wp], ctx%ndi, ctx%nshr, MAX(nstatv,1), np, &
            plm_in%props(1:np), ctx%cfg%ndim, algo%kstep, algo%kinc, status)
     CASE (PH_MAT_CRYSTAL_PLASTICITY_MAT_ID)
-      CALL UF_CrystalPlasticity_UMAT(stress_loc, statev_loc(1:MAX(nstatv,1)), ddsdde_loc, sse_loc, spd_loc, scd_loc, &
-           rpl_loc, ddsddt_loc, drplde_loc, drpldt_loc, ctx%stran, ctx%dstran, ctx%time, ctx%dtime, &
-           ctx%temp, ctx%dtemp, [0.0_wp], [0.0_wp], ctx%ndi, ctx%nshr, MAX(nstatv,1), np, &
-           plm_in%props(1:np), ctx%cfg%ndim, algo%kstep, algo%kinc, status)
+      BLOCK
+        TYPE(UF_CrystalPlasticity_UMAT_Arg) :: xtal_arg
+        INTEGER(i4) :: nsv_xtal
+        nsv_xtal = MIN(MAX(nstatv, 0_i4), SIZE(xtal_arg%statev, KIND=i4))
+        xtal_arg%stress = stress_loc
+        xtal_arg%nstatev = nsv_xtal
+        IF (nsv_xtal > 0) xtal_arg%statev(1:nsv_xtal) = statev_loc(1:nsv_xtal)
+        xtal_arg%stran = ctx%stran
+        xtal_arg%dstran = ctx%dstran
+        xtal_arg%time = ctx%time
+        xtal_arg%dtime = ctx%dtime
+        xtal_arg%temp = ctx%temp
+        xtal_arg%dtemp = ctx%dtemp
+        xtal_arg%ndir = ctx%ndi
+        xtal_arg%nshr = ctx%nshr
+        xtal_arg%ndim = ctx%cfg%ndim
+        xtal_arg%kstep = algo%kstep
+        xtal_arg%kinc = algo%kinc
+        xtal_arg%nprops = np
+        IF (np > 0) xtal_arg%props(1:np) = plm_in%props(1:np)
+        CALL init_error_status(xtal_arg%status)
+        CALL UF_CrystalPlasticity_UMAT(xtal_arg)
+        stress_loc = xtal_arg%stress
+        ddsdde_loc = xtal_arg%ddsdde
+        sse_loc = xtal_arg%sse
+        spd_loc = xtal_arg%spd
+        scd_loc = xtal_arg%scd
+        rpl_loc = xtal_arg%rpl
+        ddsddt_loc = xtal_arg%ddsddt
+        drplde_loc = xtal_arg%drplde
+        drpldt_loc = xtal_arg%drpldt
+        IF (nsv_xtal > 0) statev_loc(1:nsv_xtal) = xtal_arg%statev(1:nsv_xtal)
+        status = xtal_arg%status
+      END BLOCK
     CASE (PH_MAT_RATE_DEPENDENT_PLAST_MAT_ID)
       CALL UF_RateDependentPlasticity_UMAT(stress_loc, statev_loc(1:MAX(nstatv,1)), ddsdde_loc, sse_loc, spd_loc, scd_loc, &
            rpl_loc, ddsddt_loc, drplde_loc, drpldt_loc, ctx%stran, ctx%dstran, ctx%time, ctx%dtime, &
@@ -338,67 +452,109 @@ CONTAINS
     ctx%ddsdde(1:ntens,1:ntens) = ddsdde_loc(1:ntens,1:ntens)
     ctx%sse                     = sse_loc
     IF (nstatv > 0) ctx%statev(1:MIN(nstatv,50)) = statev_loc(1:MIN(nstatv,50))
-  END SUBROUTINE UF_Plastic_Eval_Dispatch
+  END SUBROUTINE UF_Plastic_Eval_Dispatch_Core
 
   !---------------------------------------------------------------------------
-  ! UF_Plastic_UMAT_Dispatch: legacy UMAT interface -> packs ctx -> Eval_Dispatch
+  ! UF_Plastic_UMAT_Dispatch: SIO entry (legacy UMAT bundle → Eval dispatch)
   !---------------------------------------------------------------------------
-  SUBROUTINE UF_Plastic_UMAT_Dispatch(material_id, stress, statev, ddsdde, &
-                                       sse, spd, scd, rpl, ddsddt, drplde, drpldt, &
-                                       stran, dstran, time, dtime, temp, dtemp, &
-                                       predef, dpred, ndir, nshr, nstatev, nprops, &
-                                       props, ndim, kstep, kinc, status)
-    INTEGER(i4), INTENT(IN) :: material_id
-    REAL(wp), INTENT(INOUT) :: stress(6)
-    REAL(wp), INTENT(INOUT) :: statev(:)
-    REAL(wp), INTENT(OUT) :: ddsdde(6,6)
-    REAL(wp), INTENT(OUT) :: sse, spd, scd, rpl
-    REAL(wp), INTENT(OUT) :: ddsddt(6), drplde(6), drpldt
-    REAL(wp), INTENT(IN) :: stran(6), dstran(6)
-    REAL(wp), INTENT(IN) :: time(2), dtime
-    REAL(wp), INTENT(IN) :: temp, dtemp
-    REAL(wp), INTENT(IN) :: predef(*), dpred(*)
-    INTEGER(i4), INTENT(IN) :: ndir, nshr, nstatev, nprops, ndim, kstep, kinc
-    REAL(wp), INTENT(IN) :: props(:)
-    TYPE(ErrorStatusType), INTENT(OUT) :: status
+  SUBROUTINE UF_Plastic_UMAT_Dispatch(arg)
+    TYPE(UF_Plastic_UMAT_Dispatch_Arg), INTENT(INOUT) :: arg
     TYPE(PlastModels_Desc) :: plm_wrk
     TYPE(MatEval_Ctx)      :: ctx
     TYPE(MatAlgo_Algo)     :: algo
-    INTEGER(i4) :: np
-    CALL init_error_status(status)
-    CALL UF_Plastic_InitReg(status)
-    IF (status%status_code /= IF_STATUS_OK) RETURN
-    ! Pack Desc
-    np = MIN(nprops, SIZE(plm_wrk%props, KIND=i4))
+    INTEGER(i4) :: np, nsv
+    CALL init_error_status(arg%status)
+    CALL UF_Plastic_InitReg(arg%status)
+    IF (arg%status%status_code /= IF_STATUS_OK) RETURN
+    np = MIN(arg%nprops, MD_MAT_PLAST_MAX_PROPS)
     plm_wrk%nprops = np
-    IF (np > 0) plm_wrk%props(1:np) = props(1:np)
-    ! Pack ctx
-    ctx%ndi    = ndir
-    ctx%nshr   = nshr
-    ctx%ntens  = ndir + nshr
-    ctx%cfg%ndim   = ndim
-    ctx%nstatv = nstatev
-    ctx%stress(1:6)   = stress(1:6)
-    ctx%stran(1:6)    = stran(1:6)
-    ctx%dstran(1:6)   = dstran(1:6)
-    ctx%sse    = sse
-    ctx%time(1:2) = time(1:2)
-    ctx%dtime  = dtime
-    ctx%temp   = temp
-    ctx%dtemp  = dtemp
-    IF (nstatev > 0) ctx%statev(1:nstatev) = statev(1:nstatev)
-    ! Pack algo
-    algo%kstep = kstep
-    algo%kinc  = kinc
-    CALL UF_Plastic_Eval_Dispatch(material_id, plm_wrk, ctx, algo, status)
-    IF (status%status_code /= IF_STATUS_OK) RETURN
-    ! Unpack ctx
-    stress(1:6)        = ctx%stress(1:6)
-    ddsdde(1:6,1:6)   = ctx%ddsdde(1:6,1:6)
-    sse               = ctx%sse
-    IF (nstatev > 0) statev(1:nstatev) = ctx%statev(1:nstatev)
+    IF (np > 0) plm_wrk%props(1:np) = arg%props(1:np)
+    ctx%ndi    = arg%ndir
+    ctx%nshr   = arg%nshr
+    ctx%ntens  = arg%ndir + arg%nshr
+    ctx%cfg%ndim   = arg%ndim
+    nsv = MIN(MAX(arg%nstatev, 0_i4), MD_MATCTX_MAX_STATEV)
+    ctx%nstatv = nsv
+    ctx%stress(1:6)   = arg%stress(1:6)
+    ctx%stran(1:6)    = arg%stran(1:6)
+    ctx%dstran(1:6)   = arg%dstran(1:6)
+    ctx%sse    = arg%sse
+    ctx%time(1:2) = arg%time(1:2)
+    ctx%dtime  = arg%dtime
+    ctx%temp   = arg%temp
+    ctx%dtemp  = arg%dtemp
+    IF (nsv > 0) ctx%statev(1:nsv) = arg%statev(1:nsv)
+    algo%kstep = arg%kstep
+    algo%kinc  = arg%kinc
+    BLOCK
+      TYPE(UF_Plastic_Eval_Dispatch_Arg) :: eval_arg
+      eval_arg%material_id = arg%material_id
+      eval_arg%plm_in = plm_wrk
+      eval_arg%ctx = ctx
+      eval_arg%algo = algo
+      CALL init_error_status(eval_arg%status)
+      CALL UF_Plastic_Eval_Dispatch(eval_arg)
+      ctx = eval_arg%ctx
+      arg%status = eval_arg%status
+    END BLOCK
+    IF (arg%status%status_code /= IF_STATUS_OK) RETURN
+    arg%stress(1:6)      = ctx%stress(1:6)
+    arg%ddsdde(1:6, 1:6) = ctx%ddsdde(1:6, 1:6)
+    arg%sse              = ctx%sse
+    IF (nsv > 0) arg%statev(1:nsv) = ctx%statev(1:nsv)
   END SUBROUTINE UF_Plastic_UMAT_Dispatch
 
+  ! Legacy flat UMAT signature → SIO Arg (module-private; predef/dpred unused on path)
+  SUBROUTINE UF_Plastic_UMAT_Legacy_Shim(material_id, stress, statev, ddsdde, &
+      sse, spd, scd, rpl, ddsddt, drplde, drpldt, stran, dstran, time, dtime, temp, dtemp, &
+      ndir, nshr, nstatev, nprops, props, ndim, kstep, kinc, status)
+    INTEGER(i4), INTENT(IN) :: material_id
+    REAL(wp), INTENT(INOUT) :: stress(6)
+    REAL(wp), INTENT(INOUT) :: statev(*)
+    REAL(wp), INTENT(OUT) :: ddsdde(6, 6)
+    REAL(wp), INTENT(INOUT) :: sse
+    REAL(wp), INTENT(OUT) :: spd, scd, rpl
+    REAL(wp), INTENT(OUT) :: ddsddt(6), drplde(6), drpldt
+    REAL(wp), INTENT(IN) :: stran(6), dstran(6)
+    REAL(wp), INTENT(IN) :: time(2), dtime, temp, dtemp
+    INTEGER(i4), INTENT(IN) :: ndir, nshr, nstatev, nprops, ndim, kstep, kinc
+    REAL(wp), INTENT(IN) :: props(*)
+    TYPE(ErrorStatusType), INTENT(OUT) :: status
+    TYPE(UF_Plastic_UMAT_Dispatch_Arg) :: umat_arg
+    INTEGER(i4) :: nsv, np
+    umat_arg%material_id = material_id
+    umat_arg%stress = stress
+    umat_arg%stran = stran
+    umat_arg%dstran = dstran
+    umat_arg%time = time
+    umat_arg%dtime = dtime
+    umat_arg%temp = temp
+    umat_arg%dtemp = dtemp
+    umat_arg%ndir = ndir
+    umat_arg%nshr = nshr
+    umat_arg%ndim = ndim
+    umat_arg%kstep = kstep
+    umat_arg%kinc = kinc
+    umat_arg%nstatev = nstatev
+    umat_arg%sse = sse
+    nsv = MIN(MAX(nstatev, 0_i4), MD_MATCTX_MAX_STATEV)
+    IF (nsv > 0) umat_arg%statev(1:nsv) = statev(1:nsv)
+    np = MIN(MAX(nprops, 0_i4), MD_MAT_PLAST_MAX_PROPS)
+    umat_arg%nprops = np
+    IF (np > 0) umat_arg%props(1:np) = props(1:np)
+    CALL UF_Plastic_UMAT_Dispatch(umat_arg)
+    stress = umat_arg%stress
+    ddsdde = umat_arg%ddsdde
+    sse = umat_arg%sse
+    spd = umat_arg%spd
+    scd = umat_arg%scd
+    rpl = umat_arg%rpl
+    ddsddt = umat_arg%ddsddt
+    drplde = umat_arg%drplde
+    drpldt = umat_arg%drpldt
+    IF (nsv > 0) statev(1:nsv) = umat_arg%statev(1:nsv)
+    status = umat_arg%status
+  END SUBROUTINE UF_Plastic_UMAT_Legacy_Shim
 
   SUBROUTINE Plast_Legacy_Invoke(material_id, stress, statev, ddsdde, sse, spd, scd, &
                                   rpl, ddsddt, drplde, drpldt, &
@@ -420,11 +576,10 @@ CONTAINS
     TYPE(ErrorStatusType) :: status
     INTEGER(i4) :: mid
     mid = UF_Plastic_GetLegacyID(material_id)
-    CALL UF_Plastic_UMAT_Dispatch(mid, stress, statev(1:nstatev), ddsdde, sse, spd, scd, &
-                                  rpl, ddsddt, drplde, drpldt, &
-                                  stran, dstran, time, dtime, temp, dtemp, &
-                                  predef, dpred, INT(ndir,i4), INT(nshr,i4), INT(nstatev,i4), INT(nprops,i4), &
-                                  props, INT(ndim,i4), INT(kstep,i4), INT(kinc,i4), status)
+    CALL UF_Plastic_UMAT_Legacy_Shim(mid, stress, statev, ddsdde, sse, spd, scd, rpl, &
+        ddsddt, drplde, drpldt, stran, dstran, time, dtime, temp, dtemp, &
+        INT(ndir, i4), INT(nshr, i4), INT(nstatev, i4), INT(nprops, i4), props, &
+        INT(ndim, i4), INT(kstep, i4), INT(kinc, i4), status)
   END SUBROUTINE Plast_Legacy_Invoke
 
   SUBROUTINE UF_Plastic_Leg_CompProgressive(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, &
@@ -758,15 +913,10 @@ CONTAINS
 
     INTEGER(i4) :: mapped_id
 
-    ! Map legacy IDs to new IDs
     mapped_id = UF_Plastic_GetLegacyID(material_id)
-
-    ! Call unified dispatch
-    CALL UF_Plastic_UMAT_Dispatch(mapped_id, stress, statev, ddsdde, &
-                                   sse, spd, scd, rpl, ddsddt, drplde, drpldt, &
-                                   stran, dstran, time, dtime, temp, dtemp, &
-                                   predef, dpred, ndir, nshr, nstatev, nprops, &
-                                   props, ndim, kstep, kinc, status)
+    CALL UF_Plastic_UMAT_Legacy_Shim(mapped_id, stress, statev, ddsdde, sse, spd, scd, rpl, &
+        ddsddt, drplde, drpldt, stran, dstran, time, dtime, temp, dtemp, &
+        ndir, nshr, nstatev, nprops, props, ndim, kstep, kinc, status)
 
   END SUBROUTINE UF_Plastic_UMAT_Wrapper
 
@@ -790,11 +940,10 @@ CONTAINS
     TYPE(ErrorStatusType), INTENT(OUT) :: status
     INTEGER(i4) :: mid
     mid = UF_Plastic_GetLegacyID(material_id)
-    CALL UF_Plastic_UMAT_Dispatch(mid, stress, statev(1:nstatev), ddsdde, sse, spd, scd, &
-                                  rpl, ddsddt, drplde, drpldt, &
-                                  stran, dstran, time, dtime, temp, dtemp, &
-                                  predef, dpred, INT(ndir,i4), INT(nshr,i4), INT(nstatev,i4), INT(nprops,i4), &
-                                  props, INT(ndim,i4), INT(kstep,i4), INT(kinc,i4), status)
+    CALL UF_Plastic_UMAT_Legacy_Shim(mid, stress, statev, ddsdde, sse, spd, scd, rpl, &
+        ddsddt, drplde, drpldt, stran, dstran, time, dtime, temp, dtemp, &
+        INT(ndir, i4), INT(nshr, i4), INT(nstatev, i4), INT(nprops, i4), props, &
+        INT(ndim, i4), INT(kstep, i4), INT(kinc, i4), status)
   END SUBROUTINE PH_MAT_UMAT_Plastic_Dispatch
 
     ! 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€

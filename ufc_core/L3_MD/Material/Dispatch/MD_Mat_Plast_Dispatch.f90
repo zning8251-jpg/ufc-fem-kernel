@@ -13,7 +13,9 @@ MODULE MD_Mat_Plast_Dispatch
   USE IF_Prec_Core, ONLY: i4, wp
   USE MD_Mat_Def, ONLY: MD_Mat_Desc, MD_Mat_Desc_SyncDeprecatedFlat, MD_MAT_CATEGORY_PL
   USE MD_Mat_Eval_Types, ONLY: MatEval_Ctx, MatAlgo_Algo
-  USE PH_MatPLMEval, ONLY: UF_Plastic_Eval_Dispatch
+  USE MD_Mat_Plast_Reg, ONLY: PlastModels_Desc, MD_MAT_PLAST_MAX_PROPS
+  USE PH_MatPLMEval, ONLY: UF_Plastic_Eval_Dispatch, UF_Plastic_Eval_Dispatch_Arg, &
+      PH_MAT_VONMISES_MAT_ID
   IMPLICIT NONE
   PRIVATE
 
@@ -41,7 +43,8 @@ CONTAINS
     IF (material_id <= 0_i4) material_id = desc%id
 
     IF (eff_class == MD_MAT_CATEGORY_PL) THEN
-      IF (material_id < MD_MAT_PLAST_ID_LO .OR. material_id > MD_MAT_PLAST_ID_HI) material_id = MD_MAT_VONMISES_MAT_ID
+      IF (material_id < MD_MAT_PLAST_ID_LO .OR. material_id > MD_MAT_PLAST_ID_HI) &
+          material_id = PH_MAT_VONMISES_MAT_ID
     ELSE IF (eff_class /= 0_i4) THEN
       status%status_code = MD_MAT_STATUS_NOT_FOUND
       status%message = '[UF_Plastic_Eval_Dispatch_FromDesc] material category is not plastic'
@@ -76,7 +79,17 @@ CONTAINS
       plast_desc%props(k) = desc%props(k)
     END DO
 
-    CALL UF_Plastic_Eval_Dispatch(material_id, plast_desc, ctx, algo, status)
+    BLOCK
+      TYPE(UF_Plastic_Eval_Dispatch_Arg) :: eval_arg
+      eval_arg%material_id = material_id
+      eval_arg%plm_in = plast_desc
+      eval_arg%ctx = ctx
+      eval_arg%algo = algo
+      CALL init_error_status(eval_arg%status)
+      CALL UF_Plastic_Eval_Dispatch(eval_arg)
+      ctx = eval_arg%ctx
+      status = eval_arg%status
+    END BLOCK
   END SUBROUTINE UF_Plastic_Eval_Dispatch_FromDesc
 
 END MODULE MD_Mat_Plast_Dispatch
