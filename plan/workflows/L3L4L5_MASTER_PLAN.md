@@ -39,9 +39,10 @@
 
 | 任务 | 路径 | 状态 |
 |------|------|------|
-| Registry 刷新 | [`tasks/w0-registry-refresh/TASK_RUN.md`](../tasks/w0-registry-refresh/TASK_RUN.md) | done |
-| P1 Plast wave3 | [`tasks/p1-material-wave3-plast-loc/TASK_RUN.md`](../tasks/p1-material-wave3-plast-loc/TASK_RUN.md) · [`PR_BODY.md`](../changes/p1-material-wave3-plast-loc/PR_BODY.md) | **S7 done — 待开 PR** |
-| 差距快照 | [`P1_MATERIAL_GAP_SNAPSHOT.md`](P1_MATERIAL_GAP_SNAPSHOT.md) | §4 G1–G6 ✅ |
+| **域柱路线图** | [`PILLAR_ROLLOUT_ROADMAP.md`](PILLAR_ROLLOUT_ROADMAP.md) | **ACTIVE** — P1–P6 → H* → 层专属 |
+| P1 post-wave5 | [`backlog/p1-material-post-wave5-backlog.md`](../backlog/p1-material-post-wave5-backlog.md) | **COMPLETE**；尾巴 W2 + NAME |
+| P1 W2 / NAME 草案 | [`changes/p1-material-crystal-w2-multislip/`](../changes/p1-material-crystal-w2-multislip/) · [`p1-material-plast-name-debt/`](../changes/p1-material-plast-name-debt/) | plan DRAFT |
+| 差距快照 | [`P1_MATERIAL_GAP_SNAPSHOT.md`](P1_MATERIAL_GAP_SNAPSHOT.md) | Material 波次台账已更新 |
 
 ---
 

@@ -4,6 +4,7 @@
 
 | 文件 | 用途 |
 |------|------|
+| [`PILLAR_ROLLOUT_ROADMAP.md`](PILLAR_ROLLOUT_ROADMAP.md) | **贯通 P1–P6 → 半贯通 H* → 层专属** 推进顺序 + P1 W2/NAME 收尾 |
 | [`L3L4L5_MASTER_PLAN.md`](L3L4L5_MASTER_PLAN.md) | 分阶段总计划、任务分解、交接矩阵、验收挂钩 |
 | [`templates/TASK_RUN_L3L4L5.md`](templates/TASK_RUN_L3L4L5.md) | 新建 `plan/tasks/<task_id>/TASK_RUN.md` 时复制 |
 | [`templates/HANDOFF_MATRIX.md`](templates/HANDOFF_MATRIX.md) | S1–S7 逐步交接签字表 |

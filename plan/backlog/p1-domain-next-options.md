@@ -1,6 +1,6 @@
 # P1 — 域切换选项（Material 主链完成后）
 
-> **更新**：2026-05-19 · Material post-wave5 **COMPLETE**
+> **更新**：2026-05-19 · 总路线图：[`PILLAR_ROLLOUT_ROADMAP.md`](../workflows/PILLAR_ROLLOUT_ROADMAP.md)（**P1–P6 贯通 → H* 半贯通 → 层专属**）
 
 ## Material 域（本 repo 已立项草案）
 

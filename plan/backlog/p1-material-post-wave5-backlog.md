@@ -107,6 +107,8 @@ git push origin main
 | `p1-material-plast-name-debt` | Plast NAME-001（P2=17） | [`plan/changes/p1-material-plast-name-debt/`](../changes/p1-material-plast-name-debt/) |
 | （切换域） | Element / L5 / … | [`p1-domain-next-options.md`](p1-domain-next-options.md) |
 
+**总路线图**：[`plan/workflows/PILLAR_ROLLOUT_ROADMAP.md`](../workflows/PILLAR_ROLLOUT_ROADMAP.md) — 先 **P1 收尾（W2+NAME）**，再 **P2→…→P6**，后 **H*** 半柱。
+
 每项：确认算例/范围 → 实现 PR → 归档 `plan/tasks/<id>/`。
 
 ## 6. 相关链接
