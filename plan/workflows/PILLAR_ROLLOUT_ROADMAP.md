@@ -31,7 +31,7 @@
 
 | 柱 | 名称 | L3 ↔ L4 ↔ L5 | 当前状态（2026-05-19） | 下一 change_id / 动作 |
 |----|------|----------------|------------------------|------------------------|
-| **P1** | Material | `L3_MD/Material` ↔ `L4_PH/Material` ↔ `L5_RT/Material` | W2a **#14+#16** merged；post-wave5 complete | **NAME** [`p1-material-plast-name-debt`](../changes/p1-material-plast-name-debt/) → P1 S7 复核 |
+| **P1** | Material | `L3_MD/Material` ↔ `L4_PH/Material` ↔ `L5_RT/Material` | W2 **#14–#16**；NAME **#17–#19**（Plast P2=0） | **P1 S7** 复核 + GAP 快照更新 |
 | **P2** | Element | `L3_MD/Elem` ↔ `L4_PH/Element` ↔ `L5_RT/Element` | `contract-l4-element` **#15** S1–S3 done | `p2-element-pr01-seam-doc` → 实现波次 |
 | **P3** | Contact | `Interaction` ↔ `Contact` ↔ `Contact` | 待柱级金线 | 新 change；依赖 P2 Step3 接缝（见 MASTER §6） |
 | **P4** | LoadBC | `Boundary` ↔ `LoadBC` ↔ `LoadBC` | 待柱级金线 | 新 change |
