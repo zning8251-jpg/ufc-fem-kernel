@@ -16,7 +16,7 @@ MODULE RT_Mat_Test
   USE RT_Mat_Brg, ONLY: RT_Mat_Brg_BuildTable_FromMaterial, RT_Mat_Brg_MakeCtx, &
                         RT_Mat_Brg_WriteBackHook
   USE PH_Mat_Core, ONLY: PH_Mat_Core_Init
-  USE PH_Mat_Plast_J2_Iso_Core, ONLY: PH_J2_Props, PH_J2_TrialStress, PH_J2_YieldCheck, PH_MAT_J2_HARD_LINEAR
+  USE PH_Mat_Plast_J2_Iso_Core, ONLY: PH_J2_Props, PH_J2_ComputeTrialStress, PH_J2_YieldCheck, PH_MAT_J2_HARD_LINEAR
   USE PH_Mat_Def, ONLY: PH_Mat_Domain, PH_Mat_AllocSlot_Idx, &
                                      PH_MAT_ELASTIC, PH_MAT_ELASTO_PLASTIC, PH_MAT_HYPERELASTIC, &
                                      PH_MAT_VISCOELASTIC, PH_MAT_CREEP, PH_MAT_DAMAGE, PH_MAT_GEOTECH, &
@@ -439,7 +439,7 @@ CONTAINS
     j2p%harden%H = H_iso
     j2p%ctrl%hardening_type = PH_MAT_J2_HARD_LINEAR
     j2p%ctrl%use_kinematic = .FALSE.
-    CALL PH_J2_TrialStress(j2p, sn, de, D_el, sig_tr, s_tr, q_tr, p_mean)
+    CALL PH_J2_ComputeTrialStress(j2p, sn, de, D_el, sig_tr, s_tr, q_tr, p_mean)
     CALL PH_J2_YieldCheck(j2p, 0.0_wp, q_tr, f_tr, sig_y)
     IF (f_tr <= 0.0_wp) THEN
       n_failed = n_failed + 1

@@ -13,15 +13,15 @@
 !
 ! COMPUTATIONAL FLOW (single core, one increment)
 !   [1] Validate ntens (1..6); init status, pnewdt, convergence counters.
-!   [2] Elastic stiffness D^e from Desc (PH_MAT_E, nu) �?PLM_J2_Build_D_el.
+!   [2] Elastic stiffness D^e from Desc (PH_MAT_E, nu) �?PH_J2_ComputeElasticD.
 !   [3] Trial stress: sigma_trial = sigma_n + D^e : dstran (active ntens block).
 !   [4] Deviatoric trial s, von Mises q; yield stress sigma_y(peeq) �?PLM_J2_Yield_*.
 !   [5] Elastic branch (f <= 0): accept trial; ddsdde = D^e if requested.
 !   [6] Plastic branch (f > 0): check 3G+H_iso, q; radial return; update peeq,
-!       plastic strain, back-stress; ddsdde = D_ep via PLM_J2_EP_Tangent.
+!       plastic strain, back-stress; ddsdde = D_ep via PH_J2_ComputeEPTangent.
 !   [7] Set IF_STATUS_OK.
 !
-! MATPOINT PATH (PH_Mat_PLM_J2_UpdateStress)
+! MATPOINT PATH (PH_Mat_Update_J2_Stress)
 !   MD_Mat_PLM_J2_Desc from props -> fill PH state from sigma_old/statev -> [1]..[7] -> out.
 !
 ! PRECISION
@@ -60,9 +60,9 @@ MODULE PH_Mat_Plast_J2_UMAT_Core
 
   PUBLIC :: MD_Mat_PLM_J2_Desc
   PUBLIC :: PH_Mat_PLM_J2_State
-  PUBLIC :: PH_Mat_PLM_J2_UMAT_API
-  PUBLIC :: PH_Mat_PLM_J2_UpdateStress
-  PUBLIC :: PH_Mat_PLM_J2_UMAT
+  PUBLIC :: PH_Mat_Compute_J2_UMAT_API
+  PUBLIC :: PH_Mat_Update_J2_Stress
+  PUBLIC :: PH_Mat_Compute_J2_UMAT
   PUBLIC :: J2_InitStateVars
   ! PH_MAT_NSTATV_PLM_J2_* exported via PARAMETER, PUBLIC below
 
@@ -109,7 +109,7 @@ CONTAINS
   ! [Hardening] Isotropic yield and tangent at peeq (types 1/2/3)
   !===========================================================================
 
-  PURE FUNCTION PLM_J2_Yield_Stress_iso(desc, peeq) RESULT(sigy)
+  PURE FUNCTION PH_J2_ComputeYieldStressIso(desc, peeq) RESULT(sigy)
     TYPE(MD_Mat_PLM_J2_Desc), INTENT(IN) :: desc
     REAL(wp), INTENT(IN) :: peeq
     REAL(wp) :: sigy
@@ -124,9 +124,9 @@ CONTAINS
     CASE DEFAULT
       sigy = desc%sigma_y0 + desc%H * peeq
     END SELECT
-  END FUNCTION PLM_J2_Yield_Stress_iso
+  END FUNCTION PH_J2_ComputeYieldStressIso
 
-  PURE FUNCTION PLM_J2_Hardening_Tangent_iso(desc, peeq) RESULT(h_iso)
+  PURE FUNCTION PH_J2_ComputeHardeningTangentIso(desc, peeq) RESULT(h_iso)
     TYPE(MD_Mat_PLM_J2_Desc), INTENT(IN) :: desc
     REAL(wp), INTENT(IN) :: peeq
     REAL(wp) :: h_iso
@@ -142,9 +142,9 @@ CONTAINS
     CASE DEFAULT
       h_iso = desc%H
     END SELECT
-  END FUNCTION PLM_J2_Hardening_Tangent_iso
+  END FUNCTION PH_J2_ComputeHardeningTangentIso
 
-  PURE SUBROUTINE PLM_J2_Back_Stress_Update(desc, delta_gamma, n_dir, alpha)
+  PURE SUBROUTINE PH_J2_UpdateBackStress(desc, delta_gamma, n_dir, alpha)
     TYPE(MD_Mat_PLM_J2_Desc), INTENT(IN) :: desc
     REAL(wp), INTENT(IN) :: delta_gamma, n_dir(6)
     REAL(wp), INTENT(INOUT) :: alpha(6)
@@ -152,22 +152,22 @@ CONTAINS
     IF (.NOT. desc%use_kinematic) RETURN
     alpha = alpha + desc%kinematic_C * delta_gamma * n_dir - &
         desc%kinematic_gamma * alpha * delta_gamma
-  END SUBROUTINE PLM_J2_Back_Stress_Update
+  END SUBROUTINE PH_J2_UpdateBackStress
 
   !===========================================================================
   ! [Elastic] D^e and hydrostatic + deviatoric assembly
   !===========================================================================
 
-  SUBROUTINE PLM_J2_Build_D_el(desc, D)
+  SUBROUTINE PH_J2_ComputeElasticD(desc, D)
     TYPE(MD_Mat_PLM_J2_Desc), INTENT(IN) :: desc
     REAL(wp), INTENT(OUT) :: D(6,6)
     REAL(wp) :: Ddp(6,6)
 
     CALL Construct_Elastic_D(REAL(desc%PH_MAT_E, wp), REAL(desc%nu, wp), Ddp)
     D = Ddp
-  END SUBROUTINE PLM_J2_Build_D_el
+  END SUBROUTINE PH_J2_ComputeElasticD
 
-  PURE SUBROUTINE Assem_Stress_From_Deviatoric(stress_trial, s_dev, sigma)
+  PURE SUBROUTINE PH_J2_AssembleStressFromDeviatoric(stress_trial, s_dev, sigma)
     REAL(wp), INTENT(IN) :: stress_trial(6), s_dev(6)
     REAL(wp), INTENT(OUT) :: sigma(6)
     REAL(wp) :: p_mean
@@ -177,24 +177,28 @@ CONTAINS
     sigma(2) = s_dev(2) + p_mean
     sigma(3) = s_dev(3) + p_mean
     sigma(4:6) = s_dev(4:6)
-  END SUBROUTINE Assem_Stress_From_Deviatoric
+  END SUBROUTINE PH_J2_AssembleStressFromDeviatoric
 
-  SUBROUTINE PLM_J2_Assem_Dev(stress_trial, s_dev, sigma, ntens)
+  SUBROUTINE PH_J2_AssembleDeviatoricStress(stress_trial, s_dev, sigma, ntens)
     REAL(wp), INTENT(IN) :: stress_trial(6), s_dev(6)
     REAL(wp), INTENT(OUT) :: sigma(6)
     INTEGER(i4), INTENT(IN) :: ntens
     REAL(wp) :: sg(6)
 
-    CALL Assem_Stress_From_Deviatoric(stress_trial, s_dev, sg)
+    CALL PH_J2_AssembleStressFromDeviatoric(stress_trial, s_dev, sg)
     sigma(1:ntens) = sg(1:ntens)
     IF (ntens < 6_i4) sigma(ntens+1:6) = ZERO
-  END SUBROUTINE PLM_J2_Assem_Dev
+  END SUBROUTINE PH_J2_AssembleDeviatoricStress
 
   !===========================================================================
   ! [Tangent] Consistent elastoplastic modulus (isotropic tangent in J2)
   !===========================================================================
 
-  SUBROUTINE PLM_J2_EP_Tangent(desc, sigma6, ntens, plastic_step, peeq_tan, Dout)
+  SUBROUTINE PH_J2_ComputeEPTangent(desc, sigma6, ntens, plastic_step, peeq_tan, Dout)
+    ! 理论链: J2 一致弹塑性切线 D_ep。
+    ! 逻辑链: 弹性步复制 D_e；塑性步用偏应力方向修正。
+    ! 计算链: Construct_Elastic_D + von Mises 方向张量修正。
+    ! 数据链: desc·sigma6(IN); Dout(OUT)。
     TYPE(MD_Mat_PLM_J2_Desc), INTENT(IN) :: desc
     REAL(wp), INTENT(IN) :: sigma6(6)
     INTEGER(i4), INTENT(IN) :: ntens
@@ -213,7 +217,7 @@ CONTAINS
     END IF
 
     G_mod = desc%PH_MAT_E / (TWO * (ONE + desc%nu))
-    H_tan = PLM_J2_Hardening_Tangent_iso(desc, peeq_tan)
+    H_tan = PH_J2_ComputeHardeningTangentIso(desc, peeq_tan)
     sg = sigma6
     CALL Calc_Deviatoric_Stress(sg, s_cur)
     q_cur = Calc_Von_Mises(s_cur)
@@ -234,14 +238,18 @@ CONTAINS
     fac = 6.0_wp * G_mod**2 / (THREE * G_mod + H_tan)
     D_e = D_e - fac * n_dyad
     Dout(1:ntens,1:ntens) = D_e(1:ntens,1:ntens)
-  END SUBROUTINE PLM_J2_EP_Tangent
+  END SUBROUTINE PH_J2_ComputeEPTangent
 
   !===========================================================================
-  ! [Core] PH_Mat_PLM_J2_UMAT_API �?steps [1]..[7] in header
+  ! [Core] PH_Mat_Compute_J2_UMAT_API �?steps [1]..[7] in header
   !===========================================================================
 
-  SUBROUTINE PH_Mat_PLM_J2_UMAT_API(MD_Mat_Desc, PH_Mat_Ctx, PH_Mat_State, &
+  SUBROUTINE PH_Mat_Compute_J2_UMAT_API(MD_Mat_Desc, PH_Mat_Ctx, PH_Mat_State, &
       MD_Mat, PH_Mat_Algo, pnewdt)
+    ! 理论链: 隐式 J2 径向返回（MatPoint/UMAT 七步）。
+    ! 逻辑链: D_e → 试应力 → 屈服 → 返回映射 → 切线。
+    ! 计算链: PH_J2_ComputeElasticD / ComputeYieldStressIso / ComputeEPTangent。
+    ! 数据链: MD_Mat_Desc·PH_Mat_Ctx·State(IN/OUT); pnewdt(INOUT)。
     TYPE(MD_Mat_PLM_J2_Desc), INTENT(IN) :: MD_Mat_Desc
     TYPE(PH_Mat_Krnl_Ctx), INTENT(IN) :: PH_Mat_Ctx
     TYPE(PH_Mat_PLM_J2_State), INTENT(INOUT) :: PH_Mat_State
@@ -275,7 +283,7 @@ CONTAINS
     END IF
 
     ! [2] D^e
-    CALL PLM_J2_Build_D_el(MD_Mat_Desc, D_el)
+    CALL PH_J2_ComputeElasticD(MD_Mat_Desc, D_el)
 
     ! [3] Elastic predictor
     stress_trial(1:ntens) = PH_Mat_State%stress(1:ntens) &
@@ -289,7 +297,7 @@ CONTAINS
     q_trial = Calc_Von_Mises(st_dp)
 
     peeq_in = PH_Mat_State%peeq
-    sigma_y_current = PLM_J2_Yield_Stress_iso(MD_Mat_Desc, peeq_in)
+    sigma_y_current = PH_J2_ComputeYieldStressIso(MD_Mat_Desc, peeq_in)
     f_yield = q_trial - sigma_y_current
 
     IF (f_yield <= ZERO) THEN
@@ -304,7 +312,7 @@ CONTAINS
       PH_Mat_State%is_plastic = .TRUE.
       PH_Mat_State%iterations = 1
       G_modulus = MD_Mat_Desc%PH_MAT_E / (TWO * (ONE + MD_Mat_Desc%nu))
-      H_tangent = PLM_J2_Hardening_Tangent_iso(MD_Mat_Desc, peeq_in)
+      H_tangent = PH_J2_ComputeHardeningTangentIso(MD_Mat_Desc, peeq_in)
 
       IF (THREE * G_modulus + H_tangent <= SMALL) THEN
         CALL init_error_status(PH_Mat_State%status, IF_STATUS_ERROR, &
@@ -326,18 +334,18 @@ CONTAINS
       PH_Mat_State%peeq = PH_Mat_State%peeq + delta_gamma
       beta = ONE - THREE * G_modulus * delta_gamma / q_trial
       s_dev = beta * s_trial
-      CALL PLM_J2_Assem_Dev(stress_trial, s_dev, PH_Mat_State%stress, ntens)
+      CALL PH_J2_AssembleDeviatoricStress(stress_trial, s_dev, PH_Mat_State%stress, ntens)
       PH_Mat_State%strain_plastic = PH_Mat_State%strain_plastic + delta_gamma * n_dir
-      CALL PLM_J2_Back_Stress_Update(MD_Mat_Desc, delta_gamma, n_dir, PH_Mat_State%back_stress)
+      CALL PH_J2_UpdateBackStress(MD_Mat_Desc, delta_gamma, n_dir, PH_Mat_State%back_stress)
 
       IF (MD_Mat%compute_tangent) &
-        CALL PLM_J2_EP_Tangent(MD_Mat_Desc, PH_Mat_State%stress, ntens, plastic_step, &
+        CALL PH_J2_ComputeEPTangent(MD_Mat_Desc, PH_Mat_State%stress, ntens, plastic_step, &
             PH_Mat_State%peeq, PH_Mat_State%ddsdde)
     END IF
 
     ! [7]
     PH_Mat_State%status%status_code = IF_STATUS_OK
-  END SUBROUTINE PH_Mat_PLM_J2_UMAT_API
+  END SUBROUTINE PH_Mat_Compute_J2_UMAT_API
 
   !===========================================================================
   ! [L3] Type-bound Desc validate / InitFromProps
@@ -443,7 +451,7 @@ CONTAINS
   ! [MatPoint] props/statev <-> core
   !===========================================================================
 
-  SUBROUTINE PH_Mat_PLM_J2_UpdateStress(in, out)
+  SUBROUTINE PH_Mat_Update_J2_Stress(in, out)
     TYPE(MatPoint_In), INTENT(IN) :: in
     TYPE(MatPoint_Out), INTENT(OUT) :: out
 
@@ -505,7 +513,7 @@ CONTAINS
     md_algo%compute_tangent = .TRUE.
     pnewdt = PH_PNEWDT_NO_CHANGE
 
-    CALL PH_Mat_PLM_J2_UMAT_API(md_desc, ph_ctx, ph_st, md_algo, ph_algo, pnewdt)
+    CALL PH_Mat_Compute_J2_UMAT_API(md_desc, ph_ctx, ph_st, md_algo, ph_algo, pnewdt)
 
     out%stress = ph_st%stress
     out%ddsdde = ph_st%ddsdde
@@ -523,9 +531,9 @@ CONTAINS
       out%statev(1) = ph_st%peeq
       out%statev(2:7) = ph_st%strain_plastic(1:6)
     END IF
-  END SUBROUTINE PH_Mat_PLM_J2_UpdateStress
+  END SUBROUTINE PH_Mat_Update_J2_Stress
 
-  SUBROUTINE PH_Mat_PLM_J2_UMAT(ctx, status)
+  SUBROUTINE PH_Mat_Compute_J2_UMAT(ctx, status)
     TYPE(PH_UMAT_Context), INTENT(INOUT) :: ctx
     TYPE(ErrorStatusType), INTENT(OUT), OPTIONAL :: status
 
@@ -534,10 +542,10 @@ CONTAINS
 
     IF (PRESENT(status)) CALL init_error_status(status)
     CALL Unpack_From_UMAT_Context(ctx, pt_in)
-    CALL PH_Mat_PLM_J2_UpdateStress(pt_in, pt_out)
+    CALL PH_Mat_Update_J2_Stress(pt_in, pt_out)
     CALL Pack_To_UMAT_Context(pt_out, ctx)
     IF (PRESENT(status)) status = pt_out%status
-  END SUBROUTINE PH_Mat_PLM_J2_UMAT
+  END SUBROUTINE PH_Mat_Compute_J2_UMAT
 
 END MODULE PH_Mat_Plast_J2_UMAT_Core
 
