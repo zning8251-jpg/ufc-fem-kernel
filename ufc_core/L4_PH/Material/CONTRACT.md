@@ -51,17 +51,26 @@
 
 ### Legacy `PH_MatEval` aggregate（staging · wave5-mateval-arg）
 
-> **门面**：`Dispatch/PH_MatEval.f90` re-export 已迁出符号；**实现真源**见下表 C2 列。  
-> **迁出**：plan C2 — Elas/Plast **PR-A 完成**；Hyper/Damage/Creep/Visco/Composite → PR-B。
+> **门面**：`Dispatch/PH_MatEval.f90` 仅 re-export + `PH_Mat_UMATEnsureWorkspace`；**实现真源**见下表。  
+> **C2**：按族迁出 **完成**（PR-A Elas/Plast + PR-B 其余族）。
 
 | Eval 入口 | Arg TYPE | C2 真源 | 备注 |
 |-----------|----------|---------|------|
 | `PH_Mat_ElasticIsotropic_Eval` | `PH_Mat_ElasticIsotropic_Eval_Arg` | `Elas/PH_Mat_Elas_PointEval.f90` | Hooke D·ε |
 | `PH_Mat_ElasticOrthotropic_Eval` | `PH_Mat_ElasticOrthotropic_Eval_Arg` | `Elas/PH_Mat_Elas_PointEval.f90` | ortho: `strain`/`sigma`/`D_matrix` |
 | `PH_Mat_PlasticVonMises_Eval` | `PH_Mat_PlasticVonMises_Eval_Arg` | `Plast/PH_Mat_Plast_PointEval.f90` | J2 point |
-| `PH_Mat_PlasticHill_Eval` | `PH_Mat_PlasticHill_Eval_Arg` | `Plast/PH_Mat_Plast_PointEval.f90` | Hill48 point |
-| `PH_Mat_CompositeFiberReinforced_Eval` | `PH_Mat_CompositeFiberReinforced_Eval_Arg` | `Dispatch/PH_MatEval.f90` | mixture → iso |
-| 其余 `PH_Mat_*_Eval` | 同名 `*_Eval_Arg` | `Dispatch/PH_MatEval.f90` | PR-B |
+| `PH_Mat_PlasticHill_Eval` | `PH_Mat_PlasticHill_Eval_Arg` | `Plast/PH_Mat_Plast_PointEval.f90` | Hill48 |
+| `PH_Mat_HyperelasticNeoHookean_Eval` | `PH_Mat_HyperelasticNeoHookean_Eval_Arg` | `Hyper/PH_Mat_Hyper_PointEval.f90` | stub |
+| `PH_Mat_HyperelasticMooneyRivlin_Eval` | `PH_Mat_HyperelasticMooneyRivlin_Eval_Arg` | `Hyper/PH_Mat_Hyper_PointEval.f90` | stub |
+| `PH_Mat_DamageDuctile_Eval` | `PH_Mat_DamageDuctile_Eval_Arg` | `Damage/PH_Mat_Damage_PointEval.f90` | (1-D) degrade |
+| `PH_Mat_DamageBrittle_Eval` | `PH_Mat_DamageBrittle_Eval_Arg` | `Damage/PH_Mat_Damage_PointEval.f90` | → ductile |
+| `PH_Mat_CreepNorton_Eval` | `PH_Mat_CreepNorton_Eval_Arg` | `Creep/PH_Mat_Creep_PointEval.f90` | Norton |
+| `PH_Mat_ViscoelasticProny_Eval` | `PH_Mat_ViscoelasticProny_Eval_Arg` | `Viscoelas/PH_Mat_Visco_PointEval.f90` | Prony |
+| `PH_Mat_ViscoelasticMaxwell_Eval` | `PH_Mat_ViscoelasticMaxwell_Eval_Arg` | `Viscoelas/PH_Mat_Visco_PointEval.f90` | Maxwell |
+| `PH_Mat_ViscoelasticKelvinVoigt_Eval` | `PH_Mat_ViscoelasticKelvinVoigt_Eval_Arg` | `Viscoelas/PH_Mat_Visco_PointEval.f90` | K-V |
+| `PH_Mat_CompositeLaminate_Eval` | `PH_Mat_CompositeLaminate_Eval_Arg` | `Composite/PH_Mat_Comp_PointEval.f90` | laminate avg |
+| `PH_Mat_CompositeFiberReinforced_Eval` | `PH_Mat_CompositeFiberReinforced_Eval_Arg` | `Composite/PH_Mat_Comp_PointEval.f90` | ROM → iso |
+| `PH_Mat_UMATEnsureWorkspace` | `PH_Mat_UMATEnsureWorkspace_Arg` | `Dispatch/PH_MatEval.f90` | workspace stub |
 
 ---
 
