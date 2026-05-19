@@ -8,8 +8,10 @@
 - [x] 1.4 CONTRACT C2 真源列
 - [x] 1.5 harness
 
-## PR-B (future)
+## PR-B (this stack)
 
-- [ ] 2.1 Hyper point Eval → `Hyper/`
-- [ ] 2.2 Damage / Creep / Visco / Composite
-- [ ] 2.3 评估是否 deprecate `PH_MatEval` aggregate
+- [x] 2.1 Hyper → `PH_Mat_Hyper_PointEval.f90`
+- [x] 2.2 Damage / Creep / Visco / Composite PointEval modules
+- [x] 2.3 `PH_MatEval` facade-only (+ workspace)
+- [x] 2.4 CONTRACT full C2 table
+- [ ] 2.5 PR merged → archive task
