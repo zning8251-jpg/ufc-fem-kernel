@@ -6,6 +6,9 @@
 ! BRIEF:  Evaluation entry point for plastic material family.
 !         SIO: 5-parameter canonical form (desc, state, algo, ctx, args).
 !         3D naming: spatial=IP, temporal=Incr, action=Eval.
+! Purpose: Plastic family IP-level increment evaluation via unified Eval_Arg bundle.
+! Theory: Total strain = state%strain + args%dstrain; return mapping in PH_Mat_Plast_Core.
+! Status: ACTIVE
 !===============================================================================
 MODULE PH_Mat_Plast_Eval
   USE IF_Prec_Core, ONLY: i4, wp
@@ -31,6 +34,10 @@ CONTAINS
   ! 5-parameter SIO form: (desc, state, algo, ctx, args, status)
   !-----------------------------------------------------------------------------
   SUBROUTINE PH_Mat_Plast_IP_Incr_Eval(desc, state, algo, ctx, args, status)
+    ! Theory: J2/Plast return mapping on total strain increment at IP.
+    ! Logic:  Return_Mapping then Update_State; status gates early exit.
+    ! Compute: PH_Mat_Plast_Return_Mapping fills stress_out, ddsdde_out.
+    ! Data:   desc/state/algo/ctx/args SIO; outputs in args%stress, args%ddsdde.
     TYPE(PH_Mat_Plast_Desc),   INTENT(IN)    :: desc
     TYPE(PH_Mat_Plast_State),  INTENT(INOUT) :: state
     TYPE(PH_Mat_Plast_Algo),   INTENT(IN)    :: algo

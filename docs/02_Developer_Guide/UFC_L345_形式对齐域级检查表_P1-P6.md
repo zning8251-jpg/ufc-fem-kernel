@@ -6,6 +6,8 @@
 **规范真源**：[`UFC/REPORTS/UFC_L3L4L5_二元重构蓝图规范_v1.0.md`](../../REPORTS/UFC_L3L4L5_二元重构蓝图规范_v1.0.md)（根路径为 **stub**，长文在 [`UFC/REPORTS/archive/UFC_L3L4L5_二元重构蓝图规范_v1.0.md`](../../REPORTS/archive/UFC_L3L4L5_二元重构蓝图规范_v1.0.md)；§1–§4、§8–§13）、[`UFC/rules/ufc-naming.mdc`](../../rules/ufc-naming.mdc)、各域 `ufc_core/**/CONTRACT.md`。  
 **战役上下文**：[`UFC_Developer_Strategy_and_Refactor_Playbook.md`](./UFC_Developer_Strategy_and_Refactor_Playbook.md) Part A。
 
+**执行工作流（七步·交接·防偏离）**：[`../05_Project_Planning/PPLAN/03_实施规划/实施路线/UFC_L3L4L5_域柱改造固化工作流_v1.0.md`](../05_Project_Planning/PPLAN/03_实施规划/实施路线/UFC_L3L4L5_域柱改造固化工作流_v1.0.md) · 任务编排 [`../../plan/workflows/L3L4L5_MASTER_PLAN.md`](../../plan/workflows/L3L4L5_MASTER_PLAN.md)
+
 ---
 
 ## 域柱垂直切片 — 「全域改造」落地法
