@@ -15,7 +15,7 @@ MODULE PH_Elem_S8
   USE MD_Elem_Mgr, ONLY: ElemType, ElemFormul, ElemCtx, ElemFlags, ElemState
   USE MD_Mat_Lib, ONLY: MatPropertyDef
   USE MD_Sect_Mgr, ONLY: MatDesc
-  USE PH_Elem_CPS8, ONLY: PH_Elem_CPS8_FormStiffMatrix, PH_Elem_CPS8_FormIntForce, &
+  USE PH_Elem_CPS8, ONLY: PH_Elem_CPS8_StiffMatrix, PH_Elem_CPS8_FormIntForce, &
        PH_Elem_CPS8_ConsMass, PH_Elem_CPS8_LumpMass, PH_Elem_CPS8_ThermStrainVector, &
        PH_Elem_CPS8_ShapeFunc, PH_Elem_CPS8_Jac, PH_Elem_CPS8_GaussPoints
   USE PH_Elem_MaterialDispatch, ONLY: PH_UpdateStress, PH_GetTangent
@@ -30,6 +30,7 @@ MODULE PH_Elem_S8
   !=============================================================================
   PUBLIC :: PH_Elem_S8_StiffMatrix_Arg
   PUBLIC :: PH_Elem_S8_FormStiffMatrix
+  PUBLIC :: PH_Elem_S8_StiffMatrix
   PUBLIC :: PH_Elem_S8_IntForce_Arg
   PUBLIC :: PH_Elem_S8_FormIntForce
   PUBLIC :: PH_Elem_S8_NL_TL_Arg, PH_Elem_S8_NL_TL
@@ -146,17 +147,27 @@ CONTAINS
     arg%status%status_code = IF_STATUS_OK
   END SUBROUTINE PH_Elem_S8_FormIntForce
 
+  SUBROUTINE PH_Elem_S8_StiffMatrix(coords, E_young, nu, Ke)
+    REAL(wp), INTENT(IN)  :: coords(3, 8)
+    REAL(wp), INTENT(IN)  :: E_young, nu
+    REAL(wp), INTENT(OUT) :: Ke(48, 48)
+    REAL(wp) :: Ke_m(16, 16)
+    INTEGER(i4) :: i, j
+
+    Ke = ZERO
+    CALL PH_Elem_CPS8_StiffMatrix(coords(1:2, 1:8), E_young, nu, Ke_m)
+    DO i = 1, 16
+      DO j = 1, 16
+        Ke(PH_ELEM_S8_MEM_DOF(i), PH_ELEM_S8_MEM_DOF(j)) = Ke_m(i, j)
+      END DO
+    END DO
+  END SUBROUTINE PH_Elem_S8_StiffMatrix
+
   SUBROUTINE PH_Elem_S8_FormStiffMatrix_Legacy(coords, E_young, nu, Ke)
     REAL(wp), INTENT(IN)  :: coords(3, 8)
     REAL(wp), INTENT(IN)  :: E_young, nu
     REAL(wp), INTENT(OUT) :: Ke(48, 48)
-    TYPE(PH_Elem_S8_StiffMatrix_Arg) :: in
-    TYPE(PH_Elem_S8_StiffMatrix_Arg) :: out
-    in%coords = coords
-    in%E_young = E_young
-    in%nu = nu
-    CALL PH_Elem_S8_FormStiffMatrix(arg)
-    Ke = out%evo%Ke
+    CALL PH_Elem_S8_StiffMatrix(coords, E_young, nu, Ke)
   END SUBROUTINE PH_Elem_S8_FormStiffMatrix_Legacy
 
   SUBROUTINE PH_Elem_S8_FormStiffMatrix(arg)
@@ -165,7 +176,7 @@ CONTAINS
     INTEGER(i4) :: i, j
     CALL init_error_status(arg%status)
     arg%evo%Ke = ZERO
-    CALL PH_Elem_CPS8_FormStiffMatrix(arg%coords(1:2, 1:8), arg%E_young, arg%nu, Ke_m)
+    CALL PH_Elem_CPS8_StiffMatrix(arg%coords(1:2, 1:8), arg%E_young, arg%nu, Ke_m)
     DO i = 1, 16
       DO j = 1, 16
         arg%evo%Ke(PH_ELEM_S8_MEM_DOF(i), PH_ELEM_S8_MEM_DOF(j)) = Ke_m(i, j)
