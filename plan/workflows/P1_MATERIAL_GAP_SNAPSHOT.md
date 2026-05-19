@@ -30,7 +30,7 @@
 |------|-----|------|
 | J2 脊索（wave3） | 0 | **merged** #1 |
 | Hill / Barlat（wave5 PR-A） | 0 | **merged** #3 |
-| Crystal（mat_id 266） | 0 | **W1a iso-surrogate** PR 中；W1b Schmid 后续 |
+| Crystal（mat_id 266） | 0 | **W1b 1-slip Schmid**（W1a deprecated） |
 | 全域 `--fail-on-p0` | P2 only | **P0/P1 cleared** — **merged** #7 |
 
 ### 2.2 `Dispatch/`

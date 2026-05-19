@@ -6,9 +6,13 @@
 
 The system **must not** return `STATUS_UNSUPPORTED` from `UF_CrystalPlasticity_UMAT` on valid W1a inputs after this change is merged.
 
-### R1a — W1a iso-surrogate
+### R1b — W1b Schmid (current)
 
-On valid props, the UMAT **must** use isotropic J2-equivalent radial return with `sigma_y = sqrt(3) * (tau_c0 + H * peeq)` and **must** document surrogate semantics in `CONTRACT.md`.
+On valid props, the UMAT **must** use 1-slip Schmid with \(\tau = P:\sigma\) and **must** update `statev(1)` as `gamma`.
+
+### R1a — W1a iso-surrogate (deprecated)
+
+W1a **must not** be the active code path after W1b merges; CONTRACT **must** mark W1a deprecated.
 
 ### R2 — Dispatch 路径
 

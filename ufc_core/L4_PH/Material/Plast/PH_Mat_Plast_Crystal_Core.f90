@@ -3,11 +3,11 @@
 ! LAYER:  L4_PH
 ! DOMAIN: Material
 ! ROLE:   Core
-! BRIEF:  Crystal plasticity UMAT (mat_id 266) — **W1a iso-surrogate** (J2-equivalent).
-!         **W1b** (future): 1-slip Schmid; see plan `p1-material-crystal-impl`.
-! Purpose: PLM UMAT via UF_CrystalPlasticity_UMAT_Arg; removes STATUS_UNSUPPORTED.
-! Theory: W1a maps tau_c to sigma_y = sqrt(3)*tau_c, isotropic J2 radial return (no orientation).
-! Status: Production (W1a surrogate) | Last verified: 2026-05-19
+! BRIEF:  Crystal plasticity UMAT (mat_id 266) — **W1b 1-slip Schmid** (active).
+!         W1a iso-surrogate **deprecated** (removed); see CONTRACT / plan crystal-impl.
+! Purpose: PLM UMAT via UF_CrystalPlasticity_UMAT_Arg.
+! Theory: Rate-independent single slip; tau = P:sigma, P = sym(s x m); Voigt 6.
+! Status: Production (W1b) | Last verified: 2026-05-19
 !===============================================================================
 MODULE PH_Mat_Plast_Crystal_Core
   USE IF_Base_Def, ONLY: ZERO, ONE, TWO, THREE, HALF, SMALL
@@ -16,12 +16,12 @@ MODULE PH_Mat_Plast_Crystal_Core
   USE IF_Prec_Core, ONLY: wp, i4
   USE MD_Mat_Eval_Types, ONLY: MD_MATCTX_MAX_STATEV
   USE MD_Mat_Plast_Reg, ONLY: MD_MAT_PLAST_MAX_PROPS
-  USE PH_Mat_Integ_Shared, ONLY: Construct_Elastic_D, Calc_Deviatoric_Stress, Calc_Von_Mises
+  USE PH_Mat_Integ_Shared, ONLY: Construct_Elastic_D
 
   INTEGER(i4), PARAMETER, PUBLIC :: PH_MAT_CRYSTAL_PLASTICITY_MAT_ID = 266_i4
   INTEGER(i4), PARAMETER, PUBLIC :: PH_MAT_CRYSTAL_NPROPS_MIN = 4_i4
+  INTEGER(i4), PARAMETER, PUBLIC :: PH_MAT_CRYSTAL_NPROPS_SCHMID = 9_i4
   INTEGER(i4), PARAMETER, PUBLIC :: PH_MAT_CRYSTAL_NSTATV_MIN = 7_i4
-  REAL(wp), PARAMETER :: PH_CRYSTAL_SQRT3 = 1.7320508075688772_wp
 
   TYPE, PUBLIC :: CrystalPlast_MatDesc
     REAL(wp) :: props(50) = 0.0_wp
@@ -31,7 +31,7 @@ MODULE PH_Mat_Plast_Crystal_Core
   IMPLICIT NONE
   PRIVATE
   PUBLIC :: CrystalPlast_MatDesc, PH_MAT_CRYSTAL_PLASTICITY_MAT_ID
-  PUBLIC :: PH_MAT_CRYSTAL_NPROPS_MIN, PH_MAT_CRYSTAL_NSTATV_MIN
+  PUBLIC :: PH_MAT_CRYSTAL_NPROPS_MIN, PH_MAT_CRYSTAL_NPROPS_SCHMID, PH_MAT_CRYSTAL_NSTATV_MIN
   PUBLIC :: UF_CrystalPlasticity_UMAT, UF_CrystalPlasticity_UMAT_Arg
 
   TYPE, PUBLIC :: UF_CrystalPlasticity_UMAT_Arg
@@ -98,71 +98,89 @@ CONTAINS
     status%status_code = IF_STATUS_OK
   END SUBROUTINE Crystal_ValidateProps
 
-  PURE FUNCTION Crystal_SigmaY_FromTau(tau_c0, H, peeq) RESULT(sigma_y)
-    REAL(wp), INTENT(IN) :: tau_c0, H, peeq
-    REAL(wp) :: sigma_y
-    sigma_y = PH_CRYSTAL_SQRT3 * (tau_c0 + H * MAX(peeq, ZERO))
-  END FUNCTION Crystal_SigmaY_FromTau
+  SUBROUTINE Crystal_ParseSchmidVectors(nprops, props, s, m, status)
+    INTEGER(i4), INTENT(IN) :: nprops
+    REAL(wp), INTENT(IN) :: props(:)
+    REAL(wp), INTENT(OUT) :: s(3), m(3)
+    TYPE(ErrorStatusType), INTENT(OUT) :: status
+    REAL(wp) :: sn, mn
 
-  SUBROUTINE Crystal_EP_Tangent(E, nu, H, sigma6, ntens, plastic_step, Dout)
-    REAL(wp), INTENT(IN) :: E, nu, H, sigma6(6)
-    INTEGER(i4), INTENT(IN) :: ntens
+    CALL init_error_status(status)
+    IF (nprops >= PH_MAT_CRYSTAL_NPROPS_SCHMID) THEN
+      s(1:3) = props(5:7)
+      m(1:2) = props(8:9)
+      m(3) = ZERO
+      IF (nprops >= 10_i4 .AND. SIZE(props) >= 10) m(3) = props(10)
+    ELSE
+      s = [ZERO, ZERO, ONE]
+      m = [ONE, ZERO, ZERO]
+    END IF
+
+    sn = SQRT(s(1)**2 + s(2)**2 + s(3)**2)
+    mn = SQRT(m(1)**2 + m(2)**2 + m(3)**2)
+    IF (sn <= SMALL .OR. mn <= SMALL) THEN
+      status%status_code = IF_STATUS_INVALID
+      status%message = 'UF_CrystalPlasticity_UMAT: slip s or plane m has zero length'
+      RETURN
+    END IF
+    s = s / sn
+    m = m / mn
+    status%status_code = IF_STATUS_OK
+  END SUBROUTINE Crystal_ParseSchmidVectors
+
+  PURE SUBROUTINE Crystal_SchmidVector(s, m, p_voigt)
+    REAL(wp), INTENT(IN) :: s(3), m(3)
+    REAL(wp), INTENT(OUT) :: p_voigt(6)
+
+    p_voigt(1) = s(1) * m(1)
+    p_voigt(2) = s(2) * m(2)
+    p_voigt(3) = s(3) * m(3)
+    p_voigt(4) = s(1) * m(2) + s(2) * m(1)
+    p_voigt(5) = s(1) * m(3) + s(3) * m(1)
+    p_voigt(6) = s(2) * m(3) + s(3) * m(2)
+  END SUBROUTINE Crystal_SchmidVector
+
+  PURE FUNCTION Crystal_ResolvedShear(sigma6, p_voigt) RESULT(tau)
+    REAL(wp), INTENT(IN) :: sigma6(6), p_voigt(6)
+    REAL(wp) :: tau
+    tau = DOT_PRODUCT(p_voigt, sigma6)
+  END FUNCTION Crystal_ResolvedShear
+
+  SUBROUTINE Crystal_Schmid_Tangent(D, p_voigt, H, plastic_step, Dout)
+    REAL(wp), INTENT(IN) :: D(6, 6), p_voigt(6), H
     LOGICAL, INTENT(IN) :: plastic_step
     REAL(wp), INTENT(OUT) :: Dout(6, 6)
 
-    REAL(wp) :: D_e(6, 6), G_mod, s_cur(6), q_cur, nvec(6), fac
-    REAL(wp) :: n_dyad(6, 6)
+    REAL(wp) :: dp(6), kp, fac
     INTEGER(i4) :: i, j
 
-    CALL Construct_Elastic_D(E, nu, D_e)
     IF (.NOT. plastic_step) THEN
-      Dout(1:ntens, 1:ntens) = D_e(1:ntens, 1:ntens)
+      Dout = D
       RETURN
     END IF
-
-    G_mod = E / (TWO * (ONE + nu))
-    CALL Calc_Deviatoric_Stress(sigma6, s_cur)
-    q_cur = Calc_Von_Mises(s_cur)
-    IF (q_cur <= SMALL) THEN
-      Dout(1:ntens, 1:ntens) = D_e(1:ntens, 1:ntens)
+    dp = MATMUL(D, p_voigt)
+    kp = DOT_PRODUCT(p_voigt, dp)
+    IF (kp + H <= SMALL) THEN
+      Dout = D
       RETURN
     END IF
-    nvec = s_cur / q_cur
-    DO i = 1_i4, 6_i4
-      DO j = 1_i4, 6_i4
-        n_dyad(i, j) = nvec(i) * nvec(j)
+    fac = ONE / (kp + H)
+    Dout = D
+    DO i = 1, 6
+      DO j = 1, 6
+        Dout(i, j) = Dout(i, j) - fac * dp(i) * dp(j)
       END DO
     END DO
-    IF (THREE * G_mod + PH_CRYSTAL_SQRT3 * H <= SMALL) THEN
-      Dout(1:ntens, 1:ntens) = D_e(1:ntens, 1:ntens)
-      RETURN
-    END IF
-    fac = 6.0_wp * G_mod**2 / (THREE * G_mod + PH_CRYSTAL_SQRT3 * H)
-    D_e = D_e - fac * n_dyad
-    Dout(1:ntens, 1:ntens) = D_e(1:ntens, 1:ntens)
-  END SUBROUTINE Crystal_EP_Tangent
-
-  PURE SUBROUTINE Crystal_Assem_Dev(stress_trial, s_dev, sigma, ntens)
-    REAL(wp), INTENT(IN) :: stress_trial(6), s_dev(6)
-    REAL(wp), INTENT(OUT) :: sigma(6)
-    INTEGER(i4), INTENT(IN) :: ntens
-    REAL(wp) :: p_mean
-
-    p_mean = (stress_trial(1) + stress_trial(2) + stress_trial(3)) / 3.0_wp
-    sigma(1) = s_dev(1) + p_mean
-    sigma(2) = s_dev(2) + p_mean
-    sigma(3) = s_dev(3) + p_mean
-    sigma(4:6) = s_dev(4:6)
-    IF (ntens < 6_i4) sigma(ntens + 1:6) = ZERO
-  END SUBROUTINE Crystal_Assem_Dev
+  END SUBROUTINE Crystal_Schmid_Tangent
 
   SUBROUTINE UF_CrystalPlasticity_UMAT(arg)
     TYPE(UF_CrystalPlasticity_UMAT_Arg), INTENT(INOUT) :: arg
 
     REAL(wp) :: E, nu, tau_c0, H
-    REAL(wp) :: D_el(6, 6), stress_trial(6), s_trial(6), q_trial
-    REAL(wp) :: sigma_y, f_yield, delta_gamma, G_mod, beta, s_dev(6), n_dir(6)
-    REAL(wp) :: peeq, eps_p(6)
+    REAL(wp) :: s(3), m(3), p_voigt(6)
+    REAL(wp) :: D_el(6, 6), stress_trial(6), dp(6)
+    REAL(wp) :: tau_trial, tau_y, dgamma, flow_sign
+    REAL(wp) :: gamma, eps_p(6)
     INTEGER(i4) :: ntens, nsv
     LOGICAL :: plastic_step
 
@@ -179,56 +197,58 @@ CONTAINS
     nsv = arg%nstatev
     IF (nsv < PH_MAT_CRYSTAL_NSTATV_MIN) THEN
       arg%status%status_code = IF_STATUS_INVALID
-      arg%status%message = 'UF_CrystalPlasticity_UMAT: need nstatev >= 7 (peeq + eps_p)'
+      arg%status%message = 'UF_CrystalPlasticity_UMAT: need nstatev >= 7 (gamma + eps_p)'
       RETURN
     END IF
 
     CALL Crystal_ValidateProps(arg%nprops, arg%props(1:MAX(arg%nprops, 1)), E, nu, tau_c0, H, arg%status)
     IF (arg%status%status_code /= IF_STATUS_OK) RETURN
 
+    CALL Crystal_ParseSchmidVectors(arg%nprops, arg%props(1:MAX(arg%nprops, 1)), s, m, arg%status)
+    IF (arg%status%status_code /= IF_STATUS_OK) RETURN
+
+    CALL Crystal_SchmidVector(s, m, p_voigt)
+
     ntens = arg%ndir + arg%nshr
     IF (ntens < 1_i4 .OR. ntens > 6_i4) ntens = 6_i4
 
-    peeq = arg%statev(1)
+    gamma = arg%statev(1)
     eps_p(1:6) = arg%statev(2:7)
 
     CALL Construct_Elastic_D(E, nu, D_el)
     stress_trial(1:ntens) = arg%stress(1:ntens) + MATMUL(D_el(1:ntens, 1:ntens), arg%dstran(1:ntens))
     IF (ntens < 6_i4) stress_trial(ntens + 1:6) = ZERO
 
-    CALL Calc_Deviatoric_Stress(stress_trial, s_trial)
-    q_trial = Calc_Von_Mises(s_trial)
-    sigma_y = Crystal_SigmaY_FromTau(tau_c0, H, peeq)
-    f_yield = q_trial - sigma_y
+    tau_trial = Crystal_ResolvedShear(stress_trial, p_voigt)
+    tau_y = tau_c0 + H * MAX(gamma, ZERO)
     plastic_step = .FALSE.
 
-    IF (f_yield <= ZERO) THEN
+    IF (ABS(tau_trial) <= tau_y) THEN
       arg%stress(1:ntens) = stress_trial(1:ntens)
-      CALL Crystal_EP_Tangent(E, nu, H, arg%stress, ntens, plastic_step, arg%ddsdde)
+      CALL Crystal_Schmid_Tangent(D_el, p_voigt, H, plastic_step, arg%ddsdde)
     ELSE
       plastic_step = .TRUE.
-      G_mod = E / (TWO * (ONE + nu))
-      IF (THREE * G_mod + PH_CRYSTAL_SQRT3 * H <= SMALL) THEN
+      dp = MATMUL(D_el, p_voigt)
+      IF (DOT_PRODUCT(p_voigt, dp) + H <= SMALL) THEN
         arg%status%status_code = IF_STATUS_ERROR
-        arg%status%message = 'UF_CrystalPlasticity_UMAT: 3G+sqrt(3)*H non-positive'
+        arg%status%message = 'UF_CrystalPlasticity_UMAT: Schmid modulus P:D:P+H non-positive'
         RETURN
       END IF
-      IF (q_trial <= SMALL) THEN
+      IF (ABS(tau_trial) <= SMALL) THEN
         arg%status%status_code = IF_STATUS_ERROR
-        arg%status%message = 'UF_CrystalPlasticity_UMAT: trial q too small for plastic return'
+        arg%status%message = 'UF_CrystalPlasticity_UMAT: |tau_trial| too small for slip return'
         RETURN
       END IF
-      n_dir = s_trial / q_trial
-      delta_gamma = (q_trial - sigma_y) / (THREE * G_mod + PH_CRYSTAL_SQRT3 * H)
-      peeq = peeq + delta_gamma
-      beta = ONE - THREE * G_mod * delta_gamma / q_trial
-      s_dev = beta * s_trial
-      CALL Crystal_Assem_Dev(stress_trial, s_dev, arg%stress, ntens)
-      eps_p(1:6) = eps_p(1:6) + delta_gamma * n_dir(1:6)
-      CALL Crystal_EP_Tangent(E, nu, H, arg%stress, ntens, plastic_step, arg%ddsdde)
+      flow_sign = SIGN(ONE, tau_trial)
+      dgamma = (ABS(tau_trial) - tau_y) / (DOT_PRODUCT(p_voigt, dp) + H)
+      arg%stress(1:ntens) = stress_trial(1:ntens) - dgamma * flow_sign * dp(1:ntens)
+      IF (ntens < 6_i4) arg%stress(ntens + 1:6) = ZERO
+      gamma = gamma + dgamma
+      eps_p(1:6) = eps_p(1:6) + dgamma * flow_sign * p_voigt(1:6)
+      CALL Crystal_Schmid_Tangent(D_el, p_voigt, H, plastic_step, arg%ddsdde)
     END IF
 
-    arg%statev(1) = peeq
+    arg%statev(1) = gamma
     arg%statev(2:7) = eps_p(1:6)
     arg%status%status_code = IF_STATUS_OK
   END SUBROUTINE UF_CrystalPlasticity_UMAT
