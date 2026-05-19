@@ -45,7 +45,8 @@
 | `PH_Physical_Def.f90` | `PH_Physical_Def` | **active** | 物理层基础定义 | — |
 | `PH_Mat_hTensor.f90` | — | **deprecated** | 属 Material 域，位置待迁 | 不在 Element 目录新增依赖 |
 | `PH_Base_ErrCode.f90` | — | **active** | 错误码定义 | — |
-| `PH_Elem_Contm.f90` | `PH_Elem_Contm` | **legacy** | Legacy 连续体门面（USE MD_*） | 技术债；新热路径禁用 |
+| `PH_Elem_Contm.f90` | `PH_Elem_Contm` | **legacy** | Legacy 连续体门面（USE MD_*） | **G6 冻结**；边界见 `Legacy/LEGACY_CONTM_BOUNDARY.md` |
+| `Legacy/LEGACY_CONTM_BOUNDARY.md` | — | **active** | G6 隔离 SSOT + W0/W1/W2 | `verify_element_golden_path_no_contm.py` |
 
 ### 2.2 族计算内核子目录
 

@@ -15,7 +15,7 @@
 | P2-G3 | 黄 | `PH_Element_Compute_Ke_Arg` 存在；L5 `RT_Elem_Proc` 对偶未收敛 |
 | P2-G4 | 黄 | `PH_NLGeomEval` / `PH_Elem_Eval` 命名与体积 |
 | P2-G5 | 黄 | `RT_Elem_Proc` 骨架 vs `RT_Asm_Solv` 生产路径 |
-| P2-G6 | 红 | `PH_Elem_Contm` legacy + `USE MD_*` 热路径债 |
+| P2-G6 | 红 → **W0 黄*** | `PH_Elem_Contm` legacy + `USE MD_*`；*金线已隔离（`Legacy/LEGACY_CONTM_BOUNDARY.md` + verifier） |
 
 **柱级 S7**：**未**达成 — 需 G3–G6 实现波次 + guardian 全绿。
 
@@ -39,4 +39,5 @@
 |-----------|-------------------|
 | `p2-element-pr01-seam-doc` | **已归档**（#20）— [`design.md`](../changes/p2-element-pr01-seam-doc/design.md) |
 | `p2-element-material-route-audit` | **P0 已销**（`PH_Elem_MatRoute_ValidateRtCtx`）— PR 待合并 |
-| `p2-element-ke-arg-align` | **已落地** — `CONTRACT` Ke_Arg 表 + `PH_Elem_Domain` 门控 |
+| `p2-element-ke-arg-align` | **已合入**（#21） |
+| `p2-element-legacy-contm-retire` | **G6-W0 进行中** — 边界 SSOT + 金线无 Contm verifier |
