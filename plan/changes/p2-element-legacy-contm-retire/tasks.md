@@ -9,10 +9,11 @@
 - [x] `P2_ELEMENT_GAP_SNAPSHOT` G6 分阶段
 - [ ] PR → `main`
 
-## G6-W1（后续）
+## G6-W1（本 MR 续）
 
-- [ ] `PH_Elem_Sld3D_Def`：C3D8 等已注册类型走族 Eval，非 `Calc_Continuum3D`
-- [ ] 2D/热-力 对称
+- [x] `PH_Elem_Sld3D_Def`：C3D8/C3D4/… → `PH_Elem_Contm_Calc3D`；C3D8R/C3D20R 专用路由
+- [x] `Calc_Continuum3D`：`in_struct` / `mat_models` 修复
+- [ ] `PH_Elem_Sld2D_Def` / `Solid*Dt` 对称（后续）
 
 ## G6-W2（后续）
 

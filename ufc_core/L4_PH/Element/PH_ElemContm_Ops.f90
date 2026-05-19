@@ -82,6 +82,7 @@ MODULE PH_ElemContm_Ops
     TYPE(UF_ElemFormul) :: formul  ! Formulation parameters (Algo)                   ! [IN]
     TYPE(UF_ElemCtx) :: ctx  ! Element context (Ctx)                   ! [IN]
     TYPE(ElemState) :: state_in  ! Input element state (State)                   ! [IN]
+    TYPE(UF_MaterialModel), ALLOCATABLE :: mat_models(:)  ! [IN] per-IP material pack
     TYPE(ElemState) :: state_out  ! Output element state (State)                   ! [OUT]
     TYPE(UF_ElemFlags) :: flags  ! Element flags and status (State)                   ! [OUT]
     TYPE(ErrorStatusType) :: status  ! Error status                   ! [OUT]
@@ -1222,27 +1223,20 @@ contains
     TYPE(UF_ElemFlags), INTENT(OUT) :: flags
 
     TYPE(PH_Elem_Contm_Calc3D_Arg) :: in_struct
-    TYPE(PH_Elem_Contm_Calc3D_Arg) :: out_struct
-    TYPE(ElemFormul) :: formul_converted
     
-    ! Convert UF_* types to structured interface (direct assignment since types extend base types)
     in_struct%elem_type = ElemType
     in_struct%formul = Formul
     in_struct%ctx = Ctx
-    
     in_struct%state_in = state_in
     ALLOCATE(in_struct%mat_models(SIZE(matModels)))
     in_struct%mat_models = matModels
     
-    ! Call structured interface
-    CALL PH_Elem_Contm_Calc3D(arg_struct)
+    CALL PH_Elem_Contm_Calc3D(in_struct)
     
-    ! Copy results back
-    state_out = out_struct%state_out
-    ! Convert ElemFlags to UF_ElemFlags (UF_ElemFlags extends ElemFlags)
-    flags = out_struct%flags
+    state_out = in_struct%state_out
+    flags = in_struct%flags
     
-    DEALLOCATE(in_struct%mat_models)
+    IF (ALLOCATED(in_struct%mat_models)) DEALLOCATE(in_struct%mat_models)
 
   END SUBROUTINE Calc_Continuum3D
 

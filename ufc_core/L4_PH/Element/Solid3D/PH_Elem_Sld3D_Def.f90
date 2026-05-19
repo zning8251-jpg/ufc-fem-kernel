@@ -19,7 +19,8 @@ MODULE PH_Elem_Sld3D_Def
   use MD_Model_Mgr
   USE MD_Elem_Mgr, only: ElemType, ElemFormul, ElemCtx, ElemFlags, ElemState
   USE MD_Mat_Lib, only: MatProperties
-  use PH_ElemContm_Ops, only: Calc_Continuum3D
+  USE PH_ElemContm_Ops, ONLY: Calc_Continuum3D, Calc_C3D8R, Calc_C3D20R, &
+      PH_Elem_Contm_Calc3D, PH_Elem_Contm_Calc3D_Arg
   use UF_Material_Base
   ! NOTE: Register additional 3D continuum element *_Calc modules here when implemented.
   ! use PH_Elem_C3D8_Definition, only: UF_Elem_C3D8_Calc
@@ -80,9 +81,10 @@ CONTAINS
   !     - C3D8I, C3D20I: Incompatible modes variants
   !     - C3D10M, C3D10H: Modified tetrahedron variants
   !
-  !   Dispatch logic:
-  !     1. Check ElemType%name for explicit match ('C3D*')
-  !     2. Fallback: Use Calc_Continuum3D for all 3D continuum elements
+  !   Dispatch logic (G6-W1):
+  !     1. C3D8R/C3D20R -> dedicated reduced-integration kernels
+  !     2. Registered C3D* -> PH_Elem_Contm_Calc3D (structured, not Calc_Continuum3D wrapper)
+  !     3. Unknown C3D* / dim=3 -> Calc_Continuum3D legacy fallback only
   ! Theory: K = ? B^TDB d?, R_int = ? B^T? d?
   !-----------------------------------------------------------------------------
   SUBROUTINE PH_Elem_Sld3D_Calc(arg)
@@ -117,26 +119,8 @@ CONTAINS
       matModels(i)%props = arg%mat
     END DO
 
-    ! Dispatch based on element name prefix
-    ! All 3D continuum elements (C3D*) use Calc_Continuum3D
-    IF (INDEX(ename, 'C3D') > 0) THEN
-      ! 3D structural continuum elements
-      ! Note: Calc_Continuum3D handles all C3D* variants internally
-      CALL Calc_Continuum3D(arg%elem_type, arg%formul, arg%ctx, arg%state_in, &
-                           matModels, arg%state_out, arg%flags)
-    ELSE
-      ! Unknown type - try Calc_Continuum3D as fallback if dimension is 3
-      IF (arg%elem_type%dim == 3) THEN
-        CALL Calc_Continuum3D(arg%elem_type, arg%formul, arg%ctx, arg%state_in, &
-                             matModels, arg%state_out, arg%flags)
-      ELSE
-        ! Invalid dimension
-        arg%flags%failed = .TRUE.
-        arg%status%status_code = IF_STATUS_INVALID
-        arg%status%message = 'PH_Elem_Sld3D_Calc: Invalid element dimension (expected 3D)'
-        CALL UF_Elem_PrepareStructStorage(arg%elem_type, arg%state_out)
-      END IF
-    END IF
+    CALL PH_Elem_Sld3D_DispatchCalc(ename, arg%elem_type, arg%formul, arg%ctx, &
+        arg%state_in, matModels, arg%state_out, arg%flags)
 
     ! Copy error status from flags if present
     IF (arg%flags%failed) THEN
@@ -179,16 +163,15 @@ CONTAINS
     TYPE(ElemFlags), INTENT(INOUT) :: flags
 
     TYPE(PH_Elem_Sld3D_Calc_Arg) :: in
-    TYPE(PH_Elem_Sld3D_Calc_Arg) :: out
 
     in%elem_type = ElemType
     in%formul = Formul
     in%ctx = Ctx
     in%state_in = state_in
     in%mat = Mat
-    CALL PH_Elem_Sld3D_Calc(arg)
-    state_out = out%state_out
-    flags = out%flags
+    CALL PH_Elem_Sld3D_Calc(in)
+    state_out = in%state_out
+    flags = in%flags
   END SUBROUTINE UF_Elem_Sld3D_Calc
 
   !-----------------------------------------------------------------------------
@@ -311,5 +294,66 @@ CONTAINS
       END IF
     END DO
   END SUBROUTINE UPPER_CASE
+
+  ! G6-W1: explicit routes for PH_Elem_Reg C3D* names; legacy Calc_Continuum3D last.
+  SUBROUTINE PH_Elem_Sld3D_DispatchCalc(ename, elem_type, formul, ctx, state_in, matModels, &
+                                      state_out, flags)
+    CHARACTER(len=*), INTENT(IN) :: ename
+    TYPE(ElemType), INTENT(IN) :: elem_type
+    TYPE(ElemFormul), INTENT(IN) :: formul
+    TYPE(ElemCtx), INTENT(IN) :: ctx
+    TYPE(ElemState), INTENT(IN) :: state_in
+    TYPE(UF_MaterialModel), INTENT(IN) :: matModels(:)
+    TYPE(ElemState), INTENT(INOUT) :: state_out
+    TYPE(ElemFlags), INTENT(INOUT) :: flags
+
+    TYPE(PH_Elem_Contm_Calc3D_Arg) :: c3d_arg
+    CHARACTER(len=32) :: en
+    LOGICAL :: use_contm3d
+
+    en = ADJUSTL(ename)
+    use_contm3d = .FALSE.
+
+    SELECT CASE (TRIM(en))
+    CASE ('C3D8R')
+      CALL Calc_C3D8R(elem_type, formul, ctx, state_in, matModels, state_out, flags)
+      RETURN
+    CASE ('C3D20R')
+      CALL Calc_C3D20R(elem_type, formul, ctx, state_in, matModels, state_out, flags)
+      RETURN
+    CASE ('C3D4', 'C3D5', 'C3D6', 'C3D8', 'C3D8I', 'C3D8H', 'C3D10', 'C3D10M', &
+          'C3D13', 'C3D15', 'C3D20', 'C3D20H', 'C3D20I', 'C3D27', 'C3D6R', 'C3D15R')
+      use_contm3d = .TRUE.
+    CASE DEFAULT
+      IF (INDEX(en, 'C3D') > 0) THEN
+        use_contm3d = .TRUE.
+      ELSE IF (elem_type%dim == 3_i4) THEN
+        CALL Calc_Continuum3D(elem_type, formul, ctx, state_in, matModels, state_out, flags)
+        RETURN
+      ELSE
+        flags%failed = .TRUE.
+        CALL init_error_status(flags%status, IF_STATUS_INVALID, &
+          message='PH_Elem_Sld3D_Calc: Invalid element dimension (expected 3D)')
+        CALL UF_Elem_PrepareStructStorage(elem_type, state_out)
+        RETURN
+      END IF
+    END SELECT
+
+    IF (use_contm3d) THEN
+      c3d_arg%elem_type = elem_type
+      c3d_arg%formul = formul
+      c3d_arg%ctx = ctx
+      c3d_arg%state_in = state_in
+      ALLOCATE(c3d_arg%mat_models(SIZE(matModels)))
+      c3d_arg%mat_models = matModels
+      CALL PH_Elem_Contm_Calc3D(c3d_arg)
+      state_out = c3d_arg%state_out
+      flags = c3d_arg%flags
+      IF (ALLOCATED(c3d_arg%mat_models)) DEALLOCATE(c3d_arg%mat_models)
+      RETURN
+    END IF
+
+    CALL Calc_Continuum3D(elem_type, formul, ctx, state_in, matModels, state_out, flags)
+  END SUBROUTINE PH_Elem_Sld3D_DispatchCalc
 
 END MODULE PH_Elem_Sld3D_Def

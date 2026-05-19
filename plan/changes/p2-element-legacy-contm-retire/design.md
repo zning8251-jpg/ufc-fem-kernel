@@ -17,7 +17,7 @@
 | 阶段 | 交付 | 门闩 |
 |------|------|------|
 | **G6-W0** | 边界 SSOT + `verify_element_golden_path_no_contm.py` | 金线锚点零 Contm 引用 |
-| **G6-W1** | `Solid2D/3D/2Dt/3Dt` 按 `elem_type_id` 优先族内核，Contm 仅 unknown 回退 | G6 黄 |
+| **G6-W1** | `PH_Elem_Sld3D_Def` 显式路由（`PH_Elem_Contm_Calc3D` / `Calc_C3D8R`）；`Calc_Continuum3D` 仅回退 | **进行中** |
 | **G6-W2** | Contm 门面迁 Bridge 或删减 `USE MD_*` | G6 绿候选 |
 
 ## 3. 允许调用方（legacy 冻结表）
