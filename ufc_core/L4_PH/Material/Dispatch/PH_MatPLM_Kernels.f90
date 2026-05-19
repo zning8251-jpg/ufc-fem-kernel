@@ -11,7 +11,7 @@
 MODULE PH_MatPLM_Kernels
     USE IF_Prec_Core, ONLY: wp, i4
     USE IF_Err_Brg, ONLY: ErrorStatusType, init_error_status, IF_STATUS_NOT_FOUND
-    USE PH_Mat_Plast_Hill_Core, ONLY: UF_Hill_UMAT
+    USE PH_Mat_Plast_Hill_Core, ONLY: UF_Hill_UMAT, UF_Hill_UMAT_Arg
     USE PH_Mat_Geo_MohrCoulomb_Core, ONLY: UF_MohrCoulomb_UMAT
     USE PH_Mat_Plast_Chaboche_Core, ONLY: UF_Chaboche_UMAT
     USE PH_Mat_Plast_Crystal_Core, ONLY: UF_CrystalPlasticity_UMAT
@@ -21,7 +21,7 @@ MODULE PH_MatPLM_Kernels
         UF_ViscoelasticDamage_UMAT
     IMPLICIT NONE
     PRIVATE
-    PUBLIC :: UF_Hill_UMAT, UF_DruckerPrager_UMAT, UF_CamClay_UMAT, UF_MohrCoulomb_UMAT, &
+    PUBLIC :: UF_Hill_UMAT, UF_Hill_UMAT_Arg, UF_DruckerPrager_UMAT, UF_CamClay_UMAT, UF_MohrCoulomb_UMAT, &
         UF_JohnsonCook_UMAT, UF_Gurson_UMAT, UF_Chaboche_UMAT, &
         UF_CapPlasticity_UMAT, UF_CrushableFoam_UMAT, UF_CastIron_UMAT, &
         UF_SoftRock_UMAT, UF_Foam3Stage_UMAT, UF_Ceramic_UMAT, &
