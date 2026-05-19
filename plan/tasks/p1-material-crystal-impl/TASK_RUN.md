@@ -4,6 +4,7 @@
 |-------|-------|
 | change_id | `p1-material-crystal-impl` |
 | phase | **DRAFT**（plan only；等 #7–#10） |
+| docs PR | [#11](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/11) → `main` |
 | branch (future) | `feat/p1-material-crystal-impl` |
 | date | 2026-05-19 |
 
