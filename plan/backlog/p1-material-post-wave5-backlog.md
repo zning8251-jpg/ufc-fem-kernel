@@ -91,9 +91,9 @@ git push origin main
 | 顺序 | 建议 change_id | 范围 |
 |------|----------------|------|
 | 1 | `p1-material-plast-guardian-debt` | **merged** [#7](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/7) |
-| 2 | `p1-material-orthotropic-eval-fix` | ortho Eval Arg — PR [#8](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/8) |
+| 2 | `p1-material-orthotropic-eval-fix` | **merged** [#8](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/8) |
 | 3 | `p1-material-c2-mateval-split` | [#9](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/9) PR-A + [#10](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/10) PR-B |
-| 4 | `p1-material-crystal-impl` | plan 草案 **merged** [#11](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/11)；实装等 #8–#10 |
+| 4 | `p1-material-crystal-impl` | plan 草案 **merged** [#11](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/11)；实装等 #9–#10 |
 
 每项：`agent-task init` → `plan/changes/<id>/` → 单 PR → 合并后归档。
 

@@ -51,17 +51,17 @@
 
 ### Legacy `PH_MatEval` aggregate（staging · wave5-mateval-arg）
 
-> **真源**：`Dispatch/PH_MatEval.f90`。公开入口均为 **单参** `PH_Mat_<Model>_Eval(PH_Mat_<Model>_Eval_Arg)`（无独立 `Eval_In`/`Eval_Out` 对）。  
-> **迁出**：plan C2 — 按族收入 `Elas/`、`Plast/`、`Hyper/` 等；新功能优先 `PH_Mat_Core` + slot，不经本表新增模型。
+> **门面**：`Dispatch/PH_MatEval.f90` re-export 已迁出符号；**实现真源**见下表 C2 列。  
+> **迁出**：plan C2 — Elas/Plast **PR-A 完成**；Hyper/Damage/Creep/Visco/Composite → PR-B。
 
-| Eval 入口 | Arg TYPE | 备注 |
-|-----------|----------|------|
-| `PH_Mat_ElasticIsotropic_Eval` | `PH_Mat_ElasticIsotropic_Eval_Arg` | Hooke D·ε |
-| `PH_Mat_ElasticOrthotropic_Eval` | `PH_Mat_ElasticOrthotropic_Eval_Arg` | ortho: `strain`/`sigma`/`D_matrix` + `mat_desc` |
-| `PH_Mat_PlasticVonMises_Eval` | `PH_Mat_PlasticVonMises_Eval_Arg` | J2 + wire Desc |
-| `PH_Mat_PlasticHill_Eval` | `PH_Mat_PlasticHill_Eval_Arg` | Hill48 + wire Desc |
-| `PH_Mat_CompositeFiberReinforced_Eval` | `PH_Mat_CompositeFiberReinforced_Eval_Arg` | mixture → `md_elas_wire` |
-| 其余 `PH_Mat_*_Eval` | 同名 `*_Eval_Arg` | 见模块 PUBLIC 列表 |
+| Eval 入口 | Arg TYPE | C2 真源 | 备注 |
+|-----------|----------|---------|------|
+| `PH_Mat_ElasticIsotropic_Eval` | `PH_Mat_ElasticIsotropic_Eval_Arg` | `Elas/PH_Mat_Elas_PointEval.f90` | Hooke D·ε |
+| `PH_Mat_ElasticOrthotropic_Eval` | `PH_Mat_ElasticOrthotropic_Eval_Arg` | `Elas/PH_Mat_Elas_PointEval.f90` | ortho: `strain`/`sigma`/`D_matrix` |
+| `PH_Mat_PlasticVonMises_Eval` | `PH_Mat_PlasticVonMises_Eval_Arg` | `Plast/PH_Mat_Plast_PointEval.f90` | J2 point |
+| `PH_Mat_PlasticHill_Eval` | `PH_Mat_PlasticHill_Eval_Arg` | `Plast/PH_Mat_Plast_PointEval.f90` | Hill48 point |
+| `PH_Mat_CompositeFiberReinforced_Eval` | `PH_Mat_CompositeFiberReinforced_Eval_Arg` | `Dispatch/PH_MatEval.f90` | mixture → iso |
+| 其余 `PH_Mat_*_Eval` | 同名 `*_Eval_Arg` | `Dispatch/PH_MatEval.f90` | PR-B |
 
 ---
 
