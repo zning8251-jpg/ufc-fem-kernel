@@ -49,8 +49,8 @@
 !     - Hill_State  - State variables
 !   Subroutines:
 !     - Construct_Elastic_D                  - Elastic stiffness matrix
-!     - PH_Mat_Hill_Calc_Stress              - Stress update algorithm
-!     - PH_Mat_Hill_Compute_Anisotropic_Parameters - Compute F,G,H,L,M,N from R-values
+!     - PH_Mat_Compute_Hill_Stress              - Stress update algorithm
+!     - PH_Mat_Compute_Hill_Anisotropic_Parameters - Compute F,G,H,L,M,N from R-values
 !     - MD_Hill_Yield_Function               - Hill48 yield function
 !     - PH_Hill_Plasticity_Eval              - UFC refactored interface
 !   Functions:
@@ -171,10 +171,10 @@ MODULE PH_Mat_Plast_Hill_Core
     LOGICAL  :: is_plastic = .FALSE.
   END TYPE
 
-  PUBLIC :: PH_Mat_Hill_Init, PH_Mat_Hill_Compute_Anisotropic_Parameters
-  PUBLIC :: PH_Mat_Hill_Calc_Stress
+  PUBLIC :: PH_Mat_Init_Hill, PH_Mat_Compute_Hill_Anisotropic_Parameters
+  PUBLIC :: PH_Mat_Compute_Hill_Stress
   PUBLIC :: PH_Hill_Plasticity_Eval  ! UFC refactored interface
-  PUBLIC :: PH_MAT_UMAT_HillPlasticity       ! PH_UMAT_Intf compatible wrapper (for registry)
+  PUBLIC :: PH_MAT_UMAT_Compute_HillPlasticity       ! PH_UMAT_Intf compatible wrapper (for registry)
   PUBLIC :: HillPlasticity_UpdateStress
   PUBLIC :: UF_Hill_UMAT, UF_Hill_UMAT_Arg
 
@@ -208,11 +208,11 @@ MODULE PH_Mat_Plast_Hill_Core
 
 CONTAINS
 
-  SUBROUTINE PH_Mat_Hill_Init(params, state)
+  SUBROUTINE PH_Mat_Init_Hill(params, state)
     TYPE(Hill_Params), INTENT(INOUT) :: params
     TYPE(Hill_State), INTENT(INOUT) :: state
     
-    CALL PH_Mat_Hill_Compute_Anisotropic_Parameters(params)
+    CALL PH_Mat_Compute_Hill_Anisotropic_Parameters(params)
     
     ALLOCATE(state%stress_current(6), state%strain_plastic(6))
     state%stress_current = ZERO
@@ -220,10 +220,10 @@ CONTAINS
     state%equiv_plastic_strain = ZERO
     state%yield_stress_current = params%yield%yield_stress_0
     state%is_plastic = .FALSE.
-  END SUBROUTINE PH_Mat_Hill_Init
+  END SUBROUTINE PH_Mat_Init_Hill
 
   !> @brief Compute Hill48 anisotropic parameters from Lankford coefficients
-  SUBROUTINE PH_Mat_Hill_Compute_Anisotropic_Parameters(params)
+  SUBROUTINE PH_Mat_Compute_Hill_Anisotropic_Parameters(params)
     TYPE(Hill_Params), INTENT(INOUT) :: params
     REAL(wp) :: R0, R45, R90, denom
     
@@ -246,9 +246,9 @@ CONTAINS
     
     params%hill%L = 1.5_wp  ! Simplified assumption (requires biaxial test calibration)
     params%hill%M = 1.5_wp
-  END SUBROUTINE PH_Mat_Hill_Compute_Anisotropic_Parameters
+  END SUBROUTINE PH_Mat_Compute_Hill_Anisotropic_Parameters
 
-  SUBROUTINE PH_Mat_Hill_Calc_Stress(params, state, strain_increment, sigma)
+  SUBROUTINE PH_Mat_Compute_Hill_Stress(params, state, strain_increment, sigma)
     TYPE(Hill_Params), INTENT(IN) :: params
     TYPE(Hill_State), INTENT(INOUT) :: state
     REAL(wp), INTENT(IN) :: strain_increment(6)
@@ -271,7 +271,7 @@ CONTAINS
     END IF
     
     state%stress_current = sigma
-  END SUBROUTINE PH_Mat_Hill_Calc_Stress
+  END SUBROUTINE PH_Mat_Compute_Hill_Stress
 
   FUNCTION Eval_Hill48_Yield(params, state, sigma) RESULT(f)
     TYPE(Hill_Params), INTENT(IN) :: params
@@ -386,10 +386,10 @@ CONTAINS
     
     ! Optional: Compute Hill parameters from R-values if provided
     ! params%rvalue%R_0 = ..., params%rvalue%R_45 = ..., params%rvalue%R_90 = ...
-    ! CALL PH_Mat_Hill_Compute_Anisotropic_Parameters(params)
+    ! CALL PH_Mat_Compute_Hill_Anisotropic_Parameters(params)
     
     ! ========== Call legacy core algorithm ==========
-    CALL PH_Mat_Hill_Calc_Stress(params, state, strain_increment, sigma)
+    CALL PH_Mat_Compute_Hill_Stress(params, state, strain_increment, sigma)
     stress_new = sigma
     
     ! ========== Compute consistent tangent if requested ==========
@@ -437,7 +437,7 @@ CONTAINS
     p%harden%hardening_modulus  = MERGE(REAL(in%props(7), wp), 0.0_wp, SIZE(in%props) >= 7)
     p%harden%hardening_exponent = 1.0_wp
     p%yield%hill_model = 1
-    CALL PH_Mat_Hill_Init(p, st)
+    CALL PH_Mat_Init_Hill(p, st)
 
     IF (ALLOCATED(in%statev) .AND. SIZE(in%statev) >= 7) THEN
       st%equiv_plastic_strain = REAL(in%statev(1), wp)
@@ -448,7 +448,7 @@ CONTAINS
     strain_inc(1:ntens) = REAL(in%strain_inc(1:ntens), wp)
     IF (ntens < 6) strain_inc(ntens+1:6) = ZERO
 
-    CALL PH_Mat_Hill_Calc_Stress(p, st, strain_inc, sig_new)
+    CALL PH_Mat_Compute_Hill_Stress(p, st, strain_inc, sig_new)
 
     out%sigma(1:ntens) = REAL(sig_new(1:ntens), wp)
     CALL Construct_Elastic_D(p%elastic%E_modulus, p%elastic%nu_poisson, D)
@@ -920,9 +920,9 @@ CONTAINS
   END SUBROUTINE hil_ComputeElastoplasticStiff
 
   !--------------------------------------------------------------------
-  ! PH_MAT_UMAT_HillPlasticity: Thin wrapper for registry
+  ! PH_MAT_UMAT_Compute_HillPlasticity: Thin wrapper for registry
   !--------------------------------------------------------------------
-  SUBROUTINE PH_MAT_UMAT_HillPlasticity(ctx, status)
+  SUBROUTINE PH_MAT_UMAT_Compute_HillPlasticity(ctx, status)
     TYPE(PH_UMAT_Context), INTENT(INOUT) :: ctx
     TYPE(ErrorStatusType), INTENT(OUT), OPTIONAL :: status
     TYPE(MatPoint_In) :: in
@@ -931,6 +931,6 @@ CONTAINS
     CALL HillPlasticity_UpdateStress(in, out)
     IF (out%status%status_code == IF_STATUS_OK) CALL Pack_To_UMAT_Context(out, ctx)
     IF (PRESENT(status)) status = out%status
-  END SUBROUTINE PH_MAT_UMAT_HillPlasticity
+  END SUBROUTINE PH_MAT_UMAT_Compute_HillPlasticity
 
 END MODULE PH_Mat_Plast_Hill_Core
