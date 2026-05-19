@@ -1,24 +1,24 @@
 # Tasks: p1-material-crystal-w2-multislip
 
-> **Phase**: DRAFT
+> **Phase**: **IMPLEMENT**（W2a PR）
 
 ## 0. 闸门
 
 - [x] W1b #13 on `main`
-- [ ] 双滑移参考算例 / 预期 \(\gamma^{(\alpha)}\) 就绪
-- [ ] `change-package validate --strict`
+- [x] 双滑移参考算例 **W2-REF-01**（`design.md` §6）
+- [x] `change-package validate --strict`
 
 ## 1. 合同
 
-- [ ] 1.1 CONTRACT：W2a `props`/`statev` 表；W1b 为 N=1 退化
+- [x] 1.1 CONTRACT：W2a `props`/`statev` 表；W1b 为 `nprops<19` 退化
 - [ ] 1.2 （可选）Registry 266 `nprops`/`nstatev` 收紧
 
 ## 2. W2a 实现
 
-- [ ] 2.1 多系 Schmid 算子 + \(\tau_c(\gamma)\) 潜硬化
-- [ ] 2.2 耦合返回映射（N=2）
-- [ ] 2.3 `nprops`/`nstatev` 校验与错误信息
-- [ ] 2.4 单系 `props` 退化 W1b 回归
+- [x] 2.1 多系 Schmid 算子 + \(\tau_c(\gamma)\) 潜硬化
+- [x] 2.2 耦合返回映射（N=2，Gauss–Seidel）
+- [x] 2.3 `nprops`/`nstatev` 校验与错误信息
+- [x] 2.4 单系 `nprops<19` 退化 W1b 回归
 
 ## 3. 质量
 

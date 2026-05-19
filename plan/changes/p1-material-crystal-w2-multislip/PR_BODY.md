@@ -1,15 +1,15 @@
 ## Summary
 
-- **W2a**: N=2 slip systems + 2×2 latent hardening for mat_id 266.
-- Extends W1b Schmid; W1b remains degenerate case (N=1).
-- CONTRACT + optional Registry tightening.
+- **W2a**：mat_id 266 双滑移（`nprops≥19`），2×2 潜硬化 + Gauss–Seidel 返回；`nprops<19` 保持 W1b。
+- **W2-REF-01** 参考算例锁定（`design.md` §6）。
+- **CONTRACT**：Crystal UMAT W1b/W2a `props`/`statev` 表。
 
 ## Test plan
 
-- [ ] guardian Crystal_Core P0=0
-- [ ] W1b single-slip regression
-- [ ] Double-slip reference case (manual or harness)
+- [x] `guardian PH_Mat_Plast_Crystal_Core.f90 --fail-on-p0`
+- [x] `change-package validate --change-id p1-material-crystal-w2-multislip --strict`
+- [ ] 单点驱动 W2-REF-01 数值回归（follow-up harness）
 
-## Out of scope
+## Notes
 
-Finite strain; configurable N>2 (W2b); L3 MD_MatPLMCrystal.
+- W2a 一致切线为弹性 `D`；塑性切线 → 后续 PR。
