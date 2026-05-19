@@ -108,9 +108,7 @@ contains
   !     - CPE*T: Plane strain thermal-structural elements (CPE3T, CPE4T, CPE6T, CPE8T)
   !     - CAX*T: Axisymmetric thermal-structural elements (CAX3T, CAX4T, CAX6T, CAX8T)
   !
-  !   Dispatch logic:
-  !     1. Check ElemType%name for explicit match ('CPS*T', 'CPE*T', 'CAX*T')
-  !     2. Fallback: Use Calc_Continuum2D_Thermal for all 2D thermal-structural continuum elements
+  !   Dispatch logic (G6-W1): registered CPS/CPE/CAX*T -> Calc_Continuum2D_Thermal; else fallback
   !-----------------------------------------------------------------------------
   SUBROUTINE UF_Elem_Sld2DT_Calc(ElemType, Formul, Ctx, state_in, &
                                   Mat, state_out, flags)
@@ -139,18 +137,8 @@ contains
       matModels(i)%props = Mat
     END DO
 
-    ! Dispatch based on element name prefix
-    ! All 2D thermal-structural continuum elements (CPS*T, CPE*T, CAX*T) use Calc_Continuum2D_Thermal
-    IF ((INDEX(ename, 'CPS') > 0 .OR. INDEX(ename, 'CPE') > 0 .OR. INDEX(ename, 'CAX') > 0) .AND. &
-        INDEX(ename, 'T') > 0) THEN
-      ! 2D thermal-structural continuum elements
-      CALL Calc_Continuum2D_Thermal(ElemType, Formul, Ctx, state_in, &
-                                    matModels, state_out, flags)
-    ELSE
-      ! Unknown type - try Calc_Continuum2D_Thermal as fallback
-      CALL Calc_Continuum2D_Thermal(ElemType, Formul, Ctx, state_in, &
-                                    matModels, state_out, flags)
-    END IF
+    CALL PH_Elem_Sld2DT_DispatchCalc(ename, ElemType, Formul, Ctx, state_in, &
+        matModels, state_out, flags)
 
     DEALLOCATE(matModels)
 
@@ -169,5 +157,37 @@ contains
       END IF
     END DO
   END SUBROUTINE UPPER_CASE
+
+  SUBROUTINE PH_Elem_Sld2DT_DispatchCalc(ename, elem_type, formul, ctx, state_in, matModels, &
+                                       state_out, flags)
+    CHARACTER(len=*), INTENT(IN) :: ename
+    TYPE(ElemType), INTENT(IN) :: elem_type
+    TYPE(ElemFormul), INTENT(IN) :: formul
+    TYPE(ElemCtx), INTENT(IN) :: ctx
+    TYPE(ElemState), INTENT(IN) :: state_in
+    TYPE(UF_MaterialModel), INTENT(IN) :: matModels(:)
+    TYPE(ElemState), INTENT(INOUT) :: state_out
+    TYPE(ElemFlags), INTENT(INOUT) :: flags
+
+    CHARACTER(len=32) :: en
+    LOGICAL :: use_thermal
+
+    en = ADJUSTL(ename)
+    use_thermal = .FALSE.
+
+    SELECT CASE (TRIM(en))
+    CASE ('CPS4T', 'CPS8T', 'CPE4T', 'CPE8T', 'CAX4T', 'CAX8T', 'CPS3T', 'CPE3T', 'CAX3T')
+      use_thermal = .TRUE.
+    CASE DEFAULT
+      IF ((INDEX(en, 'CPS') > 0 .OR. INDEX(en, 'CPE') > 0 .OR. INDEX(en, 'CAX') > 0) .AND. &
+          INDEX(en, 'T') > 0) use_thermal = .TRUE.
+    END SELECT
+
+    IF (use_thermal) THEN
+      CALL Calc_Continuum2D_Thermal(elem_type, formul, ctx, state_in, matModels, state_out, flags)
+    ELSE
+      CALL Calc_Continuum2D_Thermal(elem_type, formul, ctx, state_in, matModels, state_out, flags)
+    END IF
+  END SUBROUTINE PH_Elem_Sld2DT_DispatchCalc
 
 END MODULE PH_Elem_Sld2DT_Def

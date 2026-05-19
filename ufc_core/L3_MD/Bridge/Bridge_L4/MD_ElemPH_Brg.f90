@@ -12,8 +12,8 @@ MODULE MD_ElemPH_Brg
   USE MD_TypeSystem, ONLY: UF_ElemType, UF_ElemFormul, UF_ElemCtx
   USE MD_GeomPH_Brg, ONLY: MD_PH_Geom_FillElemCtx_Idx, MD_PH_Geom_FillElemCtx_Arg
   USE PH_Elem_Def, ONLY: PH_Elem_Ctx
-  USE PH_Elem_Contm, ONLY: Calc_Continuum2D, Calc_Continuum3D, &
-                           CompPoro, CompThm, CompTHM
+  USE PH_ElemContm_Ops, ONLY: Calc_Continuum2D, Calc_Continuum3D
+  USE PH_Elem_Contm_Brg, ONLY: CompPoro, CompThm, CompTHM
   USE PH_Elem_Porous, ONLY: Calc_Pore_Saturated, Calc_Pore_TwoPhase
   USE PH_Elem_Thermal_Def, ONLY: UF_Elem_Therm_Calc
   IMPLICIT NONE

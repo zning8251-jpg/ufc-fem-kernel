@@ -756,6 +756,29 @@ CONTAINS
     END DO
   END SUBROUTINE PH_Elem_C3D8_IntForce
 
+  SUBROUTINE PH_Elem_C3D8_StiffMatrix(coords, E_young, nu, Ke)
+    REAL(wp), INTENT(IN)  :: coords(3, 8)
+    REAL(wp), INTENT(IN)  :: E_young
+    REAL(wp), INTENT(IN)  :: nu
+    REAL(wp), INTENT(OUT) :: Ke(24, 24)
+
+    REAL(wp) :: xi(8), eta(8), zeta(8), weights(8)
+    REAL(wp) :: N(8), dNdx(3, 8), J(3, 3), detJ, B(6, 24), D(6, 6)
+    REAL(wp) :: BTD(24, 6), dV
+    INTEGER(i4) :: ip
+
+    Ke = ZERO
+    CALL PH_Elem_C3D8_ConstMatrix(E_young, nu, D)
+    CALL PH_Elem_C3D8_GaussPoints(xi, eta, zeta, weights)
+    DO ip = 1, 8
+      CALL PH_Elem_C3D8_JacB(coords, xi(ip), eta(ip), zeta(ip), N, dNdx, J, detJ, B)
+      IF (ABS(detJ) <= 1.0e-12_wp) CYCLE
+      dV = detJ * weights(ip)
+      BTD = MATMUL(TRANSPOSE(B), D)
+      Ke = Ke + dV * MATMUL(BTD, B)
+    END DO
+  END SUBROUTINE PH_Elem_C3D8_StiffMatrix
+
   SUBROUTINE PH_Elem_C3D8_FormIntForceFromStress(coords, sigma6, R_int)
     REAL(wp), INTENT(IN)  :: coords(3, 8)
     REAL(wp), INTENT(IN)  :: sigma6(6)
@@ -1920,7 +1943,7 @@ CONTAINS
     
   END SUBROUTINE PH_Elem_C3D8_ShapeFunc
 
-  SUBROUTINE PH_Elem_C3D8_StiffMatrix(arg)
+  SUBROUTINE PH_Elem_C3D8_StiffMatrix_ArgProc(arg)
     TYPE(PH_Elem_C3D8_StiffMatrix_Arg), INTENT(INOUT) :: arg
 
     REAL(wp) :: xi(8), eta(8), zeta(8), weights(8)
@@ -1948,7 +1971,7 @@ CONTAINS
 
     arg%status%status_code = IF_STATUS_OK
 
-  END SUBROUTINE PH_Elem_C3D8_StiffMatrix
+  END SUBROUTINE PH_Elem_C3D8_StiffMatrix_ArgProc
 
   SUBROUTINE PH_Elem_C3D8_StiffMatrix27(coords, E_young, nu, Ke)
     REAL(wp), INTENT(IN)  :: coords(3, 8)
