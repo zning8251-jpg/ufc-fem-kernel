@@ -24,8 +24,8 @@ program E2E_C2_02_Uniaxial_J2Plastic_Integrated
   USE IF_Prec_Core, ONLY: wp, i4
   USE IF_Err_Brg, ONLY: ErrorStatusType, init_error_status, IF_STATUS_OK
   USE PH_Mat_Plast_J2_Iso_Core, ONLY: PH_J2_Props, PH_J2_State, &
-                                     PH_J2_ComputeStress, PH_J2_Init, &
-                                     HARD_LINEAR
+                                     PH_J2_ComputeStress, PH_J2_ComputeStress_Arg, &
+                                     PH_J2_Init, PH_MAT_J2_HARD_LINEAR
   implicit none
 
   ! -- Material parameters (will be set into PH_J2_Props)
@@ -45,12 +45,11 @@ program E2E_C2_02_Uniaxial_J2Plastic_Integrated
   ! === INTEGRATED: Module types replace inline state ===
   TYPE(PH_J2_Props) :: j2_props
   TYPE(PH_J2_State) :: j2_state
+  TYPE(PH_J2_ComputeStress_Arg) :: j2arg
   TYPE(ErrorStatusType) :: ierr
 
   ! -- Strain tracking (not in module state)
   real(wp) :: strain(6), strain_prev(6), d_strain(6)
-  real(wp) :: tangent(6,6)
-  real(wp) :: pnewdt
 
   ! -- Verification
   real(wp) :: sigma_expected, sigma_got, sigma_eq_vm
@@ -79,7 +78,7 @@ program E2E_C2_02_Uniaxial_J2Plastic_Integrated
   j2_props%elastic%nu      = nu_mat
   j2_props%yield%sigma_y0  = sigma_y
   j2_props%harden%H        = H_mod
-  j2_props%ctrl%hardening_type = HARD_LINEAR
+  j2_props%ctrl%hardening_type = PH_MAT_J2_HARD_LINEAR
 
   CALL PH_J2_Init(j2_props, j2_state, ierr)
   IF (ierr%status_code /= IF_STATUS_OK) THEN
@@ -88,7 +87,6 @@ program E2E_C2_02_Uniaxial_J2Plastic_Integrated
   END IF
 
   strain = 0.0_wp
-  pnewdt = 1.0_wp
 
   ! === Main loading loop ===
   do istep = 1, n_steps
@@ -104,9 +102,15 @@ program E2E_C2_02_Uniaxial_J2Plastic_Integrated
 
     d_strain = strain - strain_prev
 
-    ! === INTEGRATED: Call module PH_J2_ComputeStress instead of inline ===
-    pnewdt = 1.0_wp
-    CALL PH_J2_ComputeStress(j2_props, d_strain, j2_state, tangent, pnewdt, ierr)
+    ! === INTEGRATED: Call module PH_J2_ComputeStress (SIO Arg bundle) ===
+    j2arg%props = j2_props
+    j2arg%strain_inc = d_strain
+    j2arg%state = j2_state
+    j2arg%pnewdt = 1.0_wp
+    CALL init_error_status(j2arg%status)
+    CALL PH_J2_ComputeStress(j2arg)
+    j2_state = j2arg%state
+    ierr = j2arg%status
 
     IF (ierr%status_code /= IF_STATUS_OK) THEN
       print '(A,I0,A)', 'WARNING: PH_J2_ComputeStress returned error at step ', istep
