@@ -1,6 +1,6 @@
 # Design: p1-material-crystal-impl
 
-> **Status**: W1a implementing（2026-05-19）— #7–#10 merged；W1b Schmid 后续 PR。
+> **Status**: W1b Schmid（2026-05-19）— W1a deprecated after #12 + W1b PR。
 
 ## 1. 现状（as-is）
 

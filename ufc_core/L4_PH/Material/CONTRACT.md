@@ -74,17 +74,19 @@
 
 ### Crystal UMAT（mat_id 266 · `PH_Mat_Plast_Crystal_Core`）
 
-> **W1a（当前）**：**iso-surrogate** — von Mises 径向返回，`sigma_y = sqrt(3) * (tau_c0 + H * peeq)`；**无晶体取向**。  
-> **W1b（计划）**：1-slip Schmid，保留下列 `props`/`statev` 布局。
+> **W1b（当前）**：**1-slip Schmid** — \(\tau = P:\sigma\)，\(P=\mathrm{sym}(s\otimes m)\)，率无关滑移返回。  
+> **W1a iso-surrogate**（#12）：**DEPRECATED**，已由 W1b 取代；勿再用于新算例。
 
 | 项 | 约定 |
 |----|------|
 | 入口 | `UF_CrystalPlasticity_UMAT(UF_CrystalPlasticity_UMAT_Arg)` |
 | PLM | `PH_MatPLMEval` CASE `266`（Arg 打包，wave5 #6） |
 | `props(1:4)` | `E`, `nu`, `tau_c0`, `H`（`nprops_min = 4`） |
-| `statev(1)` | `peeq`（W1a 等效累积塑性度量） |
+| `props(5:7)` | `s1,s2,s3` 滑移方向（`nprops < 9` 时默认 `[0,0,1]`） |
+| `props(8:9)` | `m1,m2` 滑移面法向（`m3=0` 后归一化；`nprops≥10` 时 `props(10)=m3`） |
+| `statev(1)` | `gamma` 累积滑移 |
 | `statev(2:7)` | `eps_p` Voigt 6（`nstatev_min = 7`） |
-| 错误 | `nprops`/`nstatev` 不足或参数非法 → `IF_STATUS_INVALID`（禁止 `STATUS_UNSUPPORTED`） |
+| 错误 | `nprops`/`nstatev` 不足或 `s`/`m` 零长 → `IF_STATUS_INVALID` |
 
 ---
 
