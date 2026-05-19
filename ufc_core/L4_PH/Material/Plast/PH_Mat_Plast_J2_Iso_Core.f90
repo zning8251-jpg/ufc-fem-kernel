@@ -6,6 +6,9 @@
 ! BRIEF:  J2 radial return algorithm with nonlinear hardening Newton iteration
 !   W1: stress integration invoked from **PH_Mat_Dispatch** / **PH_Mat_Reg** routing;
 !   material parameters come from slot **`desc%props`** upstream (**Populate**), not L5 ctx alone.
+! Purpose: J2 isotropic radial-return kernel; public API is PH_J2_ComputeStress(Arg).
+! Theory: von Mises yield, trial predictor + local Newton on radial return (Simo & Hughes).
+! Status: ACTIVE
 !===============================================================================
 MODULE PH_Mat_Plast_J2_Iso_Core
   USE IF_Prec_Core, ONLY: wp, i4
@@ -17,19 +20,12 @@ MODULE PH_Mat_Plast_J2_Iso_Core
   !-----------------------------------------------------------------------------
   ! Public Interface
   !-----------------------------------------------------------------------------
-  PUBLIC :: PH_J2_Init              ! Initialize J2 context
-  PUBLIC :: PH_J2_TrialStress       ! Step 1: Elastic predictor (trial stress)
-  PUBLIC :: PH_J2_YieldCheck        ! Step 2: Yield function evaluation
-  PUBLIC :: PH_J2_RadialReturn      ! Step 3: Radial return mapping
-  PUBLIC :: PH_J2_ConsistentTangent ! Step 4: Consistent tangent D_ep
-  PUBLIC :: PH_J2_ComputeStress     ! Unified entry: full stress update
-  PUBLIC :: PH_J2_Hardening         ! Hardening law evaluation
-  PUBLIC :: PH_J2_HardeningTangent  ! Hardening tangent H' = dσ_y/dε̄_p
-  !-- Standard 4-routine interface (§B2 dispatch contract)
-  PUBLIC :: PH_Mat_J2_Compute_Stress
-  PUBLIC :: PH_Mat_J2_Compute_Tangent
-  PUBLIC :: PH_Mat_J2_Update_State
-  PUBLIC :: PH_Mat_J2_Validate_Params
+  PUBLIC :: PH_J2_Init
+  PUBLIC :: PH_J2_TrialStress
+  PUBLIC :: PH_J2_ComputeStress_Arg
+  PUBLIC :: PH_J2_ComputeStress
+  PUBLIC :: PH_J2_Hardening
+  PUBLIC :: PH_J2_HardeningTangent
 
   !-----------------------------------------------------------------------------
   ! Hardening Type Constants (§3.3)
@@ -119,21 +115,39 @@ MODULE PH_Mat_Plast_J2_Iso_Core
     ! All flat fields migrated to nested auxiliary TYPEs (Depth 2 cap)
   END TYPE PH_J2_State
 
+  ! SIO bundle for PH_J2_ComputeStress (INTF-001)
+  TYPE, PUBLIC :: PH_J2_ComputeStress_Arg
+    TYPE(PH_J2_Props) :: props                    ! [IN]
+    REAL(wp) :: strain_inc(6) = 0.0_wp           ! [IN] strain increment (Voigt)
+    TYPE(PH_J2_State) :: state                   ! [INOUT]
+    REAL(wp) :: tangent(6, 6) = 0.0_wp           ! [OUT] consistent tangent D_ep
+    REAL(wp) :: pnewdt = 1.0_wp                  ! [INOUT] suggested time-step ratio
+    TYPE(ErrorStatusType) :: status              ! [OUT]
+  END TYPE PH_J2_ComputeStress_Arg
+
 CONTAINS
 
   !===========================================================================
-  ! PH_J2_ComputeStress — Unified entry point for complete stress update
-  !
-  ! Design Doc: §3.2-§3.5 (complete radial return algorithm)
-  ! Call Chain: PH_MatEval → PH_J2_ComputeStress
-  !
-  ! Algorithm:
-  !   [1] Elastic trial (§3.2 Step 1)
-  !   [2] Yield check (§3.2 Step 2)
-  !   [3] Radial return with local Newton (§3.2 Step 3, §3.5)
-  !   [4] Consistent tangent (§3.4)
+  ! PH_J2_ComputeStress — SIO public entry (single Arg bundle)
   !===========================================================================
-  SUBROUTINE PH_J2_ComputeStress(props, strain_inc, state, tangent, pnewdt, ierr)
+  SUBROUTINE PH_J2_ComputeStress(arg)
+    ! Theory: J2 radial return (see PH_J2_ComputeStress_Core).
+    ! Logic:  Unpack Arg bundle and delegate to core integrator.
+    ! Compute: PH_J2_ComputeStress_Core.
+    ! Data:   arg%props/strain_inc/state in; arg%tangent/pnewdt/status out.
+    TYPE(PH_J2_ComputeStress_Arg), INTENT(INOUT) :: arg
+    CALL PH_J2_ComputeStress_Core(arg%props, arg%strain_inc, arg%state, &
+        arg%tangent, arg%pnewdt, arg%status)
+  END SUBROUTINE PH_J2_ComputeStress
+
+  !===========================================================================
+  ! PH_J2_ComputeStress_Core — radial return spine (module-private callers)
+  !===========================================================================
+  SUBROUTINE PH_J2_ComputeStress_Core(props, strain_inc, state, tangent, pnewdt, ierr)
+    ! Theory: J2 von Mises radial return with isotropic/kinematic hardening laws.
+    ! Logic:  Trial elastic predictor; yield check; plastic branch calls RadialReturn.
+    ! Compute: PH_J2_TrialStress, PH_J2_YieldCheck, PH_J2_RadialReturn, PH_J2_ConsistentTangent.
+    ! Data:   props (IN), state (INOUT), tangent/pnewdt/status (OUT/INOUT).
     TYPE(PH_J2_Props),      INTENT(IN)    :: props
     REAL(wp),               INTENT(IN)    :: strain_inc(6)  ! Δε (Voigt)
     TYPE(PH_J2_State),      INTENT(INOUT) :: state
@@ -190,7 +204,7 @@ CONTAINS
     state%plastic%yielded = .TRUE.
 
     ierr%status_code = IF_STATUS_OK
-  END SUBROUTINE PH_J2_ComputeStress
+  END SUBROUTINE PH_J2_ComputeStress_Core
 
   !===========================================================================
   ! PH_J2_Init — Initialize J2 properties and state
@@ -582,12 +596,8 @@ CONTAINS
 
   END SUBROUTINE PH_J2_HardeningTangent
 
-  !===========================================================================
-  ! STANDARD 4-ROUTINE INTERFACE (B2 Dispatch Contract)
-  !===========================================================================
-
   !---------------------------------------------------------------------------
-  ! PH_Mat_J2_Validate_Params — Standard validation entry
+  ! PH_Mat_J2_Validate_Params — validation (module-private)
   !---------------------------------------------------------------------------
   SUBROUTINE PH_Mat_J2_Validate_Params(props, ierr)
     TYPE(PH_J2_Props),      INTENT(IN)  :: props
@@ -608,25 +618,7 @@ CONTAINS
   END SUBROUTINE PH_Mat_J2_Validate_Params
 
   !---------------------------------------------------------------------------
-  ! PH_Mat_J2_Compute_Stress — Standard stress computation entry
-  !---------------------------------------------------------------------------
-  SUBROUTINE PH_Mat_J2_Compute_Stress(props, strain_inc, state, stress, ierr)
-    TYPE(PH_J2_Props),      INTENT(IN)    :: props
-    REAL(wp),               INTENT(IN)    :: strain_inc(6)
-    TYPE(PH_J2_State),      INTENT(INOUT) :: state
-    REAL(wp),               INTENT(OUT)   :: stress(6)
-    TYPE(ErrorStatusType),  INTENT(OUT)   :: ierr
-
-    REAL(wp) :: tangent(6,6)
-    REAL(wp) :: pnewdt
-
-    pnewdt = 1.0_wp
-    CALL PH_J2_ComputeStress(props, strain_inc, state, tangent, pnewdt, ierr)
-    stress = state%stress%stress
-  END SUBROUTINE PH_Mat_J2_Compute_Stress
-
-  !---------------------------------------------------------------------------
-  ! PH_Mat_J2_Compute_Tangent — Standard tangent computation entry
+  ! PH_Mat_J2_Compute_Tangent — tangent readback (module-private)
   !---------------------------------------------------------------------------
   SUBROUTINE PH_Mat_J2_Compute_Tangent(props, state, C_tangent, ierr)
     TYPE(PH_J2_Props),      INTENT(IN)  :: props
