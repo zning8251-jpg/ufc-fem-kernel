@@ -83,6 +83,9 @@ git push origin main
 | `p1-material-wave4-dispatch-flow` | #2 | 2026-05-19 | → `plan/archive/p1-material-wave4-dispatch-flow/` |
 | `p1-material-wave5-plast-nonj2` | #3 + #6 | 2026-05-19 | → `plan/archive/p1-material-wave5-plast-nonj2/`（#4 未合并） |
 | `p1-material-wave5-mateval-arg` | #5 | 2026-05-19 | → `plan/archive/p1-material-wave5-mateval-arg/` |
+| `p1-material-plast-guardian-debt` | #7 | 2026-05-19 | → `plan/archive/p1-material-plast-guardian-debt/` |
+| `p1-material-orthotropic-eval-fix` | #8 | 2026-05-19 | → `plan/archive/p1-material-orthotropic-eval-fix/` |
+| `p1-material-c2-mateval-split` | #9 + #10 | 2026-05-19 | → `plan/archive/p1-material-c2-mateval-split/` |
 
 ---
 
@@ -90,10 +93,8 @@ git push origin main
 
 | 顺序 | 建议 change_id | 范围 |
 |------|----------------|------|
-| 1 | `p1-material-plast-guardian-debt` | **merged** [#7](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/7) |
-| 2 | `p1-material-orthotropic-eval-fix` | **merged** [#8](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/8) |
-| 3 | `p1-material-c2-mateval-split` | **merged** [#9](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/9) + [#10](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/10) |
-| 4 | `p1-material-crystal-impl` | plan **merged** [#11](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/11)；实装待立项 |
+| — | ~~#7–#11~~ | **done**（2026-05-19） |
+| **next** | `p1-material-crystal-impl` | W1 UMAT 实装 — plan 在 `main`，`plan/tasks/p1-material-crystal-impl/` |
 
 每项：`agent-task init` → `plan/changes/<id>/` → 单 PR → 合并后归档。
 

@@ -31,14 +31,14 @@
 | J2 脊索（wave3） | 0 | **merged** #1 |
 | Hill / Barlat（wave5 PR-A） | 0 | **merged** #3 |
 | Crystal stub（wave5 PR-B） | 0 | Arg 脊索；实装另开 change |
-| 全域 `--fail-on-p0` | P2 only | **P0/P1 cleared** — `p1-material-plast-guardian-debt` PR |
+| 全域 `--fail-on-p0` | P2 only | **P0/P1 cleared** — **merged** #7 |
 
 ### 2.2 `Dispatch/`
 
 | 项 | 状态 |
 |----|------|
 | `guardian Dispatch --fail-on-p0` | 0 — **merged** #2 |
-| `PH_MatEval` 文档化 | PR #5 mateval |
+| `PH_MatEval` C2 按族迁出 | **merged** #9 + #10；门面 ~80 行 |
 
 ---
 
@@ -50,12 +50,16 @@
 | `p1-material-wave4-dispatch-flow` | Dispatch SIO | **merged** #2 |
 | `p1-material-wave5-plast-nonj2` | Hill/Barlat/Crystal Arg | **merged** #3 + #6 |
 | `p1-material-wave5-mateval-arg` | PH_MatEval 文档 | **merged** #5 |
+| `p1-material-plast-guardian-debt` | Plast P0/P1 + Chaboche Arg | **merged** #7 |
+| `p1-material-orthotropic-eval-fix` | ortho Eval Arg | **merged** #8 |
+| `p1-material-c2-mateval-split` | MatEval → family PointEval | **merged** #9 + #10 |
 
 ---
 
 ## 4. Roll-forward
 
 1. ~~wave3–5 合并 + `plan/tasks` 归档~~（2026-05-19 完成）
-2. **Plast 清债** · **C2 PH_MatEval** · **Crystal 实装** — 见 [`p1-material-post-wave5-backlog.md`](../backlog/p1-material-post-wave5-backlog.md) §4
+2. ~~#7–#10 + plan 草案 #11~~（2026-05-19 完成）
+3. **Crystal 实装** — `p1-material-crystal-impl`（plan 在 `main`；见 backlog §4）
 
 *维护：合并后追加 `（PR #___ / 日期）`。*

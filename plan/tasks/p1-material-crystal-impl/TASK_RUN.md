@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|-------|
 | change_id | `p1-material-crystal-impl` |
-| phase | **DRAFT**（plan only；等 #7–#10） |
+| phase | **READY**（plan on `main`；#7–#10 已合并） |
 | docs PR | [#11](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/11) → `main` |
 | branch (future) | `feat/p1-material-crystal-impl` |
 | date | 2026-05-19 |
@@ -15,9 +15,9 @@
 
 ## Gate checklist
 
-- [ ] #7 #8 #9 #10 merged
-- [ ] C2 archived
-- [ ] Implementation PR opened from `main`
+- [x] #7 #8 #9 #10 merged（2026-05-19）
+- [x] C2 / guardian / ortho tasks archived
+- [ ] Implementation PR `feat/p1-material-crystal-impl` from `main`
 
 ## Harness (implementation phase)
 
