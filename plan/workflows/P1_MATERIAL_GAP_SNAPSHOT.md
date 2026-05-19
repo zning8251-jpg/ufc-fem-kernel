@@ -48,14 +48,14 @@
 |-----------|------|------|
 | `p1-material-wave3-plast-loc` | Plast J2 | **merged** #1 |
 | `p1-material-wave4-dispatch-flow` | Dispatch SIO | **merged** #2 |
-| `p1-material-wave5-plast-nonj2` | Hill/Barlat/Crystal Arg | #3 merged · #4 PR-B |
-| `p1-material-wave5-mateval-arg` | PH_MatEval 文档 | PR #5 |
+| `p1-material-wave5-plast-nonj2` | Hill/Barlat/Crystal Arg | **merged** #3 + #6 |
+| `p1-material-wave5-mateval-arg` | PH_MatEval 文档 | **merged** #5 |
 
 ---
 
 ## 4. Roll-forward
 
-1. 合并 #4 → #5；`plan/tasks/*` 归档（[`p1-material-post-wave5-backlog.md`](../backlog/p1-material-post-wave5-backlog.md)）
-2. **Plast 清债** · **C2 PH_MatEval** · **Crystal 实装** — 各独立 change_id
+1. ~~wave3–5 合并 + `plan/tasks` 归档~~（2026-05-19 完成）
+2. **Plast 清债** · **C2 PH_MatEval** · **Crystal 实装** — 见 [`p1-material-post-wave5-backlog.md`](../backlog/p1-material-post-wave5-backlog.md) §4
 
 *维护：合并后追加 `（PR #___ / 日期）`。*

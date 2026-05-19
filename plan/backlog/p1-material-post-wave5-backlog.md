@@ -1,6 +1,6 @@
 # P1 Material — post wave3–5 merge order & housekeeping
 
-> **Status (2026-05-19)**：PR [#1](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/1)–[#5](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/5) 均为 **OPEN**；`plan/tasks/*` 归档 **待合并后执行**（见 §3）。
+> **Status (2026-05-19)**：#1–#3、#5–#6 **MERGED**；原 #4 因 base 分支删除已 **CLOSED**，Crystal 由 [#6](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/6) 入主。`plan/tasks/` wave3–5 四包已迁入 `plan/archive/`（见 §3.2）。
 
 ---
 
@@ -11,7 +11,7 @@
 | 1a / 1b（可并行） | [#1](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/1) | `feat/p1-material-wave3-plast-loc` | `p1-material-wave3-plast-loc` | Plast J2 spine（DEP-001 + `PH_J2_ComputeStress_Arg`） |
 | | [#2](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/2) | `feat/p1-material-wave4-dispatch-flow` | `p1-material-wave4-dispatch-flow` | Dispatch Eval+UMAT Arg（FLOW-003） |
 | 2 | [#3](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/3) | `feat/p1-material-wave5-plast-nonj2-pra` | `p1-material-wave5-plast-nonj2` | Hill + Barlat SIO（PR-A） |
-| 3 | [#4](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/4) | `feat/p1-material-wave5-plast-nonj2-prb` | 同上 | Crystal Arg（PR-B）；**base = pra**，须在 #3 之后 |
+| 3 | [#6](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/6) | `feat/p1-material-wave5-plast-nonj2-prb` | 同上 | Crystal Arg（PR-B）；替代已关闭的 #4 |
 | 4 | [#5](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/5) | `feat/p1-material-wave5-mateval-arg` | `p1-material-wave5-mateval-arg` | `PH_MatEval` 合同/文档；**无新 Arg 类型** |
 
 ---
@@ -79,14 +79,25 @@ git push origin main
 
 | task_id | PR | 归档日期 | 执行人 / 备注 |
 |---------|-----|----------|----------------|
-| `p1-material-wave3-plast-loc` | #1 | — | 待 #1 merged |
-| `p1-material-wave4-dispatch-flow` | #2 | — | 待 #2 merged |
-| `p1-material-wave5-plast-nonj2` | #3+#4 | — | 待 #4 merged |
-| `p1-material-wave5-mateval-arg` | #5 | — | 待 #5 merged；当前 `main` 上仅有此 task 目录（2026-05-19） |
+| `p1-material-wave3-plast-loc` | #1 | 2026-05-19 | → `plan/archive/p1-material-wave3-plast-loc/` |
+| `p1-material-wave4-dispatch-flow` | #2 | 2026-05-19 | → `plan/archive/p1-material-wave4-dispatch-flow/` |
+| `p1-material-wave5-plast-nonj2` | #3 + #6 | 2026-05-19 | → `plan/archive/p1-material-wave5-plast-nonj2/`（#4 未合并） |
+| `p1-material-wave5-mateval-arg` | #5 | 2026-05-19 | → `plan/archive/p1-material-wave5-mateval-arg/` |
 
 ---
 
-## 4. 相关链接
+## 4. 下一波 change_id（立项顺序）
+
+| 顺序 | 建议 change_id | 范围 |
+|------|----------------|------|
+| 1 | `p1-material-plast-guardian-debt` | Chaboche + 全 `Plast/` guardian P0/P1 清扫 |
+| 2 | `p1-material-orthotropic-eval-fix` | `PH_Mat_ElasticOrthotropic_Eval` dummy 小修 |
+| 3 | `p1-material-c2-mateval-split` | C2：按族吸收 `PH_MatEval` |
+| 4 | `p1-material-crystal-impl` | Crystal `STATUS_UNSUPPORTED` → 实装 |
+
+每项：`agent-task init` → `plan/changes/<id>/` → 单 PR → 合并后归档。
+
+## 5. 相关链接
 
 - 变更包：`plan/changes/p1-material-wave3-plast-loc/` … `p1-material-wave5-mateval-arg/`
-- Mateval PR 正文：`plan/changes/p1-material-wave5-mateval-arg/PR_BODY.md`
+- GAP 快照：`plan/workflows/P1_MATERIAL_GAP_SNAPSHOT.md`
