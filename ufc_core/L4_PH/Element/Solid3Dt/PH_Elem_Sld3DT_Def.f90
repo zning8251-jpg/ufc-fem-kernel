@@ -106,9 +106,9 @@ contains
   !   This function dispatches to specific 3D thermal-structural continuum element implementations:
   !     - C3D*T: 3D thermal-structural elements (C3D4T, C3D6T, C3D8T, C3D10T, C3D15T, C3D20T, C3D27T)
   !
-  !   Dispatch logic:
-  !     1. Check ElemType%name for explicit match ('C3D*T')
-  !     2. Fallback: Use Calc_Continuum3D_Thermal for all 3D thermal-structural continuum elements
+  !   Dispatch logic (G6-W1):
+  !     1. Registered C3D*T -> Calc_Continuum3D_Thermal (explicit name table)
+  !     2. Unknown thermal C3D -> legacy fallback only
   !-----------------------------------------------------------------------------
   SUBROUTINE UF_Elem_Sld3DT_Calc(ElemType, Formul, Ctx, state_in, &
                                   Mat, state_out, flags)
@@ -137,17 +137,8 @@ contains
       matModels(i)%props = Mat
     END DO
 
-    ! Dispatch based on element name prefix
-    ! All 3D thermal-structural continuum elements (C3D*T) use Calc_Continuum3D_Thermal
-    IF (INDEX(ename, 'C3D') > 0 .AND. INDEX(ename, 'T') > 0) THEN
-      ! 3D thermal-structural continuum elements
-      CALL Calc_Continuum3D_Thermal(ElemType, Formul, Ctx, state_in, &
-                                    matModels, state_out, flags)
-    ELSE
-      ! Unknown type - try Calc_Continuum3D_Thermal as fallback
-      CALL Calc_Continuum3D_Thermal(ElemType, Formul, Ctx, state_in, &
-                                    matModels, state_out, flags)
-    END IF
+    CALL PH_Elem_Sld3DT_DispatchCalc(ename, ElemType, Formul, Ctx, state_in, &
+        matModels, state_out, flags)
 
     DEALLOCATE(matModels)
 
@@ -166,5 +157,40 @@ contains
       END IF
     END DO
   END SUBROUTINE UPPER_CASE
+
+  SUBROUTINE PH_Elem_Sld3DT_DispatchCalc(ename, elem_type, formul, ctx, state_in, matModels, &
+                                       state_out, flags)
+    CHARACTER(len=*), INTENT(IN) :: ename
+    TYPE(ElemType), INTENT(IN) :: elem_type
+    TYPE(ElemFormul), INTENT(IN) :: formul
+    TYPE(ElemCtx), INTENT(IN) :: ctx
+    TYPE(ElemState), INTENT(IN) :: state_in
+    TYPE(UF_MaterialModel), INTENT(IN) :: matModels(:)
+    TYPE(ElemState), INTENT(INOUT) :: state_out
+    TYPE(ElemFlags), INTENT(INOUT) :: flags
+
+    CHARACTER(len=32) :: en
+    LOGICAL :: use_thermal
+
+    en = ADJUSTL(ename)
+    use_thermal = .FALSE.
+
+    SELECT CASE (TRIM(en))
+    CASE ('C3D4T', 'C3D6T', 'C3D8T', 'C3D10T', 'C3D15T', 'C3D20T', 'C3D27T')
+      use_thermal = .TRUE.
+    CASE DEFAULT
+      IF (INDEX(en, 'C3D') > 0 .AND. INDEX(en, 'T') > 0) use_thermal = .TRUE.
+    END SELECT
+
+    IF (use_thermal) THEN
+      CALL Calc_Continuum3D_Thermal(elem_type, formul, ctx, state_in, matModels, state_out, flags)
+    ELSE IF (elem_type%dim == 3_i4) THEN
+      CALL Calc_Continuum3D_Thermal(elem_type, formul, ctx, state_in, matModels, state_out, flags)
+    ELSE
+      flags%failed = .TRUE.
+      CALL init_error_status(flags%status, IF_STATUS_INVALID, &
+        message='PH_Elem_Sld3DT_Calc: invalid element dimension (expected 3D thermal)')
+    END IF
+  END SUBROUTINE PH_Elem_Sld3DT_DispatchCalc
 
 END MODULE PH_Elem_Sld3DT_Def

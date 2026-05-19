@@ -21,7 +21,7 @@ MODULE PH_Elem_Sld2D_Def
   use MD_Model_Mgr
   USE MD_Elem_Mgr, only: ElemType, ElemFormul, ElemCtx, ElemFlags, ElemState
   USE MD_Mat_Lib, only: MatProperties
-  use PH_ElemContm_Ops, only: Calc_Continuum2D
+  USE PH_ElemContm_Ops, ONLY: Calc_Continuum2D_elem, Calc_Continuum2D
   use UF_Material_Base
   ! NOTE: Register additional 2D continuum element *_Calc modules here when implemented.
   ! use PH_Elem_CPS4_Definition, only: UF_Elem_CPS4_Calc
@@ -74,9 +74,9 @@ CONTAINS
   !     - CPE*: Plane strain elements (CPE3, CPE4, CPE6, CPE8)
   !     - CAX*: Axisymmetric elements (CAX3, CAX4, CAX6, CAX8)
   !
-  !   Dispatch logic:
-  !     1. Check ElemType%name for explicit match ('CPS*', 'CPE*', 'CAX*')
-  !     2. Fallback: Use Calc_Continuum2D for all 2D continuum elements
+  !   Dispatch logic (G6-W1):
+  !     1. Registered CPS/CPE/CAX -> Calc_Continuum2D_elem (structured 2D kernel)
+  !     2. Unknown 2D -> Calc_Continuum2D legacy fallback
   ! Theory: K = ? B^TDB d?, plane stress: ??? = 0, plane strain: ??? = 0
   !-----------------------------------------------------------------------------
   SUBROUTINE PH_Elem_Sld2D_Calc(arg)
@@ -111,17 +111,8 @@ CONTAINS
       matModels(i)%props = arg%mat
     END DO
 
-    ! Dispatch based on element name prefix
-    ! All 2D continuum elements (CPS*, CPE*, CAX*) use Calc_Continuum2D
-    IF (INDEX(ename, 'CPS') > 0 .OR. INDEX(ename, 'CPE') > 0 .OR. INDEX(ename, 'CAX') > 0) THEN
-      ! 2D structural continuum elements
-      CALL Calc_Continuum2D(arg%elem_type, arg%formul, arg%ctx, arg%state_in, &
-                           matModels, arg%state_out, arg%flags)
-    ELSE
-      ! Unknown type - try Calc_Continuum2D as fallback
-      CALL Calc_Continuum2D(arg%elem_type, arg%formul, arg%ctx, arg%state_in, &
-                           matModels, arg%state_out, arg%flags)
-    END IF
+    CALL PH_Elem_Sld2D_DispatchCalc(ename, arg%elem_type, arg%formul, arg%ctx, &
+        arg%state_in, matModels, arg%state_out, arg%flags)
 
     ! Copy error status from flags if present
     IF (arg%flags%failed) THEN
@@ -164,16 +155,15 @@ CONTAINS
     TYPE(ElemFlags), INTENT(INOUT) :: flags
 
     TYPE(PH_Elem_Sld2D_Calc_Arg) :: in
-    TYPE(PH_Elem_Sld2D_Calc_Arg) :: out
 
     in%elem_type = ElemType
     in%formul = Formul
     in%ctx = Ctx
     in%state_in = state_in
     in%mat = Mat
-    CALL PH_Elem_Sld2D_Calc(arg)
-    state_out = out%state_out
-    flags = out%flags
+    CALL PH_Elem_Sld2D_Calc(in)
+    state_out = in%state_out
+    flags = in%flags
   END SUBROUTINE UF_Elem_Sld2D_Calc
   
     !-----------------------------------------------------------------------------
@@ -297,5 +287,39 @@ CONTAINS
       END IF
     END DO
   END SUBROUTINE UPPER_CASE
+
+  SUBROUTINE PH_Elem_Sld2D_DispatchCalc(ename, elem_type, formul, ctx, state_in, matModels, &
+                                      state_out, flags)
+    CHARACTER(len=*), INTENT(IN) :: ename
+    TYPE(ElemType), INTENT(IN) :: elem_type
+    TYPE(ElemFormul), INTENT(IN) :: formul
+    TYPE(ElemCtx), INTENT(IN) :: ctx
+    TYPE(ElemState), INTENT(IN) :: state_in
+    TYPE(UF_MaterialModel), INTENT(IN) :: matModels(:)
+    TYPE(ElemState), INTENT(INOUT) :: state_out
+    TYPE(ElemFlags), INTENT(INOUT) :: flags
+
+    CHARACTER(len=32) :: en
+    LOGICAL :: use_elem_kernel
+
+    en = ADJUSTL(ename)
+    use_elem_kernel = .FALSE.
+
+    SELECT CASE (TRIM(en))
+    CASE ('CPS3', 'CPS4', 'CPS6', 'CPS8', 'CPE3', 'CPE4', 'CPE6', 'CPE8', &
+          'CAX3', 'CAX4', 'CAX6', 'CAX8', 'CPS4R', 'CPE4R', 'CPE8R')
+      use_elem_kernel = .TRUE.
+    CASE DEFAULT
+      IF (INDEX(en, 'CPS') > 0 .OR. INDEX(en, 'CPE') > 0 .OR. INDEX(en, 'CAX') > 0) THEN
+        use_elem_kernel = .TRUE.
+      END IF
+    END SELECT
+
+    IF (use_elem_kernel) THEN
+      CALL Calc_Continuum2D_elem(elem_type, formul, ctx, state_in, matModels, state_out, flags)
+    ELSE
+      CALL Calc_Continuum2D(elem_type, formul, ctx, state_in, matModels, state_out, flags)
+    END IF
+  END SUBROUTINE PH_Elem_Sld2D_DispatchCalc
 
 END MODULE PH_Elem_Sld2D_Def

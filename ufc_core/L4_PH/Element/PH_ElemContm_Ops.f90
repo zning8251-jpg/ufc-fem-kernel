@@ -45,6 +45,7 @@ MODULE PH_ElemContm_Ops
   PUBLIC :: Calc_C3D8R
   PUBLIC :: Calc_Continuum
   PUBLIC :: Calc_Continuum2D
+  PUBLIC :: Calc_Continuum2D_elem
   PUBLIC :: Calc_Continuum2D_THM
   PUBLIC :: Calc_Continuum2D_Thermal
   PUBLIC :: Calc_Continuum3D
@@ -94,7 +95,7 @@ MODULE PH_ElemContm_Ops
     MODULE PROCEDURE Calc_Continuum2D_UF
     MODULE PROCEDURE Calc_Continuum2D_elem
   END INTERFACE Calc_Continuum2D
-  PRIVATE :: Calc_Continuum2D_UF, Calc_Continuum2D_elem
+  PRIVATE :: Calc_Continuum2D_UF
 
 contains
 

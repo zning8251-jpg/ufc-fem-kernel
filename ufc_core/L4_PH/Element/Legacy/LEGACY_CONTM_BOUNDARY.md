@@ -33,7 +33,7 @@ RT_Asm_GlobalStiffness / RT_Asm_ComputeResidual  (L5_RT/Assembly/RT_Asm_Solv.f90
 | 阶段 | 目标 | 状态 |
 |------|------|------|
 | **G6-W0** | 金线无 Contm 依赖（本文件 + verifier） | **已交付**（#22） |
-| **G6-W1** | `PH_Elem_Sld3D_Def`：C3D8/C3D4/… → `PH_Elem_Contm_Calc3D`；C3D8R/C3D20R → 专用核；仅未知走 `Calc_Continuum3D` | **本 MR** |
+| **G6-W1** | `Sld3D/2D/2Dt/3Dt` 显式路由；`Compute_Ke_C3D8/C3D4` → 族刚度核 | **已交付**（G6-W1b） |
 | **G6-W2** | `PH_Elem_Contm` 门面化或迁入 `Bridge/`，全树 guardian DEP 收敛 | 后续 MR |
 
 **不宣称 P2 柱 S7**，直至 G3–G6 全绿（见 `P2_ELEMENT_GAP_SNAPSHOT.md`）。

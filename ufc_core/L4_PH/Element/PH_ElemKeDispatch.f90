@@ -12,10 +12,11 @@ MODULE PH_ElemKeDispatch
                          IF_STATUS_INVALID
   USE PH_Elem_Def, ONLY: PH_Elem_Desc, PH_Elem_State, PH_Elem_Algo, &
                           PH_Elem_Stiff_Arg
+  USE MD_Elem_Mgr, ONLY: PH_ELEM_C3D4, PH_ELEM_C3D8
+  USE PH_Elem_C3D8, ONLY: PH_Elem_C3D8_FormStiffMatrix
+  USE PH_Elem_C3D4, ONLY: PH_Elem_C3D4_FormStiffMatrix
 
-  ! Element type constants (from PH_ElemReg_Algo)
-  INTEGER(i4), PARAMETER, PRIVATE :: PH_ELEM_C3D4 = 10
-  INTEGER(i4), PARAMETER, PRIVATE :: PH_ELEM_C3D8 = 11
+  ! Element type constants (2D families — keep local until wired)
   INTEGER(i4), PARAMETER, PRIVATE :: PH_ELEM_CAX4 = 210
   INTEGER(i4), PARAMETER, PRIVATE :: PH_ELEM_CAX8 = 211
   INTEGER(i4), PARAMETER, PRIVATE :: PH_ELEM_CPE4 = 151
@@ -166,8 +167,33 @@ CONTAINS
     REAL(wp), INTENT(OUT) :: Ke(:,:)
     TYPE(ErrorStatusType), INTENT(OUT) :: status
 
-    Ke = 0.0_wp
-    CALL init_error_status(status, IF_STATUS_OK)
+    REAL(wp) :: E_young, nu
+    REAL(wp) :: coords4(3, 4)
+    INTEGER(i4) :: n
+
+    CALL init_error_status(status)
+    n = SIZE(coords, 2)
+    IF (SIZE(coords, 1) /= 3 .OR. n /= 4) THEN
+      status%status_code = IF_STATUS_INVALID
+      status%message = '[Compute_Ke_C3D4] expected 4-node 3D coords (3 x 4)'
+      RETURN
+    END IF
+    IF (SIZE(mat_props) < 2) THEN
+      status%status_code = IF_STATUS_INVALID
+      status%message = '[Compute_Ke_C3D4] mat_props must include E and nu'
+      RETURN
+    END IF
+    IF (SIZE(Ke, 1) < 12 .OR. SIZE(Ke, 2) < 12) THEN
+      status%status_code = IF_STATUS_INVALID
+      status%message = '[Compute_Ke_C3D4] Ke must be at least 12 x 12'
+      RETURN
+    END IF
+    E_young = mat_props(1)
+    nu = mat_props(2)
+    coords4 = coords(1:3, 1:4)
+    Ke(1:12, 1:12) = 0.0_wp
+    CALL PH_Elem_C3D4_FormStiffMatrix(coords4, E_young, nu, Ke(1:12, 1:12))
+    status%status_code = IF_STATUS_OK
   END SUBROUTINE Compute_Ke_C3D4
 
   SUBROUTINE Compute_Ke_C3D8(coords, mat_props, Ke, status)
@@ -176,8 +202,31 @@ CONTAINS
     REAL(wp), INTENT(OUT) :: Ke(:,:)
     TYPE(ErrorStatusType), INTENT(OUT) :: status
 
-    Ke = 0.0_wp
-    CALL init_error_status(status, IF_STATUS_OK)
+    REAL(wp) :: E_young, nu
+    REAL(wp) :: coords8(3, 8)
+
+    CALL init_error_status(status)
+    IF (SIZE(coords, 1) /= 3 .OR. SIZE(coords, 2) /= 8) THEN
+      status%status_code = IF_STATUS_INVALID
+      status%message = '[Compute_Ke_C3D8] expected 8-node 3D coords (3 x 8)'
+      RETURN
+    END IF
+    IF (SIZE(mat_props) < 2) THEN
+      status%status_code = IF_STATUS_INVALID
+      status%message = '[Compute_Ke_C3D8] mat_props must include E and nu'
+      RETURN
+    END IF
+    IF (SIZE(Ke, 1) < 24 .OR. SIZE(Ke, 2) < 24) THEN
+      status%status_code = IF_STATUS_INVALID
+      status%message = '[Compute_Ke_C3D8] Ke must be at least 24 x 24'
+      RETURN
+    END IF
+    E_young = mat_props(1)
+    nu = mat_props(2)
+    coords8 = coords(1:3, 1:8)
+    Ke(1:24, 1:24) = 0.0_wp
+    CALL PH_Elem_C3D8_FormStiffMatrix(coords8, E_young, nu, Ke(1:24, 1:24))
+    status%status_code = IF_STATUS_OK
   END SUBROUTINE Compute_Ke_C3D8
 
   SUBROUTINE Compute_Ke_CAX4(coords, mat_props, Ke, status)
