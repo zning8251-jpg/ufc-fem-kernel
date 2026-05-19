@@ -6,6 +6,9 @@
 ! BRIEF:  J2 (von Mises) isotropic plasticity constitutive model
 !   W1: aligned with **PH_MAT_ELASTO_PLASTIC** + **`PH_Mat_Desc_Effective_Model`**;
 !   elastic branch uses **E, nu** from **`desc%props`** / Populate-filled Desc.
+! Purpose: MatPoint/UMAT J2 integration (PLM_J2 API) without L5 module dependency.
+! Theory: Implicit radial return; statev layout per CONTRACT v4.1 (peeq, eps_p, alpha).
+! Status: ACTIVE
 !===============================================================================
 !
 ! COMPUTATIONAL FLOW (single core, one increment)
@@ -26,7 +29,7 @@
 !
 ! CONTRACT (v4.1)
 !   - MD_Mat%ntens in 1..6 or IF_STATUS_ERROR.
-!   - pnewdt INOUT; initialise to RT_PNEWDT_NO_CHANGE.
+!   - pnewdt INOUT; initialise to PH_PNEWDT_NO_CHANGE (1.0_wp, Abaqus no-cut).
 !   - Hardening types 1=linear, 2=Swift, 3=Voce; optional kinematic (Desc%use_kinematic).
 !   - statev layout (MatPoint / UMAT, Voigt 6):
 !       PH_MAT_NSTATV_PLM_J2_ISO = 7:  (1)=peeq, (2:7)=plastic strain eps_p.
@@ -49,9 +52,11 @@ MODULE PH_Mat_Plast_J2_UMAT_Core
                                  Calc_Von_Mises
   USE PH_Mat_Core_UMAT_Adapter, ONLY: Unpack_From_UMAT_Context, Pack_To_UMAT_Context
   USE PH_Mat_UMAT_Def, ONLY: PH_UMAT_Context
-  USE RT_Com_Def, ONLY: RT_Com_Base_Ctx, RT_PNEWDT_NO_CHANGE
   IMPLICIT NONE
   PRIVATE
+
+  ! L4-local default pnewdt (was RT_PNEWDT_NO_CHANGE); avoid L4 USE L5_RT (Guardian DEP-001).
+  REAL(wp), PARAMETER :: PH_PNEWDT_NO_CHANGE = 1.0_wp
 
   PUBLIC :: MD_Mat_PLM_J2_Desc
   PUBLIC :: PH_Mat_PLM_J2_State
@@ -236,13 +241,12 @@ CONTAINS
   !===========================================================================
 
   SUBROUTINE PH_Mat_PLM_J2_UMAT_API(MD_Mat_Desc, PH_Mat_Ctx, PH_Mat_State, &
-      MD_Mat, PH_Mat_Algo, RT_Com_Ctx, pnewdt)
+      MD_Mat, PH_Mat_Algo, pnewdt)
     TYPE(MD_Mat_PLM_J2_Desc), INTENT(IN) :: MD_Mat_Desc
     TYPE(PH_Mat_Krnl_Ctx), INTENT(IN) :: PH_Mat_Ctx
     TYPE(PH_Mat_PLM_J2_State), INTENT(INOUT) :: PH_Mat_State
     TYPE(PH_Mat_PLM_J2_Algo), INTENT(IN) :: MD_Mat
     TYPE(PH_Mat_Krnl_Algo), INTENT(IN) :: PH_Mat_Algo
-    TYPE(RT_Com_Base_Ctx), INTENT(IN) :: RT_Com_Ctx
     REAL(wp), INTENT(INOUT) :: pnewdt
 
     REAL(wp) :: D_el(6,6), stress_trial(6), s_trial(6), q_trial
@@ -255,7 +259,7 @@ CONTAINS
 
     ! [1] Bookkeeping
     CALL init_error_status(PH_Mat_State%status)
-    pnewdt = RT_PNEWDT_NO_CHANGE
+    pnewdt = PH_PNEWDT_NO_CHANGE
     PH_Mat_State%converged = .TRUE.
     PH_Mat_State%iterations = 0
     plastic_step = .FALSE.
@@ -448,7 +452,6 @@ CONTAINS
     TYPE(PH_Mat_Krnl_Ctx) :: ph_ctx
     TYPE(PH_Mat_PLM_J2_Algo) :: md_algo
     TYPE(PH_Mat_Krnl_Algo) :: ph_algo
-    TYPE(RT_Com_Base_Ctx) :: rt_ctx
     TYPE(ErrorStatusType) :: st_desc
     REAL(wp) :: pnewdt
     INTEGER(i4) :: nt
@@ -500,9 +503,9 @@ CONTAINS
     md_algo%ntens = in%ntens
     IF (md_algo%ntens < 1_i4 .OR. md_algo%ntens > 6_i4) md_algo%ntens = 6_i4
     md_algo%compute_tangent = .TRUE.
-    pnewdt = RT_PNEWDT_NO_CHANGE
+    pnewdt = PH_PNEWDT_NO_CHANGE
 
-    CALL PH_Mat_PLM_J2_UMAT_API(md_desc, ph_ctx, ph_st, md_algo, ph_algo, rt_ctx, pnewdt)
+    CALL PH_Mat_PLM_J2_UMAT_API(md_desc, ph_ctx, ph_st, md_algo, ph_algo, pnewdt)
 
     out%stress = ph_st%stress
     out%ddsdde = ph_st%ddsdde

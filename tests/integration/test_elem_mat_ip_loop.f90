@@ -361,8 +361,8 @@ CONTAINS
     REAL(wp) :: stress_gp(8,6), D_gp(8,6,6)
     TYPE(PH_J2_Props) :: props
     TYPE(PH_J2_State) :: state
+    TYPE(PH_J2_ComputeStress_Arg) :: j2arg
     TYPE(ErrorStatusType) :: ierr
-    REAL(wp) :: tangent(6,6), pnewdt
     TYPE(PH_EAS_Ctx) :: eas_ctx
     REAL(wp) :: K_eff(24,24), f_eff(24), T0(6,6)
     REAL(wp) :: Ke_std(24,24), fint(24), Ku(24)
@@ -377,15 +377,20 @@ CONTAINS
     ! Material setup
     props%elastic%E = 210.0E3_wp; props%elastic%nu = 0.3_wp
     props%yield%sigma_y0 = 250.0_wp; props%harden%H = 1000.0_wp
-    props%ctrl%hardening_type = HARD_LINEAR
+    props%ctrl%hardening_type = PH_MAT_J2_HARD_LINEAR
 
     ! IP loop: material update at each GP
     DO igp = 1, 8
       CALL PH_J2_Init(props, state, ierr)
-      pnewdt = 1.0_wp
-      CALL PH_J2_ComputeStress(props, strain_gp(igp,:), state, tangent, pnewdt, ierr)
-      stress_gp(igp,:) = state%stress%stress
-      D_gp(igp,:,:) = tangent
+      j2arg%props = props
+      j2arg%strain_inc = strain_gp(igp,:)
+      j2arg%state = state
+      j2arg%pnewdt = 1.0_wp
+      CALL init_error_status(j2arg%status)
+      CALL PH_J2_ComputeStress(j2arg)
+      state = j2arg%state
+      stress_gp(igp,:) = j2arg%state%stress%stress
+      D_gp(igp,:,:) = j2arg%tangent
     END DO
 
     ! (a) Stress valid
@@ -565,8 +570,8 @@ CONTAINS
     REAL(wp) :: F_gp(8,3,3)
     TYPE(PH_J2_Props) :: props
     TYPE(PH_J2_State) :: state
+    TYPE(PH_J2_ComputeStress_Arg) :: j2arg
     TYPE(ErrorStatusType) :: ierr
-    REAL(wp) :: tangent(6,6), pnewdt
     TYPE(PH_Fbar_Ctx) :: fb_ctx
     REAL(wp) :: Ke(24,24), fint(24)
     INTEGER(i4) :: igp
@@ -591,15 +596,20 @@ CONTAINS
     ! Compute strain from Bbar, then material update
     props%elastic%E = 210.0E3_wp; props%elastic%nu = 0.3_wp
     props%yield%sigma_y0 = 250.0_wp; props%harden%H = 1000.0_wp
-    props%ctrl%hardening_type = HARD_LINEAR
+    props%ctrl%hardening_type = PH_MAT_J2_HARD_LINEAR
 
     DO igp = 1, 8
       strain_gp(igp,:) = MATMUL(fb_ctx%B_bar(igp,:,:), u_vec)
       CALL PH_J2_Init(props, state, ierr)
-      pnewdt = 1.0_wp
-      CALL PH_J2_ComputeStress(props, strain_gp(igp,:), state, tangent, pnewdt, ierr)
-      stress_gp(igp,:) = state%stress%stress
-      D_gp(igp,:,:) = tangent
+      j2arg%props = props
+      j2arg%strain_inc = strain_gp(igp,:)
+      j2arg%state = state
+      j2arg%pnewdt = 1.0_wp
+      CALL init_error_status(j2arg%status)
+      CALL PH_J2_ComputeStress(j2arg)
+      state = j2arg%state
+      stress_gp(igp,:) = j2arg%state%stress%stress
+      D_gp(igp,:,:) = j2arg%tangent
     END DO
 
     ok = check_stress_valid(stress_gp(1,:), 1.0E-10_wp)
@@ -762,8 +772,8 @@ CONTAINS
     TYPE(PH_NLGeom_State) :: nlg_state
     TYPE(PH_J2_Props) :: props
     TYPE(PH_J2_State) :: state
+    TYPE(PH_J2_ComputeStress_Arg) :: j2arg
     TYPE(ErrorStatusType) :: ierr
-    REAL(wp) :: tangent(6,6), pnewdt
     REAL(wp) :: coords_cur(3,8), dN_dx_dummy(8,3)
     REAL(wp) :: Ke_std(24,24), Kg(24,24), fint(24)
     REAL(wp) :: sigma_cauchy(6), S_pk2(6)
@@ -804,16 +814,21 @@ CONTAINS
     ! J2 material with GL strain
     props%elastic%E = 210.0E3_wp; props%elastic%nu = 0.3_wp
     props%yield%sigma_y0 = 250.0_wp; props%harden%H = 1000.0_wp
-    props%ctrl%hardening_type = HARD_LINEAR
+    props%ctrl%hardening_type = PH_MAT_J2_HARD_LINEAR
 
     DO igp = 1, 8
       CALL PH_J2_Init(props, state, ierr)
-      pnewdt = 1.0_wp
-      CALL PH_J2_ComputeStress(props, nlg_state%E_gl, state, tangent, pnewdt, ierr)
+      j2arg%props = props
+      j2arg%strain_inc = nlg_state%E_gl
+      j2arg%state = state
+      j2arg%pnewdt = 1.0_wp
+      CALL init_error_status(j2arg%status)
+      CALL PH_J2_ComputeStress(j2arg)
+      state = j2arg%state
       ! Push PK2-like stress to Cauchy
-      CALL PH_NLGeom_StressPush(nlg_state, state%stress%stress, sigma_cauchy, ierr)
+      CALL PH_NLGeom_StressPush(nlg_state, j2arg%state%stress%stress, sigma_cauchy, ierr)
       stress_gp(igp,:) = sigma_cauchy
-      D_gp(igp,:,:) = tangent
+      D_gp(igp,:,:) = j2arg%tangent
     END DO
 
     ok = check_stress_valid(stress_gp(1,:), 1.0E-10_wp)
