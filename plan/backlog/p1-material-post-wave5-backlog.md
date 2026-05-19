@@ -87,6 +87,7 @@ git push origin main
 | `p1-material-orthotropic-eval-fix` | #8 | 2026-05-19 | → `plan/archive/p1-material-orthotropic-eval-fix/` |
 | `p1-material-c2-mateval-split` | #9 + #10 | 2026-05-19 | → `plan/archive/p1-material-c2-mateval-split/` |
 | `p1-material-crystal-impl` | #12 + #13 | 2026-05-19 | → `plan/archive/p1-material-crystal-impl/` |
+| `p1-material-crystal-w2-multislip` | #14 + #16 | 2026-05-19 | → `plan/archive/p1-material-crystal-w2-multislip/` |
 
 ---
 
@@ -103,7 +104,7 @@ git push origin main
 
 | change_id | 范围 | plan |
 |-----------|------|------|
-| `p1-material-crystal-w2-multislip` | N=2 滑移 + 潜硬化 | [`plan/changes/p1-material-crystal-w2-multislip/`](../changes/p1-material-crystal-w2-multislip/) |
+| ~~`p1-material-crystal-w2-multislip`~~ | N=2 滑移 + 潜硬化 | **merged #14+#16**；task → `plan/archive/p1-material-crystal-w2-multislip/` |
 | `p1-material-plast-name-debt` | Plast NAME-001（P2=17） | [`plan/changes/p1-material-plast-name-debt/`](../changes/p1-material-plast-name-debt/) |
 | （切换域） | Element / L5 / … | [`p1-domain-next-options.md`](p1-domain-next-options.md) |
 

@@ -73,7 +73,7 @@
 |----|--------|----------------|------------|---------|
 | C1 | `L5_RT/StepDriver` | `contract-l5-stepdriver` | 六参/Iter 三轴表 | G1–G6 + A4/A+ |
 | C2 | `L5_RT/Assembly` | `contract-l5-assembly` | Glb Asm 动作维 | 同上 |
-| C3 | `L4_PH/Element` | `contract-l4-element` | Loc Eval 与 Ke | 同上 |
+| C3 | `L4_PH/Element` | `contract-l4-element` | Loc Eval 与 Ke | **S1–S3 done**（#15）；实现 → `p2-element-pr01-seam-doc` |
 | C4 | `L4_PH/Material` | （已有 v1.1 可审计） | 四型裁剪已部分完成 | 复核 G 表 |
 | C5 | `L5_RT/Solver` + L2 引用 | `contract-l5-solver` | A9 N/A 或六参 | 同上 |
 

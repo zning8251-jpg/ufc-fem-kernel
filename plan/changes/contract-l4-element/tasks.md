@@ -5,7 +5,7 @@
 ## 0. 闸门
 
 - [x] `PILLAR_ROLLOUT_ROADMAP` 登记 P2 `contract-l4-element`
-- [ ] `change-package validate --strict`
+- [x] `change-package validate --strict`
 - [x] S2 快照 `P2_ELEMENT_GAP_SNAPSHOT.md` 落盘
 
 ## 1. S1 — 合同审计
@@ -16,7 +16,7 @@
 
 ## 2. S2 — 差距快照
 
-- [ ] 2.1 创建 `plan/workflows/P2_ELEMENT_GAP_SNAPSHOT.md`（P2-G1–G6）
+- [x] 2.1 创建 `plan/workflows/P2_ELEMENT_GAP_SNAPSHOT.md`（P2-G1–G6）
 - [ ] 2.2 链接 `UFC_L345_形式对齐域级检查表` P2 节
 
 ## 3. S3 — change 包（本目录）
@@ -27,7 +27,7 @@
 
 ## 4. 交付（本 change 范围止于此）
 
-- [ ] PR：`docs(plan): contract-l4-element S1–S3` → `main`
+- [x] PR：`docs(plan): contract-l4-element S1–S3` → `main`（#15）
 - [ ] 归档 TASK_RUN；在 `L3L4L5_MASTER_PLAN` C3 行标 **S3 done**
 
 ## 5. 后续（out of scope）

@@ -31,8 +31,8 @@
 
 | 柱 | 名称 | L3 ↔ L4 ↔ L5 | 当前状态（2026-05-19） | 下一 change_id / 动作 |
 |----|------|----------------|------------------------|------------------------|
-| **P1** | Material | `L3_MD/Material` ↔ `L4_PH/Material` ↔ `L5_RT/Material` | wave3–5 + post-wave5 **COMPLETE**；W1b Schmid #13 | **W2** [`p1-material-crystal-w2-multislip`](../changes/p1-material-crystal-w2-multislip/) → **NAME** [`p1-material-plast-name-debt`](../changes/p1-material-plast-name-debt/) → P1 S7 复核 |
-| **P2** | Element | `L3_MD/Elem` ↔ `L4_PH/Element` ↔ `L5_RT/Element` | 待柱级金线 | `contract-l4-element`（S1–S3）→ 实现波次 |
+| **P1** | Material | `L3_MD/Material` ↔ `L4_PH/Material` ↔ `L5_RT/Material` | W2a **#14+#16** merged；post-wave5 complete | **NAME** [`p1-material-plast-name-debt`](../changes/p1-material-plast-name-debt/) → P1 S7 复核 |
+| **P2** | Element | `L3_MD/Elem` ↔ `L4_PH/Element` ↔ `L5_RT/Element` | `contract-l4-element` **#15** S1–S3 done | `p2-element-pr01-seam-doc` → 实现波次 |
 | **P3** | Contact | `Interaction` ↔ `Contact` ↔ `Contact` | 待柱级金线 | 新 change；依赖 P2 Step3 接缝（见 MASTER §6） |
 | **P4** | LoadBC | `Boundary` ↔ `LoadBC` ↔ `LoadBC` | 待柱级金线 | 新 change |
 | **P5** | Output | `Output` ↔ `Bridge/Output` ↔ `Output` | 待柱级金线 | 闭环 Output 合同（Phase C） |
