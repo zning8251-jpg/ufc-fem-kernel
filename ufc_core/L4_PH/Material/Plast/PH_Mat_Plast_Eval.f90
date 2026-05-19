@@ -18,25 +18,25 @@ MODULE PH_Mat_Plast_Eval
                                PH_Mat_Plast_Algo, &
                                PH_Mat_Plast_Ctx, &
                                PH_Mat_Plast_Eval_Arg
-  USE PH_Mat_Plast_Core, ONLY: PH_Mat_Plast_Return_Mapping, &
+  USE PH_Mat_Plast_Core, ONLY: PH_Mat_Plast_ComputeReturnMapping, &
                                 PH_Mat_Plast_Update_State
   IMPLICIT NONE
   PRIVATE
 
-  PUBLIC :: PH_Mat_Plast_IP_Incr_Eval
+  PUBLIC :: PH_Mat_Plast_Eval_IP_Incr
   PUBLIC :: PH_Mat_Plast_Eval_With_Args
 
 CONTAINS
 
   !-----------------------------------------------------------------------------
-  ! PH_Mat_Plast_IP_Incr_Eval
+  ! PH_Mat_Plast_Eval_IP_Incr
   ! Spatial: IP | Temporal: Incr | Action: Eval
   ! 5-parameter SIO form: (desc, state, algo, ctx, args, status)
   !-----------------------------------------------------------------------------
-  SUBROUTINE PH_Mat_Plast_IP_Incr_Eval(desc, state, algo, ctx, args, status)
+  SUBROUTINE PH_Mat_Plast_Eval_IP_Incr(desc, state, algo, ctx, args, status)
     ! Theory: J2/Plast return mapping on total strain increment at IP.
     ! Logic:  Return_Mapping then Update_State; status gates early exit.
-    ! Compute: PH_Mat_Plast_Return_Mapping fills stress_out, ddsdde_out.
+    ! Compute: PH_Mat_Plast_ComputeReturnMapping fills stress_out, ddsdde_out.
     ! Data:   desc/state/algo/ctx/args SIO; outputs in args%stress, args%ddsdde.
     TYPE(PH_Mat_Plast_Desc),   INTENT(IN)    :: desc
     TYPE(PH_Mat_Plast_State),  INTENT(INOUT) :: state
@@ -53,7 +53,7 @@ CONTAINS
     total_strain = state%strain + args%dstrain
 
     ! Return mapping algorithm
-    CALL PH_Mat_Plast_Return_Mapping(desc, state, algo, ctx, &
+    CALL PH_Mat_Plast_ComputeReturnMapping(desc, state, algo, ctx, &
                                       total_strain, stress_out, ddsdde_out, status)
     IF (status%status_code /= IF_STATUS_OK) RETURN
 
@@ -65,7 +65,7 @@ CONTAINS
     args%stress  = stress_out
     args%ddsdde  = ddsdde_out
     args%status_code = 0
-  END SUBROUTINE PH_Mat_Plast_IP_Incr_Eval
+  END SUBROUTINE PH_Mat_Plast_Eval_IP_Incr
 
   !-----------------------------------------------------------------------------
   ! PH_Mat_Plast_Eval_With_Args
@@ -80,7 +80,7 @@ CONTAINS
     TYPE(PH_Mat_Plast_Eval_Arg), INTENT(INOUT) :: args
 
     TYPE(ErrorStatusType) :: status
-    CALL PH_Mat_Plast_IP_Incr_Eval(desc, state, algo, ctx, args, status)
+    CALL PH_Mat_Plast_Eval_IP_Incr(desc, state, algo, ctx, args, status)
     args%status_code = status%status_code
     IF (status%status_code /= 0) args%message = TRIM(status%message)
   END SUBROUTINE PH_Mat_Plast_Eval_With_Args
