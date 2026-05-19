@@ -46,9 +46,9 @@ MD_Mesh + MD_Elem Desc
 
 | change_id（拟） | 范围 | 依赖 |
 |-----------------|------|------|
-| `p2-element-pr01-seam-doc` | PR01 接缝文档化 + guardian 锚点基线 | **文档包就绪**（见 `plan/changes/p2-element-pr01-seam-doc/`） |
-| `p2-element-material-route-audit` | `PH_Elem_MaterialRoute` / slot 只读审计 | P1 slot 稳定 |
-| `p2-element-ke-arg-align` | `PH_Element_Compute_Ke_Arg` ↔ `RT_Asm_Solv` 字段对齐 | pr01 |
+| `p2-element-pr01-seam-doc` | PR01 接缝文档化 + guardian 锚点基线 | **已归档**（#20） |
+| `p2-element-material-route-audit` | `PH_Elem_MaterialRoute`：销 DEP-001 P0；slot 只读审计 | **P0=0**（`ValidateRtCtx`）；P1/P2 命名债后续 |
+| `p2-element-ke-arg-align` | `PH_Element_Compute_Ke_Arg` ↔ `RT_Asm_Solv`；L4 门控 | **已落地**（`CONTRACT` + `PH_Elem_Domain%Compute_Ke`） |
 | `p2-element-legacy-contm-retire` | `PH_Elem_Contm` 裁剪或门面化 | ke-arg |
 | `p2-element-l5-rt-elem-proc-sio` | `RT_Elem_Proc` → `*_Arg` | 可选，半柱 H3 接缝 |
 

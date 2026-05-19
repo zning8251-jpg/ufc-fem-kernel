@@ -20,6 +20,6 @@
 
 ## 3. 交付
 
-- [ ] PR → `main`
-- [ ] `P2_ELEMENT_GAP_SNAPSHOT` 增 PR01 行
-- [ ] 归档 `plan/tasks/p2-element-pr01-seam-doc/`
+- [x] PR → `main`（#20）
+- [x] `P2_ELEMENT_GAP_SNAPSHOT` 增 PR01 行
+- [x] 归档 `plan/archive/p2-element-pr01-seam-doc/`

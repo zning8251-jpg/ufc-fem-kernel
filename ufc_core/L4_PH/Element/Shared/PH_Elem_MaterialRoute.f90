@@ -3,16 +3,16 @@
 ! LAYER:  L4_PH
 ! DOMAIN: Element/Shared
 ! ROLE:   Proc
-! BRIEF:  Element-side material routing — build elastic/material hooks per family using L5 mat dispatch + PH slots.
-! **W2**：单元侧取 **`PH_Mat_Slot`/`desc%props`** 与 **`PH_Mat_Desc_Effective_Model`**；应力路径 **`RT_Mat_Dispatch_Stress`**；
-!         **W1 Material** 金线与 **W2 单元族** 交汇（勿读虚构 **`ctx%props`**）。
+! BRIEF:  Element-side material routing — build elastic/material hooks per family using PH slots.
+! **W2**：单元侧取 **`PH_Mat_Slot`/`desc%props`** 与 **`PH_Mat_Desc_Effective_Model`**；
+!         路由上下文校验在 L4（**`PH_Elem_MatRoute_ValidateRtCtx`**），不 USE L5 **`RT_Mat_Core`**。
+! Status: ACTIVE | Last verified: 2026-05-19
 !===============================================================================
 MODULE PH_Elem_MaterialRoute
   USE IF_Prec_Core, ONLY: wp, i4
-  USE IF_Err_Brg, ONLY: ErrorStatusType, IF_STATUS_OK, IF_STATUS_INVALID
-  USE IF_Mat_Dispatch_Def, ONLY: RT_Mat_Dispatch_Ctx
-  ! ARCH-EXEMPT: Bridge pattern - MaterialRoute dispatches stress via L5 runtime
-  USE RT_Mat_Core, ONLY: RT_Mat_Dispatch_Stress
+  USE IF_Err_Brg, ONLY: ErrorStatusType, IF_STATUS_OK, IF_STATUS_INVALID, init_error_status
+  USE IF_Mat_Dispatch_Def, ONLY: RT_Mat_Dispatch_Ctx, &
+      IF_MAT_ROUTE_OK, IF_MAT_ROUTE_NOT_FOUND, IF_MAT_ROUTE_NO_KERNEL
   USE UFC_GlobalContainer_Core, ONLY: g_ufc_global
   USE PH_Mat_Def, ONLY: PH_Mat_Slot, &
       PH_MAT_ELASTIC
@@ -620,7 +620,7 @@ CONTAINS
 
     INTEGER(i4) :: mid, ph_fam
 
-    CALL RT_Mat_Dispatch_Stress(rt_ctx, status)
+    CALL PH_Elem_MatRoute_ValidateRtCtx(rt_ctx, status)
     IF (status%status_code /= IF_STATUS_OK) RETURN
 
     IF (.NOT. mat_slot%active .OR. rt_ctx%mat_pt_idx <= 0_i4) THEN
@@ -665,7 +665,7 @@ CONTAINS
 
     INTEGER(i4) :: mid
 
-    CALL RT_Mat_Dispatch_Stress(rt_ctx, status)
+    CALL PH_Elem_MatRoute_ValidateRtCtx(rt_ctx, status)
     IF (status%status_code /= IF_STATUS_OK) RETURN
 
     IF (.NOT. mat_slot%active .OR. rt_ctx%mat_pt_idx <= 0_i4) THEN
@@ -695,6 +695,31 @@ CONTAINS
 
     status%status_code = IF_STATUS_OK
   END SUBROUTINE PH_Elem_MatRoute_ValidateScalarSlot
+
+  ! L4-only routing ctx check (mirrors RT_Mat_Dispatch_Stress without material_dom).
+  SUBROUTINE PH_Elem_MatRoute_ValidateRtCtx(rt_ctx, status)
+    TYPE(RT_Mat_Dispatch_Ctx), INTENT(INOUT) :: rt_ctx
+    TYPE(ErrorStatusType),     INTENT(OUT)   :: status
+
+    CALL init_error_status(status)
+
+    IF (rt_ctx%mat_type <= 0_i4) THEN
+      rt_ctx%route_status = IF_MAT_ROUTE_NOT_FOUND
+      status%status_code = IF_STATUS_INVALID
+      status%message = "PH_Elem_MatRoute: invalid mat_type in dispatch ctx"
+      RETURN
+    END IF
+
+    IF (rt_ctx%mat_pt_idx <= 0_i4) THEN
+      rt_ctx%route_status = IF_MAT_ROUTE_NO_KERNEL
+      status%status_code = IF_STATUS_INVALID
+      status%message = "PH_Elem_MatRoute: invalid mat_pt_idx in dispatch ctx"
+      RETURN
+    END IF
+
+    rt_ctx%route_status = IF_MAT_ROUTE_OK
+    status%status_code = IF_STATUS_OK
+  END SUBROUTINE PH_Elem_MatRoute_ValidateRtCtx
 
 END MODULE PH_Elem_MaterialRoute
 

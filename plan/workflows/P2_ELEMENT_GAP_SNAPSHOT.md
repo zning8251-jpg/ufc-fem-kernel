@@ -37,5 +37,6 @@
 
 | change_id | 状态（2026-05-19） |
 |-----------|-------------------|
-| `p2-element-pr01-seam-doc` | **文档就绪** — [`design.md`](../changes/p2-element-pr01-seam-doc/design.md) + [`PR01_GUARDIAN_AUDIT.md`](../changes/p2-element-pr01-seam-doc/PR01_GUARDIAN_AUDIT.md) |
-| `p2-element-material-route-audit` | 待开（销 `PH_Elem_MaterialRoute` P0=1） |
+| `p2-element-pr01-seam-doc` | **已归档**（#20）— [`design.md`](../changes/p2-element-pr01-seam-doc/design.md) |
+| `p2-element-material-route-audit` | **P0 已销**（`PH_Elem_MatRoute_ValidateRtCtx`）— PR 待合并 |
+| `p2-element-ke-arg-align` | **已落地** — `CONTRACT` Ke_Arg 表 + `PH_Elem_Domain` 门控 |

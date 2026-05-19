@@ -1,6 +1,6 @@
 # Design: p2-element-pr01-seam-doc
 
-> **Status**: **ACTIVE**（2026-05-19）— 接缝文档 + guardian 基线
+> **Status**: **ARCHIVED**（2026-05-19，#20）— 接缝文档 + guardian 基线；实现跟进见 `p2-element-material-route-audit` / `p2-element-ke-arg-align`
 
 ## 1. 金线（锁定）
 

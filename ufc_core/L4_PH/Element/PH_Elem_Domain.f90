@@ -102,6 +102,21 @@ CONTAINS
     use_internal_mprop = .FALSE.
     n_dof = arg%nDof
     iel = arg%l3_elem_idx
+    IF (arg%elem_idx > 0_i4 .AND. iel > 0_i4 .AND. arg%elem_idx /= iel) THEN
+      arg%status%status_code = IF_STATUS_INVALID
+      arg%status%message = "PH_Elem_Domain%Compute_Ke: elem_idx / l3_elem_idx mismatch"
+      RETURN
+    END IF
+    IF (arg%mat_pt_idx <= 0_i4) THEN
+      arg%status%status_code = IF_STATUS_INVALID
+      arg%status%message = "PH_Elem_Domain%Compute_Ke: missing mat_pt_idx"
+      RETURN
+    END IF
+    IF (.NOT. ALLOCATED(arg%mat_props_in) .OR. SIZE(arg%mat_props_in) < 1) THEN
+      arg%status%status_code = IF_STATUS_INVALID
+      arg%status%message = "PH_Elem_Domain%Compute_Ke: mat_props_in not attached (L5 AttachMatProps)"
+      RETURN
+    END IF
     IF (iel < 1_i4 .OR. n_dof < 1_i4) THEN
       arg%status%status_code = IF_STATUS_INVALID
       arg%status%message = "PH_Elem_Domain%Compute_Ke: invalid elem_idx or nDof"

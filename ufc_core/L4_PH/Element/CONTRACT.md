@@ -152,7 +152,19 @@
 | **理论** | 弱式：`K_e = ∫ B^T D B dΩ`，`F_e = ∫ B^T σ dΩ`（Voigt）；质量、耦合场在族内核中同型推广。 |
 | **逻辑** | `elem_type_cache` + `npe`/`ndim` → **`PH_Elem_Reg_Get`** → 族 `PH_Elem_*_Core`；特殊单元走 `SPECIAL`/门面分支。 |
 | **计算** | 单元内 **高斯积分循环**；`D`/`C_tan` 来自 **`material%slot_pool(mat_pt_idx)`**（或弹性预存 **`state%C_tan`**）；**禁止**在 IP 内写 L3。 |
-| **数据** | **金线**：`PH_Element_Compute_*_Arg`（**`l3_elem_idx`**、**`nDof`**、**`Ke`/`Fe`**、**`status`**）；**Populate** 填充 **`elem_*_cache`** / **`elem_to_mat_map`**；入口 **`PH_Element_Contract_GuardComputeAccess`** 校验缓存与边界。 |
+| **数据** | **金线**：`PH_Element_Compute_*_Arg`（见下表）；**Populate** 填充 **`elem_*_cache`** / **`elem_to_mat_map`**；L5 **`RT_Asm_Solv_KeArg_AttachMatProps`** 注入 **`mat_props_in`**；**`PH_Elem_Domain%Compute_Ke`** 校验 **`mat_pt_idx`** / **`mat_props_in`** 与缓存边界。 |
+
+**`PH_Element_Compute_Ke_Arg`（`PH_Elem_Def.f90`，与 L5 `RT_Asm_Solv` 金线一致）**：
+
+| 字段 | 方向 | L5 填充 | L4 消费 |
+|------|------|---------|---------|
+| `elem_idx` | IN | 单元循环 `iElem` | 须与 `l3_elem_idx` 一致（若二者均 >0） |
+| `l3_elem_idx` | IN | 同 `iElem` | 缓存索引、`PH_Elem_Eval_Ke` |
+| `mat_pt_idx` | IN | `RT_Asm_Brg_ElemMatPtIdx` | 须 >0 |
+| `nDof` | IN | 单元 DOF 数 | `eva` / `Ke` 维数 |
+| `mat_props_in` | IN | `AttachMatProps` ← `slot_pool(desc%props)` | `eva%mat_props =>` |
+| `evo%Ke` | INOUT | L5 预分配 | L4 写入 |
+| `status` | OUT | `init_error_status` 后检查 | 错误回传 |
 
 **`load_magn_in` 与 L5 `F_ext`（防双重计数）**：`RT_Asm_GlobalLoad` 已将部分 DLOAD/BODY/PRESSURE 按 nset/elset/surface 并入全局 **`F_ext`**（或由 **`RT_Asm_Cfg%body_force_lumped_to_fext=.FALSE.`** 改走单元 **`load_magn_in`**）。`%load_magn_in` 仅用于 **未** 进入 **`F_ext`**、且由 **`PH_Elem_Eval_Fe`** 弱式消费的载荷；与 L5 [`Assembly/CONTRACT.md`](../L5_RT/Assembly/CONTRACT.md) §5.4 一致。
 
