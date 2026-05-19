@@ -72,6 +72,20 @@
 | `PH_Mat_CompositeFiberReinforced_Eval` | `PH_Mat_CompositeFiberReinforced_Eval_Arg` | `Composite/PH_Mat_Comp_PointEval.f90` | ROM → iso |
 | `PH_Mat_UMATEnsureWorkspace` | `PH_Mat_UMATEnsureWorkspace_Arg` | `Dispatch/PH_MatEval.f90` | workspace stub |
 
+### Crystal UMAT（mat_id 266 · `PH_Mat_Plast_Crystal_Core`）
+
+> **W1a（当前）**：**iso-surrogate** — von Mises 径向返回，`sigma_y = sqrt(3) * (tau_c0 + H * peeq)`；**无晶体取向**。  
+> **W1b（计划）**：1-slip Schmid，保留下列 `props`/`statev` 布局。
+
+| 项 | 约定 |
+|----|------|
+| 入口 | `UF_CrystalPlasticity_UMAT(UF_CrystalPlasticity_UMAT_Arg)` |
+| PLM | `PH_MatPLMEval` CASE `266`（Arg 打包，wave5 #6） |
+| `props(1:4)` | `E`, `nu`, `tau_c0`, `H`（`nprops_min = 4`） |
+| `statev(1)` | `peeq`（W1a 等效累积塑性度量） |
+| `statev(2:7)` | `eps_p` Voigt 6（`nstatev_min = 7`） |
+| 错误 | `nprops`/`nstatev` 不足或参数非法 → `IF_STATUS_INVALID`（禁止 `STATUS_UNSUPPORTED`） |
+
 ---
 
 ## 三、层域坐标（A7）

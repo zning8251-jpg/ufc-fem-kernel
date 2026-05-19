@@ -10,7 +10,8 @@ wave5 **PR-B (#6)** 已交付 Crystal **SIO 脊索**（`UF_CrystalPlasticity_UMA
 
 | 项 | 说明 |
 |----|------|
-| **W1 核** | `PH_Mat_Plast_Crystal_Core.f90`：`UF_CrystalPlasticity_UMAT` 从 stub → **最小可积 CPFEM 路径**（见 `design.md` §W1） |
+| **W1a 核** | `PH_Mat_Plast_Crystal_Core.f90`：`UF_CrystalPlasticity_UMAT` → **iso-surrogate**（J2 等效，`sigma_y=sqrt(3)*tau_c`） |
+| **W1b** | 后续 PR：1-slip Schmid 替换 W1a 本构核 |
 | **合同** | `L4_PH/Material/CONTRACT.md`：mat_id 266、`props[]` 索引、`statev` 布局、与 `CrystalPlast_MatDesc` 金线 |
 | **校验** | `UF_CrystalPlasticity_ValidateProps`（或等价）+ guardian P0=0 |
 | **挂接** | **不改** `PH_MatPLMEval` CASE 266（已 Arg 化）；仅充实 Core 实现 |

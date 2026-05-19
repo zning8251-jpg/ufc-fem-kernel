@@ -3,7 +3,8 @@
 | Field | Value |
 |-------|-------|
 | change_id | `p1-material-crystal-impl` |
-| phase | **READY**（plan on `main`；#7–#10 已合并） |
+| phase | **W1a** — PR [#12](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/12) |
+| W1b | 1-slip Schmid — follow-up PR after #12 |
 | docs PR | [#11](https://github.com/zning8251-jpg/ufc-fem-kernel/pull/11) → `main` |
 | branch (future) | `feat/p1-material-crystal-impl` |
 | date | 2026-05-19 |
