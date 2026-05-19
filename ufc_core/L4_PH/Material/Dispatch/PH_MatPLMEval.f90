@@ -9,6 +9,9 @@
 !   This module keeps **PlastModels_Desc** + **MatEval_Ctx** UMAT dispatch for
 !   mat_id 201+ legacy kernels — do not fold **PH_Mat_Desc** here without a
 !   dedicated migration MR.
+! Purpose: Legacy mat_id 201+ plastic eval dispatch (struct ctx + PlastModels_Desc).
+! Theory: CASE on material_id → UMAT kernel or UF_PH_UMAT_Dispatch; no runtime Desc SSOT.
+! Status: Production (legacy path) | Last verified: 2026-05-19
 !===============================================================================
 
 MODULE PH_MatPLMEval
@@ -59,7 +62,18 @@ MODULE PH_MatPLMEval
     INTEGER(i4), PARAMETER :: PH_MAT_LEGACY_UMAT_204 = 204_i4
     INTEGER(i4), PARAMETER :: PH_MAT_LEGACY_UMAT_212 = 212_i4
     INTEGER(i4), PARAMETER :: PH_MAT_LEGACY_UMAT_231 = 231_i4
-    PUBLIC :: UF_Plastic_Eval_Dispatch, UF_Plastic_UMAT_Dispatch
+
+    ! SIO: plastic eval dispatch (INTF-001 spine — wave4)
+    TYPE, PUBLIC :: UF_Plastic_Eval_Dispatch_Arg
+      INTEGER(i4) :: material_id = 0_i4              ! [IN]
+      TYPE(PlastModels_Desc) :: plm_in               ! [IN]
+      TYPE(MatEval_Ctx) :: ctx                       ! [INOUT]
+      TYPE(MatAlgo_Algo) :: algo                     ! [IN]
+      TYPE(ErrorStatusType) :: status                ! [OUT]
+    END TYPE UF_Plastic_Eval_Dispatch_Arg
+
+    PUBLIC :: UF_Plastic_Eval_Dispatch, UF_Plastic_Eval_Dispatch_Arg
+    PUBLIC :: UF_Plastic_UMAT_Dispatch
     PUBLIC :: UF_Plastic_UMAT_Wrapper, PH_MAT_UMAT_Plastic_Dispatch, UF_Plastic_GetLegacyID
     PUBLIC :: UF_Plastic_Legacy_VonMises, UF_Plastic_Legacy_Hill, UF_Plastic_Legacy_CamClay
     PUBLIC :: UF_Plastic_Leg_MohrCoulomb, UF_Plastic_Leg_ConcreteDmg, UF_Plastic_Leg_DruckerPrager
@@ -75,10 +89,18 @@ MODULE PH_MatPLMEval
 CONTAINS
 
   !---------------------------------------------------------------------------
-  ! UF_Plastic_Eval_Dispatch: struct-only dispatch (plm_in+ctx+algo)
+  ! UF_Plastic_Eval_Dispatch: SIO entry (plm_in + ctx + algo)
+  !---------------------------------------------------------------------------
+  SUBROUTINE UF_Plastic_Eval_Dispatch(arg)
+    TYPE(UF_Plastic_Eval_Dispatch_Arg), INTENT(INOUT) :: arg
+    CALL UF_Plastic_Eval_Dispatch_Core(arg%material_id, arg%plm_in, arg%ctx, arg%algo, arg%status)
+  END SUBROUTINE UF_Plastic_Eval_Dispatch
+
+  !---------------------------------------------------------------------------
+  ! UF_Plastic_Eval_Dispatch_Core: struct-only dispatch (plm_in+ctx+algo)
   !   Calls each model's UMAT internally, unpacking/repacking ctx.
   !---------------------------------------------------------------------------
-  SUBROUTINE UF_Plastic_Eval_Dispatch(material_id, plm_in, ctx, algo, status)
+  SUBROUTINE UF_Plastic_Eval_Dispatch_Core(material_id, plm_in, ctx, algo, status)
     INTEGER(i4),           INTENT(IN)    :: material_id
     TYPE(PlastModels_Desc),INTENT(IN)    :: plm_in
     TYPE(MatEval_Ctx),     INTENT(INOUT) :: ctx
@@ -338,7 +360,7 @@ CONTAINS
     ctx%ddsdde(1:ntens,1:ntens) = ddsdde_loc(1:ntens,1:ntens)
     ctx%sse                     = sse_loc
     IF (nstatv > 0) ctx%statev(1:MIN(nstatv,50)) = statev_loc(1:MIN(nstatv,50))
-  END SUBROUTINE UF_Plastic_Eval_Dispatch
+  END SUBROUTINE UF_Plastic_Eval_Dispatch_Core
 
   !---------------------------------------------------------------------------
   ! UF_Plastic_UMAT_Dispatch: legacy UMAT interface -> packs ctx -> Eval_Dispatch
@@ -390,7 +412,17 @@ CONTAINS
     ! Pack algo
     algo%kstep = kstep
     algo%kinc  = kinc
-    CALL UF_Plastic_Eval_Dispatch(material_id, plm_wrk, ctx, algo, status)
+    BLOCK
+      TYPE(UF_Plastic_Eval_Dispatch_Arg) :: eval_arg
+      eval_arg%material_id = material_id
+      eval_arg%plm_in = plm_wrk
+      eval_arg%ctx = ctx
+      eval_arg%algo = algo
+      CALL init_error_status(eval_arg%status)
+      CALL UF_Plastic_Eval_Dispatch(eval_arg)
+      ctx = eval_arg%ctx
+      status = eval_arg%status
+    END BLOCK
     IF (status%status_code /= IF_STATUS_OK) RETURN
     ! Unpack ctx
     stress(1:6)        = ctx%stress(1:6)

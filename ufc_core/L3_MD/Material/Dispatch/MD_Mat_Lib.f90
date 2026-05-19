@@ -24,7 +24,8 @@ MODULE MD_Mat_Lib
          MD_MAT_CATEGORY_VI, MD_MAT_CATEGORY_CR, MD_MAT_STATUS_OK, MD_MAT_STATUS_INVALID, &
          MD_MAT_STATUS_NOT_FOUND, MD_MAT_STATUS_WARN, Desc_MaterialModel, State_IntPoint, MD_MatPointSta, MD_MatState
     USE MD_MatReg_Ops, ONLY: MatReg, g_matlib
-    USE MD_MatLibPH_Brg, ONLY: UF_Plastic_Eval_Dispatch, UF_Plastic_UMAT_Dispatch
+    USE MD_MatLibPH_Brg, ONLY: UF_Plastic_Eval_Dispatch, UF_Plastic_Eval_Dispatch_Arg, &
+        UF_Plastic_UMAT_Dispatch
     USE MD_Mat_Plast_Reg, ONLY: MD_MAT_VONMISES_MAT_ID, MD_MAT_VONMISES_MAT_NA, &
          UF_Plastic_GetMaterialInfo, PlastModels_Desc, PlastMatInfo, &
          MD_MAT_HILL_MAT_ID, MD_MAT_DRUCKERPRAGER_M, MD_MAT_CAMCLAY_MAT_ID, &
@@ -4271,7 +4272,17 @@ contains
       np = MIN(nprops, SIZE(plast_desc%props, KIND=i4))
       plast_desc%nprops = np
       IF (np > 0) plast_desc%props(1:np) = props(1:np)
-      CALL UF_Plastic_Eval_Dispatch(material_id, plast_desc, ctx, algo, status)
+      BLOCK
+        TYPE(UF_Plastic_Eval_Dispatch_Arg) :: eval_arg
+        eval_arg%material_id = material_id
+        eval_arg%plm_in = plast_desc
+        eval_arg%ctx = ctx
+        eval_arg%algo = algo
+        CALL init_error_status(eval_arg%status)
+        CALL UF_Plastic_Eval_Dispatch(eval_arg)
+        ctx = eval_arg%ctx
+        status = eval_arg%status
+      END BLOCK
 
     ELSE IF (material_id >= MD_MAT_ID_RANGE_ELAS_S .AND. material_id <= MD_MAT_ID_RANGE_ELAS_E) THEN
       CALL UF_Elastic_Eval_Dispatch(material_id, nprops, props, ctx, algo, status)
