@@ -76,6 +76,9 @@ MODULE PH_MatEval
   !> @brief Output structure for orthotropic elastic evaluation
   TYPE, PUBLIC :: PH_Mat_ElasticOrthotropic_Eval_Arg
     TYPE(MD_ElasticMatDesc) :: mat_desc                   ! [IN]
+    REAL(wp) :: strain(6) = 0.0_wp
+    REAL(wp) :: sigma(6) = 0.0_wp
+    REAL(wp) :: D_matrix(6, 6) = 0.0_wp
     TYPE(ErrorStatusType) :: status                   ! [OUT]
   END TYPE PH_Mat_ElasticOrthotropic_Eval_Arg
 
@@ -430,13 +433,11 @@ contains
     
   END SUBROUTINE PH_Mat_ElasticIsotropic_Eval
 
+  ! Theory: Orthotropic Hooke σ = D·ε (engineering constants, diagonal S approx).
+  ! Logic: Read E_i, ν_ij, G_ij from mat_desc → compliance S → invert diag → stress.
+  ! Data: arg%strain [IN]; arg%sigma, arg%D_matrix, arg%status [OUT].
   SUBROUTINE PH_Mat_ElasticOrthotropic_Eval(arg)
     TYPE(PH_Mat_ElasticOrthotropic_Eval_Arg), INTENT(INOUT) :: arg
-    TYPE(MD_ElasticMatDesc), INTENT(IN) :: mat_desc  !  ?Structured parameter (Desc pattern)
-    REAL(wp), INTENT(IN) :: strain(6)
-    REAL(wp), INTENT(OUT) :: sigma(6)
-    REAL(wp), INTENT(OUT) :: D_matrix(6,6)
-    TYPE(ErrorStatusType), INTENT(OUT), OPTIONAL :: status
     
     REAL(wp) :: E1, E2, E3, nu12, nu23, nu13, G12, G23, G13
     REAL(wp) :: nu21, nu31, nu32
