@@ -57,6 +57,7 @@
 | Eval 入口 | Arg TYPE | 备注 |
 |-----------|----------|------|
 | `PH_Mat_ElasticIsotropic_Eval` | `PH_Mat_ElasticIsotropic_Eval_Arg` | Hooke D·ε |
+| `PH_Mat_ElasticOrthotropic_Eval` | `PH_Mat_ElasticOrthotropic_Eval_Arg` | ortho: `strain`/`sigma`/`D_matrix` + `mat_desc` |
 | `PH_Mat_PlasticVonMises_Eval` | `PH_Mat_PlasticVonMises_Eval_Arg` | J2 + wire Desc |
 | `PH_Mat_PlasticHill_Eval` | `PH_Mat_PlasticHill_Eval_Arg` | Hill48 + wire Desc |
 | `PH_Mat_CompositeFiberReinforced_Eval` | `PH_Mat_CompositeFiberReinforced_Eval_Arg` | mixture → `md_elas_wire` |
