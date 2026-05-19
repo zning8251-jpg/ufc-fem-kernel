@@ -13,7 +13,7 @@ MODULE PH_MatPLM_Kernels
     USE IF_Err_Brg, ONLY: ErrorStatusType, init_error_status, IF_STATUS_NOT_FOUND
     USE PH_Mat_Plast_Hill_Core, ONLY: UF_Hill_UMAT, UF_Hill_UMAT_Arg
     USE PH_Mat_Geo_MohrCoulomb_Core, ONLY: UF_MohrCoulomb_UMAT
-    USE PH_Mat_Plast_Chaboche_Core, ONLY: UF_Chaboche_UMAT
+    USE PH_Mat_Plast_Chaboche_Core, ONLY: UF_Chaboche_UMAT, UF_Chaboche_UMAT_Arg
     USE PH_Mat_Plast_Crystal_Core, ONLY: UF_CrystalPlasticity_UMAT, UF_CrystalPlasticity_UMAT_Arg
     USE PH_Mat_Comp_Cast_Core, ONLY: UF_CastIron_UMAT
     USE PH_MatPLM_LegacyFacadeUMATs, ONLY: UF_FGM_UMAT, UF_Geotechnical_UMAT, UF_SmartMaterial_UMAT, &
@@ -22,7 +22,7 @@ MODULE PH_MatPLM_Kernels
     IMPLICIT NONE
     PRIVATE
     PUBLIC :: UF_Hill_UMAT, UF_Hill_UMAT_Arg, UF_DruckerPrager_UMAT, UF_CamClay_UMAT, UF_MohrCoulomb_UMAT, &
-        UF_JohnsonCook_UMAT, UF_Gurson_UMAT, UF_Chaboche_UMAT, &
+        UF_JohnsonCook_UMAT, UF_Gurson_UMAT, UF_Chaboche_UMAT, UF_Chaboche_UMAT_Arg, &
         UF_CapPlasticity_UMAT, UF_CrushableFoam_UMAT, UF_CastIron_UMAT, &
         UF_SoftRock_UMAT, UF_Foam3Stage_UMAT, UF_Ceramic_UMAT, &
         UF_Viscoplastic_UMAT, UF_ViscoplasticDamageEM_UMAT, UF_Nanomaterial_UMAT, UF_FGM_UMAT, &

@@ -31,7 +31,7 @@
 | J2 脊索（wave3） | 0 | **merged** #1 |
 | Hill / Barlat（wave5 PR-A） | 0 | **merged** #3 |
 | Crystal stub（wave5 PR-B） | 0 | Arg 脊索；实装另开 change |
-| 全域 `--fail-on-p0` | **>0** | Chaboche + 存量 — **post-wave5 清债** |
+| 全域 `--fail-on-p0` | P2 only | **P0/P1 cleared** — `p1-material-plast-guardian-debt` PR |
 
 ### 2.2 `Dispatch/`
 

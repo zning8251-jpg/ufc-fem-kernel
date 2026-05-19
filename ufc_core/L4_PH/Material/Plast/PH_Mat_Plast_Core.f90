@@ -3,9 +3,10 @@
 ! LAYER:  L4_PH
 ! DOMAIN: Material / Plast
 ! ROLE:   Core
-! BRIEF:  Core computation routines for plastic material family.
-!         Implements return mapping algorithm for plasticity.
-!         Hot path optimized for performance.
+! BRIEF:  Core computation routines for plastic material family (J2 return mapping).
+! Purpose: Populate Desc from L3 props; elastic predictor + J2 radial return on Ctx/State.
+! Theory: J2 von Mises with isotropic hardening; σ_eq − (σ_y + H·ε̄_p) ≤ 0.
+! Status: Production | Last verified: 2026-05-19
 !===============================================================================
 MODULE PH_Mat_Plast_Core
   USE IF_Prec_Core, ONLY: i4, wp
@@ -28,6 +29,37 @@ MODULE PH_Mat_Plast_Core
 
 CONTAINS
 
+  SUBROUTINE plast_desc_read_elastic(desc, E, nu, G, K)
+    TYPE(PH_Mat_Plast_Desc), INTENT(IN) :: desc
+    REAL(wp), INTENT(OUT) :: E, nu, G, K
+    REAL(wp) :: one, two, three
+    one = 1.0_wp; two = 2.0_wp; three = 3.0_wp
+    IF (ALLOCATED(desc%props) .AND. SIZE(desc%props) >= 2) THEN
+      E = desc%props(1)
+      nu = desc%props(2)
+    ELSE
+      E = desc%E
+      nu = desc%nu
+    END IF
+    G = E / (two * (one + nu))
+    K = E / (three * (one - two * nu))
+  END SUBROUTINE plast_desc_read_elastic
+
+  SUBROUTINE plast_desc_read_hardening(desc, sigma_y, H_iso)
+    TYPE(PH_Mat_Plast_Desc), INTENT(IN) :: desc
+    REAL(wp), INTENT(OUT) :: sigma_y, H_iso
+    IF (ALLOCATED(desc%props) .AND. SIZE(desc%props) >= 4) THEN
+      sigma_y = desc%props(3)
+      H_iso = desc%props(4)
+    ELSE IF (ALLOCATED(desc%props) .AND. SIZE(desc%props) >= 3) THEN
+      sigma_y = desc%props(3)
+      H_iso = desc%H_iso
+    ELSE
+      sigma_y = desc%sigma_y
+      H_iso = desc%H_iso
+    END IF
+  END SUBROUTINE plast_desc_read_hardening
+
   SUBROUTINE PH_Mat_Plast_Populate_From_L3(desc, l3_props, l3_nprops, &
                                             l3_sub_type, status)
     TYPE(PH_Mat_Plast_Desc), INTENT(OUT) :: desc
@@ -35,23 +67,13 @@ CONTAINS
     INTEGER(i4), INTENT(IN) :: l3_nprops, l3_sub_type
     TYPE(ErrorStatusType), INTENT(OUT) :: status
 
-    REAL(wp) :: one, two, three
-
     CALL init_error_status(status)
-    one = 1.0_wp; two = 2.0_wp; three = 3.0_wp
-
     desc%cfg%sub_type = l3_sub_type
-
-    IF (l3_nprops >= 2) THEN
-      desc%E = l3_props(1)
-      desc%nu = l3_props(2)
-      desc%G = desc%E / (two * (one + desc%nu))
-      desc%K = desc%E / (three * (one - two * desc%nu))
+    IF (ALLOCATED(desc%props)) DEALLOCATE(desc%props)
+    IF (l3_nprops > 0) THEN
+      ALLOCATE(desc%props(l3_nprops))
+      desc%props(1:l3_nprops) = l3_props(1:l3_nprops)
     END IF
-
-    IF (l3_nprops >= 3) desc%sigma_y = l3_props(3)
-    IF (l3_nprops >= 4) desc%H_iso = l3_props(4)
-
     desc%pop%is_valid = .TRUE.
     status%status_code = IF_STATUS_OK
   END SUBROUTINE PH_Mat_Plast_Populate_From_L3
@@ -61,17 +83,18 @@ CONTAINS
     TYPE(PH_Mat_Plast_Ctx), INTENT(INOUT) :: ctx
     TYPE(ErrorStatusType), INTENT(OUT) :: status
 
-    REAL(wp) :: lam, G2
+    REAL(wp) :: lam, G2, E_loc, nu_loc, G_loc, K_loc
 
     CALL init_error_status(status)
-    lam = desc%E * desc%nu / ((1.0_wp + desc%nu) * (1.0_wp - 2.0_wp * desc%nu))
-    G2 = 2.0_wp * desc%G
+    CALL plast_desc_read_elastic(desc, E_loc, nu_loc, G_loc, K_loc)
+    lam = E_loc * nu_loc / ((1.0_wp + nu_loc) * (1.0_wp - 2.0_wp * nu_loc))
+    G2 = 2.0_wp * G_loc
 
     ctx%D_el = 0.0_wp
     ctx%D_el(1,1) = lam + G2; ctx%D_el(1,2) = lam; ctx%D_el(1,3) = lam
     ctx%D_el(2,1) = lam; ctx%D_el(2,2) = lam + G2; ctx%D_el(2,3) = lam
     ctx%D_el(3,1) = lam; ctx%D_el(3,2) = lam; ctx%D_el(3,3) = lam + G2
-    ctx%D_el(4,4) = desc%G; ctx%D_el(5,5) = desc%G; ctx%D_el(6,6) = desc%G
+    ctx%D_el(4,4) = G_loc; ctx%D_el(5,5) = G_loc; ctx%D_el(6,6) = G_loc
 
     status%status_code = IF_STATUS_OK
   END SUBROUTINE PH_Mat_Plast_Build_Elastic_Stiffness
@@ -102,9 +125,10 @@ CONTAINS
     REAL(wp), INTENT(OUT) :: yield_function
     TYPE(ErrorStatusType), INTENT(OUT) :: status
 
-    REAL(wp) :: s_dev(6), J2, sigma_eq, sigma_y_current
+    REAL(wp) :: s_dev(6), J2, sigma_eq, sigma_y_current, sigma_y0, H_iso
 
     CALL init_error_status(status)
+    CALL plast_desc_read_hardening(desc, sigma_y0, H_iso)
 
     ! Compute deviatoric stress
     s_dev(1:3) = stress_trial(1:3) - SUM(stress_trial(1:3))/3.0_wp
@@ -116,7 +140,7 @@ CONTAINS
     sigma_eq = SQRT(3.0_wp * J2)
 
     ! Current yield stress (with hardening)
-    sigma_y_current = desc%sigma_y + desc%H_iso * state%equiv_plastic_strain
+    sigma_y_current = sigma_y0 + H_iso * state%equiv_plastic_strain
 
     ! Yield function
     yield_function = sigma_eq - sigma_y_current
@@ -197,10 +221,13 @@ CONTAINS
     REAL(wp) :: s_dev(6), s_mag, sigma_eq, dgamma
     REAL(wp) :: n_dev(6), one, two, three, mu_bar
     REAL(wp) :: H_prime, Kp, theta, two_G, K_bulk
-    REAL(wp) :: lam, G2, mu_val
+    REAL(wp) :: G2, mu_val, H_iso, sigma_y0
+    REAL(wp) :: E_loc, nu_loc, G_loc
     INTEGER(i4) :: i, j
 
     CALL init_error_status(status)
+    CALL plast_desc_read_hardening(desc, sigma_y0, H_iso)
+    CALL plast_desc_read_elastic(desc, E_loc, nu_loc, G_loc, K_bulk)
     one = 1.0_wp; two = 2.0_wp; three = 3.0_wp
 
     ! Extract deviatoric trial stress
@@ -215,8 +242,8 @@ CONTAINS
     sigma_eq = SQRT(1.5_wp) * s_mag
     ! J2: f = sigma_eq - sigma_y(ep_bar)
     ! Radial return: dgamma = f / (3*mu + H')
-    mu_val = desc%G
-    H_prime = desc%H_iso
+    mu_val = G_loc
+    H_prime = H_iso
 
     ! Check for perfect plasticity (H' = 0)
     Kp = three * mu_val + H_prime
@@ -255,8 +282,6 @@ CONTAINS
     two_G = two * mu_val
     G2 = two_G
     theta = one - two_G * dgamma / s_mag
-    K_bulk = desc%K
-
     ! Consistent tangent: K * (I x I) + 2*mu*theta*I_dev - 2*mu*(theta-1)*n*n
     ! Simplified: elastic predictor minus plastic correction
     DO i = 1, 6

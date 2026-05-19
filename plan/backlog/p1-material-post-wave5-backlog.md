@@ -90,7 +90,7 @@ git push origin main
 
 | 顺序 | 建议 change_id | 范围 |
 |------|----------------|------|
-| 1 | `p1-material-plast-guardian-debt` | Chaboche + 全 `Plast/` guardian P0/P1 清扫 |
+| 1 | `p1-material-plast-guardian-debt` | Chaboche + Plast **P0/P1**（PR 进行中）；全目录 NAME P2 另开 |
 | 2 | `p1-material-orthotropic-eval-fix` | `PH_Mat_ElasticOrthotropic_Eval` dummy 小修 |
 | 3 | `p1-material-c2-mateval-split` | C2：按族吸收 `PH_MatEval` |
 | 4 | `p1-material-crystal-impl` | Crystal `STATUS_UNSUPPORTED` → 实装 |
