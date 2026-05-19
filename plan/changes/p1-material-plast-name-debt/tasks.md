@@ -13,7 +13,7 @@
 
 ## 2. PR-B — Hill / Barlat
 
-- [ ] Hill / Barlat NAME 对齐
+- [x] Hill / Barlat NAME 对齐（`PH_Mat_Init_*` / `PH_Mat_Compute_*`）
 
 ## 3. PR-C — 其余 Plast
 

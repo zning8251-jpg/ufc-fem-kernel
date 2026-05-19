@@ -105,18 +105,18 @@ MODULE PH_Mat_Plast_Barlat_Core
     LOGICAL  :: is_plastic = .FALSE.
   END TYPE
 
-  PUBLIC :: PH_Mat_Barlat_Init, PH_Mat_Barlat_Calc_Stress, PH_Mat_Barlat_Calc_Stress_Arg
+  PUBLIC :: PH_Mat_Init_Barlat, PH_Mat_Compute_Barlat_Stress, PH_Mat_Compute_Barlat_Stress_Arg
 
-  TYPE, PUBLIC :: PH_Mat_Barlat_Calc_Stress_Arg
+  TYPE, PUBLIC :: PH_Mat_Compute_Barlat_Stress_Arg
     TYPE(Barlat_Params) :: params                 ! [IN]
     TYPE(Barlat_State) :: state                  ! [INOUT]
     REAL(wp) :: strain_increment(6) = 0.0_wp     ! [IN]
     REAL(wp) :: sigma(6) = 0.0_wp                ! [OUT]
-  END TYPE PH_Mat_Barlat_Calc_Stress_Arg
+  END TYPE PH_Mat_Compute_Barlat_Stress_Arg
 
 CONTAINS
 
-  SUBROUTINE PH_Mat_Barlat_Init(params, state)
+  SUBROUTINE PH_Mat_Init_Barlat(params, state)
     TYPE(Barlat_Params), INTENT(IN) :: params
     TYPE(Barlat_State), INTENT(INOUT) :: state
     ALLOCATE(state%stress_current(6), state%strain_plastic(6))
@@ -125,14 +125,14 @@ CONTAINS
     state%equiv_plastic_strain = ZERO
     state%yield_stress_current = params%yield%yield_stress_0
     state%is_plastic = .FALSE.
-  END SUBROUTINE PH_Mat_Barlat_Init
+  END SUBROUTINE PH_Mat_Init_Barlat
 
-  SUBROUTINE PH_Mat_Barlat_Calc_Stress(arg)
-    TYPE(PH_Mat_Barlat_Calc_Stress_Arg), INTENT(INOUT) :: arg
-    CALL PH_Mat_Barlat_Calc_Stress_Core(arg%params, arg%state, arg%strain_increment, arg%sigma)
-  END SUBROUTINE PH_Mat_Barlat_Calc_Stress
+  SUBROUTINE PH_Mat_Compute_Barlat_Stress(arg)
+    TYPE(PH_Mat_Compute_Barlat_Stress_Arg), INTENT(INOUT) :: arg
+    CALL PH_Mat_Compute_Barlat_Stress_Core(arg%params, arg%state, arg%strain_increment, arg%sigma)
+  END SUBROUTINE PH_Mat_Compute_Barlat_Stress
 
-  SUBROUTINE PH_Mat_Barlat_Calc_Stress_Core(params, state, strain_increment, sigma)
+  SUBROUTINE PH_Mat_Compute_Barlat_Stress_Core(params, state, strain_increment, sigma)
     TYPE(Barlat_Params), INTENT(IN) :: params
     TYPE(Barlat_State), INTENT(INOUT) :: state
     REAL(wp), INTENT(IN) :: strain_increment(6)
@@ -161,7 +161,7 @@ CONTAINS
     END IF
     
     state%stress_current = sigma
-  END SUBROUTINE PH_Mat_Barlat_Calc_Stress_Core
+  END SUBROUTINE PH_Mat_Compute_Barlat_Stress_Core
 
   !> @brief Yld2000-2d yield function (   surface stress )
   FUNCTION Eval_Yld2000_2d(params, state, sigma) RESULT(f)
