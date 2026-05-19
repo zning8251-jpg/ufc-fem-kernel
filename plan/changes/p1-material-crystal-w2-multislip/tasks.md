@@ -1,6 +1,6 @@
 # Tasks: p1-material-crystal-w2-multislip
 
-> **Phase**: **IMPLEMENT**（W2a PR）
+> **Phase**: **CLOSEOUT**（W2a #14 merged；harness PR 收尾）
 
 ## 0. 闸门
 
@@ -22,10 +22,10 @@
 
 ## 3. 质量
 
-- [ ] 3.1 guardian P0=0
-- [ ] 3.2 最小算例 / harness（若可行）
+- [x] 3.1 guardian P0=0
+- [x] 3.2 W2-REF-01 harness（`tools/verify_crystal_w2_ref01.py` + `ctest UMAT_CrystalW2Ref01`）
 - [ ] 3.3 GAP 快照更新
 
 ## 4. 交付
 
-- [ ] PR → `main`；归档 `plan/tasks/p1-material-crystal-w2-multislip/`
+- [x] PR → `main`（#14）；[ ] harness PR；[ ] 归档 `plan/tasks/p1-material-crystal-w2-multislip/`

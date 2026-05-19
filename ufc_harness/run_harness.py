@@ -45,7 +45,12 @@ TST_PROFILES = {
         {"kind": "material_contract", "args": ["--summary"]},
         {"kind": "guardian", "args": ["--rules", "FLOW-002,FLOW-003,WB-001,TYPE-003,GLB-001,DEP-001"]},
         {"kind": "syntax", "args": []},
+        {"kind": "ufc_py", "script": "tools/verify_crystal_w2_ref01.py", "args": []},
         {"kind": "regression_min", "args": ["--case", "material-baseline"]},
+    ],
+    "crystal-w2-ref01": [
+        {"kind": "ufc_py", "script": "tools/verify_crystal_w2_ref01.py", "args": []},
+        {"kind": "guardian", "path": "L4_PH/Material/Plast/PH_Mat_Plast_Crystal_Core.f90", "args": []},
     ],
     "material-negative": [
         {"kind": "material_contract", "args": []},
