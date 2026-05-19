@@ -3,7 +3,10 @@
 ! LAYER:  L4_PH
 ! DOMAIN: Element
 ! ROLE:   Proc
-! BRIEF:  Continuum element calculation bridge facade
+! BRIEF:  Continuum element calculation bridge facade (LEGACY — frozen)
+! LEGACY-FROZEN: Production Ke/Fe MUST use PH_Elem_Domain gold path; see
+!   Element/Legacy/LEGACY_CONTM_BOUNDARY.md (change: p2-element-legacy-contm-retire).
+! Status: LEGACY | Do not extend | G6-W0 quarantine
 !===============================================================================
 MODULE PH_Elem_Contm
   USE IF_Prec_Core, ONLY: i4

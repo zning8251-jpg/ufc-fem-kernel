@@ -52,6 +52,13 @@ TST_PROFILES = {
         {"kind": "ufc_py", "script": "tools/verify_crystal_w2_ref01.py", "args": []},
         {"kind": "guardian", "path": "L4_PH/Material/Plast/PH_Mat_Plast_Crystal_Core.f90", "args": []},
     ],
+    "p2-element-golden-seam": [
+        {"kind": "ufc_py", "script": "tools/verify_element_golden_path_no_contm.py", "args": []},
+        {"kind": "guardian", "path": "L4_PH/Element/PH_Elem_Def.f90", "args": ["--fail-on-p0"]},
+        {"kind": "guardian", "path": "L4_PH/Element/PH_Elem_Domain.f90", "args": ["--fail-on-p0"]},
+        {"kind": "guardian", "path": "L4_PH/Element/Shared/PH_Elem_MaterialRoute.f90", "args": ["--fail-on-p0"]},
+        {"kind": "guardian", "path": "L5_RT/Assembly/RT_Asm_Solv.f90", "args": ["--fail-on-p0"]},
+    ],
     "material-negative": [
         {"kind": "material_contract", "args": []},
         {"kind": "guardian", "args": ["--rules", "FLOW-002,FLOW-003,WB-001,TYPE-003,GLB-001,DEP-001"]},

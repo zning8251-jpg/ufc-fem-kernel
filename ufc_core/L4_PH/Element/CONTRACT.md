@@ -64,7 +64,7 @@
 | `PH_Elem_ComplexStiff.f90` | `PH_Elem_ComplexStiff` | — | **active** | 复刚度 |
 | `PH_Elem_dRdTheta.f90` | `PH_Elem_dRdTheta` | — | **active** | dR/dθ 可微分接口 (AI/AD) |
 | `PH_Elem_StructuralFacade.f90` | `PH_Elem_StructuralFacade` | — | **deprecated** | 薄门面 (评估裁剪) |
-| `PH_Elem_Contm.f90` | `PH_Elem_Contm` | — | **legacy** | Legacy 连续体门面 (USE MD_*技术债) |
+| `PH_Elem_Contm.f90` | `PH_Elem_Contm` | — | **legacy** | G6 冻结；[`Legacy/LEGACY_CONTM_BOUNDARY.md`](Legacy/LEGACY_CONTM_BOUNDARY.md) |
 | `PH_Physical_Def.f90` | `PH_Physical_Def` | `_Def` | **active** | 物理层基础定义 |
 | `PH_Base_ErrCode.f90` | — | — | **active** | 错误码定义 |
 
