@@ -34,3 +34,8 @@
 ## 建议 change 队列
 
 见 [`plan/changes/contract-l4-element/design.md`](../changes/contract-l4-element/design.md) §4。
+
+| change_id | 状态（2026-05-19） |
+|-----------|-------------------|
+| `p2-element-pr01-seam-doc` | **文档就绪** — [`design.md`](../changes/p2-element-pr01-seam-doc/design.md) + [`PR01_GUARDIAN_AUDIT.md`](../changes/p2-element-pr01-seam-doc/PR01_GUARDIAN_AUDIT.md) |
+| `p2-element-material-route-audit` | 待开（销 `PH_Elem_MaterialRoute` P0=1） |

@@ -81,6 +81,13 @@
 | P1-G5 | L5 路由 DEF | `L5_RT/Material/RT_Mat_Def.f90`、`RT_Mat_Plast_Def.f90`、`RT_Mat_Elas_Def.f90` |
 | P1-G6 | 旧 inp/out | `deprecated/` 与域合同「遗留」节 |
 
+**P1 S7 签收（2026-05-19）**：柱级 **已签收** — 详见 [`plan/workflows/P1_MATERIAL_S7_SIGNOFF.md`](../../plan/workflows/P1_MATERIAL_S7_SIGNOFF.md)。post-wave5 #7–#13；Crystal W2 #14–#16；NAME #17–#19（`guardian Plast` P2=0）。
+
+| # | S7 结果 | 备注 |
+|---|---------|------|
+| P1-G1–G5 | 绿 | 合同 + 四型 + Dispatch/C2 + Plast/Crystal |
+| P1-G6 | 黄 | deprecated 专项未关 |
+
 **功能补全（与形式独立）**：见 [`docs/03_Domain_Pillars/MaterialPillar/Material_重构进展报告_20260503.md`](../03_Domain_Pillars/MaterialPillar/Material_重构进展报告_20260503.md) 及其中 **2026-05-12 勘误**；以代码与合同为准核对各材料族覆盖率。
 
 ---

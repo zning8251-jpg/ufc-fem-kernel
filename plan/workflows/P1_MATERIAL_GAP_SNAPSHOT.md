@@ -56,10 +56,27 @@
 
 ---
 
-## 4. Roll-forward
+## 4. post-wave5 + W2 + NAME（2026-05-19）
 
-1. ~~wave3–5 合并 + `plan/tasks` 归档~~（2026-05-19 完成）
-2. ~~#7–#10 + plan 草案 #11~~（2026-05-19 完成）
-3. ~~**Crystal W1**~~ — **done** #12+#13；**W2 多滑移** 新 change_id（见 backlog §5）
+| change_id / PR | 状态 |
+|----------------|------|
+| `p1-material-crystal-w2-multislip` #14+#16 | **merged** — W2a + W2-REF-01 harness |
+| `p1-material-plast-name-debt` #17–#19 | **merged** — `guardian Plast` **P2=0** |
+| P1 S7 签收 | [`P1_MATERIAL_S7_SIGNOFF.md`](P1_MATERIAL_S7_SIGNOFF.md) |
+
+### 4.1 Plast guardian（签收基线）
+
+```text
+python ufc_harness/run_harness.py guardian ufc_core/L4_PH/Material/Plast
+# 2026-05-19 post-#19: P0=0, P2=0
+```
+
+---
+
+## 5. Roll-forward（P1 柱后）
+
+1. ~~P1 S7 签收~~（2026-05-19）
+2. **P2** [`p2-element-pr01-seam-doc`](../changes/p2-element-pr01-seam-doc/) — PR01 接缝（与 P1 槽位衔接）
+3. W2 可选：一致塑性切线 `ddsdde`；Registry 266 收紧
 
 *维护：合并后追加 `（PR #___ / 日期）`。*

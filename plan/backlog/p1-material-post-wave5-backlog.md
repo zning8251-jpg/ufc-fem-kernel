@@ -105,7 +105,7 @@ git push origin main
 | change_id | 范围 | plan |
 |-----------|------|------|
 | ~~`p1-material-crystal-w2-multislip`~~ | N=2 滑移 + 潜硬化 | **merged #14+#16**；task → `plan/archive/p1-material-crystal-w2-multislip/` |
-| `p1-material-plast-name-debt` | Plast NAME-001（P2=17） | [`plan/changes/p1-material-plast-name-debt/`](../changes/p1-material-plast-name-debt/) |
+| ~~`p1-material-plast-name-debt`~~ | Plast NAME-001 | **merged #17–#19**；P1 S7 [`P1_MATERIAL_S7_SIGNOFF.md`](../workflows/P1_MATERIAL_S7_SIGNOFF.md) |
 | （切换域） | Element / L5 / … | [`p1-domain-next-options.md`](p1-domain-next-options.md) |
 
 **总路线图**：[`plan/workflows/PILLAR_ROLLOUT_ROADMAP.md`](../workflows/PILLAR_ROLLOUT_ROADMAP.md) — 先 **P1 收尾（W2+NAME）**，再 **P2→…→P6**，后 **H*** 半柱。
