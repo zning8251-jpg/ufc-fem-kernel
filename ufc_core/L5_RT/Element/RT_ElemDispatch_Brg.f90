@@ -7,10 +7,11 @@
 !===============================================================================
 MODULE RT_ElemDispatch_Brg
   USE IF_Prec_Core,      ONLY: wp, i4
-  USE IF_Err_Brg,   ONLY: ErrorStatusType, init_error_status, IF_STATUS_OK
+  USE IF_Err_Brg,   ONLY: ErrorStatusType, init_error_status, IF_STATUS_OK, IF_STATUS_INVALID
   USE RT_Elem_Proc, ONLY: Elem_Ke_In, Elem_Ke_Out, &
                           Elem_Fe_In, Elem_Fe_Out, &
                           Elem_Me_In, Elem_Me_Out
+  USE PH_Elem_Def, ONLY: PH_Element_Compute_Ke_Arg
 
   ! L4_PH Dispatcher 接口
   USE PH_ElemKeDispatch, ONLY: Compute_Ke
@@ -24,8 +25,45 @@ MODULE RT_ElemDispatch_Brg
   PUBLIC :: RT_Elem_Brg_ComputeFe
   PUBLIC :: RT_Elem_Brg_ComputeMe
   PUBLIC :: RT_Elem_Brg_ComputeCe
+  PUBLIC :: RT_Elem_KeIn_ApplyAsmArg
+  PUBLIC :: RT_Elem_KeIn_ClearMatProps
 
 CONTAINS
+
+  !----------------------------------------------------------------------------
+  ! Fill Elem_Ke_In from PH_Element_Compute_Ke_Arg (SIO ↔ gold-path parity).
+  ! Caller must pass TARGET coords / u_elem for pointer association.
+  !----------------------------------------------------------------------------
+  SUBROUTINE RT_Elem_KeIn_ApplyAsmArg(ke_in, ke_arg, coords, u_elem)
+    TYPE(Elem_Ke_In), INTENT(INOUT) :: ke_in
+    TYPE(PH_Element_Compute_Ke_Arg), INTENT(IN) :: ke_arg
+    REAL(wp), TARGET, INTENT(IN) :: coords(:,:)
+    REAL(wp), TARGET, INTENT(IN) :: u_elem(:)
+
+    INTEGER(i4) :: np
+
+    ke_in%elem_idx = ke_arg%elem_idx
+    ke_in%l3_elem_idx = ke_arg%l3_elem_idx
+    ke_in%mat_pt_idx = ke_arg%mat_pt_idx
+    ke_in%nDof = ke_arg%nDof
+    ke_in%coords => coords
+    ke_in%u => u_elem
+    NULLIFY(ke_in%du)
+
+    IF (ALLOCATED(ke_in%mat_props_in)) DEALLOCATE(ke_in%mat_props_in)
+    IF (ALLOCATED(ke_arg%mat_props_in)) THEN
+      np = SIZE(ke_arg%mat_props_in)
+      IF (np > 0) THEN
+        ALLOCATE(ke_in%mat_props_in(np))
+        ke_in%mat_props_in = ke_arg%mat_props_in
+      END IF
+    END IF
+  END SUBROUTINE RT_Elem_KeIn_ApplyAsmArg
+
+  SUBROUTINE RT_Elem_KeIn_ClearMatProps(ke_in)
+    TYPE(Elem_Ke_In), INTENT(INOUT) :: ke_in
+    IF (ALLOCATED(ke_in%mat_props_in)) DEALLOCATE(ke_in%mat_props_in)
+  END SUBROUTINE RT_Elem_KeIn_ClearMatProps
 
   !============================================================================
   ! RT_Elem_Brg_ComputeKe - 刚度矩阵计算桥接
@@ -38,10 +76,33 @@ CONTAINS
     TYPE(ErrorStatusType), INTENT(OUT) :: status
 
     INTEGER(i4) :: n_dof
-    REAL(wp), ALLOCATABLE :: Ke(:,:)
     REAL(wp), ALLOCATABLE :: algo_params(:)
 
-    n_dof = SIZE(ke_in%u, 1)
+    CALL init_error_status(status)
+
+    IF (.NOT. ASSOCIATED(ke_in%coords)) THEN
+      status%status_code = IF_STATUS_INVALID
+      status%message = '[RT_Elem_Brg_ComputeKe] ke_in%coords not associated'
+      RETURN
+    END IF
+    IF (SIZE(ke_in%mat_props_in) < 1) THEN
+      status%status_code = IF_STATUS_INVALID
+      status%message = '[RT_Elem_Brg_ComputeKe] ke_in%mat_props_in required'
+      RETURN
+    END IF
+
+    IF (ke_in%nDof > 0) THEN
+      n_dof = ke_in%nDof
+    ELSE IF (ASSOCIATED(ke_in%u)) THEN
+      n_dof = SIZE(ke_in%u)
+    ELSE
+      n_dof = SIZE(ke_in%coords, 2) * SIZE(ke_in%coords, 1)
+    END IF
+    IF (n_dof < 1) THEN
+      status%status_code = IF_STATUS_INVALID
+      status%message = '[RT_Elem_Brg_ComputeKe] cannot infer n_dof'
+      RETURN
+    END IF
 
     ! 分配输出
     ALLOCATE(ke_out%Ke(n_dof, n_dof))
@@ -57,7 +118,7 @@ CONTAINS
     CALL Compute_Ke( &
       elem_type, &
       ke_in%coords, &
-      ke_in%u, &           ! 简化：材料参数待提�?
+      ke_in%mat_props_in, &           ! 简化：材料参数待提�?
       algo_params, &
       ke_out%Ke, &
       status &

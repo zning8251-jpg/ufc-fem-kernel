@@ -55,6 +55,7 @@ TST_PROFILES = {
     "p2-element-golden-seam": [
         {"kind": "ufc_py", "script": "tools/verify_element_golden_path_no_contm.py", "args": []},
         {"kind": "ufc_py", "script": "tools/verify_element_contm_legacy_boundary.py", "args": []},
+        {"kind": "ufc_py", "script": "tools/verify_rt_elem_ke_in_align.py", "args": []},
         {"kind": "guardian", "path": "L4_PH/Element/PH_Elem_Def.f90", "args": ["--fail-on-p0"]},
         {"kind": "guardian", "path": "L4_PH/Element/PH_Elem_Domain.f90", "args": ["--fail-on-p0"]},
         {"kind": "guardian", "path": "L4_PH/Element/Shared/PH_Elem_MaterialRoute.f90", "args": ["--fail-on-p0"]},

@@ -117,11 +117,16 @@ MODULE RT_Elem_Proc
     TYPE(ErrorStatusType) :: status
   END TYPE Elem_Init_Out
 
-  ! ComputeKe_In: Stiffness calculation input
+  ! ComputeKe_In: Stiffness calculation input (aligned with PH_Element_Compute_Ke_Arg — G5 SIO)
   TYPE, PUBLIC :: Elem_Ke_In
-    REAL(wp), POINTER :: coords(:,:) => NULL()    ! [ndim, n_nodes]
-    REAL(wp), POINTER :: u(:) => NULL()            ! [n_dof] displacement
-    REAL(wp), POINTER :: du(:) => NULL()           ! [n_dof] displacement increment
+    INTEGER(i4) :: elem_idx     = 0_i4              ! [IN] element index (L5 loop)
+    INTEGER(i4) :: l3_elem_idx  = 0_i4              ! [IN] L3 element index / cache row
+    INTEGER(i4) :: mat_pt_idx   = 0_i4              ! [IN] material slot index
+    INTEGER(i4) :: nDof         = 0_i4              ! [IN] element DOF count
+    REAL(wp), POINTER :: coords(:,:) => NULL()      ! [IN] [ndim, n_nodes] TARGET on caller
+    REAL(wp), POINTER :: u(:) => NULL()             ! [IN] [n_dof] displacement (optional)
+    REAL(wp), POINTER :: du(:) => NULL()            ! [IN] displacement increment (optional)
+    REAL(wp), ALLOCATABLE :: mat_props_in(:)        ! [IN] copied from AttachMatProps / slot_pool
   END TYPE Elem_Ke_In
 
   ! ComputeKe_Out: Stiffness calculation output
