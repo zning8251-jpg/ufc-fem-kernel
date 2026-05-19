@@ -15,9 +15,9 @@
 - [ ] 1.2 `UF_CrystalPlasticity_ValidateProps`（或 `CrystalPlast_MatDesc` 方法）
 - [ ] 1.3 扩展 `CrystalPlast_MatDesc` 字段（若 W1 不用裸 `props`）
 
-## 2. W1 本构核
+## 2. W1a iso-surrogate（本 PR）
 
-- [ ] 2.1 实现 `UF_CrystalPlasticity_UMAT`：弹性试应力 + W1 塑性返回
+- [ ] 2.1 实现 `UF_CrystalPlasticity_UMAT`：J2 等效径向返回 + `Crystal_ValidateProps`
 - [ ] 2.2 填充 `ddsdde`、能量项、`statev` 更新
 - [ ] 2.3 错误路径：`IF_STATUS_INVALID` / message（替换 `STATUS_UNSUPPORTED`）
 - [ ] 2.4 （可选）`PH_Mat_Plast_Crystal_Kernel.f90` 拆分

@@ -4,7 +4,11 @@
 
 ### R1 — Unsupported 移除
 
-The system **must not** return `STATUS_UNSUPPORTED` from `UF_CrystalPlasticity_UMAT` on valid W1 inputs after this change is merged.
+The system **must not** return `STATUS_UNSUPPORTED` from `UF_CrystalPlasticity_UMAT` on valid W1a inputs after this change is merged.
+
+### R1a — W1a iso-surrogate
+
+On valid props, the UMAT **must** use isotropic J2-equivalent radial return with `sigma_y = sqrt(3) * (tau_c0 + H * peeq)` and **must** document surrogate semantics in `CONTRACT.md`.
 
 ### R2 — Dispatch 路径
 

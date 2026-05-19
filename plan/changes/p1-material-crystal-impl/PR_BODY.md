@@ -1,8 +1,8 @@
 ## Summary
 
-- Implement **W1** crystal plasticity UMAT for mat_id **266** (`UF_CrystalPlasticity_UMAT`).
-- Replace `STATUS_UNSUPPORTED` with validated elastic–plastic increment per `design.md`.
-- Document `props` / `statev` in `CONTRACT.md`.
+- **W1a iso-surrogate**: mat_id **266** — J2-equivalent radial return (`sigma_y = sqrt(3)*tau_c`).
+- Replaces `STATUS_UNSUPPORTED`; documents surrogate in `CONTRACT.md`.
+- **W1b** (1-slip Schmid) deferred to a follow-up PR.
 
 ## Preconditions
 

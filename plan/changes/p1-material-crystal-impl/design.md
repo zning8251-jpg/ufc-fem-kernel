@@ -1,6 +1,6 @@
 # Design: p1-material-crystal-impl
 
-> **Status**: DRAFT（2026-05-19）— 实施前须 rebase `main` 并确认 #7–#10 已合并。
+> **Status**: W1a implementing（2026-05-19）— #7–#10 merged；W1b Schmid 后续 PR。
 
 ## 1. 现状（as-is）
 
@@ -28,7 +28,7 @@
 4. 输出 `ddsdde`、`statev(1)`=累积滑移/等效塑性度量，`IF_STATUS_OK`。  
 5. `nprops`/`nstatev` 不足 → `IF_STATUS_INVALID` + message（**禁止** silent unsupported）。
 
-> **决策点（实施 PR 前与用户确认）**：W1 用 **iso-surrogate**（实现快、与 J2 共享核）还是 **显式 1-slip Schmid**（更贴 Crystal 名）。草案默认 **1-slip Schmid + Voigt**，便于 W2 扩展多滑移。
+> **已决策（2026-05-19）**：分两阶段交付 — **W1a iso-surrogate**（当前 PR）→ **W1b 1-slip Schmid**（后续 PR，替换 W1a 本构核，保留 Arg/`statev` 布局）。
 
 ### 2.2 `props[]` 合同（草案索引）
 
@@ -38,10 +38,9 @@
 | 2 | `nu` | Poisson ratio |
 | 3 | `tau_c0` | Initial critical resolved shear stress |
 | 4 | `H` | Hardening modulus on slip resistance (optional, 0 = perfect plasticity) |
-| 5–6 | `s1,s2,s3` | Slip direction cosines (normalized, optional default [0,0,1]) |
-| 7–9 | `m1,m2,m3` | Slip plane normal (optional default [1,0,0]) |
+| 5–9 | `s`, `m` | **W1b only** — slip direction / plane normal |
 
-`nprops_min = 4`（Registry 可从 1..99 收紧为 4..50 于 L3 follow-up，**非 W1 阻塞**）。
+**W1a** `nprops_min = 4`（`E, nu, tau_c0, H`）。**W1b** 扩展 5–9。
 
 ### 2.3 `statev` 布局（草案）
 
