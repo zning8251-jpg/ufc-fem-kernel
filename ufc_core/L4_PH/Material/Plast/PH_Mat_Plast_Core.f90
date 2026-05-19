@@ -24,7 +24,7 @@ MODULE PH_Mat_Plast_Core
   PUBLIC :: PH_Mat_Plast_Build_Elastic_Stiffness
   PUBLIC :: PH_Mat_Plast_Compute_Trial_Stress
   PUBLIC :: PH_Mat_Plast_Check_Yield
-  PUBLIC :: PH_Mat_Plast_Return_Mapping
+  PUBLIC :: PH_Mat_Plast_ComputeReturnMapping
   PUBLIC :: PH_Mat_Plast_Update_State
 
 CONTAINS
@@ -148,8 +148,12 @@ CONTAINS
     status%status_code = IF_STATUS_OK
   END SUBROUTINE PH_Mat_Plast_Check_Yield
 
-  SUBROUTINE PH_Mat_Plast_Return_Mapping(desc, state, algo, ctx, &
+  SUBROUTINE PH_Mat_Plast_ComputeReturnMapping(desc, state, algo, ctx, &
                                           strain, stress, ddsdde, status)
+    ! 理论链: 弹塑性返回映射（trial → 屈服 → 径向/族内修正）。
+    ! 逻辑链: 组装 D_e、试应力、屈服判据、塑性修正与切线。
+    ! 计算链: PH_Mat_Plast_Build_Elastic_Stiffness / Check_Yield / 族 dispatch。
+    ! 数据链: desc·state·algo·ctx(IN/OUT); stress·ddsdde(OUT)。
     TYPE(PH_Mat_Plast_Desc), INTENT(IN) :: desc
     TYPE(PH_Mat_Plast_State), INTENT(INOUT) :: state
     TYPE(PH_Mat_Plast_Algo), INTENT(IN) :: algo
@@ -188,7 +192,7 @@ CONTAINS
     END IF
 
     status%status_code = IF_STATUS_OK
-  END SUBROUTINE PH_Mat_Plast_Return_Mapping
+  END SUBROUTINE PH_Mat_Plast_ComputeReturnMapping
 
   SUBROUTINE PH_Mat_Plast_Update_State(state, stress, strain, status)
     TYPE(PH_Mat_Plast_State), INTENT(INOUT) :: state

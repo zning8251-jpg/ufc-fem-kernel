@@ -17,9 +17,9 @@
 
 ## 3. PR-C — 其余 Plast
 
-- [ ] Core / Eval / 其它零散
+- [x] Core `ComputeReturnMapping` / Eval `Eval_IP_Incr` + Def 模块头
 
 ## 4. 收尾
 
-- [ ] `guardian Plast` → P2=0（或例外清单写入 CONTRACT）
+- [x] `guardian Plast` → P2=0
 - [ ] 归档 task

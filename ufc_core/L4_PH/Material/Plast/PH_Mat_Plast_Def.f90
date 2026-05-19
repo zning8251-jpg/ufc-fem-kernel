@@ -5,6 +5,9 @@
 ! ROLE:   Def
 ! BRIEF:  TYPE definitions for plastic material family at L4_PH layer.
 !         Implements four TYPE system: Desc/State/Algo/Ctx + Args
+! Purpose: Shared Plast family Desc/State/Algo/Ctx and mat_id sub-family constants.
+! Theory: Four-type material contract (L4_PH Material pillar).
+! Status: Production | Last verified: 2026-05-19
 !===============================================================================
 MODULE PH_Mat_Plast_Def
   USE IF_Prec_Core, ONLY: i4, wp

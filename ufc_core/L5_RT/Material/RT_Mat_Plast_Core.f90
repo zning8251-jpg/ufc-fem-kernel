@@ -41,7 +41,7 @@ CONTAINS
       status%status_code = -1; status%message = "Inactive material"; RETURN
     END IF
 
-    ! Return L4 slot index for caller to invoke PH_Mat_Plast_IP_Incr_Eval
+    ! Return L4 slot index for caller to invoke PH_Mat_Plast_Eval_IP_Incr
     args%status_code = desc%l4_slot_index
 
     status%status_code = IF_STATUS_OK
